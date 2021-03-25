@@ -1,0 +1,91 @@
+{
+  "nameapp": "yamfive",
+  "language": {
+    "it": "Italiano",
+    "en": "Inglese"
+  },
+  "view": {
+    "configuration": "Configurazione"
+  },
+  "games": {
+    "all": "Completo",
+    "short": "Breve",
+    "veryshort": "Brevissimo"
+  },
+  "login": {
+    "title_1": "Login",
+    "title_2": "Registrazione",
+    "form_1": "E-Mail",
+    "form_2": "Password",
+    "form_3": "Conferma password",
+    "form_4": "Nome",
+    "btn_1": "Entra",
+    "btn_2": "Registrati",
+    "link_1": "Guida"
+  },
+  "home": {
+    "message_0": "Sto caricando la stanza...",
+    "message_1": "Vai nelle impostazioni e crea o collegati ad una stanza prima di poter iniziare una partita.",
+    "btn_1": "Crea o unisciti ad un partita",
+    "message_2_a": "Sei stato unito alla stanza",
+    "message_2_b": "Inizia a giocare facendo il primo lancio.",
+    "message_3_a": "Il totale del lancio numero",
+    "message_3_b": " è ",
+    "message_4": "Sto uscendo dalla stanza...",
+    "title_1": "GIOCATE SINGOLE",
+    "title_2": "MINIMO & MASSIMO",
+    "title_3": "EXTRA 20/30",
+    "title_4": "EXTRA 40/50",
+    "help_1": "BONUS<br />Somma > 60 = +20<br />Somma > 70 = +30",
+    "help_2": "BONUS<br />Minimo + Massimo > 50 = +30",
+    "help_3": "BONUS<br />Somma < 11 = +30<br />Full = +20<br />Poker = +30",
+    "help_4": "BONUS<br />Scala = +40<br />YamFive = +50",
+    "notification_1": "Turno di",
+    "notification_2": "Per una migliore usabilità tenere il device in portrait."
+  },
+  "config": {
+    "title_1": "Crea o unisciti ad una partita",
+    "title_2": "Lingua preferita",
+    "title_3": "Modalità di gioco",
+    "th_1": "Nome",
+    "th_2": "Turno",
+    "btn_1": "Unisciti",
+    "btn_2": "Abbandona",
+    "btn_3": "Esci",
+    "btn_4": "Crea",
+    "form_1": "Nome",
+    "form_2": "Stanza",
+    "io": "Io",
+    "join_1": "Ti sei unito alla stanza ",
+    "join_2": " con altri ",
+    "join_3": " utenti",
+    "tab_1": "Crea",
+    "tab_2": "Unisciti"
+  },
+  "champions": {
+    "title_1": "Classifica",
+    "title_2": "Records",
+    "empty_1": "Nessun giocatore presente",
+    "empty_2": "Nessun giocatore in classifica",
+    "th_1": "Nome",
+    "th_2": "Num.",
+    "th_3": "Extra",
+    "th_4": "Completo",
+    "th_5": "Partite",
+    "th_6": "Breve",
+    "th_7": "Brevissimo",
+    "th_8": "Somma totale giocate",
+    "io": "Io"
+  },
+  "schemas": {
+    "title_1": "Sommatoria giocate",
+    "scale": "Scala",
+    "yam": "YamFive"
+  },
+  "help": {
+    "title_1": "Regolamento"
+  },
+  "error": {
+    "notcreate": "Funzionalità al momento non disponibile"
+  }
+}

@@ -1,0 +1,47 @@
+@import "../../../../node_modules/bourbon/core/bourbon";
+
+@mixin font-size($font-size, $line-height: 'auto', $important: false) {
+  @if ($important == 'important') {
+    $important: unquote('!important');
+  }
+
+  @else {
+    $important: null;
+  }
+
+  font-size: $font-size $important;
+  font-size: ($font-size / $base-font-size) * 1rem $important;
+
+  @if $line-height == 'auto' {
+    line-height: ceil($font-size / $base-line-height) * ($base-line-height / $font-size) $important;
+  }
+
+  @else {
+    @if (type-of($line-height) == number or $line-height == inherit or $line-height == normal) {
+      line-height: $line-height $important;
+    }
+
+    @else if ($line-height != none and $line-height != false) {
+      @warn 'D’oh! ‘#{$line-height}’ is not a valid value for `line-height`.';
+    }
+  }
+}
+
+@mixin transformDice($valueZ, $valueXY, $xy, $revert: false) {
+  @if ($xy == 'x') {
+    @if ($revert) {
+      transform: rotateX($valueXY) translateZ($valueZ);
+    }
+    @else {
+      transform: translateZ($valueZ) rotateX($valueXY);
+    }
+  }
+  @else {
+    @if ($revert) {
+      transform: rotateY($valueXY) translateZ($valueZ);
+    }
+    @else {
+      transform: translateZ($valueZ) rotateY($valueXY);
+    }
+  }
+}

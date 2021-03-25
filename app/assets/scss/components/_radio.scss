@@ -1,0 +1,55 @@
+.radio {
+  @extend %p;
+  @include margin(null 10px null null);
+  display: grid;
+  place-items: center;
+  grid-template-columns: min-content auto;
+}
+
+.radio__label {
+  @include margin(null null null 5px);
+  line-height: 1;
+  transition: 180ms all ease-in-out;
+}
+
+.radio__input {
+  display: flex;
+
+  input {
+    @include size(0);
+    opacity: 0;
+  }
+}
+
+.radio__control {
+  display: grid;
+  place-items: center;
+}
+
+input + .radio__control::before {
+  content: ' ';
+  @include margin(3px null null 3px);
+  @include size(8px);
+  display: block;
+  border-radius: 50%;
+  transition: 180ms transform ease-in-out;
+  transform: scale(0);
+  background: $color-3;
+}
+
+input:checked + .radio__control::before {
+  transform: scale(1);
+  background: $primary;
+}
+
+input + .radio__control {
+  @include size(14px);
+  display: block;
+  border-radius: 50%;
+  border: 2px solid $color-3;
+  transform: translateY(-0.05em);
+}
+
+input:checked + .radio__control {
+  border: 2px solid $primary;
+}
