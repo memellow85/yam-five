@@ -1,0 +1,38 @@
+#{$all-text-inputs} {
+  @include padding(0);
+  @include size(100%, 30px);
+  @extend %p;
+  outline: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 2px solid $color-3;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+  background: transparent;
+  &.big {
+    @include size(100%, 40px);
+  }
+}
+
+.textinput {
+  @include position(relative, null);
+  @include margin(null null 15px null);
+  &:after {
+    @include position(absolute, null null 0 0);
+    @include size(0, 3px);
+    content: '';
+    display: block;
+    background: $primary;
+    transition: all 0.3s;
+  }
+  &.focus {
+    &:after {
+      width: 100%;
+    }
+  }
+}

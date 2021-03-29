@@ -1,0 +1,12 @@
+#{$all-buttons} {
+  @extend %btn;
+  @extend %p;
+  @include padding(null 10px);
+  justify-content: center;
+  &:disabled {
+    background: $color-4;
+  }
+  &.full {
+    @include size(100%, 40px);
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "nameapp": "yamfive",
+  "language": {
+    "it": "Italian",
+    "en": "English"
+  },
+  "view": {
+    "configuration": "Configuration"
+  },
+  "games": {
+    "all": "All",
+    "short": "Short",
+    "veryshort": "Very short"
+  },
+  "login": {
+    "title_1": "Login",
+    "title_2": "Registration",
+    "form_1": "E-Mail",
+    "form_2": "Password",
+    "form_3": "Confirm password",
+    "form_4": "Name",
+    "btn_1": "Enter",
+    "btn_2": "Register",
+    "link_1": "Rule"
+  },
+  "home": {
+    "message_0": "Loading room...",
+    "message_1": "Go to settings and create or connect to a room before you can start a game.",
+    "btn_1": "Create or join to the play",
+    "message_2_a": "You were join to the room",
+    "message_2_b": "Start playing by making the first roll.",
+    "message_3_a": "The total of the roll number",
+    "message_3_b": " is ",
+    "message_4": "Going out room...",
+    "title_1": "PLAY INDIVIDUALS",
+    "title_2": "MINIMUM & MAXIMUM",
+    "title_3": "EXTRA 20/30",
+    "title_4": "EXTRA 40/50",
+    "help_1": "BONUS<br />Sum > 60 = +20<br />Sum > 70 = +30",
+    "help_2": "BONUS<br />Min + Max > 50 = +30",
+    "help_3": "BONUS<br />Sum < 11 = +30<br />Full = +20<br />Poker = +30",
+    "help_4": "BONUS<br />Scale = +40<br />YamFive = +50",
+    "notification_1": "Turn of",
+    "notification_2": "For better usability, keep the device in portrait."
+  },
+  "config": {
+    "title_1": "Create or join to a match",
+    "title_2": "Preferred language",
+    "title_3": "Type of the game",
+    "th_1": "Name",
+    "th_2": "Round",
+    "btn_1": "Join",
+    "btn_2": "Leave",
+    "btn_3": "Logout",
+    "btn_4": "Create",
+    "form_1": "Name",
+    "form_2": "Room",
+    "io": "I",
+    "join_1": "You join into room ",
+    "join_2": " with other ",
+    "join_3": " users",
+    "tab_1": "Create",
+    "tab_2": "Join"
+  },
+  "champions": {
+    "title_1": "Ranking",
+    "title_2": "Records",
+    "empty_1": "Empty players",
+    "empty_2": "Empty champions",
+    "th_1": "Name",
+    "th_2": "Num.",
+    "th_3": "Extra",
+    "th_4": "All",
+    "th_5": "Match",
+    "th_6": "Short",
+    "th_7": "Very short",
+    "th_8": "Total sun played",
+    "io": "I"
+  },
+  "schemas": {
+    "title_1": "Summary play",
+    "scale": "Scale",
+    "yam": "YamFive"
+  },
+  "help": {
+    "title_1": "Rule"
+  },
+  "error": {
+    "notcreate": "Functionality currently unavailable"
+  },
+  "notification": {
+    "refresh": "Refresh"
+  }
+}
