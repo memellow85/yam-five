@@ -15,5 +15,3 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn build
-      - name: Start
-        run: yarn start
