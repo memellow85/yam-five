@@ -5,10 +5,10 @@ export default {
   components: true,
   telemetry: false,
   srcDir: 'app',
-  server: {
+  /* server: {
     host: 'localhost',
     port: 5000, // default: 3000
-  },
+  }, */
   /*
    ** Headers of the page
    */
