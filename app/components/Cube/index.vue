@@ -28,7 +28,6 @@
 import { longPress } from '~/directives/longpress'
 
 export default {
-  name: 'Cube',
   directives: { longPress },
   props: {
     dimension: {

@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-form-join">
-    <TextInput
+    <FormsInput
       :name="$t('config.form_2')"
       :show-label="false"
       :icon="'door'"
@@ -19,7 +19,7 @@
         @blur="focus = ''"
         @keypress.enter="submitHandler"
       />
-    </TextInput>
+    </FormsInput>
     <div class="container-btn">
       <button :disabled="room === ''" @click="submitHandler">
         {{ tab === 'create' ? $t('config.btn_4') : $t('config.btn_1') }}
@@ -30,11 +30,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import TextInput from '~/components/Forms/Input'
 
 export default {
-  name: 'Join',
-  components: { TextInput },
   props: {
     tab: {
       type: String,

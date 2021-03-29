@@ -28,7 +28,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Navigation',
   data() {
     return {
       menuLeft: [

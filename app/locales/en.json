@@ -87,5 +87,8 @@
   },
   "error": {
     "notcreate": "Functionality currently unavailable"
+  },
+  "notification": {
+    "refresh": "Refresh"
   }
 }

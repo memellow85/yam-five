@@ -7,24 +7,21 @@
     <h1>{{ $t('nameapp') }}</h1>
     <nuxt />
     <!-- Notification -->
-    <Notification :show-notification="showNotification"></Notification>
+    <LazyNotification :show-notification="showNotification"></LazyNotification>
+
     <!-- Overlay help -->
-    <Overlay :show-overlay="showHelp">
-      <Help></Help>
-    </Overlay>
+    <LazyOverlay :show-overlay="showHelp">
+      <LazyViewHelp></LazyViewHelp>
+    </LazyOverlay>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import { resize } from '~/directives/resize'
-import Notification from '~/components/Notification'
-import Help from '~/components/View/Help'
-import Overlay from '~/components/Overlay'
 
 export default {
   directives: { resize },
-  components: { Notification, Help, Overlay },
   data() {
     return {
       timeReset: null,
@@ -41,7 +38,18 @@ export default {
       showHelp: (state) => state.showHelp,
     }),
   },
+  created() {
+    this.$nuxt.$on('refreshPWAHandler', () => {
+      this.refreshPWAHandler()
+    })
+  },
+  destroyed() {
+    this.$nuxt.$off('refreshPWAHandler')
+  },
   methods: {
+    refreshPWAHandler() {
+      window.location.reload()
+    },
     visibilityChange() {
       if (this.userFirebase) {
         if (!this.visible) {

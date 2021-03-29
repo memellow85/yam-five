@@ -1,7 +1,6 @@
 <template>
   <div class="container-app">
     <!-- Contenuto centrale -->
-
     <div class="wrapper-main">
       <div class="container-match">
         <template v-if="isLoadingRoom">
@@ -139,43 +138,23 @@
     <Navigation></Navigation>
 
     <!-- All overlay -->
-    <Overlay :show-overlay="showConfig" :height-overlay="421">
-      <Configurations></Configurations>
-    </Overlay>
-    <Overlay :show-overlay="showSchema" :height-overlay="507">
-      <Schemas></Schemas>
-    </Overlay>
-    <Overlay :show-overlay="showChampionsShip" :height-overlay="453">
-      <ChampionsShip></ChampionsShip>
-    </Overlay>
+    <LazyOverlay :show-overlay="showConfig" :height-overlay="421">
+      <LazyViewConfig></LazyViewConfig>
+    </LazyOverlay>
+    <LazyOverlay :show-overlay="showSchema" :height-overlay="507">
+      <LazyViewSchemas></LazyViewSchemas>
+    </LazyOverlay>
+    <LazyOverlay :show-overlay="showChampionsShip" :height-overlay="453">
+      <LazyViewChampion></LazyViewChampion>
+    </LazyOverlay>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import NoSleep from 'nosleep.js'
-import Navigation from '~/components/Navigation'
-import Configurations from '~/components/View/Config'
-import ChampionsShip from '~/components/View/Champion'
-import Schemas from '~/components/View/Schemas'
-import Overlay from '~/components/Overlay'
-import Tabs from '~/components/Tabs'
-import Box from '~/components/Box'
-import Cube from '~/components/Cube'
-import Dice from '~/components/Dice'
 
 export default {
-  components: {
-    Navigation,
-    Overlay,
-    Configurations,
-    ChampionsShip,
-    Schemas,
-    Cube,
-    Box,
-    Tabs,
-    Dice,
-  },
   middleware: ['authenticated'],
   transition: 'slide-bottom',
   data() {

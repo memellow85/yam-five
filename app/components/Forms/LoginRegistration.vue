@@ -2,7 +2,7 @@
   <div class="wrapper-offline">
     <h2>{{ login ? $t('login.title_1') : $t('login.title_2') }}</h2>
     <!-- Name -->
-    <TextInput
+    <FormsInput
       v-if="!login"
       :name="$t('login.form_4')"
       :show-label="false"
@@ -23,9 +23,9 @@
         @blur="focus = ''"
         @keypress.enter="submitHandler"
       />
-    </TextInput>
+    </FormsInput>
     <!-- Email -->
-    <TextInput
+    <FormsInput
       :name="$t('login.form_1')"
       :show-label="false"
       :icon="'at'"
@@ -45,9 +45,9 @@
         @blur="focus = ''"
         @keypress.enter="submitHandler"
       />
-    </TextInput>
+    </FormsInput>
     <!-- Password -->
-    <TextInput
+    <FormsInput
       :name="$t('login.form_2')"
       :show-label="false"
       :icon="'shield-key-outline'"
@@ -67,9 +67,9 @@
         @blur="focus = ''"
         @keypress.enter="submitHandler"
       />
-    </TextInput>
+    </FormsInput>
     <!-- Conferma password -->
-    <TextInput
+    <FormsInput
       v-if="!login"
       :name="$t('login.form_3')"
       :show-label="false"
@@ -90,7 +90,7 @@
         @blur="focus = ''"
         @keypress.enter="submitHandler"
       />
-    </TextInput>
+    </FormsInput>
     <div class="container-btn">
       <button
         v-if="login"
@@ -129,11 +129,7 @@
 </template>
 
 <script>
-import Loader from '~/components/Loader'
-import TextInput from '~/components/Forms/Input'
-
 export default {
-  components: { TextInput, Loader },
   props: {
     login: {
       type: Boolean,

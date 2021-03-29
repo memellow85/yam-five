@@ -87,5 +87,8 @@
   },
   "error": {
     "notcreate": "Funzionalità al momento non disponibile"
+  },
+  "notification": {
+    "refresh": "Aggiorna"
   }
 }

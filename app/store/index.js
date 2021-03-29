@@ -359,7 +359,7 @@ export const actions = {
                   'game/toggleNotification',
                   {
                     type: 'success',
-                    message: 'You win',
+                    message: `You win with ${state.userFirebaseGame.tot} points`,
                   },
                   { root: true }
                 )
@@ -369,7 +369,7 @@ export const actions = {
                   'game/toggleNotification',
                   {
                     type: 'alert',
-                    message: 'You lost',
+                    message: `You lost with ${state.userFirebaseGame.tot} points`,
                   },
                   { root: true }
                 )

@@ -16,6 +16,7 @@ export const state = () => ({
   showNotification: false,
   notificationTypes: null,
   notificationMessage: null,
+  buttonRefresh: false,
   globalTotal: 0,
   extraTotal: 0,
   numberTotal: 0,
@@ -194,10 +195,12 @@ export const mutations = {
       state.showNotification = true
       state.notificationTypes = data.type
       state.notificationMessage = data.message
+      state.buttonRefresh = data.buttonRefresh ? data.buttonRefresh : false
     } else {
       state.showNotification = false
       state.notificationTypes = null
       state.notificationMessage = null
+      state.buttonRefresh = false
     }
   },
   resetTurn(state) {

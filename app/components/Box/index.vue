@@ -24,7 +24,6 @@
 
 <script>
 export default {
-  name: 'Box',
   props: {
     title: {
       type: String,

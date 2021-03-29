@@ -1,6 +1,7 @@
 <template>
   <div class="container-app">
-    <login-registration login></login-registration>
+    <FormsLoginRegistration login></FormsLoginRegistration>
+
     <article class="article-offline">
       <p class="small">
         Copyright &copy; {{ new Date().getFullYear() }} - Release:
@@ -12,10 +13,8 @@
 
 <script>
 import Package from '../../package.json'
-import LoginRegistration from '~/components/Forms/LoginRegistration'
 
 export default {
-  components: { LoginRegistration },
   transition: 'slide-bottom',
   data() {
     return {

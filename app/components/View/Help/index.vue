@@ -386,7 +386,6 @@
 
 <script>
 export default {
-  name: 'Help',
   mounted() {
     document.querySelector('.body-scroll-lock-ignore-inner').addEventListener(
       'touchmove',

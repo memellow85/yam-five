@@ -8,7 +8,7 @@
     </article>
     <article>
       <h4>{{ $t('config.title_2') }}</h4>
-      <Languages></Languages>
+      <FormsLanguages></FormsLanguages>
     </article>
     <article class="wrapper-tabs-form">
       <ul class="custom-tabs">
@@ -27,9 +27,9 @@
       </ul>
       <div v-if="tab === 'create' && !detailsRoom" class="wrapper-forms">
         <h4>{{ $t('config.title_3') }}</h4>
-        <Games></Games>
+        <FormsGames></FormsGames>
       </div>
-      <Join v-if="!detailsRoom" :tab="tab"></Join>
+      <FormsJoin v-if="!detailsRoom" :tab="tab"></FormsJoin>
       <p v-else>
         {{ $t('config.join_1') }}<strong>{{ detailsRoom.room }}</strong>
         {{ $t('config.join_2') }}<strong>{{ usersFirebase.length - 1 }}</strong>
@@ -53,14 +53,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Join from '~/components/Forms/Join'
-import Languages from '~/components/Forms/Languages'
-import Games from '~/components/Forms/Games'
-import Loader from '~/components/Loader'
 
 export default {
-  name: 'Configurations',
-  components: { Join, Languages, Games, Loader },
   data() {
     return {
       tab: 'create',

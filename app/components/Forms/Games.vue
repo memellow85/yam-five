@@ -23,7 +23,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Games',
   data() {
     return {
       games: [

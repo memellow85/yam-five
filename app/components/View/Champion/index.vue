@@ -66,7 +66,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'ChampionsShip',
   computed: {
     ...mapState({
       userFirebase: (state) => state.userFirebase,

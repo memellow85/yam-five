@@ -23,7 +23,6 @@
 
 <script>
 export default {
-  name: 'Overlay',
   props: {
     showOverlay: {
       type: Boolean,

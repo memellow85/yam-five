@@ -56,7 +56,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Dice',
   props: {
     dice: {
       type: Object,

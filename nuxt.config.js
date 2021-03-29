@@ -2,10 +2,9 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 export default {
   ssr: false,
-  components: false,
+  components: true,
   telemetry: false,
   srcDir: 'app',
-  target: 'static',
   server: {
     host: 'localhost',
     port: 5000, // default: 3000
@@ -25,7 +24,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'Il gioco di dadi',
+        content: 'The dices game',
       },
       {
         name: 'mobile-web-app-capable',
@@ -61,7 +60,7 @@ export default {
       },
       {
         name: 'og:description',
-        content: 'Il gioco di dadi',
+        content: 'The dices game',
       },
     ],
     link: [
@@ -134,6 +133,11 @@ export default {
       viewport:
         'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
     },
+    workbox: {
+      config: {
+        debug: true,
+      },
+    },
     /* meta: {
       mobileAppIOS: true,
     }, */
@@ -150,6 +154,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    { src: '~/plugins/pwa-update.js' },
     { src: '~/plugins/i18n.js' },
     { src: '~/plugins/visibility.js' },
     { src: '~/plugins/firebase.js', ssr: false },

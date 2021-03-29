@@ -15,5 +15,5 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn build
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Start
+        run: yarn start

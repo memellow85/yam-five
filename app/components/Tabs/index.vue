@@ -22,7 +22,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Tabs',
   computed: {
     ...mapState('game', {
       playedList: (state) => state.playedList,

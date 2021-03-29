@@ -43,7 +43,7 @@
               <span
                 v-if="
                   playedList
-                    .filter(() => g.name === index)[0]
+                    .filter((p) => p.name === index)[0]
                     .view.includes(currentGame)
                     ? g.active
                     : false
@@ -71,7 +71,6 @@ import { mapState } from 'vuex'
 import { longPress } from '~/directives/longpress'
 
 export default {
-  name: 'Schemas',
   directives: { longPress },
   data() {
     return {

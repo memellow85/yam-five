@@ -28,4 +28,7 @@ module.exports = {
     'vue/html-indent': 'off',
     'nuxt/no-cjs-in-config': 'off',
   },
+  globals: {
+    window: true,
+  },
 }

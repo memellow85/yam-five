@@ -1,8 +1,8 @@
 {
-  "name": "yamfiveapp",
-  "version": "0.0.5-BETA",
-  "description": "Il gioco di dadi",
-  "author": "Emanuele Barachetti",
+  "name": "yam-five",
+  "version": "0.0.1",
+  "description": "The dices game",
+  "author": "memellow85",
   "license": "MIT",
   "private": true,
   "repository": {
@@ -10,7 +10,24 @@
     "url": "https://github.com/memellow85/yam-five"
   },
   "keywords": [
-    "game", "dice", "dices"
+    "game",
+    "dice",
+    "dices",
+    "yam",
+    "yamfive",
+    "five",
+    "game",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "poker",
+    "full",
+    "eleven",
+    "less",
+    "scale"
   ],
   "scripts": {
     "dev": "nuxt",

@@ -27,6 +27,9 @@
           ></span>
           {{ notificationMessage }}
         </p>
+        <button v-if="buttonRefresh" @click="refreshPWA">
+          {{ $t('notification.refresh') }}
+        </button>
       </div>
     </div>
   </transition>
@@ -36,7 +39,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Notification',
   props: {
     showNotification: {
       type: Boolean,
@@ -47,7 +49,13 @@ export default {
     ...mapState('game', {
       notificationTypes: (state) => state.notificationTypes,
       notificationMessage: (state) => state.notificationMessage,
+      buttonRefresh: (state) => state.buttonRefresh,
     }),
+  },
+  methods: {
+    refreshPWA() {
+      this.$nuxt.$emit('refreshPWAHandler')
+    },
   },
 }
 </script>
@@ -76,6 +84,7 @@ export default {
     border-top-style: solid;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     p {
       @extend %strong;
       display: flex;
@@ -92,6 +101,9 @@ export default {
           color: $error;
         }
       }
+      button {
+        background: $error;
+      }
     }
     &.warning {
       background: $warning-bck;
@@ -101,6 +113,9 @@ export default {
           color: $warning;
         }
       }
+      button {
+        background: $warning;
+      }
     }
     &.success {
       background: $success-bck;
@@ -109,6 +124,9 @@ export default {
         span {
           color: $primary;
         }
+      }
+      button {
+        background: $primary;
       }
     }
   }
