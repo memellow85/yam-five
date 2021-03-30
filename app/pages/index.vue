@@ -5,7 +5,7 @@
     <article class="article-offline">
       <p class="small">
         Copyright &copy; {{ new Date().getFullYear() }} - Release:
-        {{ pkg.version }}
+        {{ pkg.version }} Beta
       </p>
     </article>
   </div>
