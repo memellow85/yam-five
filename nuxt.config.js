@@ -129,11 +129,12 @@ export default {
     manifest: {
       name: 'YamFive',
       short_name: 'YamFive',
-      description: 'Il gioco di dadi',
+      description: 'The dices game',
       viewport:
         'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
     },
     workbox: {
+      // enabled: true,
       config: {
         debug: true,
       },
