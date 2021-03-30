@@ -134,7 +134,7 @@ export default {
         'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
     },
     workbox: {
-      // enabled: true,
+      enabled: true,
       config: {
         debug: true,
       },

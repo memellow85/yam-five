@@ -7,16 +7,18 @@ export default async ({ store }) => {
   }
 
   console.log('workbox', workbox)
+  store.commit('setWorkbox', 'installed')
 
   workbox.addEventListener('installed', (event) => {
     console.log('installed', event)
     if (event.isUpdate) {
       console.log('installed isUpdate')
-      store.commit('game/toggleNotification', {
+      store.commit('setWorkbox', 'installed isUpdate')
+      /* store.commit('game/toggleNotification', {
         type: 'warning',
         message: 'New version available... Update now!!',
         buttonRefresh: true,
-      })
+      }) */
     }
     /* if (!event.isUpdate) {
       console.debug('The PWA is on the latest version.')
@@ -35,6 +37,7 @@ export default async ({ store }) => {
     console.log('waiting', event)
     if (event.isUpdate) {
       console.log('waiting isUpdate')
+      store.commit('setWorkbox', 'waiting isUpdate')
     }
   })
 
@@ -42,6 +45,7 @@ export default async ({ store }) => {
     console.log('controlling', event)
     if (event.isUpdate) {
       console.log('controlling isUpdate')
+      store.commit('setWorkbox', 'controlling isUpdate')
     }
   })
 
@@ -49,6 +53,7 @@ export default async ({ store }) => {
     console.log('activated', event)
     if (event.isUpdate) {
       console.log('activated isUpdate')
+      store.commit('setWorkbox', 'activated isUpdate')
     }
   })
 
@@ -56,6 +61,7 @@ export default async ({ store }) => {
     console.log('redundant', event)
     if (event.isUpdate) {
       console.log('redundant isUpdate')
+      store.commit('setWorkbox', 'redundant isUpdate')
     }
   })
 }

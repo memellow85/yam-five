@@ -2,16 +2,21 @@
   <div class="container-app">
     <FormsLoginRegistration login></FormsLoginRegistration>
 
+    <div v-for="wo in workbox" :key="wo">
+      {{ wo }}
+    </div>
+
     <article class="article-offline">
       <p class="small">
         Copyright &copy; {{ new Date().getFullYear() }} - Release:
-        {{ pkg.version }} Beta
+        {{ pkg.version }}
       </p>
     </article>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Package from '../../package.json'
 
 export default {
@@ -20,6 +25,11 @@ export default {
     return {
       pkg: Package,
     }
+  },
+  computed: {
+    ...mapState({
+      workbox: (state) => state.workbox,
+    }),
   },
 }
 </script>
