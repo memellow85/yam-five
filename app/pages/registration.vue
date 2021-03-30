@@ -1,6 +1,7 @@
 <template>
   <div class="container-app">
     <FormsLoginRegistration></FormsLoginRegistration>
+
     <article class="article-offline">
       <p class="small">
         Copyright &copy; {{ new Date().getFullYear() }} - Release:
