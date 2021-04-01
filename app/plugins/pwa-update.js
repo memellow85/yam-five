@@ -12,11 +12,11 @@ export default async ({ store }) => {
 
   workbox.addEventListener('installed', (event) => {
     if (event.isUpdate) {
-      /* store.commit('game/toggleNotification', {
+      store.commit('game/toggleNotification', {
         type: 'warning',
         message: 'New version available... Update now!!',
         buttonRefresh: true,
-      }) */
+      })
     }
     /* if (!event.isUpdate) {
       console.debug('The PWA is on the latest version.')
