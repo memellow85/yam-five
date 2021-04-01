@@ -34,7 +34,6 @@ export const state = () => ({
   isLeave: false,
   isLoadingRoom: false,
   isLoadingLeftRoom: false,
-  workbox: [],
 })
 
 /**
@@ -136,9 +135,6 @@ export const mutations = {
   setLoadingLeftRoom(state, value) {
     // console.log('COMMIT setLoadingLeftRoom')
     state.isLoadingLeftRoom = value
-  },
-  setWorkbox(state, value) {
-    state.workbox.push(value)
   },
 }
 
