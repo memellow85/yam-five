@@ -89,6 +89,7 @@
     "notcreate": "Functionality currently unavailable"
   },
   "notification": {
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "add": "Add"
   }
 }

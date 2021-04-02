@@ -6,6 +6,10 @@
 
 > The scope of the game is created more combinations with five dices for the get more points
 
+<p align="center">
+[![CI](https://github.com/memellow85/yam-five/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/memellow85/yam-five/actions/workflows/main.yml)
+</p>
+
 ## Requirements
 
 - Firebase Authentication
@@ -37,7 +41,7 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 
 ## Release
 
-0.0.1 - First version of the game
+1.0.0 - First version of the game
 
 ## License
 

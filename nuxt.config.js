@@ -109,11 +109,11 @@ export default {
       },
       {
         rel: 'shortcut icon',
-        href: 'icon.png',
+        href: '/icons/icon512.png',
       },
       {
         rel: 'apple-touch-icon',
-        href: 'icon.png',
+        href: '/icons/icon512.png',
       },
       {
         rel: 'manifest',

@@ -26,6 +26,7 @@ export default {
     return {
       timeReset: null,
       visible: true,
+      deferredPrompt: null,
     }
   },
   computed: {
@@ -42,13 +43,39 @@ export default {
     this.$nuxt.$on('refreshPWAHandler', () => {
       this.refreshPWAHandler()
     })
+    this.$nuxt.$on('addToHomeHandler', () => {
+      this.addToHomeHandler()
+    })
+  },
+  beforeMount() {
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault()
+      this.deferredPrompt = event
+      this.$store.commit('game/toggleNotification', {
+        type: 'warning',
+        message: 'Add to home YamFive',
+        buttonAddToHome: true,
+      })
+    })
+
+    window.addEventListener('appinstalled', () => {
+      this.$store.commit('game/toggleNotification', null)
+      this.deferredPrompt = null
+    })
   },
   destroyed() {
     this.$nuxt.$off('refreshPWAHandler')
+    this.$nuxt.$off('addToHomeHandler')
   },
   methods: {
     refreshPWAHandler() {
       window.location.reload()
+    },
+    async addToHomeHandler() {
+      this.$store.commit('game/toggleNotification', null)
+      this.deferredPrompt.prompt()
+      await this.deferredPrompt.userChoice
+      this.deferredPrompt = null
     },
     visibilityChange() {
       if (this.userFirebase) {

@@ -30,6 +30,9 @@
         <button v-if="buttonRefresh" @click="refreshPWA">
           {{ $t('notification.refresh') }}
         </button>
+        <button v-if="buttonAddToHome" @click="addToHome">
+          {{ $t('notification.add') }}
+        </button>
       </div>
     </div>
   </transition>
@@ -50,11 +53,15 @@ export default {
       notificationTypes: (state) => state.notificationTypes,
       notificationMessage: (state) => state.notificationMessage,
       buttonRefresh: (state) => state.buttonRefresh,
+      buttonAddToHome: (state) => state.buttonAddToHome,
     }),
   },
   methods: {
     refreshPWA() {
       this.$nuxt.$emit('refreshPWAHandler')
+    },
+    addToHome() {
+      this.$nuxt.$emit('addToHomeHandler')
     },
   },
 }

@@ -89,6 +89,7 @@
     "notcreate": "Funzionalità al momento non disponibile"
   },
   "notification": {
-    "refresh": "Aggiorna"
+    "refresh": "Aggiorna",
+    "add": "Aggiungi"
   }
 }
