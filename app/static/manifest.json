@@ -49,6 +49,7 @@
     "start_url": "/?standalone=true",
     "display": "standalone",
     "background_color": "#F8F9FA",
+    "theme_color": "#F8F9FA",
     "lang": "en",
     "orientation": "portrait",
     "viewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"

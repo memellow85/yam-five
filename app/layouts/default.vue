@@ -29,6 +29,16 @@ export default {
       deferredPrompt: null,
     }
   },
+  head() {
+    return {
+      link: [
+        {
+          rel: 'canonical',
+          href: 'https://yamfive-app.herokuapp.com/' + this.$route.path,
+        },
+      ],
+    }
+  },
   computed: {
     ...mapState({
       userFirebase: (state) => state.userFirebase,

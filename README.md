@@ -1,14 +1,12 @@
 <p align="center">
-  <img width="100" height="100" src="https://yamfive-app.herokuapp.com/icon.png" />
+  <img src="https://yamfive-app.herokuapp.com/icons/icon120.png" />
 </p>
 
 # Yam Five
 
 > The scope of the game is created more combinations with five dices for the get more points
 
-<p align="center">
-[![CI](https://github.com/memellow85/yam-five/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/memellow85/yam-five/actions/workflows/main.yml)
-</p>
+## Badge
 
 ## Requirements
 
