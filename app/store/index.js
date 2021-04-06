@@ -168,6 +168,19 @@ export const actions = {
         })
     })
   },
+  recovery({ commit }, data) {
+    // console.log('ACTION recovery', data)
+    return new Promise((resolve, reject) => {
+      auth
+        .sendPasswordResetEmail(data.recovery)
+        .then(() => {
+          resolve()
+        })
+        .catch((error) => {
+          reject(error.message)
+        })
+    })
+  },
   getDetailsUser({ commit }, uid) {
     // console.log('ACTION getDetailsUser', uid)
     return new Promise((resolve, reject) => {

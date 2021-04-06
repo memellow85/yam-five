@@ -91,40 +91,19 @@
         @keypress.enter="submitHandler"
       />
     </FormsInput>
-    <div class="container-btn">
-      <button
-        v-if="login"
-        class="full"
-        :disabled="email === '' || password === ''"
-        @click="submitHandler"
-      >
-        <Loader v-if="showLoader"></Loader>
-        <span v-else>{{ $t('login.btn_1') }}</span>
-      </button>
-      <button
-        v-else
-        class="full"
-        :disabled="
-          email === '' ||
-          password === '' ||
-          conf_password === '' ||
-          conf_password !== password
-        "
-        @click="submitHandler"
-      >
-        <Loader v-if="showLoader"></Loader>
-        <span v-else>{{ $t('login.btn_2') }}</span>
-      </button>
-      <div class="wrapper-button">
-        <nuxt-link :to="login ? '/registration' : '/'">
-          {{ login ? $t('login.btn_2') : $t('login.title_1') }}
-        </nuxt-link>
-        <span>-</span>
-        <a class="custom-link" href="javascript: void(0)" @click="showHelp">
-          {{ $t('login.link_1') }}
-        </a>
-      </div>
-    </div>
+    <FormsNavigation
+      :login="login"
+      :registration="!login"
+      :loader="showLoader"
+      :disabled="
+        login
+          ? email === '' || password === ''
+          : email === '' ||
+            password === '' ||
+            conf_password === '' ||
+            conf_password !== password
+      "
+    ></FormsNavigation>
   </div>
 </template>
 
@@ -147,10 +126,15 @@ export default {
       showLoader: false,
     }
   },
+  created() {
+    this.$nuxt.$on('submitHandler', () => {
+      this.submitHandler()
+    })
+  },
+  destroyed() {
+    this.$nuxt.$off('submitHandler')
+  },
   methods: {
-    showHelp() {
-      this.$store.commit('game/toogleModal', 'help')
-    },
     submitHandler() {
       if (this.login && this.email !== '' && this.password !== '') {
         this.disabledAll = true
@@ -204,15 +188,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  span {
-    @include margin(null 5px);
-    display: block;
-  }
-}
 .focus {
   ::v-deep span {
     &.yamicons {
