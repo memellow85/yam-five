@@ -96,5 +96,20 @@
   "notification": {
     "refresh": "Refresh",
     "add": "Add"
+  },
+  "game": {
+    "one": "One",
+    "two": "Two",
+    "three": "Three",
+    "four": "Four",
+    "five": "Five",
+    "six": "Six",
+    "min": "Min",
+    "max": "Max",
+    "mineleven": "<= 11",
+    "full": "Full",
+    "poker": "Poker",
+    "scale": "Scale",
+    "yam": "YamFive"
   }
 }
