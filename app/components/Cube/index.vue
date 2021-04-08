@@ -15,11 +15,11 @@
         @click="submitValue"
         @longPressStart="longPressStart"
       ></span>
-      <p>{{ data.label }}</p>
+      <p>{{ $t(data.label) }}</p>
     </template>
     <template v-else>
       <p>{{ data.value }}</p>
-      <p>{{ data.label }}</p>
+      <p>{{ $t(data.label) }}</p>
     </template>
   </div>
 </template>
