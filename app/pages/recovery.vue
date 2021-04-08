@@ -1,6 +1,6 @@
 <template>
   <div class="container-app">
-    <FormsLoginRegistration login></FormsLoginRegistration>
+    <FormsRecovery></FormsRecovery>
     <Footer></Footer>
   </div>
 </template>
@@ -13,7 +13,7 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep .wrapper-offline {
-  @include margin(-115px null null -40%);
-  @include size(80%, 230px);
+  @include margin(-90px null null -40%);
+  @include size(80%, 180px);
 }
 </style>
