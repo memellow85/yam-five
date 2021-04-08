@@ -23,6 +23,11 @@
     "btn_2": "Registrati",
     "link_1": "Guida"
   },
+  "recovery": {
+    "title": "Recupera password",
+    "form": "E-Mail",
+    "btn": "Recupera"
+  },
   "home": {
     "message_0": "Sto caricando la stanza...",
     "message_1": "Vai nelle impostazioni e crea o collegati ad una stanza prima di poter iniziare una partita.",

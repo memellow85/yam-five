@@ -23,6 +23,11 @@
     "btn_2": "Register",
     "link_1": "Rule"
   },
+  "recovery": {
+    "title": "Recovery password",
+    "form": "E-Mail",
+    "btn": "Recovery"
+  },
   "home": {
     "message_0": "Loading room...",
     "message_1": "Go to settings and create or connect to a room before you can start a game.",
