@@ -1,7 +1,11 @@
-import Dices from '~/models/Dices'
-import Match from '~/models/Match'
 import { getRandomNumberCube, calculateActualGame } from '~/utils'
-import { dicesTypesCabled, gamesTypesCabled, playedListCabled } from '~/lists'
+import {
+  dicesTypesCabled,
+  gamesTypesCabled,
+  playedListCabled,
+  dices,
+  match,
+} from '~/lists'
 
 export const strict = false
 
@@ -22,8 +26,8 @@ export const state = () => ({
   extraTotal: 0,
   numberTotal: 0,
   currentGame: 'all',
-  dices: new Dices(),
-  game: new Match(),
+  dices,
+  game: match,
   playedList: playedListCabled,
   played: 3,
   playedView: 'down',
@@ -108,7 +112,7 @@ export const mutations = {
     state.dices.tot = tot
   },
   activeGame(state) {
-    // console.log('COMMIT-GAME activeGame')
+    // console.log('COMMIT-GAME activeGame', state.activeGame)
     if (!state.activeGame) {
       gamesTypesCabled.map((g) => {
         Object.keys(state.game[g].data).map((d) => {
@@ -150,7 +154,7 @@ export const mutations = {
     })
   },
   disabledPossibilityGame(state, played) {
-    // console.log('COMMIT-GAME disabledPossibilityGame', played)
+    // console.log('COMMIT-GAME disabledPossibilityGame', played, state.game)
     if (played === 1) {
       Object.keys(state.game.dry.data).map((key) => {
         state.game.dry.data[key].active = false
@@ -308,7 +312,7 @@ export const mutations = {
   },
   initMatch(state) {
     // console.log('COMMIT-GAME initMatch')
-    state.game = new Match()
+    state.game = match
     state.globalTotal = 0
     state.extraTotal = 0
     state.numberTotal = 0
@@ -371,5 +375,6 @@ export const actions = {
     commit('newGame', value)
     commit('initDices')
     commit('initMatch')
+    commit('resetTurn')
   },
 }

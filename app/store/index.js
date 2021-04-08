@@ -17,6 +17,12 @@ const order = (a, b) => {
   return 0
 }
 
+const deleteRoom = async (db, doc, resolve, dispatch) => {
+  await db.batch().delete(doc.ref).commit()
+  dispatch('leftRoom')
+  resolve()
+}
+
 /**
  * State
  */
@@ -347,9 +353,9 @@ export const actions = {
               if (!d.active) {
                 commit('game/changeGames', d.type, { root: true })
                 if (d.type === 'veryshort') {
-                  commit('game/changePlayedView', 'free')
+                  commit('game/changePlayedView', 'free', { root: true })
                 } else {
-                  commit('game/changePlayedView', 'down')
+                  commit('game/changePlayedView', 'down', { root: true })
                 }
               }
             } else {
@@ -456,7 +462,7 @@ export const actions = {
    */
   leftRoom({ dispatch, commit }) {
     // console.log('ACTION leftRoom')
-    dispatch('game/newGame', false)
+    dispatch('game/newGame', false, { root: true })
     commit('clearDataRoom')
     commit('setLoadingLeftRoom', false)
     dispatch('unsetRealTimeDB')
@@ -474,9 +480,10 @@ export const actions = {
           snapshot.docs.forEach((doc) => {
             const data = doc.data()
             if (data.room === state.detailsRoom.room) {
-              db.batch().delete(doc.ref).commit()
-              dispatch('leftRoom')
-              resolve()
+              // db.batch().delete(doc.ref).commit()
+              deleteRoom(db, doc, resolve, dispatch)
+              // dispatch('leftRoom')
+              // resolve()
             }
           })
         })
