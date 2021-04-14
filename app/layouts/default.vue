@@ -4,8 +4,12 @@
     v-visibility-change="visibilityChange"
     @orientationHandler="orientationHandler"
   >
+    <!-- Title -->
     <h1>{{ $t('nameapp') }}</h1>
+
+    <!-- Content -->
     <nuxt />
+
     <!-- Notification -->
     <LazyNotification :show-notification="showNotification"></LazyNotification>
 
@@ -122,22 +126,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-@import '../assets/scss/common/normalizer';
-
-h1 {
-  @extend %h1;
-  // @include margin(11px null null null);
-  @include font-size(26px, 1);
-  @include size(100%, 60px);
-  line-height: 50px;
-  text-align: center;
-}
-
-.container-app {
-  @include position(relative, null);
-  @include size(100vw, calc(100vh - 60px));
-  overflow: hidden;
-}
-</style>

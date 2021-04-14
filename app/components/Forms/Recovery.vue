@@ -1,6 +1,7 @@
 <template>
-  <div class="wrapper-offline">
+  <div class="offline">
     <h2>{{ $t('recovery.title') }}</h2>
+
     <FormsInput
       :name="$t('recovery.form')"
       :show-label="false"
@@ -22,6 +23,7 @@
         @keypress.enter="submitHandler"
       />
     </FormsInput>
+
     <FormsNavigation
       recovery
       :loader="showLoader"
@@ -67,6 +69,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 .focus {
   ::v-deep span {
     &.yamicons {
@@ -84,4 +87,5 @@ input[type='password'] {
     line-height: 20px;
   }
 }
+*/
 </style>

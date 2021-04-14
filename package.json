@@ -40,7 +40,7 @@
     "update_package": "del yarn.lock && yarn cache clean && yarn install"
   },
   "dependencies": {
-    "firebase": "8.3.2",
+    "firebase": "8.3.3",
     "nuxt": "2.15.4",
     "vue-i18n": "8.24.2"
   },

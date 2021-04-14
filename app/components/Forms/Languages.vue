@@ -49,7 +49,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 .wrapper-form-languages {
   display: flex;
 }
+*/
 </style>

@@ -31,6 +31,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 span {
   &.yamicons {
     @include position(absolute, 8px null null null);
@@ -40,4 +41,5 @@ span {
     }
   }
 }
+*/
 </style>

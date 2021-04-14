@@ -92,6 +92,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 section {
   @include padding(15px);
   article {
@@ -147,4 +148,5 @@ section {
     }
   }
 }
+*/
 </style>

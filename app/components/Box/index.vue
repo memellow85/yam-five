@@ -52,6 +52,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 article {
   @include position(relative, null);
   @include size(230px, 160px);
@@ -129,4 +130,5 @@ article {
     }
   }
 }
+*/
 </style>

@@ -1,0 +1,23 @@
+.container-app-offline {
+  @extend %flexCenter;
+  @include size(100%, calc(100vh - 6.5rem));
+  @include
+  overflow: hidden;
+  .offline {
+    border: $border-base;
+    border-radius: 1rem;
+    @include size(80%, auto);
+    height: fit-content;
+    transform: rotate(-5deg);
+    .inner-offline {
+      border: $border-base;
+      border-radius: 1rem;
+      @include size(100%, auto);
+      height: fit-content;
+      transform: rotate(5deg);
+      h2 {
+        @extend %h2;
+      }
+    }
+  }
+}

@@ -79,6 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 .wrapper-button {
   display: flex;
   justify-content: center;
@@ -93,4 +94,5 @@ export default {
     height: 10px;
   }
 }
+*/
 </style>

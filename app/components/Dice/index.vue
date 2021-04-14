@@ -80,6 +80,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 %topleft {
   top: 15px;
   left: 15px;
@@ -271,4 +272,5 @@ export default {
     }
   }
 }
+*/
 </style>

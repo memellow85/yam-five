@@ -1,11 +1,3 @@
-@import "common/fonts";
-@import "common/variables";
-@import "common/mixins";
-@import "common/helpers";
-@import "components/inputs";
-@import "components/buttons";
-@import "components/radio";
-
 html {
   @include size(100%);
   overflow: hidden;
@@ -16,7 +8,43 @@ body {
   @extend %changeTapBck;
   overflow: hidden;
   background: $color-1;
+  font-family: $font-family;
+  font-weight: $normal;
+  color: $color-9;
 }
+
+*:focus {
+  outline: none;
+}
+
+h1 {
+  @extend %h1;
+  @include size(100%, 4rem);
+  line-height: 3rem;
+  text-align: center;
+}
+
+p {
+  @extend %p;
+  &.small {
+    @extend %small;
+  }
+}
+
+strong {
+  font-weight: $semi-bold;
+}
+
+@import "offline";
+
+/*
+@import "common/fonts";
+@import "common/variables";
+@import "common/mixins";
+@import "common/helpers";
+@import "components/inputs";
+@import "components/buttons";
+@import "components/radio";
 
 h3 {
   @extend %h3;
@@ -34,21 +62,6 @@ h4 {
 
 label {
   @extend %p;
-}
-
-p {
-  @extend %p;
-  &.small {
-    @extend %small;
-  }
-}
-
-strong {
-  font-weight: $semi-bold;
-}
-
-*:focus {
-  outline: none;
 }
 
 .yamicons {
@@ -117,11 +130,6 @@ ul {
 }
 
 .wrapper-offline {
-  @include position(absolute, 50% null null 50%);
-  h2 {
-    @extend %h2;
-    @include margin(null null 15px null);
-  }
   .container-btn {
     display: flex;
     justify-content: center;
@@ -137,11 +145,4 @@ ul {
     }
   }
 }
-
-.article-offline {
-  @include position(absolute, null null 15px null);
-  @include size(100%, auto);
-  p {
-    text-align: center;
-  }
-}
+*/

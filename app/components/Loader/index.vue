@@ -7,6 +7,7 @@
 </template>
 
 <style lang="scss" scoped>
+/*
 @keyframes wave {
   0% {
     opacity: 0.2;
@@ -48,4 +49,5 @@
     }
   }
 }
+*/
 </style>

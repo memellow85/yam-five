@@ -37,6 +37,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 .overlay-container {
   @include position(fixed, null null 0 0);
   @include size(100%);
@@ -65,4 +66,5 @@ export default {
     }
   }
 }
+*/
 </style>

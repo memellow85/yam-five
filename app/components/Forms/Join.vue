@@ -83,6 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 .wrapper-form-join {
   @include margin(15px null null null);
   .container-btn {
@@ -112,4 +113,5 @@ input[type='text'] {
     line-height: 20px;
   }
 }
+*/
 </style>

@@ -212,6 +212,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 .container-app {
   .wrapper-main {
     @include position(absolute, 30% null null 50%);
@@ -265,4 +266,5 @@ export default {
     }
   }
 }
+*/
 </style>

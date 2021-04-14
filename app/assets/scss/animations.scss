@@ -1,13 +1,4 @@
-/* Effetto pagina benvenuto */
-.preview-enter-active, .preview-leave-active {
-  transition: opacity 1s;
-}
-
-.preview-enter, .preview-leave-active {
-  opacity: 0;
-}
-
-/* Effetto overlay */
+/* Overlay */
 .overlay-enter-active, .overlay-leave-active {
   opacity: 1;
 }
@@ -16,7 +7,7 @@
   opacity: 0;
 }
 
-
+/* Page */
 .slide-bottom-enter-active,
 .slide-bottom-leave-active {
   transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;

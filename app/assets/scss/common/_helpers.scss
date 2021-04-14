@@ -1,68 +1,53 @@
 %h1 {
-  @include font-size(40px, 1);
+  @include font-size(26px, 1);
+  @include margin(0);
   font-family: $font-family-special;
-  font-weight: normal;
-  color: $color-8;
+  font-weight: $normal;
+  margin-block: 0;
 }
 
 %h2 {
   @include font-size(16px, 1);
-  font-family: $font-family;
   font-weight: $medium;
-  color: $color-9;
+  margin-block: 0;
 }
 
 %h3 {
   @include font-size(14px, 1);
-  font-family: $font-family;
-  font-weight: $normal;
-  color: $color-9;
+  margin-block: 0;
 }
 
 %h4 {
   @include font-size(12px, 1);
-  font-family: $font-family;
   font-weight: $semi-bold;
-  color: $color-9;
+  margin-block: 0;
 }
 
 %h5 {
   @include font-size(12px, 1);
-  font-family: $font-family;
-  font-weight: $normal;
-  color: $color-9;
+  margin-block: 0;
 }
 
 %p {
   @include font-size(12px, 1);
-  font-family: $font-family;
-  font-weight: $normal;
-  color: $color-9;
-}
-
-%link {
-  @include font-size(12px, 1);
-  font-family: $font-family;
-  font-weight: $normal;
-  color: $color-8;
+  margin-block: 0;
 }
 
 %small {
   @include font-size(10px, 1);
-  font-family: $font-family;
-  font-weight: $normal;
-  color: $color-9;
 }
 
 %strong {
   font-weight: $medium;
 }
 
+%link {
+  @include font-size(12px, 1);
+  color: $color-8;
+}
+
 %notify {
   @include font-size(10px, 1);
-  font-family: $font-family;
-  font-weight: $normal;
-  color: $color-9;
 }
 
 %btn {
@@ -71,7 +56,6 @@
   border: $border-base;
   background: $primary;
   border-radius: 5px;
-  // box-shadow: $btn-shadow;
   align-items: center;
   display: flex;
   min-width: 100px;
@@ -80,4 +64,10 @@
 
 %changeTapBck {
   -webkit-tap-highlight-color: rgba(0, 166, 118, 0.1);
+}
+
+%flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

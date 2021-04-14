@@ -89,6 +89,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 footer {
   @include position(absolute, null null 0 0);
   @include size(100%, 60px);
@@ -148,4 +149,5 @@ footer {
     }
   }
 }
+*/
 </style>

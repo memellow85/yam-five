@@ -66,6 +66,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/*
 .cube {
   @include margin(5px);
   background: $color-1;
@@ -117,4 +118,5 @@ export default {
     @include size(70px);
   }
 }
+*/
 </style>
