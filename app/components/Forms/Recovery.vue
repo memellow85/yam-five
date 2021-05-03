@@ -1,34 +1,36 @@
 <template>
   <div class="offline">
-    <h2>{{ $t('recovery.title') }}</h2>
+    <div class="inner-offline">
+      <h2>{{ $t('recovery.title') }}</h2>
 
-    <FormsInput
-      :name="$t('recovery.form')"
-      :show-label="false"
-      :icon="'at'"
-      :show-icon="recovery === ''"
-      :class="['textinput', { focus: focus === 'recovery' }]"
-    >
-      <input
-        id="recovery"
-        v-model="recovery"
-        autocomplete="off"
-        name="recovery"
-        type="text"
-        class="big"
-        :disabled="disabledAll"
-        :placeholder="$t('recovery.form')"
-        @focus="focus = 'recovery'"
-        @blur="focus = ''"
-        @keypress.enter="submitHandler"
-      />
-    </FormsInput>
+      <FormsInput
+        :name="$t('recovery.form')"
+        :show-label="false"
+        :icon="'at'"
+        :show-icon="recovery === ''"
+        :class="['textinput', { focus: focus === 'recovery' }]"
+      >
+        <input
+          id="recovery"
+          v-model="recovery"
+          autocomplete="off"
+          name="recovery"
+          type="text"
+          class="big"
+          :disabled="disabledAll"
+          :placeholder="$t('recovery.form')"
+          @focus="focus = 'recovery'"
+          @blur="focus = ''"
+          @keypress.enter="submitHandler"
+        />
+      </FormsInput>
 
-    <FormsNavigation
-      recovery
-      :loader="showLoader"
-      :disabled="recovery === ''"
-    ></FormsNavigation>
+      <FormsNavigation
+        recovery
+        :loader="showLoader"
+        :disabled="recovery === ''"
+      ></FormsNavigation>
+    </div>
   </div>
 </template>
 

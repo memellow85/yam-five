@@ -1,22 +1,30 @@
 .container-app-offline {
   @extend %flexCenter;
-  @include size(100%, calc(100vh - 6.5rem));
-  @include
+  @include size(auto, calc(100vh - 6.5rem));
   overflow: hidden;
   .offline {
-    border: $border-base;
-    border-radius: 1rem;
-    @include size(80%, auto);
-    height: fit-content;
-    transform: rotate(-5deg);
+    @include size(calc(100% - 3rem), fit-content);
+    background: linear-gradient(to right, $primary, darken($primary, 6));
+    border-radius: 0.8rem;
+    transform: rotate(-6deg);
+    box-shadow: 0 10px 15px -3px $color-3, 0 4px 6px -2px $color-8;
     .inner-offline {
-      border: $border-base;
-      border-radius: 1rem;
-      @include size(100%, auto);
-      height: fit-content;
-      transform: rotate(5deg);
+      @include padding(2rem 1rem);
+      background: $white;
+      border-radius: 0.8rem;
+      transform: rotate(6deg);
+      box-shadow: 0 10px 15px -3px $color-8, 0 4px 6px -2px $color-1;
       h2 {
         @extend %h2;
+        @include margin(null null 1rem null)
+      }
+    }
+    .wrapper-button {
+      text-align: center;
+      @include margin(1rem null null);
+      p {
+        @include margin(1rem null null);
+        text-align: center;
       }
     }
   }

@@ -29,17 +29,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-/*
-span {
-  &.yamicons {
-    @include position(absolute, 8px null null null);
-    &:before {
-      @include font-size($font-icons-size-small, 1);
-      color: $color-6;
-    }
-  }
-}
-*/
-</style>
