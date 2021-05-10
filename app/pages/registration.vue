@@ -1,14 +1,10 @@
 <template>
-  <div>
-    <div class="container-app-offline">
-      <FormsLoginRegistration></FormsLoginRegistration>
-    </div>
-    <Footer></Footer>
-  </div>
+  <FormsLoginRegistration></FormsLoginRegistration>
 </template>
 
 <script>
 export default {
+  layout: 'offline',
   transition: 'slide-bottom',
 }
 </script>

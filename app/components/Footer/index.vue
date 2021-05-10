@@ -18,10 +18,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.footer-offline {
-  @extend %flexCenter;
-  @include size(100%, 2.5rem);
-}
-</style>

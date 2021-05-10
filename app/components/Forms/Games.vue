@@ -68,9 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
 .wrapper-form-games {
-  display: flex;
+  @extend %flex;
 }
-*/
 </style>

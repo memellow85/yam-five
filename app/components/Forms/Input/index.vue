@@ -1,7 +1,10 @@
 <template>
   <div>
     <label v-if="showLabel" :for="name">{{ name }}</label>
-    <span v-if="icon && showIcon" :class="`yamicons mdi mdi-${icon}`"></span>
+    <span
+      v-if="icon && showIcon"
+      :class="`yamicons small mdi mdi-${icon}`"
+    ></span>
     <slot></slot>
   </div>
 </template>

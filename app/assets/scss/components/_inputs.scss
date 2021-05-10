@@ -17,7 +17,7 @@
   font-family: $font-family;
   font-weight: $normal;
   &::-webkit-input-placeholder {
-    @include padding(null null null 1.7rem);
+    @include padding(null null null 1.3rem);
     color: $color-6;
   }
   &.big {
@@ -29,7 +29,7 @@
   @include position(relative, null);
   @include margin(null null 1rem null);
   .yamicons {
-    @include position(absolute, 0.55rem null null null);
+    @include position(absolute, 0.6rem null null null);
   }
   &:after {
     @include position(absolute, null null 0 0);

@@ -138,13 +138,13 @@
     <Navigation></Navigation>
 
     <!-- All overlay -->
-    <LazyOverlay :show-overlay="showConfig" :height-overlay="421">
+    <LazyOverlay :show-overlay="showConfig" :height-overlay="28">
       <LazyViewConfig></LazyViewConfig>
     </LazyOverlay>
-    <LazyOverlay :show-overlay="showSchema" :height-overlay="507">
+    <LazyOverlay :show-overlay="showSchema" :height-overlay="33">
       <LazyViewSchemas></LazyViewSchemas>
     </LazyOverlay>
-    <LazyOverlay :show-overlay="showChampionsShip" :height-overlay="453">
+    <LazyOverlay :show-overlay="showChampionsShip" :height-overlay="25">
       <LazyViewChampion></LazyViewChampion>
     </LazyOverlay>
   </div>
@@ -212,39 +212,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
 .container-app {
   .wrapper-main {
-    @include position(absolute, 30% null null 50%);
+    @include position(absolute, 4rem null null 50%);
     @include size(100%, auto);
-    transform: translate(-50%, -30%);
+    transform: translate(-50%, 0);
     overflow: hidden;
-  }
-  p {
-    @include padding(0 10px);
   }
   button {
-    @include margin(10px null null null);
+    @include margin(0.7rem null null);
   }
   .container-match {
-    @include size(100%, calc(100vh - 430px));
-    // @include size(100%, 250px);
-    display: flex;
+    @include size(calc(100% - 2rem), calc(100vh - 26rem));
+    @include padding(null 1rem);
+    @extend %flex;
+    @extend %flexCenter;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
+    text-align: center;
     > p {
-      line-height: 20px;
-      text-align: center;
+      line-height: 1.2rem;
     }
     .box-dice {
-      @include margin(null null 10px null);
-      @include size(100%, 185px);
-      display: flex;
+      @include margin(null null 0.7rem null);
+      @extend %flex;
+      @extend %flexCenter;
       flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
     }
   }
   .container-box {
@@ -252,13 +245,12 @@ export default {
     overflow: auto;
     display: flex;
     .wrapper-box {
-      @include padding(10px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      @include padding(0.7rem);
+      @extend %flex;
+      @extend %flexCenter;
       flex-wrap: nowrap;
       ::v-deep article {
-        @include margin(null 10px null null);
+        @include margin(null 0.7rem null null);
         &:last-child {
           @include margin(null 0 null null);
         }
@@ -266,5 +258,4 @@ export default {
     }
   }
 }
-*/
 </style>

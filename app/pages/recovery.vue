@@ -1,14 +1,10 @@
 <template>
-  <div>
-    <div class="container-app-offline">
-      <FormsRecovery></FormsRecovery>
-    </div>
-    <Footer></Footer>
-  </div>
+  <FormsRecovery></FormsRecovery>
 </template>
 
 <script>
 export default {
+  layout: 'offline',
   transition: 'slide-bottom',
 }
 </script>

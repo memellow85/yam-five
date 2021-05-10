@@ -69,25 +69,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-/*
-.focus {
-  ::v-deep span {
-    &.yamicons {
-      &:before {
-        color: $primary;
-      }
-    }
-  }
-}
-input[type='text'],
-input[type='password'] {
-  &::-webkit-input-placeholder {
-    @include padding(null null null 25px);
-    color: $color-6;
-    line-height: 20px;
-  }
-}
-*/
-</style>

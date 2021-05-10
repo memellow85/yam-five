@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="overlay-view">
     <article>
       <h3>
         <span class="yamicons mdi mdi-chart-line-variant"></span>
@@ -35,20 +35,15 @@
       <div class="wrapper-championship">
         <ul v-if="usersChampions.length > 0">
           <li>
-            <span>{{ $t('champions.th_1') }}</span>
-            <!-- <span>{{ $t('champions.th_4') }}</span>
-            <span>{{ $t('champions.th_6') }}</span>
-            <span>{{ $t('champions.th_7') }}</span> -->
-            <span>{{ $t('champions.th_8') }}</span>
+            <p>{{ $t('champions.th_1') }}</p>
+            <p>{{ $t('champions.th_8') }}</p>
           </li>
           <li v-for="(u, index) in usersChampions" :key="u.id">
-            <span>
+            <p>
               {{ index + 1 }}
               {{ u.uid === userFirebase.uid ? $t('champions.io') : u.name }}
-            </span>
-            <!-- <span>{{ u.score }}</span>
-            <span>{{ u.score_short }}</span> -->
-            <span>{{ u.tot }}</span>
+            </p>
+            <p>{{ u.tot }}</p>
           </li>
         </ul>
         <ul v-else>
@@ -77,34 +72,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
 section {
-  @include padding(15px);
   article {
-    &:last-child {
-      @include margin(null null 0);
-    }
-    .wrapper-championship {
-      overflow-x: hidden;
-      overflow-y: auto;
-      height: 170px;
-    }
     ul {
       li {
-        justify-content: space-between;
-        span {
-          @include size(calc(100% - 160px), auto);
+        @extend %flex;
+        p {
+          @include size(calc(100% - 10rem), auto);
           text-align: right;
+          line-height: 1.5;
           &:first-child {
-            @include size(160px, auto);
+            @include size(10rem, auto);
             text-align: left;
           }
         }
         &.empty-state {
-          justify-content: center;
+          @include size(100%, 9rem);
+          @extend %flexCenter;
           flex-flow: column;
-          height: 150px;
-          span {
+          p {
             text-align: center;
           }
         }
@@ -112,5 +98,4 @@ section {
     }
   }
 }
-*/
 </style>

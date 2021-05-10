@@ -80,197 +80,208 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
 %topleft {
-  top: 15px;
-  left: 15px;
+  top: 1rem;
+  left: 1rem;
 }
 %topright {
-  top: 15px;
-  right: 15px;
+  top: 1rem;
+  right: 1rem;
 }
 %bottomright {
-  bottom: 15px;
-  right: 15px;
+  bottom: 1rem;
+  right: 1rem;
 }
 %bottomleft {
-  bottom: 15px;
-  left: 15px;
+  bottom: 1rem;
+  left: 1rem;
 }
 %center {
-  @include margin(-5px null null -5px);
+  @include margin(-0.4rem null null -0.4rem);
   top: 50%;
   left: 50%;
 }
 %centerright {
-  @include margin(-5px null null);
+  @include margin(-0.4rem null null);
   top: 50%;
-  right: 15px;
+  right: 1rem;
 }
 %centerleft {
-  @include margin(-5px null null);
+  @include margin(-0.4rem null null);
   top: 50%;
-  left: 15px;
+  left: 1rem;
 }
-.wrapper-dice {
-  @include size(80px);
-  @include margin(null 10px);
-  perspective: 200px;
-  .content-dice {
-    @include size(100%);
-    position: relative;
-    transform-style: preserve-3d;
-    transform: translateZ(-40px);
-    transition: transform 1s;
-    &.dice-1 {
-      @include transformDice(-40px, 0deg, 'y');
+
+$dim: 5rem;
+$rag: 2.5rem;
+
+.container-dice {
+  @include padding(0.5rem null);
+  &.block {
+    .wrapper-dice {
+      .content-dice {
+        .dice-face {
+          background: $color-2;
+          .dot {
+            background: $color-5;
+          }
+        }
+      }
     }
-    &.dice-2 {
-      @include transformDice(-40px, -90deg, 'x');
-    }
-    &.dice-3 {
-      @include transformDice(-40px, 90deg, 'y');
-    }
-    &.dice-4 {
-      @include transformDice(-40px, -90deg, 'y');
-    }
-    &.dice-5 {
-      @include transformDice(-40px, 90deg, 'x');
-    }
-    &.dice-6 {
-      @include transformDice(-40px, -180deg, 'y');
-    }
-    .dice-face {
-      @include size(80px);
-      @include position(absolute, null);
-      display: flex;
-      flex-direction: column;
-      background: $white;
-      box-shadow: $dice-shadow;
-      border-radius: 10px;
-      .block & {
-        background: $color-1;
-        .dot {
-          background: $color-5;
-        }
+  }
+  .wrapper-dice {
+    @include size($dim);
+    @include margin(null 0.7rem);
+    perspective: 12.5rem;
+    .content-dice {
+      @include size(100%);
+      @include position(relative, null);
+      transform-style: preserve-3d;
+      transform: translateZ(-$rag);
+      transition: transform 1s;
+      &.dice-1 {
+        @include transformDice(-$rag, 0deg, 'y');
       }
-      &.inner {
-        background: $color-4;
-        box-shadow: none;
+      &.dice-2 {
+        @include transformDice(-$rag, -90deg, 'x');
       }
-      &.cover {
-        background: $color-3;
-        box-shadow: none;
+      &.dice-3 {
+        @include transformDice(-$rag, 90deg, 'y');
       }
-      &.cover {
-        border-radius: 0;
-        transform: translateZ(0px);
-        &.x {
-          transform: rotateY(90deg);
-        }
-        &.z {
-          transform: rotateX(90deg);
-        }
+      &.dice-4 {
+        @include transformDice(-$rag, -90deg, 'y');
       }
-      .dot {
-        @include size(10px);
-        background: $color-9;
-        border-radius: 50%;
+      &.dice-5 {
+        @include transformDice(-$rag, 90deg, 'x');
       }
-      &.front {
-        @include transformDice(40px, 0deg, 'y', true);
-        justify-content: center;
-        align-items: center;
+      &.dice-6 {
+        @include transformDice(-$rag, -180deg, 'y');
+      }
+      .dice-face {
+        @include size($dim);
+        @include position(absolute, null);
+        @extend %flex;
+        flex-direction: column;
+        background: $white;
+        box-shadow: $dice-shadow;
+        border-radius: 0.7rem;
         &.inner {
-          @include transformDice(38px, 0deg, 'y', true);
+          background: $color-4;
+          box-shadow: none;
         }
-      }
-      &.right {
-        @include transformDice(40px, 90deg, 'y', true);
-        &.inner {
-          @include transformDice(38px, 90deg, 'y', true);
+        &.cover {
+          background: $color-3;
+          box-shadow: none;
         }
-      }
-      &.back {
-        @include transformDice(40px, 180deg, 'y', true);
-        &.inner {
-          @include transformDice(38px, 180deg, 'y', true);
+        &.cover {
+          border-radius: 0;
+          transform: translateZ(0);
+          &.x {
+            transform: rotateY(90deg);
+          }
+          &.z {
+            transform: rotateX(90deg);
+          }
         }
-      }
-      &.left {
-        @include transformDice(40px, -90deg, 'y', true);
-        &.inner {
-          @include transformDice(38px, -90deg, 'y', true);
-        }
-      }
-      &.top {
-        @include transformDice(40px, 90deg, 'x', true);
-        &.inner {
-          @include transformDice(38px, 90deg, 'x', true);
-        }
-      }
-      &.bottom {
-        @include transformDice(40px, -90deg, 'x', true);
-        &.inner {
-          @include transformDice(38px, -90deg, 'x', true);
-        }
-      }
-      &.right,
-      &.back,
-      &.left,
-      &.top,
-      &.bottom {
         .dot {
-          @include position(absolute, null);
-          &:nth-child(1) {
-            @extend %topleft;
-          }
-          &:nth-child(2) {
-            @extend %bottomright;
+          @include size(0.7rem);
+          background: $color-8;
+          border-radius: 50%;
+        }
+        &.front {
+          @include transformDice($rag, 0deg, 'y', true);
+          @extend %flex;
+          @extend %flexCenter;
+          &.inner {
+            @include transformDice(2.4rem, 0deg, 'y', true);
           }
         }
-      }
-      &.left,
-      &.bottom {
-        .dot {
-          &:nth-child(3) {
-            @extend %center;
+        &.right {
+          @include transformDice($rag, 90deg, 'y', true);
+          &.inner {
+            @include transformDice(2.4rem, 90deg, 'y', true);
           }
         }
-      }
-      &.right,
-      &.back {
-        .dot {
-          &:nth-child(3) {
-            @extend %topright;
-          }
-          &:nth-child(4) {
-            @extend %bottomleft;
+        &.back {
+          @include transformDice($rag, 180deg, 'y', true);
+          &.inner {
+            @include transformDice(2.4rem, 180deg, 'y', true);
           }
         }
-      }
-      &.bottom {
-        .dot {
-          &:nth-child(4) {
-            @extend %topright;
-          }
-          &:nth-child(5) {
-            @extend %bottomleft;
+        &.left {
+          @include transformDice($rag, -90deg, 'y', true);
+          &.inner {
+            @include transformDice(2.4rem, -90deg, 'y', true);
           }
         }
-      }
-      &.back {
-        .dot {
-          &:nth-child(5) {
-            @extend %centerleft;
+        &.top {
+          @include transformDice($rag, 90deg, 'x', true);
+          &.inner {
+            @include transformDice(2.4rem, 90deg, 'x', true);
           }
-          &:nth-child(6) {
-            @extend %centerright;
+        }
+        &.bottom {
+          @include transformDice($rag, -90deg, 'x', true);
+          &.inner {
+            @include transformDice(2.4rem, -90deg, 'x', true);
+          }
+        }
+        &.right,
+        &.back,
+        &.left,
+        &.top,
+        &.bottom {
+          .dot {
+            @include position(absolute, null);
+            &:nth-child(1) {
+              @extend %topleft;
+            }
+            &:nth-child(2) {
+              @extend %bottomright;
+            }
+          }
+        }
+        &.left,
+        &.bottom {
+          .dot {
+            &:nth-child(3) {
+              @extend %center;
+            }
+          }
+        }
+        &.right,
+        &.back {
+          .dot {
+            &:nth-child(3) {
+              @extend %topright;
+            }
+            &:nth-child(4) {
+              @extend %bottomleft;
+            }
+          }
+        }
+        &.bottom {
+          .dot {
+            &:nth-child(4) {
+              @extend %topright;
+            }
+            &:nth-child(5) {
+              @extend %bottomleft;
+            }
+          }
+        }
+        &.back {
+          .dot {
+            &:nth-child(5) {
+              @extend %centerleft;
+            }
+            &:nth-child(6) {
+              @extend %centerright;
+            }
           }
         }
       }
     }
   }
 }
-*/
 </style>

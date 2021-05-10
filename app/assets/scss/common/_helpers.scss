@@ -47,27 +47,67 @@
 }
 
 %notify {
-  @include font-size(10px, 1);
+  @include font-size(9px, 1);
 }
 
 %btn {
+  @include size(auto, 2.6rem);
   @extend %strong;
-  @include size(auto, 40px);
+  @extend %flex;
   border: $border-base;
   background: $primary;
-  border-radius: 5px;
-  align-items: center;
-  display: flex;
-  min-width: 100px;
+  border-radius: $rounded-small;
   color: $white;
+  min-width: 6rem;
 }
 
 %changeTapBck {
   -webkit-tap-highlight-color: rgba(0, 166, 118, 0.1);
 }
 
-%flexCenter {
+%flex {
   display: flex;
   align-items: center;
+}
+
+%flexCenter {
   justify-content: center;
+}
+
+%flexSpaceAround {
+  justify-content: space-around;
+}
+
+%flexSpaceBetween {
+  justify-content: space-between;
+}
+
+%overlaySection {
+  .overlay-view {
+    article {
+      @include padding(null 1rem);
+    }
+    .container-scroller-overlay {
+      ul {
+        @include margin(null null 1rem);
+        &.with-icon {
+          li {
+            @include margin(null null 0.4rem);
+            p {
+              @include margin(0);
+            }
+          }
+        }
+        li {
+          @extend %flex;
+          p {
+            @include margin(null null 0.2rem);
+          }
+          .yamicons {
+            @include margin(null 0.3rem null null);
+          }
+        }
+      }
+    }
+  }
 }

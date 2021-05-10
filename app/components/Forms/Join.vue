@@ -83,35 +83,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
 .wrapper-form-join {
-  @include margin(15px null null null);
+  @include margin(1rem null null);
   .container-btn {
-    display: flex;
-    align-items: center;
+    @extend %flex;
     justify-content: flex-end;
   }
 }
-::v-deep span {
-  &.yamicons {
-    top: 10px;
-  }
-}
-.focus {
-  ::v-deep span {
-    &.yamicons {
-      &:before {
-        color: $primary;
-      }
-    }
-  }
-}
-input[type='text'] {
-  &::-webkit-input-placeholder {
-    @include padding(null null null 25px);
-    color: $color-6;
-    line-height: 20px;
-  }
-}
-*/
 </style>

@@ -52,15 +52,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
 article {
   @include position(relative, null);
-  @include size(230px, 160px);
-  @include padding(10px);
-  // border: $border-base;
-  border-radius: 5px;
-  overflow: hidden;
+  @include size(14rem, 10rem);
+  @include padding(0.7rem);
+  border-radius: $rounded-small;
   background: $color-2;
+  overflow: hidden;
   &.single {
     .effect-border {
       background: $alternative-1;
@@ -95,40 +93,33 @@ article {
   }
   .effect-border {
     @include position(absolute, null null 0 0);
-    @include size(100%, 5px);
-  }
-  h5 {
-    @extend %h5;
-    text-align: center;
-    line-height: 1.5;
+    @include size(100%, 0.3rem);
   }
   .container-box {
-    @include size(100%, 138px);
+    @include size(100%, 8.5rem);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
   }
   .yamicons {
-    @include position(absolute, 7px 7px null null);
+    @include position(absolute, 0.8rem 0.7rem null null);
   }
   .overlay {
     @include position(absolute, null null 0 0);
     @include size(100%, 60%);
-    opacity: 1;
-    transition: all 0.3s;
-    border-width: 5px;
-    border-top-style: solid;
-    border-radius: 5px;
+    @extend %flex;
+    @extend %flexCenter;
+    border-radius: $rounded-small;
     background: $white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    transition: all 0.3s;
+    opacity: 1;
+    border-width: 0.3rem;
+    border-top-style: solid;
     &.animated {
       bottom: -60%;
       opacity: 0;
     }
   }
 }
-*/
 </style>

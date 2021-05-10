@@ -37,25 +37,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
 section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @include padding(10px 0);
+  @include padding(1.4rem 0 0.7rem);
+  @extend %flex;
+  @extend %flexCenter;
   ul {
-    @include size(auto, 40px);
+    @include padding(null 0.7rem);
+    @include size(auto, 2.6rem);
+    @extend %flex;
     background: $color-2;
-    border-radius: 5px;
-    align-items: center;
-    display: flex;
-    // min-width: 100px;
-    @include padding(0 10px);
+    border-radius: $rounded-small;
     li {
-      @include padding(null 10px);
-      border: 0;
+      @include padding(null 0.7rem);
     }
   }
 }
-*/
 </style>

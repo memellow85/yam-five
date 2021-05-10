@@ -1,7 +1,7 @@
 <template>
   <footer>
     <nav>
-      <ul>
+      <ul class="inline">
         <li v-for="m in menuLeft" :key="m.name" @click="actionsHandler(m)">
           <span :class="`yamicons mdi mdi-${m.icon}`"></span>
         </li>
@@ -15,7 +15,7 @@
         </span>
         <span class="yamicons mdi mdi-cube-outline"></span>
       </div>
-      <ul>
+      <ul class="inline">
         <li v-for="m in menuRight" :key="m.name" @click="actionsHandler(m)">
           <span :class="`yamicons mdi mdi-${m.icon}`"></span>
         </li>
@@ -89,26 +89,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
 footer {
   @include position(absolute, null null 0 0);
-  @include size(100%, 60px);
+  @include size(100%, 3.5rem);
   background: $color-8;
   nav {
     @include position(relative, null);
-    @include size(calc(100% - 20px), 100%);
-    @include padding(0 10px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include padding(null 0.5rem);
+    @include size(auto, 100%);
+    @extend %flex;
+    @extend %flexSpaceBetween;
     ul {
-      @include size(auto, 40px);
-      align-items: center;
-      display: flex;
-      min-width: 130px;
       li {
-        border: 0;
-        justify-content: center;
+        @include margin(null 1.4rem);
         .yamicons {
           &::before {
             color: $white;
@@ -117,30 +110,28 @@ footer {
       }
     }
     .game {
-      @include position(absolute, -10px null null 50%);
-      @include size(50px);
-      @include margin(null null null -25px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include position(absolute, -1rem null null 50%);
+      @include size(3.2rem);
+      @include margin(null null null -1.6rem);
+      @extend %flex;
+      @extend %flexCenter;
       border-radius: 50%;
       background: $primary;
       .notification {
+        @include position(absolute, -0.1rem -0.1rem null null);
+        @include size(1rem);
         @extend %strong;
         @extend %notify;
-        @include position(absolute, -2px -2px null null);
-        @include size(15px);
+        @extend %flex;
+        @extend %flexCenter;
         border-radius: 50%;
         background: $color-4;
         color: $color-8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
       }
       .yamicons {
         &::before {
           color: $white;
-          font-size: 30px;
+          font-size: 2.2rem;
         }
       }
       &.disabled {
@@ -149,5 +140,4 @@ footer {
     }
   }
 }
-*/
 </style>

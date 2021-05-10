@@ -1,13 +1,13 @@
 .radio {
   @extend %p;
-  @include margin(null 10px null null);
+  @include margin(null 0.7rem null null);
   display: grid;
   place-items: center;
   grid-template-columns: min-content auto;
 }
 
 .radio__label {
-  @include margin(null null null 5px);
+  @include margin(null null null 0.3rem);
   line-height: 1;
   transition: 180ms all ease-in-out;
 }
@@ -28,8 +28,8 @@
 
 input + .radio__control::before {
   content: ' ';
-  @include margin(3px null null 3px);
-  @include size(8px);
+  @include margin(0.15rem null null 0.15rem);
+  @include size(0.5rem);
   display: block;
   border-radius: 50%;
   transition: 180ms transform ease-in-out;
@@ -43,13 +43,13 @@ input:checked + .radio__control::before {
 }
 
 input + .radio__control {
-  @include size(14px);
+  @include size(0.8rem);
   display: block;
   border-radius: 50%;
-  border: 2px solid $color-3;
+  border: 0.15rem solid $color-3;
   transform: translateY(-0.05em);
 }
 
 input:checked + .radio__control {
-  border: 2px solid $primary;
+  border: 0.15rem solid $primary;
 }

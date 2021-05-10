@@ -68,7 +68,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/*
 .notification-container {
   @include position(fixed, null null 0 0);
   @include size(100%);
@@ -80,32 +79,27 @@ export default {
     bottom: -100%;
   }
   .notification-mask {
-    @include size(100%, calc(100% - 80px));
+    @include size(100%, calc(100% - 5rem));
     transition: all 1s;
   }
   .notification-content {
-    @include padding(15px);
-    @include size(calc(100vw - 30px), 50px);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-width: 1px;
+    @include padding(1rem);
+    @include size(calc(100vw - 2rem), 3rem);
+    @extend %flex;
+    @extend %flexSpaceBetween;
+    border-width: 0.05rem;
     border-top-style: solid;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     p {
-      @extend %strong;
-      display: flex;
-      align-items: center;
+      @extend %flex;
       span {
-        @include margin(null 5px null null);
+        @include margin(null 0.4rem null null);
       }
     }
     &.alert {
       background: $error-bck;
       border-color: $error;
-      p {
-        span {
+      .yamicons {
+        &:before {
           color: $error;
         }
       }
@@ -116,8 +110,8 @@ export default {
     &.warning {
       background: $warning-bck;
       border-color: $warning;
-      p {
-        span {
+      .yamicons {
+        &:before {
           color: $warning;
         }
       }
@@ -128,8 +122,8 @@ export default {
     &.success {
       background: $success-bck;
       border-color: $primary;
-      p {
-        span {
+      .yamicons {
+        &:before {
           color: $primary;
         }
       }
@@ -139,5 +133,4 @@ export default {
     }
   }
 }
-*/
 </style>
