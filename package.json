@@ -68,7 +68,7 @@
   }
 }
 
-
+/*
 {
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon app/server/index.js --watch server",
@@ -85,4 +85,4 @@
     "vue-socket.io-extended": "^4.0.5"
   }
 }
-
+*/
