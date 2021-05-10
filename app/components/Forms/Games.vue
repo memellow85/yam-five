@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper-form-games">
+  <div class="wrapper-form-games flex">
     <div v-for="r in games" :key="r.code" class="radio-button">
       <label class="radio">
         <span class="radio__input">
@@ -66,9 +66,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.wrapper-form-games {
-  display: flex;
-}
-</style>

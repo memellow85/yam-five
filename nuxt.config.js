@@ -144,7 +144,13 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@mdi/font/css/materialdesignicons.css', '~/assets/animations.css'],
+  css: [
+    '@mdi/font/scss/materialdesignicons.scss',
+    '~/assets/scss/fonts.scss',
+    '~/assets/scss/animations.scss',
+    '~/assets/scss/normalize.scss',
+    '~/assets/scss/index.scss',
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -160,6 +166,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources',
   ],
   /*
    ** Nuxt.js modules
@@ -167,14 +174,17 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/pwa',
-    '@nuxtjs/style-resources',
   ],
   /*
    ** Scss resources
    */
   styleResources: {
     // your settings here
-    scss: ['~/assets/scss/index.scss'],
+    scss: [
+      '~/assets/scss/common/_variables.scss',
+      '~/assets/scss/common/_mixins.scss',
+      '~/assets/scss/common/_helpers.scss',
+    ],
   },
   /*
    ** Axios module configuration

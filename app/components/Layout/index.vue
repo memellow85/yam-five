@@ -1,0 +1,128 @@
+<template>
+  <div
+    v-resize
+    v-visibility-change="visibilityChange"
+    @orientationHandler="orientationHandler"
+  >
+    <!-- Title -->
+    <h1>{{ $t('nameapp') }}</h1>
+
+    <!-- Content -->
+    <slot></slot>
+
+    <!-- Notification -->
+    <LazyNotification :show-notification="showNotification"></LazyNotification>
+
+    <!-- Overlay help -->
+    <LazyOverlay :show-overlay="showHelp">
+      <LazyViewHelp></LazyViewHelp>
+    </LazyOverlay>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+import { resize } from '@/directives/resize'
+
+export default {
+  directives: { resize },
+  data() {
+    return {
+      timeReset: null,
+      visible: true,
+      deferredPrompt: null,
+    }
+  },
+  head() {
+    return {
+      link: [
+        {
+          rel: 'canonical',
+          href: 'https://yamfive-app.herokuapp.com/' + this.$route.path,
+        },
+      ],
+    }
+  },
+  computed: {
+    ...mapState({
+      userFirebase: (state) => state.userFirebase,
+      isLeave: (state) => state.isLeave,
+    }),
+    ...mapState('game', {
+      showNotification: (state) => state.showNotification,
+      showHelp: (state) => state.showHelp,
+    }),
+  },
+  created() {
+    this.$nuxt.$on('refreshPWAHandler', () => {
+      this.refreshPWAHandler()
+    })
+    this.$nuxt.$on('addToHomeHandler', () => {
+      this.addToHomeHandler()
+    })
+  },
+  beforeMount() {
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault()
+      this.deferredPrompt = event
+      this.$store.commit('game/toggleNotification', {
+        type: 'warning',
+        message: 'Add to home YamFive',
+        buttonAddToHome: true,
+      })
+    })
+
+    window.addEventListener('appinstalled', () => {
+      this.$store.commit('game/toggleNotification', null)
+      this.deferredPrompt = null
+    })
+  },
+  destroyed() {
+    this.$nuxt.$off('refreshPWAHandler')
+    this.$nuxt.$off('addToHomeHandler')
+  },
+  methods: {
+    refreshPWAHandler() {
+      window.location.reload()
+    },
+    async addToHomeHandler() {
+      this.$store.commit('game/toggleNotification', null)
+      this.deferredPrompt.prompt()
+      await this.deferredPrompt.userChoice
+      this.deferredPrompt = null
+    },
+    visibilityChange() {
+      if (this.userFirebase) {
+        if (!this.visible) {
+          clearTimeout(this.timeReset)
+        } else {
+          this.timeReset = setTimeout(() => {
+            if (!this.isLeave) {
+              this.$store.dispatch('logout').then(() => {
+                this.$router.push('/')
+              })
+            } else {
+              this.$store.dispatch('logoutRoom').then(() => {
+                this.$store.dispatch('logout').then(() => {
+                  this.$router.push('/')
+                })
+              })
+            }
+          }, 180000)
+        }
+      }
+      this.visible = !this.visible
+    },
+    orientationHandler(ev) {
+      if (ev === 90) {
+        this.$store.commit('game/toggleNotification', {
+          message: this.$t('home.notification_2'),
+          type: 'warning',
+        })
+      } else {
+        this.$store.commit('game/toggleNotification')
+      }
+    },
+  },
+}
+</script>

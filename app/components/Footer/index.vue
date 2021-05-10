@@ -1,5 +1,5 @@
 <template>
-  <article class="article-offline">
+  <article class="footer-offline">
     <p class="small">
       Copyright &copy; {{ new Date().getFullYear() }} - Release:
       {{ pkg.version }}

@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="overlay-view">
     <article>
       <h3>
         <span class="yamicons mdi mdi-help-circle-outline"></span>
@@ -11,7 +11,7 @@
         YamFive è un gioco di dadi semplice e divertente. Sfida i tuoi amici per
         rendere più emozionante la partita!
       </p>
-      <div class="section-style">
+      <div>
         <h4>Inizia la partita</h4>
         <p>
           Per iniziare una nuova partita vai nella sezione di configurazione e
@@ -21,80 +21,80 @@
           comunica in maniera corretta il nome ai tuoi amici.
         </p>
       </div>
-      <div class="section-style">
+      <div>
         <h4>Il Gioco</h4>
         <p>
           Lo scopo del gioco è ottenere un punteggio più alto possibile tirando
           i 5 dadi e sommando i numeri usciti nelle diverse combinazioni di
           gioco:
         </p>
-        <ul class="noHeader">
+        <ul>
           <li>
-            <span><i>Punteggio di 1:</i> somma degli 1 ottenuti.</span>
+            <p><i>Punteggio di 1:</i> somma degli 1 ottenuti.</p>
           </li>
           <li>
-            <span><i>Punteggio di 2:</i> somma dei 2 ottenuti.</span>
+            <p><i>Punteggio di 2:</i> somma dei 2 ottenuti.</p>
           </li>
           <li>
-            <span><i>Punteggio di 3:</i> somma dei 3 ottenuti.</span>
+            <p><i>Punteggio di 3:</i> somma dei 3 ottenuti.</p>
           </li>
           <li>
-            <span><i>Punteggio di 4:</i> somma dei 4 ottenuti.</span>
+            <p><i>Punteggio di 4:</i> somma dei 4 ottenuti.</p>
           </li>
           <li>
-            <span><i>Punteggio di 5:</i> somma dei 5 ottenuti.</span>
+            <p><i>Punteggio di 5:</i> somma dei 5 ottenuti.</p>
           </li>
           <li>
-            <span><i>Punteggio di 6:</i> somma dei 6 ottenuti.</span>
+            <p><i>Punteggio di 6:</i> somma dei 6 ottenuti.</p>
           </li>
           <li>
-            <span
-              ><i>Tiro minimo:</i> somma di tutti i dadi che deve essere
+            <p>
+              <i>Tiro minimo:</i> somma di tutti i dadi che deve essere
               obbligatoriamente &lt; al punteggio ottenuto nel tiro massimo.
               (ATTENZIONE: Se la somma di tiro minimo e tiro massimo è &gt; 50
-              al totale della giocata verranno aggiunti 30 punti bonus).</span
-            >
+              al totale della giocata verranno aggiunti 30 punti bonus).
+            </p>
           </li>
           <li>
-            <span
-              ><i>Tiro massimo:</i> somma di tutti i dadi che deve essere
+            <p>
+              <i>Tiro massimo:</i> somma di tutti i dadi che deve essere
               obbligatoriamente &gt; al punteggio ottenuto nel tiro minimo.
               (ATTENZIONE: Se la somma di tiro minimo e tiro massimo è &gt; 50
-              al totale della giocata verranno aggiunti 30 punti bonus).</span
-            >
+              al totale della giocata verranno aggiunti 30 punti bonus).
+            </p>
           </li>
           <li>
-            <span
-              ><i>Tiro minore o uguale a 11:</i> la somma dei dadi non deve
-              essere &gt; di 11.</span
-            >
+            <p>
+              <i>Tiro minore o uguale a 11:</i> la somma dei dadi non deve
+              essere &gt; di 11.
+            </p>
           </li>
           <li>
-            <span
-              ><i>Full:</i> somma di tutti e 5 i dadi ottenuti con la
+            <p>
+              <i>Full:</i> somma di tutti e 5 i dadi ottenuti con la
               combinazione 3+2: 3 dadi con lo stesso valore + 2 dadi con lo
               stesso valore (diverso da quello degli altri 3). Esempio tiro: 444
-              + 22 = Full di 16 punti.</span
-            >
+              + 22 = Full di 16 punti.
+            </p>
           </li>
           <li>
-            <span
-              ><i>Poker:</i> somma di 4 dadi con lo stesso valore. Esempio tiro:
-              4444 + 1 = Poker di 16 punti.</span
-            >
+            <p>
+              <i>Poker:</i> somma di 4 dadi con lo stesso valore. Esempio tiro:
+              4444 + 1 = Poker di 16 punti.
+            </p>
           </li>
           <li>
-            <span
-              ><i>Scala:</i> Somma di 5 dadi con numeri successivi tra loro.
+            <p>
+              <i>Scala:</i> Somma di 5 dadi con numeri successivi tra loro.
               Esempio tiro: 12345 = scala di 15 punti, oppure 23456 = scala di
-              20 punti.</span
-            >
+              20 punti.
+            </p>
           </li>
           <li>
-            <span
-              ><i>Yam:</i> Somma di 5 dadi con lo stesso valore. Esempio tiro:
-              44444 = Yam di 20 punti</span
-            >
+            <p>
+              <i>Yam:</i> Somma di 5 dadi con lo stesso valore. Esempio tiro:
+              44444 = Yam di 20 punti
+            </p>
           </li>
         </ul>
         <p>
@@ -119,45 +119,45 @@
           In questa giocata bisogna completare i valori dei tiri seguendo
           obbligatoriamente l’ordine dall’alto verso il basso:
         </p>
-        <ul class="noHeader">
+        <ul>
           <li>
-            <span><i>Punteggio di 1</i></span>
+            <p><i>Punteggio di 1</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 2</i></span>
+            <p><i>Punteggio di 2</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 3</i></span>
+            <p><i>Punteggio di 3</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 4</i></span>
+            <p><i>Punteggio di 4</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 5</i></span>
+            <p><i>Punteggio di 5</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 6</i></span>
+            <p><i>Punteggio di 6</i></p>
           </li>
           <li>
-            <span><i>Tiro minimo</i></span>
+            <p><i>Tiro minimo</i></p>
           </li>
           <li>
-            <span><i>Tiro massimo</i></span>
+            <p><i>Tiro massimo</i></p>
           </li>
           <li>
-            <span><i>Tiro minore o uguale a 11</i></span>
+            <p><i>Tiro minore o uguale a 11</i></p>
           </li>
           <li>
-            <span><i>Full</i></span>
+            <p><i>Full</i></p>
           </li>
           <li>
-            <span><i>Poker</i></span>
+            <p><i>Poker</i></p>
           </li>
           <li>
-            <span><i>Scala</i></span>
+            <p><i>Scala</i></p>
           </li>
           <li>
-            <span><i>Yam</i></span>
+            <p><i>Yam</i></p>
           </li>
         </ul>
         <p><i>Giocata 2 - libero</i></p>
@@ -179,49 +179,49 @@
           bisogna completare i valori dei tiri seguendo obbligatoriamente
           l’ordine dal basso verso l’alto:
         </p>
-        <ul class="noHeader">
+        <ul>
           <li>
-            <span><i>Yam</i></span>
+            <p><i>Yam</i></p>
           </li>
           <li>
-            <span><i>Scala</i></span>
+            <p><i>Scala</i></p>
           </li>
           <li>
-            <span><i>Poker</i></span>
+            <p><i>Poker</i></p>
           </li>
           <li>
-            <span><i>Full</i></span>
+            <p><i>Full</i></p>
           </li>
           <li>
-            <span><i>Tiro minore o uguale a 11</i></span>
+            <p><i>Tiro minore o uguale a 11</i></p>
           </li>
           <li>
-            <span><i>Tiro massimo</i></span>
+            <p><i>Tiro massimo</i></p>
           </li>
           <li>
-            <span><i>Tiro minimo</i></span>
+            <p><i>Tiro minimo</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 6</i></span>
+            <p><i>Punteggio di 6</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 5</i></span>
+            <p><i>Punteggio di 5</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 4</i></span>
+            <p><i>Punteggio di 4</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 3</i></span>
+            <p><i>Punteggio di 3</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 2</i></span>
+            <p><i>Punteggio di 2</i></p>
           </li>
           <li>
-            <span><i>Punteggio di 1</i></span>
+            <p><i>Punteggio di 1</i></p>
           </li>
         </ul>
       </div>
-      <div class="section-style">
+      <div>
         <h4>Comandi</h4>
         <p>
           <i>Bloccare un dado:</i> cliccare sul dado che si vuole bloccare. Per
@@ -240,103 +240,100 @@
           associato il valore 0 alla giocata scelta.
         </p>
       </div>
-      <div class="section-style">
+      <div>
         <h4>Icone</h4>
-        <ul class="noHeader">
+        <ul class="with-icon">
           <li>
             <span class="yamicons mdi mdi-cog-outline"></span>
-            <span
-              >Apre la schermata dov'è possibile partecipare a una partita e
-              settare la lingua del gioco.</span
-            >
+            <p>
+              Apre la schermata dov'è possibile partecipare a una partita e
+              settare la lingua del gioco.
+            </p>
           </li>
           <li>
             <span class="yamicons mdi mdi-view-grid-outline"></span>
-            <span
-              >Apre la schermata riassuntiva di tutte le giocate, dov'è
-              possibile effettuare una giocata o semplicemente visualizzare lo
-              schema generale delle giocate.</span
-            >
+            <p>
+              Apre la schermata riassuntiva di tutte le giocate, dov'è possibile
+              effettuare una giocata o semplicemente visualizzare lo schema
+              generale delle giocate.
+            </p>
           </li>
           <li>
             <span class="yamicons mdi mdi-chart-line-variant"></span>
-            <span
-              >Apre la schermata della classifica aggiornata della partita e dei
-              record del gioco.</span
-            >
+            <p>
+              Apre la schermata della classifica aggiornata della partita e dei
+              record del gioco.
+            </p>
           </li>
           <li>
             <span class="yamicons mdi mdi-help-circle-outline"></span>
-            <span
-              >Apre questa schermata dove trovate tutte le informazioni
-              necessarie per giocare.</span
-            >
+            <p>
+              Apre questa schermata dove trovate tutte le informazioni
+              necessarie per giocare.
+            </p>
           </li>
           <li>
             <span class="yamicons mdi mdi-sort-bool-ascending-variant"></span>
-            <span
-              >Giocata a scendere significa che le giocate devo essere segnate
-              in ordine descrescente dall'1 allo Yam</span
-            >
+            <p>
+              Giocata a scendere significa che le giocate devo essere segnate in
+              ordine descrescente dall'1 allo Yam
+            </p>
           </li>
           <li>
             <span class="yamicons mdi mdi-order-bool-ascending-variant"></span>
-            <span
-              >Giocata libera significa che le giocate posso essere segnate
-              senza nessun ordine.</span
-            >
+            <p>
+              Giocata libera significa che le giocate posso essere segnate senza
+              nessun ordine.
+            </p>
           </li>
           <li>
             <span class="yamicons mdi mdi-target"></span>
-            <span
-              >Giocata secca significa che le giocate posso essere segnate solo
-              al primo lancio dei dadi.</span
-            >
+            <p>
+              Giocata secca significa che le giocate posso essere segnate solo
+              al primo lancio dei dadi.
+            </p>
           </li>
           <li>
             <span class="yamicons mdi mdi-sort-bool-descending-variant"></span>
-            <span
-              >Giocata a salire significa che le giocate devo essere segnate in
-              ordine crescente dallo Yam all'1.</span
-            >
+            <p>
+              Giocata a salire significa che le giocate devo essere segnate in
+              ordine crescente dallo Yam all'1.
+            </p>
           </li>
           <li>
             <span class="yamicons mdi mdi-trash-can-outline"></span>
-            <span>Cancella la giocata e assegna il valore di 0.</span>
+            <p>Cancella la giocata e assegna il valore di 0.</p>
           </li>
           <li>
             <span class="yamicons mdi mdi-plus-box-outline"></span>
-            <span
-              >Salva la giocata segnando il valore della specifica
-              giocata.</span
-            >
+            <p>Salva la giocata segnando il valore della specifica giocata.</p>
           </li>
         </ul>
       </div>
-      <div class="section-style">
+      <div>
         <h4>I punti bonus</h4>
         <p>
           Ai punteggi ottenuti con i dadi, in ogni giocata, vengono assegnati
           dei punti bonus che il giocatore riceve se:
         </p>
-        <ul class="noHeader">
+        <ul>
           <li>
-            <span
-              ><i
+            <p>
+              <i
                 >La somma dei tiri singoli da 1 a 6 di una giocata è >= 60, al
                 totale della giocata vengono aggiunti 20 punti bonus. Se questa
                 stessa somma è >= 70 al totale della giocata vengono aggiunti 30
                 punti bonus.</i
-              ></span
-            >
+              >
+            </p>
           </li>
           <li>
-            <span
-              ><i
+            <p>
+              <i
                 >La somma di tiro minimo e tiro massimo è > 50, al totale della
                 giocata vengono aggiunti 30 punti bonus.</i
-              ></span
-            >
+              >
+            </p>
           </li>
         </ul>
         <p>
@@ -345,34 +342,32 @@
           uno speciale bonus che si aggiunge al punteggio ottenuto con il lancio
           dei dadi:
         </p>
-        <ul class="noHeader">
+        <ul>
           <li>
-            <span
-              ><i>Tiro minore e uguale a 11:</i> al totale del tiro vengono
-              aggiunti 30 punti bonus.</span
-            >
+            <p>
+              <i>Tiro minore e uguale a 11:</i> al totale del tiro vengono
+              aggiunti 30 punti bonus.
+            </p>
           </li>
           <li>
-            <span
-              ><i>Full:</i> al totale del tiro vengono aggiunti 20 punti
-              bonus.</span
-            >
+            <p>
+              <i>Full:</i> al totale del tiro vengono aggiunti 20 punti bonus.
+            </p>
           </li>
           <li>
-            <span
-              ><i>Poker:</i> al totale del tiro vengono aggiunti 30 punti bonus.
-            </span>
+            <p>
+              <i>Poker:</i> al totale del tiro vengono aggiunti 30 punti bonus.
+            </p>
           </li>
           <li>
-            <span
-              ><i>Scala:</i> al totale del tiro vengono aggiunti 40 punti bonus.
-            </span>
+            <p>
+              <i>Scala:</i> al totale del tiro vengono aggiunti 40 punti bonus.
+            </p>
           </li>
           <li>
-            <span
-              ><i>Yam:</i> al totale del tiro vengono aggiunti 50 punti
-              bonus.</span
-            >
+            <p>
+              <i>Yam:</i> al totale del tiro vengono aggiunti 50 punti bonus.
+            </p>
           </li>
         </ul>
         <p>
@@ -400,44 +395,9 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  @include padding(15px);
-  article {
-    h3 {
-      @include margin(null null 10px);
-    }
-  }
   p {
-    @include margin(null null 20px);
+    @include margin(null null 1rem);
     line-height: 1.5;
-  }
-  .container-scroller-overlay {
-    .section-style {
-      @include margin(null null 20px);
-      p {
-        @include margin(null null 5px);
-      }
-      ul {
-        @include margin(null null 5px);
-      }
-    }
-    ul {
-      @include margin(null null 20px);
-      li {
-        @include size(100%, auto);
-        @include margin(null null 5px null);
-        justify-content: flex-start;
-        border: 0;
-        span {
-          line-height: 1.5 !important;
-        }
-        .yamicons {
-          @include margin(null 5px null null);
-          &:before {
-            @include font-size(18px, 1);
-          }
-        }
-      }
-    }
   }
 }
 </style>

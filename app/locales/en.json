@@ -21,7 +21,8 @@
     "form_4": "Name",
     "btn_1": "Enter",
     "btn_2": "Register",
-    "link_1": "Rule"
+    "link_1": "rule",
+    "link_message": "Before start read a "
   },
   "recovery": {
     "title": "Recovery password",

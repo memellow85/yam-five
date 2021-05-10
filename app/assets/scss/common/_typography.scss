@@ -1,0 +1,41 @@
+h1 {
+  @extend %h1;
+  @include size(100%, 4rem);
+  line-height: 3rem;
+  text-align: center;
+}
+
+h3 {
+  @extend %h3;
+  @extend %flex;
+  @include margin(0.9rem null);
+  span {
+    @include margin(null 0.2rem null null);
+  }
+}
+
+h4 {
+  @extend %h4;
+  @include margin(1rem null);
+}
+
+h5 {
+  @extend %h5;
+  text-align: center;
+  line-height: 1.5;
+}
+
+p {
+  @extend %p;
+  &.small {
+    @extend %small;
+  }
+}
+
+strong {
+  font-weight: $semi-bold;
+}
+
+a {
+  @extend %link;
+}
