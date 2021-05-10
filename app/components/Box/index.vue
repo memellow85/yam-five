@@ -6,7 +6,7 @@
       @click="toogleHelp"
     ></span>
     <h5>{{ title }}</h5>
-    <div class="container-box">
+    <div class="container-box flex-center">
       <slot></slot>
     </div>
     <transition
@@ -15,7 +15,7 @@
       enter-active-class="animated"
       leave-active-class="animated"
     >
-      <div v-if="showHelp" class="overlay">
+      <div v-if="showHelp" class="overlay flex-center">
         <h5 v-html="info"></h5>
       </div>
     </transition>
@@ -97,10 +97,7 @@ article {
   }
   .container-box {
     @include size(100%, 8.5rem);
-    display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
   }
   .yamicons {
     @include position(absolute, 0.8rem 0.7rem null null);
@@ -108,8 +105,6 @@ article {
   .overlay {
     @include position(absolute, null null 0 0);
     @include size(100%, 60%);
-    @extend %flex;
-    @extend %flexCenter;
     border-radius: $rounded-small;
     background: $white;
     transition: all 0.3s;

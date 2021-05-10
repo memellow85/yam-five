@@ -1,13 +1,13 @@
 <template>
   <div
     :class="[
-      'cube',
+      'cube flex-center',
       dimension,
       { red: data.active && changeValue, green: data.active && !changeValue },
     ]"
   >
-    <template v-if="data.active" class="box-action">
-      <div class="box-action">
+    <template v-if="data.active">
+      <div class="box-action flex-center">
         <span
           v-longPress
           :class="`yamicons mdi mdi-${
@@ -20,7 +20,7 @@
       <p>{{ $t(data.label) }}</p>
     </template>
     <template v-else>
-      <div class="box-action">
+      <div class="box-action flex-center">
         <p>{{ data.value }}</p>
       </div>
       <p>{{ $t(data.label) }}</p>
@@ -72,8 +72,6 @@ export default {
 <style lang="scss" scoped>
 .cube {
   @include margin(0.3rem);
-  @extend %flex;
-  @extend %flexCenter;
   background: $color-1;
   border-radius: $rounded-small;
   flex-direction: column;
@@ -104,8 +102,6 @@ export default {
   }
   .box-action {
     @include size(1.5rem);
-    @extend %flex;
-    @extend %flexCenter;
   }
   > p {
     @include font-size(10px, 1);

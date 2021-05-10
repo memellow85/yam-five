@@ -1,15 +1,18 @@
 <template>
   <footer>
-    <nav>
+    <nav class="flex-between">
       <ul class="inline">
         <li v-for="m in menuLeft" :key="m.name" @click="actionsHandler(m)">
           <span :class="`yamicons mdi mdi-${m.icon}`"></span>
         </li>
       </ul>
-      <div :class="['game', { disabled: disabled }]" @click="gameHandler">
+      <div
+        :class="['game flex-center', { disabled: disabled }]"
+        @click="gameHandler"
+      >
         <span
           v-if="detailsRoom && detailsRoom.active && !newGame"
-          class="notification"
+          class="notification flex-center"
         >
           {{ played }}
         </span>
@@ -97,8 +100,6 @@ footer {
     @include position(relative, null);
     @include padding(null 0.5rem);
     @include size(auto, 100%);
-    @extend %flex;
-    @extend %flexSpaceBetween;
     ul {
       li {
         @include margin(null 1.4rem);
@@ -113,8 +114,6 @@ footer {
       @include position(absolute, -1rem null null 50%);
       @include size(3.2rem);
       @include margin(null null null -1.6rem);
-      @extend %flex;
-      @extend %flexCenter;
       border-radius: 50%;
       background: $primary;
       .notification {
@@ -122,8 +121,6 @@ footer {
         @include size(1rem);
         @extend %strong;
         @extend %notify;
-        @extend %flex;
-        @extend %flexCenter;
         border-radius: 50%;
         background: $color-4;
         color: $color-8;

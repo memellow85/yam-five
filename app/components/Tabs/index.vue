@@ -1,7 +1,7 @@
 <template>
-  <section>
+  <section class="flex-center">
     <div>
-      <ul>
+      <ul class="flex">
         <template v-for="t in playedList">
           <li
             v-if="t.view.includes(currentGame)"
@@ -39,12 +39,9 @@ export default {
 <style lang="scss" scoped>
 section {
   @include padding(1.4rem 0 0.7rem);
-  @extend %flex;
-  @extend %flexCenter;
   ul {
     @include padding(null 0.7rem);
     @include size(auto, 2.6rem);
-    @extend %flex;
     background: $color-2;
     border-radius: $rounded-small;
     li {

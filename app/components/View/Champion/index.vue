@@ -7,11 +7,15 @@
       </h3>
       <div class="wrapper-championship">
         <ul v-if="usersRealTimeChampions.length > 0">
-          <li>
+          <li class="flex">
             <span>{{ $t('champions.th_1') }}</span>
             <span>{{ $t('champions.th_4') }}</span>
           </li>
-          <li v-for="(u, index) in usersRealTimeChampions" :key="u.id">
+          <li
+            v-for="(u, index) in usersRealTimeChampions"
+            :key="u.id"
+            class="flex"
+          >
             <span>
               {{ index + 1 }}
               {{ u.uid === userFirebase.uid ? $t('champions.io') : u.name }}
@@ -20,7 +24,7 @@
           </li>
         </ul>
         <ul v-else>
-          <li class="empty-state">
+          <li class="empty-state flex-center">
             <span class="yamicons mdi mdi-chart-line-variant"></span>
             <p>{{ $t('champions.empty_1') }}</p>
           </li>
@@ -34,11 +38,11 @@
       </h3>
       <div class="wrapper-championship">
         <ul v-if="usersChampions.length > 0">
-          <li>
+          <li class="flex">
             <p>{{ $t('champions.th_1') }}</p>
             <p>{{ $t('champions.th_8') }}</p>
           </li>
-          <li v-for="(u, index) in usersChampions" :key="u.id">
+          <li v-for="(u, index) in usersChampions" :key="u.id" class="flex">
             <p>
               {{ index + 1 }}
               {{ u.uid === userFirebase.uid ? $t('champions.io') : u.name }}
@@ -47,7 +51,7 @@
           </li>
         </ul>
         <ul v-else>
-          <li class="empty-state">
+          <li class="empty-state flex-center">
             <span class="yamicons mdi mdi-arm-flex-outline"></span>
             <p>{{ $t('champions.empty_2') }}</p>
           </li>
@@ -76,7 +80,6 @@ section {
   article {
     ul {
       li {
-        @extend %flex;
         p {
           @include size(calc(100% - 10rem), auto);
           text-align: right;
@@ -88,7 +91,6 @@ section {
         }
         &.empty-state {
           @include size(100%, 9rem);
-          @extend %flexCenter;
           flex-flow: column;
           p {
             text-align: center;

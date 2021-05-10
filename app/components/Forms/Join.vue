@@ -20,7 +20,7 @@
         @keypress.enter="submitHandler"
       />
     </FormsInput>
-    <div class="container-btn">
+    <div class="container-btn flex">
       <button :disabled="room === ''" @click="submitHandler">
         {{ tab === 'create' ? $t('config.btn_4') : $t('config.btn_1') }}
       </button>
@@ -86,7 +86,6 @@ export default {
 .wrapper-form-join {
   @include margin(1rem null null);
   .container-btn {
-    @extend %flex;
     justify-content: flex-end;
   }
 }

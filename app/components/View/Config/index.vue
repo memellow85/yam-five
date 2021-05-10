@@ -38,7 +38,7 @@
         {{ $t('config.join_2') }}<strong>{{ usersFirebase.length - 1 }}</strong>
         {{ $t('config.join_3') }}
       </p>
-      <div v-if="detailsRoom" class="container-btn">
+      <div v-if="detailsRoom" class="container-btn flex">
         <button @click="leaveHandler">
           <Loader v-if="isLoadingLeftRoom"></Loader>
           <span v-else>{{ $t('config.btn_2') }}</span>
@@ -106,7 +106,6 @@ section {
     &.wrapper-tabs-form {
       @include size(auto, 14rem);
       .container-btn {
-        @extend %flex;
         justify-content: flex-end;
       }
       .text-inner {

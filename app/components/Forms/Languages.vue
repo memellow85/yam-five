@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper-form-languages">
+  <div class="wrapper-form-languages flex">
     <div v-for="r in langs" :key="r.code" class="radio-button">
       <label class="radio">
         <span class="radio__input">
@@ -47,9 +47,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.wrapper-form-languages {
-  @extend %flex;
-}
-</style>

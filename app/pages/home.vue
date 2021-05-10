@@ -2,7 +2,7 @@
   <div class="container-app">
     <!-- Contenuto centrale -->
     <div class="wrapper-main">
-      <div class="container-match">
+      <div class="container-match flex-center">
         <template v-if="isLoadingRoom">
           <p>{{ $t('home.message_0') }}</p>
         </template>
@@ -32,7 +32,7 @@
             !isLoadingLeftRoom
           "
         >
-          <div class="box-dice">
+          <div class="box-dice flex-center">
             <Dice :dice="dices.one"></Dice>
             <Dice :dice="dices.two"></Dice>
             <Dice :dice="dices.three"></Dice>
@@ -52,7 +52,7 @@
 
       <!-- Set delle giocate -->
       <div class="container-box body-scroll-lock-ignore">
-        <div class="wrapper-box">
+        <div class="wrapper-box flex-center">
           <Box
             :class-name="'single'"
             :title="$t('home.title_1')"
@@ -225,8 +225,6 @@ export default {
   .container-match {
     @include size(calc(100% - 2rem), calc(100vh - 26rem));
     @include padding(null 1rem);
-    @extend %flex;
-    @extend %flexCenter;
     flex-direction: column;
     overflow: hidden;
     text-align: center;
@@ -235,8 +233,6 @@ export default {
     }
     .box-dice {
       @include margin(null null 0.7rem null);
-      @extend %flex;
-      @extend %flexCenter;
       flex-wrap: wrap;
     }
   }
@@ -246,8 +242,6 @@ export default {
     display: flex;
     .wrapper-box {
       @include padding(0.7rem);
-      @extend %flex;
-      @extend %flexCenter;
       flex-wrap: nowrap;
       ::v-deep article {
         @include margin(null 0.7rem null null);

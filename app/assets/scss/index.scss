@@ -55,6 +55,10 @@ ul {
   overflow: auto;
 }
 
+.flex {
+  @extend %flex;
+}
+
 .flex-center {
   @extend %flex;
   @extend %flexCenter;

@@ -11,10 +11,10 @@
         @click="$store.commit('game/toggleNotification', null)"
       ></div>
       <div
-        :class="['notification-content', notificationTypes]"
+        :class="['notification-content flex-between', notificationTypes]"
         @click="$store.commit('game/toggleNotification', null)"
       >
-        <p>
+        <p class="flex">
           <span
             :class="[
               'yamicons mdi',
@@ -85,12 +85,9 @@ export default {
   .notification-content {
     @include padding(1rem);
     @include size(calc(100vw - 2rem), 3rem);
-    @extend %flex;
-    @extend %flexSpaceBetween;
     border-width: 0.05rem;
     border-top-style: solid;
     p {
-      @extend %flex;
       span {
         @include margin(null 0.4rem null null);
       }

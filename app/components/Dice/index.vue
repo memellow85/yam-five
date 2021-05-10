@@ -5,48 +5,48 @@
   >
     <div class="wrapper-dice">
       <div :class="`content-dice dice-${dice.value}`">
-        <div class="dice-face front">
+        <div class="dice-face front flex-center">
           <span class="dot"></span>
         </div>
-        <div class="dice-face front inner"></div>
-        <div class="dice-face back">
+        <div class="dice-face front inner flex-center"></div>
+        <div class="dice-face back flex">
           <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-        <div class="dice-face back inner"></div>
-        <div class="dice-face right">
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-        <div class="dice-face right inner"></div>
-        <div class="dice-face left">
-          <span class="dot"></span>
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-        <div class="dice-face left inner"></div>
-        <div class="dice-face top">
-          <span class="dot"></span>
-          <span class="dot"></span>
-        </div>
-        <div class="dice-face top inner"></div>
-        <div class="dice-face bottom">
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
         </div>
-        <div class="dice-face bottom inner"></div>
-        <div class="dice-face cover x"></div>
-        <div class="dice-face cover y"></div>
-        <div class="dice-face cover z"></div>
+        <div class="dice-face back inner flex"></div>
+        <div class="dice-face right flex">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="dice-face right inner flex"></div>
+        <div class="dice-face left flex">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="dice-face left inner flex"></div>
+        <div class="dice-face top flex">
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="dice-face top inner flex"></div>
+        <div class="dice-face bottom flex">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="dice-face bottom inner flex"></div>
+        <div class="dice-face cover x flex"></div>
+        <div class="dice-face cover y flex"></div>
+        <div class="dice-face cover z flex"></div>
       </div>
     </div>
   </div>
@@ -160,7 +160,6 @@ $rag: 2.5rem;
       .dice-face {
         @include size($dim);
         @include position(absolute, null);
-        @extend %flex;
         flex-direction: column;
         background: $white;
         box-shadow: $dice-shadow;
@@ -190,8 +189,6 @@ $rag: 2.5rem;
         }
         &.front {
           @include transformDice($rag, 0deg, 'y', true);
-          @extend %flex;
-          @extend %flexCenter;
           &.inner {
             @include transformDice(2.4rem, 0deg, 'y', true);
           }
