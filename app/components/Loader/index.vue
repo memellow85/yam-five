@@ -31,14 +31,14 @@
     @include font-size(22px, 1);
   }
   span {
-    margin-right: 2px;
+    @include margin(null 0.15rem null null);
     color: $white;
     animation-name: wave;
     animation-duration: 1.4s;
     animation-iteration-count: infinite;
     animation-fill-mode: both;
     &:last-child {
-      margin: 0;
+      @include margin(0);
     }
     &:nth-child(2) {
       animation-delay: 0.2s;

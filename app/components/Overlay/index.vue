@@ -8,10 +8,10 @@
     <div v-if="showOverlay" class="overlay-container">
       <div
         class="overlay-mask"
-        :style="`height: calc(100vh - (${heightOverlay}px))`"
+        :style="`height: calc(100vh - (${heightOverlay}rem))`"
         @click="$store.commit('game/resetModal')"
       ></div>
-      <div class="overlay-content" :style="`height: ${heightOverlay}px`">
+      <div class="overlay-content" :style="`height: ${heightOverlay}rem`">
         <div class="overlay-close" @click="$store.commit('game/resetModal')">
           <span class="yamicons mdi mdi-close"></span>
         </div>
@@ -30,7 +30,7 @@ export default {
     },
     heightOverlay: {
       type: Number,
-      default: 500,
+      default: 30,
     },
   },
 }
@@ -53,16 +53,17 @@ export default {
   }
   .overlay-content {
     @include position(relative, null);
-    // @include padding(15px);
     @include size(100vw, 0);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background: $white;
-    // box-shadow: $shadow-overlay;
     border-top: $border-base;
+    border-top-left-radius: $rounded;
+    border-top-right-radius: $rounded;
+    background: $white;
     .overlay-close {
-      @include position(absolute, 12px 15px null null);
+      @include position(absolute, 0.8rem 0.8rem null null);
     }
+  }
+  ::v-deep {
+    @extend %overlaySection;
   }
 }
 </style>

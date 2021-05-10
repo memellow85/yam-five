@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="overlay-view">
     <article>
       <h3>
         <span class="yamicons mdi mdi-view-grid-outline"></span>
@@ -135,14 +135,16 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  @include padding(15px);
   article {
     .schema-container {
-      @include margin(10px null null null);
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       .schema-column {
+        @include size(3rem, auto);
+        &:first-child {
+          @include size(4rem, auto);
+        }
         .cube {
           &.red {
             .yamicons {
@@ -160,13 +162,9 @@ section {
           }
         }
         > div {
-          @include size(auto, 30px);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          &:first-child {
-            @include size(auto, 50px);
-          }
+          @include size(100%, 2rem);
+          @extend %flex;
+          @extend %flexCenter;
         }
       }
     }

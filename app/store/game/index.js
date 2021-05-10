@@ -27,7 +27,7 @@ export const state = () => ({
   numberTotal: 0,
   currentGame: 'all',
   dices,
-  game: match,
+  game: match(),
   playedList: playedListCabled,
   played: 3,
   playedView: 'down',
@@ -312,7 +312,8 @@ export const mutations = {
   },
   initMatch(state) {
     // console.log('COMMIT-GAME initMatch')
-    state.game = match
+    console.log(match())
+    state.game = match()
     state.globalTotal = 0
     state.extraTotal = 0
     state.numberTotal = 0

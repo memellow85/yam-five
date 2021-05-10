@@ -1,24 +1,28 @@
 <template>
   <div
     :class="[
-      'cube',
+      'cube flex-center',
       dimension,
       { red: data.active && changeValue, green: data.active && !changeValue },
     ]"
   >
     <template v-if="data.active">
-      <span
-        v-longPress
-        :class="`yamicons mdi mdi-${
-          changeValue ? 'trash-can-outline' : 'plus-box-outline'
-        }`"
-        @click="submitValue"
-        @longPressStart="longPressStart"
-      ></span>
+      <div class="box-action flex-center">
+        <span
+          v-longPress
+          :class="`yamicons mdi mdi-${
+            changeValue ? 'trash-can-outline' : 'plus-box-outline'
+          }`"
+          @click="submitValue"
+          @longPressStart="longPressStart"
+        ></span>
+      </div>
       <p>{{ $t(data.label) }}</p>
     </template>
     <template v-else>
-      <p>{{ data.value }}</p>
+      <div class="box-action flex-center">
+        <p>{{ data.value }}</p>
+      </div>
       <p>{{ $t(data.label) }}</p>
     </template>
   </div>
@@ -67,15 +71,11 @@ export default {
 
 <style lang="scss" scoped>
 .cube {
-  @include margin(5px);
+  @include margin(0.3rem);
   background: $color-1;
-  border-radius: 5px;
-  display: flex;
+  border-radius: $rounded-small;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   .yamicons {
-    // -moz-touch-callout: none;
     -webkit-touch-callout: none;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -100,21 +100,21 @@ export default {
       color: $primary;
     }
   }
-  p {
-    @extend %strong;
+  .box-action {
+    @include size(1.5rem);
+  }
+  > p {
     @include font-size(10px, 1);
-    &:first-child {
-      @include font-size(20px, 28px);
-    }
+    @include margin(0.2rem null null);
   }
   &.small {
-    @include size(50px);
+    @include size(3rem);
   }
   &.medium {
-    @include size(60px);
+    @include size(3.5rem);
   }
   &.big {
-    @include size(70px);
+    @include size(4rem);
   }
 }
 </style>

@@ -21,7 +21,8 @@
     "form_4": "Nome",
     "btn_1": "Entra",
     "btn_2": "Registrati",
-    "link_1": "Guida"
+    "link_1": "guida",
+    "link_message": "Prima di iniziare leggi la "
   },
   "recovery": {
     "title": "Recupera password",

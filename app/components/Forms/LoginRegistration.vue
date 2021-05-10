@@ -1,109 +1,116 @@
 <template>
-  <div class="wrapper-offline">
-    <h2>{{ login ? $t('login.title_1') : $t('login.title_2') }}</h2>
-    <!-- Name -->
-    <FormsInput
-      v-if="!login"
-      :name="$t('login.form_4')"
-      :show-label="false"
-      :icon="'account-outline'"
-      :show-icon="name === ''"
-      :class="['textinput', { focus: focus === 'name' }]"
-    >
-      <input
-        id="name"
-        v-model="name"
-        autocomplete="off"
-        name="name"
-        type="text"
-        class="big"
-        :disabled="disabledAll"
-        :placeholder="$t('login.form_4')"
-        @focus="focus = 'name'"
-        @blur="focus = ''"
-        @keypress.enter="submitHandler"
-      />
-    </FormsInput>
-    <!-- Email -->
-    <FormsInput
-      :name="$t('login.form_1')"
-      :show-label="false"
-      :icon="'at'"
-      :show-icon="email === ''"
-      :class="['textinput', { focus: focus === 'email' }]"
-    >
-      <input
-        id="email"
-        v-model="email"
-        autocomplete="off"
-        name="email"
-        type="text"
-        class="big"
-        :disabled="disabledAll"
-        :placeholder="$t('login.form_1')"
-        @focus="focus = 'email'"
-        @blur="focus = ''"
-        @keypress.enter="submitHandler"
-      />
-    </FormsInput>
-    <!-- Password -->
-    <FormsInput
-      :name="$t('login.form_2')"
-      :show-label="false"
-      :icon="'shield-key-outline'"
-      :show-icon="password === ''"
-      :class="['textinput', { focus: focus === 'password' }]"
-    >
-      <input
-        id="password"
-        v-model="password"
-        autocomplete="off"
-        name="password"
-        type="password"
-        class="big"
-        :disabled="disabledAll"
-        :placeholder="$t('login.form_2')"
-        @focus="focus = 'password'"
-        @blur="focus = ''"
-        @keypress.enter="submitHandler"
-      />
-    </FormsInput>
-    <!-- Conferma password -->
-    <FormsInput
-      v-if="!login"
-      :name="$t('login.form_3')"
-      :show-label="false"
-      :icon="'shield-key-outline'"
-      :show-icon="conf_password === ''"
-      :class="['textinput', { focus: focus === 'conf_password' }]"
-    >
-      <input
-        id="conf_password"
-        v-model="conf_password"
-        autocomplete="off"
-        name="conf_password"
-        type="password"
-        class="big"
-        :disabled="disabledAll"
-        :placeholder="$t('login.form_3')"
-        @focus="focus = 'conf_password'"
-        @blur="focus = ''"
-        @keypress.enter="submitHandler"
-      />
-    </FormsInput>
-    <FormsNavigation
-      :login="login"
-      :registration="!login"
-      :loader="showLoader"
-      :disabled="
-        login
-          ? email === '' || password === ''
-          : email === '' ||
-            password === '' ||
-            conf_password === '' ||
-            conf_password !== password
-      "
-    ></FormsNavigation>
+  <div class="offline">
+    <div class="inner-offline">
+      <h2>{{ login ? $t('login.title_1') : $t('login.title_2') }}</h2>
+
+      <!-- Name -->
+      <FormsInput
+        v-if="!login"
+        :name="$t('login.form_4')"
+        :show-label="false"
+        :icon="'account-outline'"
+        :show-icon="name === ''"
+        :class="['textinput', { focus: focus === 'name' }]"
+      >
+        <input
+          id="name"
+          v-model="name"
+          autocomplete="off"
+          name="name"
+          type="text"
+          class="big"
+          :disabled="disabledAll"
+          :placeholder="$t('login.form_4')"
+          @focus="focus = 'name'"
+          @blur="focus = ''"
+          @keypress.enter="submitHandler"
+        />
+      </FormsInput>
+
+      <!-- Email -->
+      <FormsInput
+        :name="$t('login.form_1')"
+        :show-label="false"
+        :icon="'at'"
+        :show-icon="email === ''"
+        :class="['textinput', { focus: focus === 'email' }]"
+      >
+        <input
+          id="email"
+          v-model="email"
+          autocomplete="off"
+          name="email"
+          type="text"
+          class="big"
+          :disabled="disabledAll"
+          :placeholder="$t('login.form_1')"
+          @focus="focus = 'email'"
+          @blur="focus = ''"
+          @keypress.enter="submitHandler"
+        />
+      </FormsInput>
+
+      <!-- Password -->
+      <FormsInput
+        :name="$t('login.form_2')"
+        :show-label="false"
+        :icon="'shield-key-outline'"
+        :show-icon="password === ''"
+        :class="['textinput', { focus: focus === 'password' }]"
+      >
+        <input
+          id="password"
+          v-model="password"
+          autocomplete="off"
+          name="password"
+          type="password"
+          class="big"
+          :disabled="disabledAll"
+          :placeholder="$t('login.form_2')"
+          @focus="focus = 'password'"
+          @blur="focus = ''"
+          @keypress.enter="submitHandler"
+        />
+      </FormsInput>
+
+      <!-- Conferma password -->
+      <FormsInput
+        v-if="!login"
+        :name="$t('login.form_3')"
+        :show-label="false"
+        :icon="'shield-key-outline'"
+        :show-icon="conf_password === ''"
+        :class="['textinput', { focus: focus === 'conf_password' }]"
+      >
+        <input
+          id="conf_password"
+          v-model="conf_password"
+          autocomplete="off"
+          name="conf_password"
+          type="password"
+          class="big"
+          :disabled="disabledAll"
+          :placeholder="$t('login.form_3')"
+          @focus="focus = 'conf_password'"
+          @blur="focus = ''"
+          @keypress.enter="submitHandler"
+        />
+      </FormsInput>
+
+      <FormsNavigation
+        :login="login"
+        :registration="!login"
+        :loader="showLoader"
+        :disabled="
+          login
+            ? email === '' || password === ''
+            : email === '' ||
+              password === '' ||
+              conf_password === '' ||
+              conf_password !== password
+        "
+      ></FormsNavigation>
+    </div>
   </div>
 </template>
 
@@ -186,23 +193,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.focus {
-  ::v-deep span {
-    &.yamicons {
-      &:before {
-        color: $primary;
-      }
-    }
-  }
-}
-input[type='text'],
-input[type='password'] {
-  &::-webkit-input-placeholder {
-    @include padding(null null null 25px);
-    color: $color-6;
-    line-height: 20px;
-  }
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="overlay-view">
     <article>
       <h3>
         <span class="yamicons mdi mdi-cog-outline"></span>
@@ -11,15 +11,18 @@
       <FormsLanguages></FormsLanguages>
     </article>
     <article class="wrapper-tabs-form">
-      <ul class="custom-tabs">
+      <ul class="inline custom-tabs">
         <li
-          :class="{ active: tab === 'create', disabled: detailsRoom }"
+          :class="[
+            'center',
+            { active: tab === 'create', disabled: detailsRoom },
+          ]"
           @click="tab = 'create'"
         >
           <h4>{{ $t('config.tab_1') }}</h4>
         </li>
         <li
-          :class="{ active: tab === 'join', disabled: detailsRoom }"
+          :class="['center', { active: tab === 'join', disabled: detailsRoom }]"
           @click="tab = 'join'"
         >
           <h4>{{ $t('config.tab_2') }}</h4>
@@ -30,12 +33,12 @@
         <FormsGames></FormsGames>
       </div>
       <FormsJoin v-if="!detailsRoom" :tab="tab"></FormsJoin>
-      <p v-else>
+      <p v-else class="text-inner">
         {{ $t('config.join_1') }}<strong>{{ detailsRoom.room }}</strong>
         {{ $t('config.join_2') }}<strong>{{ usersFirebase.length - 1 }}</strong>
         {{ $t('config.join_3') }}
       </p>
-      <div v-if="detailsRoom" class="container-btn">
+      <div v-if="detailsRoom" class="container-btn flex">
         <button @click="leaveHandler">
           <Loader v-if="isLoadingLeftRoom"></Loader>
           <span v-else>{{ $t('config.btn_2') }}</span>
@@ -43,10 +46,9 @@
       </div>
     </article>
     <article>
-      <div class="exit" @click="leaveAppHandler">
-        <span class="yamicons mdi mdi-exit-run"></span>
-        <p>{{ $t('config.btn_3') }}</p>
-      </div>
+      <button class="full" @click="leaveAppHandler">
+        <span>{{ $t('config.btn_3') }}</span>
+      </button>
     </article>
   </section>
 </template>
@@ -93,57 +95,34 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  @include padding(15px);
   article {
-    @include margin(null null 40px);
-    &.wrapper-tabs-form {
-      @include size(100%, 189px);
-      p {
-        @include padding(15px null);
-        @include font-size(14px, 1);
-      }
-      .container-btn {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-      }
-    }
-    h3 {
-      @include margin(null null 10px null);
-    }
-    ul {
-      display: flex;
-      &.custom-tabs {
-        border-bottom: $border-base;
-      }
-      li {
-        &.active {
-          border-bottom: $border-base-active;
-        }
-        &.disabled {
-          border-bottom: none;
-        }
-      }
-    }
-    .wrapper-forms {
-      @include padding(10px 5px null 5px);
-    }
-    .exit {
-      @include padding(15px null null null);
-      border-top: $border-base;
-      display: flex;
-      justify-items: center;
-      align-items: center;
-      p {
-        @include margin(null null null 5px);
-      }
-    }
+    @include margin(null null 2rem);
     &:first-child {
-      @include margin(null null 10px);
+      @include margin(null null 0.9rem);
     }
     &:last-child {
       @include margin(null null 0);
-      text-align: center;
+    }
+    &.wrapper-tabs-form {
+      @include size(auto, 14rem);
+      .container-btn {
+        justify-content: flex-end;
+      }
+      .text-inner {
+        @include padding(1rem null);
+      }
+    }
+    ul {
+      li {
+        @include size(100%, auto);
+        border-bottom: $border-base-tab;
+        &.active {
+          border-bottom: $border-base-tab-active;
+        }
+        &.disabled {
+          border-bottom: $border-base-tab;
+        }
+      }
     }
   }
 }

@@ -1,19 +1,10 @@
 <template>
-  <div class="container-app">
-    <FormsLoginRegistration login></FormsLoginRegistration>
-    <Footer></Footer>
-  </div>
+  <FormsLoginRegistration login></FormsLoginRegistration>
 </template>
 
 <script>
 export default {
+  layout: 'offline',
   transition: 'slide-bottom',
 }
 </script>
-
-<style lang="scss" scoped>
-::v-deep .wrapper-offline {
-  @include margin(-115px null null -40%);
-  @include size(80%, 230px);
-}
-</style>
