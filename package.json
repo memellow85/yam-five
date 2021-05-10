@@ -67,3 +67,22 @@
     "vue-visibility-change": "1.2.1"
   }
 }
+
+
+{
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon app/server/index.js --watch server",
+    "start": "cross-env NODE_ENV=production node app/server/index.js",
+    "update_package": "del yarn.lock && yarn cache clean && yarn install"
+  },
+  "devDependencies": {
+    "@nuxtjs/axios": "^5.12.2",
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6",
+    "socket.io": "^3.0.3",
+    "socket.io-client": "^3.0.3",
+    "vue-socket.io-extended": "^4.0.5"
+  }
+}
+
