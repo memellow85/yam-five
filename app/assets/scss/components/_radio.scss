@@ -27,8 +27,8 @@
 }
 
 input + .radio__control::before {
-  @include margin(0.15rem null null 0.15rem);
-  @include size(0.5rem);
+  @include margin(2px null null 2px);
+  @include size(8px);
   content: ' ';
   display: block;
   border-radius: 50%;
@@ -43,13 +43,12 @@ input:checked + .radio__control::before {
 }
 
 input + .radio__control {
-  @include size(0.8rem);
+  @include size(12px);
   display: block;
   border-radius: 50%;
-  border: 0.15rem solid $color-3;
-  transform: translateY(-0.05em);
+  border: 2px solid $color-3;
 }
 
 input:checked + .radio__control {
-  border: 0.15rem solid $primary;
+  border: 2px solid $primary;
 }

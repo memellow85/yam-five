@@ -8,19 +8,19 @@
       <div class="wrapper-championship">
         <ul v-if="usersRealTimeChampions.length > 0">
           <li class="flex">
-            <span>{{ $t('champions.th_1') }}</span>
-            <span>{{ $t('champions.th_4') }}</span>
+            <p>{{ $t('champions.th_1') }}</p>
+            <p>{{ $t('champions.th_4') }}</p>
           </li>
           <li
             v-for="(u, index) in usersRealTimeChampions"
             :key="u.id"
             class="flex"
           >
-            <span>
+            <p>
               {{ index + 1 }}
               {{ u.uid === userFirebase.uid ? $t('champions.io') : u.name }}
-            </span>
-            <span>{{ u.tot }}</span>
+            </p>
+            <p>{{ u.tot }}</p>
           </li>
         </ul>
         <ul v-else>
