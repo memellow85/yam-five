@@ -48,7 +48,7 @@ export default {
     ...mapState('game', {
       currentGame: (state) => state.currentGame,
     }),
-    ...mapState({
+    ...mapState('firebase', {
       userDetailsFirebase: (state) => state.userDetailsFirebase,
     }),
   },
@@ -63,20 +63,15 @@ export default {
           match = 13
           break
       }
-      this.$store.commit('game/toogleModal', 'config')
-      if (this.tab === 'create') {
-        this.$store.dispatch('createRoomsFirebase', {
-          user: this.userDetailsFirebase,
-          room: this.room,
-          match,
-          type: this.currentGame,
-        })
-      } else {
-        this.$store.dispatch('joinRoomsFirebase', {
-          user: this.userDetailsFirebase,
-          room: this.room,
-        })
-      }
+      this.$store.commit('game/toggleModal', 'config')
+      // if (this.tab === 'create') {
+      this.$store.dispatch(`ws/addUserSocket`, {
+        user: this.userDetailsFirebase,
+        room: this.room,
+        match,
+        type: this.currentGame,
+        method: this.tab,
+      })
     },
   },
 }

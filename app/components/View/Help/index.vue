@@ -7,373 +7,350 @@
       </h3>
     </article>
     <div class="container-scroller-overlay body-scroll-lock-ignore-inner">
-      <p>
-        YamFive è un gioco di dadi semplice e divertente. Sfida i tuoi amici per
-        rendere più emozionante la partita!
-      </p>
+      <p>{{ $t('help.text_1') }}</p>
       <div>
-        <h4>Inizia la partita</h4>
-        <p>
-          Per iniziare una nuova partita vai nella sezione di configurazione e
-          inserisci il tuo nome e il nome di una "stanza". Questo nome dovrai
-          poi comunicarlo ai tuoi amici così da poter giocare insieme. NB: il
-          nome della stanza tiene conto di maniuscole e minuscole quindi
-          comunica in maniera corretta il nome ai tuoi amici.
-        </p>
+        <h4>{{ $t('help.title_2') }}</h4>
+        <p>{{ $t('help.text_2') }}</p>
       </div>
       <div>
-        <h4>Il Gioco</h4>
-        <p>
-          Lo scopo del gioco è ottenere un punteggio più alto possibile tirando
-          i 5 dadi e sommando i numeri usciti nelle diverse combinazioni di
-          gioco:
-        </p>
+        <h4>{{ $t('help.title_3') }}</h4>
+        <p>{{ $t('help.text_3') }}</p>
         <ul>
           <li>
-            <p><i>Punteggio di 1:</i> somma degli 1 ottenuti.</p>
-          </li>
-          <li>
-            <p><i>Punteggio di 2:</i> somma dei 2 ottenuti.</p>
-          </li>
-          <li>
-            <p><i>Punteggio di 3:</i> somma dei 3 ottenuti.</p>
-          </li>
-          <li>
-            <p><i>Punteggio di 4:</i> somma dei 4 ottenuti.</p>
-          </li>
-          <li>
-            <p><i>Punteggio di 5:</i> somma dei 5 ottenuti.</p>
-          </li>
-          <li>
-            <p><i>Punteggio di 6:</i> somma dei 6 ottenuti.</p>
-          </li>
-          <li>
             <p>
-              <i>Tiro minimo:</i> somma di tutti i dadi che deve essere
-              obbligatoriamente &lt; al punteggio ottenuto nel tiro massimo.
-              (ATTENZIONE: Se la somma di tiro minimo e tiro massimo è &gt; 50
-              al totale della giocata verranno aggiunti 30 punti bonus).
+              <i>{{ $t('help.text_3_1_1') }}</i>
+              {{ $t('help.text_3_1_2') }}
             </p>
           </li>
           <li>
             <p>
-              <i>Tiro massimo:</i> somma di tutti i dadi che deve essere
-              obbligatoriamente &gt; al punteggio ottenuto nel tiro minimo.
-              (ATTENZIONE: Se la somma di tiro minimo e tiro massimo è &gt; 50
-              al totale della giocata verranno aggiunti 30 punti bonus).
+              <i>{{ $t('help.text_3_2_1') }}</i>
+              {{ $t('help.text_3_2_2') }}
             </p>
           </li>
           <li>
             <p>
-              <i>Tiro minore o uguale a 11:</i> la somma dei dadi non deve
-              essere &gt; di 11.
+              <i>{{ $t('help.text_3_3_1') }}</i>
+              {{ $t('help.text_3_3_2') }}
             </p>
           </li>
           <li>
             <p>
-              <i>Full:</i> somma di tutti e 5 i dadi ottenuti con la
-              combinazione 3+2: 3 dadi con lo stesso valore + 2 dadi con lo
-              stesso valore (diverso da quello degli altri 3). Esempio tiro: 444
-              + 22 = Full di 16 punti.
+              <i>{{ $t('help.text_3_4_1') }}</i>
+              {{ $t('help.text_3_4_2') }}
             </p>
           </li>
           <li>
             <p>
-              <i>Poker:</i> somma di 4 dadi con lo stesso valore. Esempio tiro:
-              4444 + 1 = Poker di 16 punti.
+              <i>{{ $t('help.text_3_5_1') }}</i>
+              {{ $t('help.text_3_5_2') }}
             </p>
           </li>
           <li>
             <p>
-              <i>Scala:</i> Somma di 5 dadi con numeri successivi tra loro.
-              Esempio tiro: 12345 = scala di 15 punti, oppure 23456 = scala di
-              20 punti.
+              <i>{{ $t('help.text_3_6_1') }}</i>
+              {{ $t('help.text_3_6_2') }}
             </p>
           </li>
           <li>
             <p>
-              <i>Yam:</i> Somma di 5 dadi con lo stesso valore. Esempio tiro:
-              44444 = Yam di 20 punti
+              <i>{{ $t('help.text_3_7_1') }}</i>
+              {{ $t('help.text_3_7_2') }}
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.text_3_8_1') }}</i>
+              {{ $t('help.text_3_6_8') }}
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.text_3_9_1') }}</i>
+              {{ $t('help.text_3_9_2') }}
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.text_3_10_1') }}</i>
+              {{ $t('help.text_3_10_2') }}
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.text_3_11_1') }}</i>
+              {{ $t('help.text_3_11_2') }}
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.text_3_12_1') }}</i>
+              {{ $t('help.text_3_12_2') }}
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.text_3_13_1') }}</i>
+              {{ $t('help.text_3_13_2') }}
+            </p>
+          </li>
+        </ul>
+        <p>{{ $t('help.text_3_14') }}</p>
+        <p>
+          <i>{{ $t('help.text_3_15_1') }}</i>
+        </p>
+        <p>{{ $t('help.text_3_15_2') }}</p>
+        <ul>
+          <li>
+            <p>
+              <i>{{ $t('help.game_1') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_2') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_3') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_4') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_5') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_6') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_7') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_8') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_9') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_10') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_11') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_12') }}</i>
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>{{ $t('help.game_13') }}</i>
             </p>
           </li>
         </ul>
         <p>
-          Ad ogni turno di gioco, il/i giocatore/i ha/hanno a disposizione 3
-          tiri totali per ottenere l’obiettivo di tiro che ci si è prefissati di
-          raggiungere. Per ogni tiro si può decidere se lanciare tutti i dadi
-          oppure se tenerne validi alcuni, tenendoli “bloccati”, e rilanciare
-          solo gli altri. Una volta conclusi i 3 tiri disponibili si può
-          decidere se tenere valido il punteggio ottenuto, indicandone il valore
-          nella casella e nella giocata corrispondente, oppure se annullare il
-          tiro; in questo caso si dovrà decidere una casella a cui assegnare un
-          valore 0. NB: Nelle giocate dall’alto verso il basso e dal basso verso
-          l’alto l’annullamento di una casella deve essere fatto seguendo
-          l’ordine della giocata. Esempio: nel primo caso si può cancellare la
-          giocata successiva all’ultima inserita viceversa nel secondo caso. Il
-          gioco si conclude quando il/i giocatore/i conclude/dono tutte le
-          caselle delle 4 giocate (dall’alto verso il basso, libero, secco, dal
-          basso verso l’alto) seguendo le regole specifiche di ognuna di queste:
+          <i>{{ $t('help.text_3_16_1') }}</i>
         </p>
-        <p><i>Giocata 1 - dall’alto verso il basso</i></p>
+        <p>{{ $t('help.text_3_16_2') }}</p>
         <p>
-          In questa giocata bisogna completare i valori dei tiri seguendo
-          obbligatoriamente l’ordine dall’alto verso il basso:
+          <i>{{ $t('help.text_3_17_1') }}</i>
         </p>
+        <p>{{ $t('help.text_3_17_2') }}</p>
+        <p>
+          <i>{{ $t('help.text_3_18_1') }}</i>
+        </p>
+        <p>{{ $t('help.text_3_18_2') }}</p>
         <ul>
           <li>
-            <p><i>Punteggio di 1</i></p>
+            <p>
+              <i>{{ $t('help.game_13') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Punteggio di 2</i></p>
+            <p>
+              <i>{{ $t('help.game_12') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Punteggio di 3</i></p>
+            <p>
+              <i>{{ $t('help.game_11') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Punteggio di 4</i></p>
+            <p>
+              <i>{{ $t('help.game_10') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Punteggio di 5</i></p>
+            <p>
+              <i>{{ $t('help.game_9') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Punteggio di 6</i></p>
+            <p>
+              <i>{{ $t('help.game_8') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Tiro minimo</i></p>
+            <p>
+              <i>{{ $t('help.game_7') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Tiro massimo</i></p>
+            <p>
+              <i>{{ $t('help.game_6') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Tiro minore o uguale a 11</i></p>
+            <p>
+              <i>{{ $t('help.game_5') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Full</i></p>
+            <p>
+              <i>{{ $t('help.game_4') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Poker</i></p>
+            <p>
+              <i>{{ $t('help.game_3') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Scala</i></p>
+            <p>
+              <i>{{ $t('help.game_2') }}</i>
+            </p>
           </li>
           <li>
-            <p><i>Yam</i></p>
-          </li>
-        </ul>
-        <p><i>Giocata 2 - libero</i></p>
-        <p>
-          In questa giocata si possono completare i valori dei tiri senza
-          seguire nessun vincolo e nessun ordine particolare, “liberamente”
-          appunto.
-        </p>
-        <p><i>Giocata 3 - secco</i></p>
-        <p>
-          In questa giocata si possono completare i valori dei tiri senza
-          seguire nessun vincolo e nessun ordine particolare a patto che si
-          tratti di un punteggio ottenuto al primo lancio dei 3 disponibili per
-          ogni turno. Parliamo infatti di un “tiro secco”.
-        </p>
-        <p><i>Giocata 4 - dal basso verso l’alto</i></p>
-        <p>
-          In questa giocata - opposta alla giocata dall’ alto verso il basso -
-          bisogna completare i valori dei tiri seguendo obbligatoriamente
-          l’ordine dal basso verso l’alto:
-        </p>
-        <ul>
-          <li>
-            <p><i>Yam</i></p>
-          </li>
-          <li>
-            <p><i>Scala</i></p>
-          </li>
-          <li>
-            <p><i>Poker</i></p>
-          </li>
-          <li>
-            <p><i>Full</i></p>
-          </li>
-          <li>
-            <p><i>Tiro minore o uguale a 11</i></p>
-          </li>
-          <li>
-            <p><i>Tiro massimo</i></p>
-          </li>
-          <li>
-            <p><i>Tiro minimo</i></p>
-          </li>
-          <li>
-            <p><i>Punteggio di 6</i></p>
-          </li>
-          <li>
-            <p><i>Punteggio di 5</i></p>
-          </li>
-          <li>
-            <p><i>Punteggio di 4</i></p>
-          </li>
-          <li>
-            <p><i>Punteggio di 3</i></p>
-          </li>
-          <li>
-            <p><i>Punteggio di 2</i></p>
-          </li>
-          <li>
-            <p><i>Punteggio di 1</i></p>
+            <p>
+              <i>{{ $t('help.game_1') }}</i>
+            </p>
           </li>
         </ul>
       </div>
       <div>
-        <h4>Comandi</h4>
+        <h4>{{ $t('help.title_4') }}</h4>
         <p>
-          <i>Bloccare un dado:</i> cliccare sul dado che si vuole bloccare. Per
-          sbloccarlo è sufficiente cliccarci sopra un’altra volta
+          <i>{{ $t('help.text_4_1_1') }}</i>
+          {{ $t('help.text_4_1_2') }}
         </p>
         <p>
-          <i>Salvare una giocata:</i> per salvare e dunque segnare un tiro,
-          cliccare sul tasto + della singola giocata. In automatico a
-          quest’ultima verrà associato il valore ottenuto con il/i tiro/i appena
-          effettuati.
+          <i>{{ $t('help.text_4_2_1') }}</i>
+          {{ $t('help.text_4_2_2') }}
         </p>
         <p>
-          <i>Cancellare una giocata:</i> per cancellare e dunque annullare un
-          tiro, tenere premuto la casella del tiro che si vuole cancellare. A
-          questo punto l’icona verrà modificata e, cliccando su di essa, verrà
-          associato il valore 0 alla giocata scelta.
+          <i>{{ $t('help.text_4_3_1') }}</i>
+          {{ $t('help.text_4_3_2') }}
         </p>
       </div>
       <div>
-        <h4>Icone</h4>
+        <h4>{{ $t('help.title_5') }}</h4>
         <ul class="with-icon">
           <li>
             <span class="yamicons mdi mdi-cog-outline"></span>
-            <p>
-              Apre la schermata dov'è possibile partecipare a una partita e
-              settare la lingua del gioco.
-            </p>
+            <p>{{ $t('help.text_5_1') }}</p>
           </li>
           <li>
             <span class="yamicons mdi mdi-view-grid-outline"></span>
-            <p>
-              Apre la schermata riassuntiva di tutte le giocate, dov'è possibile
-              effettuare una giocata o semplicemente visualizzare lo schema
-              generale delle giocate.
-            </p>
+            <p>{{ $t('help.text_5_2') }}</p>
           </li>
           <li>
             <span class="yamicons mdi mdi-chart-line-variant"></span>
-            <p>
-              Apre la schermata della classifica aggiornata della partita e dei
-              record del gioco.
-            </p>
+            <p>{{ $t('help.text_5_3') }}</p>
           </li>
           <li>
             <span class="yamicons mdi mdi-help-circle-outline"></span>
-            <p>
-              Apre questa schermata dove trovate tutte le informazioni
-              necessarie per giocare.
-            </p>
+            <p>{{ $t('help.text_5_4') }}</p>
           </li>
           <li>
             <span class="yamicons mdi mdi-sort-bool-ascending-variant"></span>
-            <p>
-              Giocata a scendere significa che le giocate devo essere segnate in
-              ordine descrescente dall'1 allo Yam
-            </p>
+            <p>{{ $t('help.text_5_5') }}</p>
           </li>
           <li>
             <span class="yamicons mdi mdi-order-bool-ascending-variant"></span>
-            <p>
-              Giocata libera significa che le giocate posso essere segnate senza
-              nessun ordine.
-            </p>
+            <p>{{ $t('help.text_5_6') }}</p>
           </li>
           <li>
             <span class="yamicons mdi mdi-target"></span>
-            <p>
-              Giocata secca significa che le giocate posso essere segnate solo
-              al primo lancio dei dadi.
-            </p>
+            <p>{{ $t('help.text_5_7') }}</p>
           </li>
           <li>
             <span class="yamicons mdi mdi-sort-bool-descending-variant"></span>
-            <p>
-              Giocata a salire significa che le giocate devo essere segnate in
-              ordine crescente dallo Yam all'1.
-            </p>
+            <p>{{ $t('help.text_5_8') }}</p>
           </li>
           <li>
             <span class="yamicons mdi mdi-trash-can-outline"></span>
-            <p>Cancella la giocata e assegna il valore di 0.</p>
+            <p>{{ $t('help.text_5_9') }}</p>
           </li>
           <li>
             <span class="yamicons mdi mdi-plus-box-outline"></span>
-            <p>Salva la giocata segnando il valore della specifica giocata.</p>
+            <p>{{ $t('help.text_5_10') }}</p>
           </li>
         </ul>
       </div>
       <div>
-        <h4>I punti bonus</h4>
-        <p>
-          Ai punteggi ottenuti con i dadi, in ogni giocata, vengono assegnati
-          dei punti bonus che il giocatore riceve se:
-        </p>
+        <h4>{{ $t('help.title_6') }}</h4>
+        <p>{{ $t('help.text_6_1') }}</p>
         <ul>
           <li>
             <p>
-              <i
-                >La somma dei tiri singoli da 1 a 6 di una giocata è >= 60, al
-                totale della giocata vengono aggiunti 20 punti bonus. Se questa
-                stessa somma è >= 70 al totale della giocata vengono aggiunti 30
-                punti bonus.</i
-              >
+              <i>{{ $t('help.text_6_1_1') }}</i>
             </p>
           </li>
           <li>
             <p>
-              <i
-                >La somma di tiro minimo e tiro massimo è > 50, al totale della
-                giocata vengono aggiunti 30 punti bonus.</i
-              >
+              <i>{{ $t('help.text_6_1_2') }}</i>
             </p>
           </li>
         </ul>
-        <p>
-          Inoltre per i seguenti tiri, segnati come validi e dunque con valore
-          diverso da 0, al raggiungimento dell’obiettivo di tiro viene assegnato
-          uno speciale bonus che si aggiunge al punteggio ottenuto con il lancio
-          dei dadi:
-        </p>
+        <p>{{ $t('help.text_6_2') }}</p>
         <ul>
           <li>
             <p>
-              <i>Tiro minore e uguale a 11:</i> al totale del tiro vengono
-              aggiunti 30 punti bonus.
+              <i>{{ $t('help.text_6_2_1_1') }}</i> {{ $t('help.text_6_2_1_2') }}
             </p>
           </li>
           <li>
             <p>
-              <i>Full:</i> al totale del tiro vengono aggiunti 20 punti bonus.
+              <i>{{ $t('help.text_6_2_2_1') }}</i> {{ $t('help.text_6_2_2_2') }}
             </p>
           </li>
           <li>
             <p>
-              <i>Poker:</i> al totale del tiro vengono aggiunti 30 punti bonus.
+              <i>{{ $t('help.text_6_2_3_1') }}</i> {{ $t('help.text_6_2_3_2') }}
             </p>
           </li>
           <li>
             <p>
-              <i>Scala:</i> al totale del tiro vengono aggiunti 40 punti bonus.
+              <i>{{ $t('help.text_6_2_4_1') }}</i> {{ $t('help.text_6_2_4_2') }}
             </p>
           </li>
           <li>
             <p>
-              <i>Yam:</i> al totale del tiro vengono aggiunti 50 punti bonus.
+              <i>{{ $t('help.text_6_2_5_1') }}</i> {{ $t('help.text_6_2_5_2') }}
             </p>
           </li>
         </ul>
-        <p>
-          I punti bonus vengono calcolati dal sistema e inseriti automaticamente
-          al valore totale di una giocata.
-        </p>
+        <p>{{ $t('help.text_6_3') }}</p>
       </div>
     </div>
   </section>

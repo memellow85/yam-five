@@ -1,6 +1,7 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore'
+const firebase = require('firebase/app')
+require('firebase/auth')
+require('firebase/firestore')
+require('dotenv').config()
 
 const config = {
   apiKey: process.env.NUXT_ENV_FIREBASE_API_KEY,
@@ -11,13 +12,17 @@ const config = {
   appId: process.env.NUXT_ENV_FIREBASE_APP_ID,
 }
 
+const fb = firebase.default
+
 // eslint-disable-next-line no-unused-expressions
-if (!firebase.apps.length) {
-  firebase.initializeApp(config)
-  firebase.firestore().settings({ timestampsInSnapshots: true })
+if (!fb.apps.length) {
+  fb.initializeApp(config)
+  fb.firestore().settings({ timestampsInSnapshots: true })
 }
 
-export const auth = firebase.auth()
-export const db = firebase.firestore()
-export const utils = firebase.firestore
-export default firebase
+module.exports = {
+  auth: fb.auth(),
+  db: fb.firestore(),
+  utils: fb.firestore,
+  fb,
+}

@@ -15,33 +15,32 @@
         <li
           :class="[
             'center',
-            { active: tab === 'create', disabled: detailsRoom },
+            { active: tab === 'create', disabled: userSocket },
           ]"
           @click="tab = 'create'"
         >
           <h4>{{ $t('config.tab_1') }}</h4>
         </li>
         <li
-          :class="['center', { active: tab === 'join', disabled: detailsRoom }]"
+          :class="['center', { active: tab === 'join', disabled: userSocket }]"
           @click="tab = 'join'"
         >
           <h4>{{ $t('config.tab_2') }}</h4>
         </li>
       </ul>
-      <div v-if="tab === 'create' && !detailsRoom" class="wrapper-forms">
+      <div v-if="tab === 'create' && !userSocket" class="wrapper-forms">
         <h4>{{ $t('config.title_3') }}</h4>
         <FormsGames></FormsGames>
       </div>
-      <FormsJoin v-if="!detailsRoom" :tab="tab"></FormsJoin>
+      <FormsJoin v-if="!userSocket" :tab="tab"></FormsJoin>
       <p v-else class="text-inner">
-        {{ $t('config.join_1') }}<strong>{{ detailsRoom.room }}</strong>
-        {{ $t('config.join_2') }}<strong>{{ usersFirebase.length - 1 }}</strong>
+        {{ $t('config.join_1') }}<strong>{{ userSocket.room }}</strong>
+        {{ $t('config.join_2') }}<strong>{{ usersSocket.length - 1 }}</strong>
         {{ $t('config.join_3') }}
       </p>
-      <div v-if="detailsRoom" class="container-btn flex">
+      <div v-if="userSocket" class="container-btn flex">
         <button @click="leaveHandler">
-          <Loader v-if="isLoadingLeftRoom"></Loader>
-          <span v-else>{{ $t('config.btn_2') }}</span>
+          <span>{{ $t('config.btn_2') }}</span>
         </button>
       </div>
     </article>
@@ -63,31 +62,23 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      userFirebase: (state) => state.userFirebase,
-      usersFirebase: (state) => state.usersFirebase,
-      detailsRoom: (state) => state.detailsRoom,
-      isLeave: (state) => state.isLeave,
-      isLoadingLeftRoom: (state) => state.isLoadingLeftRoom,
+    ...mapState('ws', {
+      userSocket: (state) => state.userSocket,
+      usersSocket: (state) => state.usersSocket,
     }),
   },
   methods: {
     leaveHandler() {
-      this.$store.dispatch('logoutRoom')
+      this.$store.dispatch('ws/leftRoomSocket')
     },
     leaveAppHandler() {
-      this.$store.commit('game/toogleModal', 'config')
-      if (!this.isLeave) {
-        this.$store.dispatch('logout').then(() => {
-          this.$router.push('/')
-        })
-      } else {
-        this.$store.dispatch('logoutRoom').then(() => {
-          this.$store.dispatch('logout').then(() => {
-            this.$router.push('/')
-          })
-        })
+      this.$store.commit('game/toggleModal', 'config')
+      if (this.userSocket) {
+        this.leaveHandler()
       }
+      this.$store.dispatch('firebase/logout').then(() => {
+        this.$router.push('/')
+      })
     },
   },
 }

@@ -1,9 +1,10 @@
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const config = require('../../nuxt.config.js')
-const { app, server } = require('./ws')
+const { app, server } = require('./server')
+require('dotenv').config()
 
-config.dev = process.env.NODE_ENV !== 'production'
+config.dev = process.env.NUXT_ENV_NODE_ENV !== 'production'
 
 async function start() {
   const nuxt = new Nuxt(config)

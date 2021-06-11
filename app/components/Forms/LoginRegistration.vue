@@ -147,7 +147,7 @@ export default {
         this.disabledAll = true
         this.showLoader = true
         this.$store
-          .dispatch('login', {
+          .dispatch('firebase/login', {
             email: this.email,
             password: this.password,
           })
@@ -171,7 +171,7 @@ export default {
         this.disabledAll = true
         this.showLoader = true
         this.$store
-          .dispatch('registration', {
+          .dispatch('firebase/registration', {
             email: this.email,
             password: this.password,
             name: this.name,

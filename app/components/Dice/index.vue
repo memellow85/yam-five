@@ -1,10 +1,13 @@
 <template>
   <div
-    :class="`container-dice dice-${dice.value} ${dice.block ? 'block' : ''}`"
+    :class="`container-dice dice-${newValue} ${dice.block ? 'block' : ''}`"
     @click="clickDiceHandler(dice)"
   >
     <div class="wrapper-dice">
-      <div :class="`content-dice dice-${dice.value}`">
+      <div
+        :class="`content-dice dice-${newValue}`"
+        :style="`transition: transform ${equalValue ? '0.6' : '1.2'}s;`"
+      >
         <div class="dice-face front flex-center">
           <span class="dot"></span>
         </div>
@@ -63,13 +66,65 @@ export default {
         return {}
       },
     },
+    beforeDice: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+  },
+  data() {
+    return {
+      newValue: null,
+      equalValue: false,
+    }
   },
   computed: {
     ...mapState('game', {
       played: (state) => state.played,
     }),
   },
+  watch: {
+    $props: {
+      handler() {
+        this.getAnimateCurrentDice()
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
   methods: {
+    getAnimateCurrentDice() {
+      if (
+        Object.keys(this.beforeDice).length > 0 &&
+        this.dice.value === this.beforeDice.value
+      ) {
+        this.equalValue = true
+        if (this.dice.value >= 1 && this.dice.value <= 4) {
+          this.newValue = this.dice.value + 2
+        } else if (this.dice.value >= 5) {
+          this.newValue = this.dice.value - 2
+        }
+        setTimeout(() => {
+          this.newValue = this.dice.value
+        }, 600)
+      } else if (Object.keys(this.beforeDice).length > 0) {
+        this.equalValue = false
+        this.newValue = this.dice.value
+      } else if (
+        Object.keys(this.beforeDice).length === 0 &&
+        this.dice.value === 1
+      ) {
+        this.equalValue = true
+        this.newValue = this.dice.value + 2
+        setTimeout(() => {
+          this.newValue = this.dice.value
+        }, 600)
+      } else {
+        this.equalValue = false
+        this.newValue = this.dice.value
+      }
+    },
     clickDiceHandler(dice) {
       if (this.played < 3) {
         this.$store.commit('game/blockDice', dice)
@@ -138,7 +193,7 @@ $rag: 2.5rem;
       @include position(relative, null);
       transform-style: preserve-3d;
       transform: translateZ(-$rag);
-      transition: transform 1s;
+      // transition: transform 0.6s;
       &.dice-1 {
         @include transformDice(-$rag, 0deg, 'y');
       }
