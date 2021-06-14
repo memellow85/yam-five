@@ -57,6 +57,7 @@ io.on('connection', (socket) => {
     } else if (room && !room.active) {
       const usersIntoRoom = Rooms.GETUsersRoom(user.room)
       u.type = usersIntoRoom[0].type
+      u.match = usersIntoRoom[0].match
       Rooms.POSTUser(u)
       callback = u
     } else {

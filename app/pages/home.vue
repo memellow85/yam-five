@@ -10,11 +10,14 @@
         <template
           v-if="!startGame && userSocket && Object.keys(userSocket).length > 0"
         >
-          <p>
+          <p v-if="userSocket.turnOn">
             {{ $t('home.message_2_a') }} <strong>{{ userSocket.room }}</strong
             >. <br />{{ $t('home.message_2_b') }}
           </p>
-          <button @click="startAgame">{{ $t('home.btn_2') }}</button>
+          <p v-else>{{ $t('home.message_2_c') }}</p>
+          <button v-if="userSocket.turnOn" @click="startAgame">
+            {{ $t('home.btn_2') }}
+          </button>
         </template>
         <template
           v-if="

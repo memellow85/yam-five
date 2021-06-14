@@ -73,9 +73,9 @@ export default {
     },
     leaveAppHandler() {
       this.$store.commit('game/toggleModal', 'config')
-      if (this.userSocket) {
-        this.leaveHandler()
-      }
+      // if (this.userSocket) {
+      this.leaveHandler()
+      // }
       this.$store.dispatch('firebase/logout').then(() => {
         this.$router.push('/')
       })

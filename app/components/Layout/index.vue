@@ -99,9 +99,9 @@ export default {
           clearTimeout(this.timeReset)
         } else {
           this.timeReset = setTimeout(() => {
-            if (this.userSocket) {
-              this.$store.dispatch('ws/leftRoomSocket')
-            }
+            // if (this.userSocket) {
+            this.$store.dispatch('ws/leftRoomSocket')
+            // }
             this.$store.dispatch('firebase/logout').then(() => {
               this.$router.push('/')
             })

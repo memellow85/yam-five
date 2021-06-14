@@ -103,6 +103,7 @@ export const actions = {
       payload: null,
     })
     commit('clearDataSocket')
+    commit('game/newGame', false, { root: true })
     commit('game/initMatch', null, { root: true })
     commit('game/initDices', null, { root: true })
     commit('game/resetTurn', null, { root: true })
