@@ -31,11 +31,9 @@
     "scale"
   ],
   "scripts": {
-    "dev": "nuxt",
-    "dev_server": "nodemon app/server/index.js --watch server",
+    "dev": "nodemon app/server/index.js --watch server",
     "build": "nuxt build",
-    "start": "nuxt start",
-    "start_server": "node app/server/index.js",
+    "start": "node app/server/index.js",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "yarn lint:js",
