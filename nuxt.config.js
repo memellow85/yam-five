@@ -194,6 +194,10 @@ module.exports = {
     headers: {
       'Content-Type': 'application/json',
     },
+    baseURL:
+      process.env.NUXT_ENV_NODE_ENV !== 'production'
+        ? 'http://localhost:5000/'
+        : 'https://yamfive-app.herokuapp.com/',
   },
   /*
    ** Build configuration
