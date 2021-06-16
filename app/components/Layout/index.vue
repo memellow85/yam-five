@@ -22,7 +22,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { resize } from '@/directives/resize'
+import { resize } from '~/directives/resize'
 
 export default {
   directives: { resize },
@@ -44,13 +44,15 @@ export default {
     }
   },
   computed: {
-    ...mapState({
+    ...mapState('firebase', {
       userFirebase: (state) => state.userFirebase,
-      isLeave: (state) => state.isLeave,
     }),
     ...mapState('game', {
       showNotification: (state) => state.showNotification,
       showHelp: (state) => state.showHelp,
+    }),
+    ...mapState('ws', {
+      userSocket: (state) => state.userSocket,
     }),
   },
   created() {
@@ -97,18 +99,13 @@ export default {
           clearTimeout(this.timeReset)
         } else {
           this.timeReset = setTimeout(() => {
-            if (!this.isLeave) {
-              this.$store.dispatch('logout').then(() => {
-                this.$router.push('/')
-              })
-            } else {
-              this.$store.dispatch('logoutRoom').then(() => {
-                this.$store.dispatch('logout').then(() => {
-                  this.$router.push('/')
-                })
-              })
-            }
-          }, 180000)
+            // if (this.userSocket) {
+            this.$store.dispatch('ws/leftRoomSocket')
+            // }
+            this.$store.dispatch('firebase/logout').then(() => {
+              this.$router.push('/')
+            })
+          }, 300000)
         }
       }
       this.visible = !this.visible

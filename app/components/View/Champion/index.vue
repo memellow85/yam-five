@@ -6,19 +6,20 @@
         {{ $t('champions.title_1') }}
       </h3>
       <div class="wrapper-championship">
-        <ul v-if="usersRealTimeChampions.length > 0">
+        <ul v-if="usersOrderedSocket.length > 0">
           <li class="flex">
+            <p></p>
             <p>{{ $t('champions.th_1') }}</p>
             <p>{{ $t('champions.th_4') }}</p>
           </li>
           <li
-            v-for="(u, index) in usersRealTimeChampions"
+            v-for="(u, index) in usersOrderedSocket"
             :key="u.id"
-            class="flex"
+            :class="['flex', { io: u.user.uid === userFirebase.uid }]"
           >
+            <p>{{ index + 1 }}</p>
             <p>
-              {{ index + 1 }}
-              {{ u.uid === userFirebase.uid ? $t('champions.io') : u.name }}
+              {{ u.user.name }}
             </p>
             <p>{{ u.tot }}</p>
           </li>
@@ -39,13 +40,18 @@
       <div class="wrapper-championship">
         <ul v-if="usersChampions.length > 0">
           <li class="flex">
+            <p></p>
             <p>{{ $t('champions.th_1') }}</p>
             <p>{{ $t('champions.th_8') }}</p>
           </li>
-          <li v-for="(u, index) in usersChampions" :key="u.id" class="flex">
+          <li
+            v-for="(u, index) in usersChampions"
+            :key="u.id"
+            :class="['flex', { io: u.uid === userFirebase.uid }]"
+          >
+            <p>{{ index + 1 }}</p>
             <p>
-              {{ index + 1 }}
-              {{ u.uid === userFirebase.uid ? $t('champions.io') : u.name }}
+              {{ u.name }}
             </p>
             <p>{{ u.tot }}</p>
           </li>
@@ -66,10 +72,12 @@ import { mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState({
+    ...mapState('firebase', {
       userFirebase: (state) => state.userFirebase,
-      usersRealTimeChampions: (state) => state.usersRealTimeChampions,
       usersChampions: (state) => state.usersChampions,
+    }),
+    ...mapState('ws', {
+      usersOrderedSocket: (state) => state.usersOrderedSocket,
     }),
   },
 }
@@ -78,15 +86,28 @@ export default {
 <style lang="scss" scoped>
 section {
   article {
+    .wrapper-championship {
+      @include size(auto, 9rem);
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
     ul {
       li {
+        &.io {
+          p {
+            color: $primary;
+          }
+        }
         p {
-          @include size(calc(100% - 10rem), auto);
-          text-align: right;
+          @include size(10rem, auto);
+          text-align: left;
           line-height: 1.5;
           &:first-child {
-            @include size(10rem, auto);
-            text-align: left;
+            @include size(1rem, auto);
+          }
+          &:last-child {
+            @include size(calc(100% - 11rem), auto);
+            text-align: right;
           }
         }
         &.empty-state {

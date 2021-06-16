@@ -10,10 +10,7 @@
         :class="['game flex-center', { disabled: disabled }]"
         @click="gameHandler"
       >
-        <span
-          v-if="detailsRoom && detailsRoom.active && !newGame"
-          class="notification flex-center"
-        >
+        <span v-if="notification" class="notification flex-center">
           {{ played }}
         </span>
         <span class="yamicons mdi mdi-cube-outline"></span>
@@ -58,32 +55,36 @@ export default {
   computed: {
     ...mapState('game', {
       played: (state) => state.played,
+      startGame: (state) => state.startGame,
       newGame: (state) => state.newGame,
     }),
-    ...mapState({
-      detailsRoom: (state) => state.detailsRoom,
-      userFirebaseGame: (state) => state.userFirebaseGame,
+    ...mapState('ws', {
+      userSocket: (state) => state.userSocket,
     }),
     disabled() {
       return (
-        (this.userFirebaseGame && !this.userFirebaseGame.turnOn) ||
-        !this.detailsRoom
+        this.startGame === null ||
+        !this.userSocket.turnOn ||
+        !this.startGame ||
+        this.newGame
       )
+    },
+    notification() {
+      return this.startGame && this.userSocket.turnOn && !this.newGame
     },
   },
   methods: {
     actionsHandler(data) {
-      this.$store.commit('game/toogleModal', data.name)
+      this.$store.commit('game/toggleModal', data.name)
     },
     gameHandler() {
       if (!this.disabled) {
-        if (this.newGame) {
-          this.$store.dispatch('game/reinitGame')
-        } else if (this.detailsRoom.active) {
-          this.$store.dispatch('game/playedDecrese')
-          this.$store.commit('game/disabledPossibilityGame', this.played)
-        } else {
-          this.$store.dispatch('startGame')
+        if (this.startGame) {
+          this.$store.commit(`game/activeGame`)
+          setTimeout(() => {
+            this.$store.dispatch('game/playedDecrease')
+            this.$store.commit('game/disabledPossibilityGame', this.played)
+          }, 100)
         }
       }
     },

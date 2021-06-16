@@ -47,18 +47,10 @@ export default {
       currentGame: (state) => state.currentGame,
       intoRoom: (state) => state.intoRoom,
     }),
-    ...mapState({
-      user: (state) => state.user,
-    }),
   },
   watch: {
     currentGameLocal() {
       this.$store.commit('game/changeGames', this.currentGameLocal)
-      if (this.currentGameLocal === 'veryshort') {
-        this.$store.commit('game/changePlayedView', 'free')
-      } else {
-        this.$store.commit('game/changePlayedView', 'down')
-      }
     },
   },
   mounted() {

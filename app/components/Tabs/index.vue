@@ -6,11 +6,15 @@
           <li
             v-if="t.view.includes(currentGame)"
             :key="t.id"
+            :class="[{ selected: t.selected }]"
             @click="changePlayedHandler(t.name)"
           >
             <span
               :class="[`yamicons mdi mdi-${t.icon}`, { selected: t.selected }]"
             ></span>
+            <p :class="['small', { selected: t.selected }]">
+              {{ $t('tab.' + t.name) }}
+            </p>
           </li>
         </template>
       </ul>
@@ -41,11 +45,15 @@ section {
   @include padding(1.4rem 0 0.7rem);
   ul {
     @include padding(null 0.7rem);
-    @include size(auto, 2.6rem);
+    // @include size(auto, 2.6rem);
     background: $color-2;
     border-radius: $rounded-small;
     li {
-      @include padding(null 0.7rem);
+      @include padding(0.3rem 0.7rem);
+      text-align: center;
+      p {
+        @include padding(0.1rem null null null);
+      }
     }
   }
 }

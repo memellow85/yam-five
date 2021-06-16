@@ -12,13 +12,13 @@
 
 - Firebase Authentication
 - Firebase Firestore Database
+- Support websocket
 
 ## Configurations
 
 - Active Authentication by email/password
 - Create on Firestore Database two collections
   - First collection with name 'users'
-  - Second collection with name 'rooms'
 - Create .env file with follow params for configuration Firebase
   - NUXT_ENV_FIREBASE_API_KEY=copy api_key find in setting Firebase
   - NUXT_ENV_FIREBASE_AUTH_DOMAIN=copy auth_domain find in setting Firebase
@@ -42,12 +42,14 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.0.0 - First version of the game
 - 1.0.1 - Add recovery password + bugifx
 - 1.0.2 - Refactor style + bugfix
+- 1.0.3 - Remove Firebase for manage game rooms and integrate websocket + feature + bugfix
 
 ## Next release
-- 1.0.3 - Remove Firebase for manage game rooms and integrate websocket
 - 1.1.0 - New navigation app and new statistics section
 - 1.1.1 - Increase performance
 - 1.1.2 - New feature (tris, scale with four number)
+- 1.1.3 - Section for report a bug/features
+- 1.2.0 - Optimize app for desktop
 
 ## License
 

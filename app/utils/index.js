@@ -1,5 +1,23 @@
 export const getRandomNumberCube = () => Math.floor(Math.random() * 6) + 1
 
+export const logger = (message, data, type) => {
+  if (process.env.NUXT_ENV_APP_LOG === 'true') {
+    switch (type) {
+      case 'i':
+        console.info(message, data)
+        break
+      case 'e':
+        console.error(message, data)
+        break
+      case 'w':
+        console.warn(message, data)
+        break
+      default:
+        console.log(message, data)
+    }
+  }
+}
+
 export const calculateActualGame = (data, dices, minMax) => {
   /**
    * Raggruppo dadi per capire se può esserci un full o poker o yam

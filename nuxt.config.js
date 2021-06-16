@@ -1,10 +1,11 @@
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
-export default {
+module.exports = {
   ssr: false,
   components: true,
   telemetry: false,
   srcDir: 'app',
+  dev: process.env.NUXT_ENV_NODE_ENV !== 'production',
   /* server: {
     host: 'localhost',
     port: 5000, // default: 3000
@@ -158,7 +159,8 @@ export default {
     { src: '~/plugins/pwa-update.js' },
     { src: '~/plugins/i18n.js' },
     { src: '~/plugins/visibility.js' },
-    { src: '~/plugins/firebase.js', ssr: false },
+    { src: '~/plugins/socket-client.js' },
+    // { src: '~/plugins/firebase.js', ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -172,6 +174,7 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
+    '@nuxtjs/axios',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/pwa',
   ],
@@ -186,19 +189,26 @@ export default {
       '~/assets/scss/common/_helpers.scss',
     ],
   },
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {},
+  axios: {
+    debug: process.env.NUXT_ENV_NODE_ENV !== 'production',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  },
   /*
    ** Build configuration
    */
   build: {
+    extend(config, { isDev, isClient }) {
+      config.node = {
+        fs: 'empty',
+      }
+    },
     plugins: [
       new LodashModuleReplacementPlugin({
         collections: true,
         paths: true,
+        caching: true,
       }),
     ],
     performance: {
@@ -239,10 +249,15 @@ export default {
       },
     },
     babel: {
+      plugins: [
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
+        ['@babel/plugin-proposal-private-methods', { loose: true }],
+        ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
+      ],
       presets({ isServer }) {
         return [
           [
-            require.resolve('@nuxt/babel-preset-app'),
+            require.resolve('@nuxt/babel-preset-app', { loose: true }),
             // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
             {
               buildTarget: isServer ? 'server' : 'client',

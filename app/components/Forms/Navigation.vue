@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     showHelp() {
-      this.$store.commit('game/toogleModal', 'help')
+      this.$store.commit('game/toggleModal', 'help')
     },
     submitHandler() {
       this.$nuxt.$emit('submitHandler')

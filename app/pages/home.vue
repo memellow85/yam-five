@@ -3,47 +3,71 @@
     <!-- Contenuto centrale -->
     <div class="wrapper-main">
       <div class="container-match flex-center">
-        <template v-if="isLoadingRoom">
-          <p>{{ $t('home.message_0') }}</p>
-        </template>
-        <template v-if="isLoadingLeftRoom">
-          <p>{{ $t('home.message_4') }}</p>
-        </template>
-        <template v-if="!detailsRoom && !isLoadingRoom && !isLoadingLeftRoom">
+        <template v-if="!startGame && userSocket === null">
           <p>{{ $t('home.message_1') }}</p>
           <button @click="joinAmatch">{{ $t('home.btn_1') }}</button>
         </template>
-        <p
-          v-if="
-            detailsRoom &&
-            !detailsRoom.active &&
-            !isLoadingRoom &&
-            !isLoadingLeftRoom
-          "
+        <template
+          v-if="!startGame && userSocket && Object.keys(userSocket).length > 0"
         >
-          {{ $t('home.message_2_a') }} <strong>{{ detailsRoom.room }}</strong
-          >. <br />{{ $t('home.message_2_b') }}
-        </p>
+          <p v-if="userSocket.turnOn">
+            {{ $t('home.message_2_a') }} <strong>{{ userSocket.room }}</strong
+            >. <br />{{ $t('home.message_2_b') }}
+          </p>
+          <p v-else>{{ $t('home.message_2_c') }}</p>
+          <button v-if="userSocket.turnOn" @click="startAgame">
+            {{ $t('home.btn_2') }}
+          </button>
+        </template>
         <template
           v-if="
-            detailsRoom &&
-            detailsRoom.active &&
-            !isLoadingRoom &&
-            !isLoadingLeftRoom
+            !newGame &&
+            activeGame &&
+            startGame &&
+            userSocket &&
+            Object.keys(userSocket).length > 0
           "
         >
           <div class="box-dice flex-center">
-            <Dice :dice="dices.one"></Dice>
-            <Dice :dice="dices.two"></Dice>
-            <Dice :dice="dices.three"></Dice>
+            <Dice :dice="dices.one" :before-dice="beforeDices.one"></Dice>
+            <Dice :dice="dices.two" :before-dice="beforeDices.two"></Dice>
+            <Dice :dice="dices.three" :before-dice="beforeDices.three"></Dice>
             <div class="break"></div>
-            <Dice :dice="dices.four"></Dice>
-            <Dice :dice="dices.five"></Dice>
+            <Dice :dice="dices.four" :before-dice="beforeDices.four"></Dice>
+            <Dice :dice="dices.five" :before-dice="beforeDices.five"></Dice>
           </div>
           <p>
             {{ $t('home.message_3_a') }} <strong>{{ 3 - played }}</strong>
             {{ $t('home.message_3_b') }} <strong>{{ dices.tot }}</strong>
           </p>
+        </template>
+        <template
+          v-if="
+            !newGame &&
+            !activeGame &&
+            startGame &&
+            userSocket &&
+            Object.keys(userSocket).length > 0 &&
+            userSocket.turnOn
+          "
+        >
+          <p>{{ $t('home.message_5') }}</p>
+        </template>
+        <template
+          v-if="
+            !newGame &&
+            !activeGame &&
+            startGame &&
+            userSocket &&
+            Object.keys(userSocket).length > 0 &&
+            !userSocket.turnOn
+          "
+        >
+          <p>{{ $t('home.message_7') }}</p>
+        </template>
+        <template v-if="newGame">
+          <p>{{ $t('home.message_6') }}</p>
+          <button @click="startNewGame">{{ $t('home.btn_3') }}</button>
         </template>
       </div>
 
@@ -153,6 +177,7 @@
 <script>
 import { mapState } from 'vuex'
 import NoSleep from 'nosleep.js'
+import { logger } from '~/utils'
 
 export default {
   middleware: ['authenticated'],
@@ -163,23 +188,84 @@ export default {
       moveTop: null,
     }
   },
+  sockets: {
+    updateUsersSocketEmit(users) {
+      logger('SOCKETS updateUsersSocketEmit', users, 'i')
+      this.$store.commit(`ws/updateUsersSocket`, users)
+    },
+    updateUserSocketEmit(user) {
+      logger('SOCKETS updateUserSocketEmit', user, 'i')
+      this.$store.commit(`ws/setUserSocket`, user)
+      this.$store.commit('game/startGame', false)
+    },
+    setUserTurnSocketEmit(user) {
+      logger('SOCKETS setUserTurnSocketEmit', user, 'i')
+      this.$store.commit('ws/setUserTurnSocket', user)
+    },
+    startGameSocketEmit(user) {
+      logger('SOCKETS startGameSocketEmit', user, 'i')
+      this.$store.commit('game/startGame', true)
+      this.$store.commit('game/initDices')
+      this.$store.commit('ws/setUserTurnSocket', user)
+    },
+    winnerIsSocketEmit(notificationInfo) {
+      logger('SOCKETS winnerIsSocketEmit', notificationInfo, 'i')
+      const type = notificationInfo.count === 0 ? 'success' : 'alert'
+      const message =
+        notificationInfo.count === 0
+          ? this.$t('notification.win')
+          : this.$t('notification.lose') + notificationInfo.name
+      this.$store.commit('game/toggleNotification', {
+        type,
+        message,
+      })
+      this.$store.dispatch(`firebase/updateRecordUser`, notificationInfo.user)
+    },
+    newGameSocketEmit(value) {
+      logger('SOCKETS newGameSocketEmit', value, 'i')
+      this.$store.dispatch(`game/newGame`, value)
+    },
+    userLeaveMatchSocketEmit(user) {
+      logger('SOCKETS userLeaveMatchSocketEmit', user, 'i')
+      this.$store.commit(`game/toggleNotification`, {
+        type: 'alert',
+        message: user.user.name + this.$t('home.notification_3'),
+      })
+    },
+  },
   computed: {
     ...mapState('game', {
+      startGame: (state) => state.startGame,
+      activeGame: (state) => state.activeGame,
+      newGame: (state) => state.newGame,
       playedView: (state) => state.playedView,
       game: (state) => state.game,
       dices: (state) => state.dices,
+      beforeDices: (state) => state.beforeDices,
       played: (state) => state.played,
       showSchema: (state) => state.showSchema,
       showChampionsShip: (state) => state.showChampionsShip,
       showConfig: (state) => state.showConfig,
     }),
-    ...mapState({
-      userFirebase: (state) => state.userFirebase,
-      userFirebaseGame: (state) => state.userFirebaseGame,
-      detailsRoom: (state) => state.detailsRoom,
-      isLoadingRoom: (state) => state.isLoadingRoom,
-      isLoadingLeftRoom: (state) => state.isLoadingLeftRoom,
+    ...mapState('ws', {
+      userSocket: (state) => state.userSocket,
+      userTurnSocket: (state) => state.userTurnSocket,
     }),
+  },
+  watch: {
+    userTurnSocket() {
+      this.$store.commit('game/resetModal')
+      if (!this.userSocket.turnOn) {
+        this.$store.commit('game/toggleNotification', {
+          type: 'warning',
+          message: `${this.$t('home.notification_1')} ${
+            this.userTurnSocket.user.name
+          }`,
+        })
+      } else {
+        this.$store.commit('game/toggleNotification', null)
+      }
+    },
   },
   mounted() {
     // No sleep functions
@@ -205,7 +291,13 @@ export default {
   },
   methods: {
     joinAmatch() {
-      this.$store.commit('game/toogleModal', 'config')
+      this.$store.commit('game/toggleModal', 'config')
+    },
+    startAgame() {
+      this.$store.dispatch('game/startGame')
+    },
+    startNewGame() {
+      this.$store.dispatch('game/reigniteGame')
     },
   },
 }

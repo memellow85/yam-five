@@ -50,7 +50,7 @@ export default {
         this.disabledAll = true
         this.showLoader = true
         this.$store
-          .dispatch('recovery', {
+          .dispatch('firebase/recovery', {
             recovery: this.recovery,
           })
           .then(() => {

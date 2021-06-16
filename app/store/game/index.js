@@ -1,4 +1,5 @@
-import { getRandomNumberCube, calculateActualGame } from '~/utils'
+import cloneDeep from 'lodash/cloneDeep'
+import { getRandomNumberCube, calculateActualGame, logger } from '~/utils'
 import {
   dicesTypesCabled,
   gamesTypesCabled,
@@ -6,8 +7,6 @@ import {
   dices,
   match,
 } from '~/lists'
-
-export const strict = false
 
 /**
  * State
@@ -27,6 +26,7 @@ export const state = () => ({
   numberTotal: 0,
   currentGame: 'all',
   dices,
+  beforeDices: {},
   game: match(),
   playedList: playedListCabled,
   played: 3,
@@ -41,14 +41,14 @@ export const state = () => ({
  */
 export const mutations = {
   resetModal(state) {
-    // console.log('COMMIT-GAME resetModal')
+    logger('COMMIT-GAME resetModal', null, 'i')
     state.showSchema = false
     state.showChampionsShip = false
     state.showConfig = false
     state.showHelp = false
   },
-  toogleModal(state, type) {
-    // console.log('COMMIT-GAME toogleModal', type)
+  toggleModal(state, type) {
+    logger('COMMIT-GAME toggleModal', type, 'i')
     switch (type) {
       case 'help':
         state.showHelp = !state.showHelp
@@ -64,12 +64,12 @@ export const mutations = {
         break
     }
   },
-  playedDecrese(state) {
-    // console.log('COMMIT-GAME playedDecrese')
+  playedDecrease(state) {
+    logger('COMMIT-GAME playedDecrease', null, 'i')
     state.played = state.played - 1
   },
   changePlayedView(state, value) {
-    // console.log('COMMIT-GAME changePlayedView', value)
+    logger('COMMIT-GAME changePlayedView', value, 'i')
     state.playedList = state.playedList.map((v) => {
       v.selected = v.name === value
       return v
@@ -77,11 +77,11 @@ export const mutations = {
     state.playedView = value
   },
   startGame(state, value) {
-    // console.log('COMMIT-GAME startGame', value)
+    logger('COMMIT-GAME startGame', value, 'i')
     state.startGame = value
   },
   blockDice(state, dice) {
-    // console.log('COMMIT-GAME blockDice', dice)
+    logger('COMMIT-GAME blockDice', dice, 'i')
     dicesTypesCabled.map((v) => {
       if (state.dices[v].name === dice.name) {
         state.dices[v].block = !state.dices[v].block
@@ -90,7 +90,8 @@ export const mutations = {
     })
   },
   initDices(state) {
-    // console.log('COMMIT-GAME initDices')
+    logger('COMMIT-GAME initDices', null, 'i')
+    state.beforeDices = {}
     dicesTypesCabled.map((v) => {
       state.dices[v].value = 0
       state.dices[v].name = v
@@ -100,7 +101,10 @@ export const mutations = {
     state.dices.tot = 0
   },
   setDice(state) {
-    // console.log('COMMIT-GAME setDice')
+    logger('COMMIT-GAME setDice', null, 'i')
+    if (state.played < 2) {
+      state.beforeDices = cloneDeep(state.dices)
+    }
     let tot = 0
     dicesTypesCabled.map((v) => {
       if (!state.dices[v].block) {
@@ -112,7 +116,7 @@ export const mutations = {
     state.dices.tot = tot
   },
   activeGame(state) {
-    // console.log('COMMIT-GAME activeGame', state.activeGame)
+    logger('COMMIT-GAME activeGame', null, 'i')
     if (!state.activeGame) {
       gamesTypesCabled.map((g) => {
         Object.keys(state.game[g].data).map((d) => {
@@ -130,7 +134,7 @@ export const mutations = {
     }
   },
   resetGame(state) {
-    // console.log('COMMIT-GAME resetGame')
+    logger('COMMIT-GAME resetGame', null, 'i')
     gamesTypesCabled.map((g) => {
       Object.keys(state.game[g].data).map((d) => {
         state.game[g].data[d].active = false
@@ -140,7 +144,7 @@ export const mutations = {
     })
   },
   setActualValue(state, data) {
-    // console.log('COMMIT-GAME setActualValue', data)
+    logger('COMMIT-GAME setActualValue', data, 'i')
     gamesTypesCabled.map((g) => {
       if (g === state.playedView) {
         state.game[g].data[data.name].value = calculateActualGame(
@@ -154,7 +158,7 @@ export const mutations = {
     })
   },
   disabledPossibilityGame(state, played) {
-    // console.log('COMMIT-GAME disabledPossibilityGame', played, state.game)
+    logger('COMMIT-GAME disabledPossibilityGame', played, 'i')
     if (played === 1) {
       Object.keys(state.game.dry.data).map((key) => {
         state.game.dry.data[key].active = false
@@ -185,7 +189,7 @@ export const mutations = {
       })
   },
   resetActualValue(state, data) {
-    // console.log('COMMIT-GAME resetActualValue', data)
+    logger('COMMIT-GAME resetActualValue', data, 'i')
     gamesTypesCabled.map((g) => {
       if (g === state.playedView) {
         state.game[g].data[data.name].value = 0
@@ -195,7 +199,7 @@ export const mutations = {
     })
   },
   toggleNotification(state, data) {
-    // console.log('COMMIT-GAME toggleNotification', data)
+    logger('COMMIT-GAME toggleNotification', data, 'i')
     if (data) {
       state.showNotification = true
       state.notificationTypes = data.type
@@ -213,12 +217,12 @@ export const mutations = {
     }
   },
   resetTurn(state) {
-    // console.log('COMMIT-GAME resetTurn')
+    logger('COMMIT-GAME resetTurn', null, 'i')
     state.played = 3
     state.activeGame = false
   },
   setGlobalTotal(state) {
-    // console.log('COMMIT-GAME setGlobalTotal')
+    logger('COMMIT-GAME setGlobalTotal', null, 'i')
     state.globalTotal = 0
     state.numberTotal = 0
     state.extraTotal = 0
@@ -311,20 +315,25 @@ export const mutations = {
     })
   },
   initMatch(state) {
-    // console.log('COMMIT-GAME initMatch')
-    console.log(match())
+    logger('COMMIT-GAME initMatch', null, 'i')
     state.game = match()
     state.globalTotal = 0
     state.extraTotal = 0
     state.numberTotal = 0
   },
   newGame(state, value) {
-    // console.log('COMMIT-GAME newGame', value)
+    logger('COMMIT-GAME newGame', value, 'i')
     state.newGame = value
   },
   changeGames(state, value) {
-    // console.log('COMMIT-GAME changeGames', value)
+    logger('COMMIT-GAME changeGames', value, 'i')
     state.currentGame = value
+    const g = value === 'veryshort' ? 'free' : 'down'
+    state.playedList = state.playedList.map((v) => {
+      v.selected = v.name === g
+      return v
+    })
+    state.playedView = g
   },
 }
 
@@ -332,37 +341,45 @@ export const mutations = {
  * Actions
  */
 export const actions = {
-  reinitGame({ commit }) {
-    // console.log('ACTION-GAME reinitGame')
-    commit('newGame', false)
+  startGame({ commit, dispatch }) {
+    logger('ACTION-GAME startGame', null, 'i')
+    dispatch('ws/startGameSocket', {}, { root: true })
+    commit('startGame', true)
+    commit('initDices')
   },
-  playedDecrese({ commit, state }) {
-    // console.log('ACTION-GAME playedDecrese')
+  reigniteGame({ commit }) {
+    logger('ACTION-GAME reigniteGame', null, 'i')
+    commit('newGame', false)
+    commit('initDices')
+    commit('initMatch')
+    // Reset classifica ?
+  },
+  playedDecrease({ commit, state }) {
+    logger('ACTION-GAME playedDecrease', null, 'i')
     if (state.played !== 0) {
-      commit('playedDecrese')
+      commit('playedDecrease')
       commit('setDice')
-      commit('activeGame')
+      // commit('activeGame')
     }
   },
   setActualValue({ commit, dispatch }, data) {
-    // console.log('ACTION-GAME setActualValue', data)
+    logger('ACTION-GAME setActualValue', data, 'i')
     commit('setActualValue', data)
     dispatch('updateTurnUser')
   },
   resetActualValue({ commit, dispatch }, data) {
-    // console.log('ACTION-GAME resetActualValue', data)
+    logger('ACTION-GAME resetActualValue', data, 'i')
     commit('resetActualValue', data)
     dispatch('updateTurnUser')
   },
   updateTurnUser({ commit, dispatch, state }) {
-    // console.log('ACTION-GAME updateTurnUser')
+    logger('ACTION-GAME updateTurnUser', null, 'i')
     commit('setGlobalTotal')
     commit('resetTurn')
     commit('resetGame')
     commit('initDices')
-
     dispatch(
-      'checkNextTurn',
+      'ws/finishTurnSocket',
       {
         global: state.globalTotal,
         extra: state.extraTotal,
@@ -370,12 +387,22 @@ export const actions = {
       },
       { root: true }
     )
+    /* dispatch(
+      'ws/updateTotalSocket',
+      {
+        global: state.globalTotal,
+        extra: state.extraTotal,
+        number: state.numberTotal,
+      },
+      { root: true }
+    ) */
+    dispatch('ws/finishGameSocket', null, { root: true })
   },
   newGame({ commit }, value) {
-    // console.log('ACTION-GAME newGame', value)
+    logger('ACTION-GAME newGame', value, 'i')
     commit('newGame', value)
-    commit('initDices')
-    commit('initMatch')
+    // commit('initDices')
+    // commit('initMatch')
     commit('resetTurn')
   },
 }
