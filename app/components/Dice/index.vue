@@ -6,7 +6,11 @@
     <div class="wrapper-dice">
       <div
         :class="`content-dice dice-${newValue}`"
-        :style="`transition: transform ${equalValue ? '0.6' : '1.2'}s;`"
+        :style="
+          !blockValue
+            ? `transition: transform ${equalValue ? '0.6' : '1.2'}s;`
+            : ''
+        "
       >
         <div class="dice-face front flex-center">
           <span class="dot"></span>
@@ -77,6 +81,7 @@ export default {
     return {
       newValue: null,
       equalValue: false,
+      blockValue: false,
     }
   },
   computed: {
@@ -99,28 +104,42 @@ export default {
         Object.keys(this.beforeDice).length > 0 &&
         this.dice.value === this.beforeDice.value
       ) {
-        this.equalValue = true
-        if (this.dice.value >= 1 && this.dice.value <= 4) {
-          this.newValue = this.dice.value + 2
-        } else if (this.dice.value >= 5) {
-          this.newValue = this.dice.value - 2
-        }
-        setTimeout(() => {
+        if (!this.dice.block) {
+          this.blockValue = false
+          this.equalValue = true
+          if (this.dice.value >= 1 && this.dice.value <= 4) {
+            this.newValue = this.dice.value + 2
+          } else if (this.dice.value >= 5) {
+            this.newValue = this.dice.value - 2
+          }
+          setTimeout(() => {
+            this.newValue = this.dice.value
+          }, 600)
+        } else {
+          this.blockValue = true
           this.newValue = this.dice.value
-        }, 600)
+        }
       } else if (Object.keys(this.beforeDice).length > 0) {
+        this.blockValue = false
         this.equalValue = false
         this.newValue = this.dice.value
       } else if (
         Object.keys(this.beforeDice).length === 0 &&
         this.dice.value === 1
       ) {
-        this.equalValue = true
-        this.newValue = this.dice.value + 2
-        setTimeout(() => {
+        if (!this.dice.block) {
+          this.blockValue = false
+          this.equalValue = true
+          this.newValue = this.dice.value + 2
+          setTimeout(() => {
+            this.newValue = this.dice.value
+          }, 600)
+        } else {
+          this.blockValue = true
           this.newValue = this.dice.value
-        }, 600)
+        }
       } else {
+        this.blockValue = false
         this.equalValue = false
         this.newValue = this.dice.value
       }
