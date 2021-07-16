@@ -49,6 +49,22 @@ class Rooms {
     })
   }
 
+  PUTRoomUsers(users, type) {
+    this.users = this.users.map((v) => {
+      let match = 52
+      switch (type) {
+        case 'short':
+          match = 26
+          break
+        case 'veryshort':
+          match = 13
+          break
+      }
+      v.match = match
+      return v
+    })
+  }
+
   DELETERoom(name) {
     this.rooms = this.rooms.filter((room) => room.name !== name)
   }
@@ -109,21 +125,6 @@ class Rooms {
       this.users.filter((u) => u.match === 0 && u.room === room).length
     )
   }
-
-  /*
-  resetAllUsers(room) {
-    this.users = this.users.map((v, k) => {
-      if (v.room === room) {
-        v.yourTurn = v.order_id === 1
-        v.match = v.reinitMatch
-        v.tot = 0
-        v.num = 0
-        v.extra = 0
-      }
-      return v
-    })
-  }
-  */
 }
 
 module.exports = () => {

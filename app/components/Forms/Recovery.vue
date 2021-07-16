@@ -44,6 +44,14 @@ export default {
       showLoader: false,
     }
   },
+  created() {
+    this.$nuxt.$on('submitHandler', () => {
+      this.submitHandler()
+    })
+  },
+  destroyed() {
+    this.$nuxt.$off('submitHandler')
+  },
   methods: {
     submitHandler() {
       if (this.recovery !== '') {

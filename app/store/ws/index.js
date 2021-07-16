@@ -96,6 +96,13 @@ export const actions = {
       payload: state.userSocket,
     })
   },
+  updateGameSocket({ dispatch, state }) {
+    logger('ACTION-WS updateGameSocket', null, 'i')
+    dispatch('socketEmit', {
+      action: 'update_game',
+      payload: state.userSocket,
+    })
+  },
   leftRoomSocket({ commit, dispatch }) {
     logger('ACTION-WS leftRoomSocket', null, 'i')
     dispatch('socketEmit', {

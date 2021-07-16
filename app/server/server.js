@@ -104,6 +104,13 @@ io.on('connection', (socket) => {
     socket.to(user.room).emit('startGameSocketEmit', user)
   })
 
+  socket.on('update_game', (user) => {
+    let usersIntoRoom = Rooms.GETUsersRoom(user.room)
+    Rooms.PUTRoomUsers(usersIntoRoom, user.type)
+    usersIntoRoom = Rooms.GETUsersRoom(user.room)
+    io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
+  })
+
   socket.on('finish_turn', (user) => {
     Rooms.PUTChampionShipRoom(user)
     Rooms.PUTTurnUsers(user.room)
