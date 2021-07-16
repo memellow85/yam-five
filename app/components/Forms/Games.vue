@@ -13,7 +13,7 @@
           />
           <span class="radio__control"></span>
         </span>
-        <span class="radio__label">{{ r.name }}</span>
+        <span class="radio__label">{{ $t(r.name) }}</span>
       </label>
     </div>
   </div>
@@ -28,15 +28,15 @@ export default {
       games: [
         {
           code: 'all',
-          name: this.$t('games.all'),
+          name: 'games.all',
         },
         {
           code: 'short',
-          name: this.$t('games.short'),
+          name: 'games.short',
         },
         {
           code: 'veryshort',
-          name: this.$t('games.veryshort'),
+          name: 'games.veryshort',
         },
       ],
       currentGameLocal: '',

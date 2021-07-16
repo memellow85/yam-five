@@ -82,32 +82,36 @@
   justify-content: space-between;
 }
 
+%styleHelp {
+  ul {
+    @include margin(null null 1rem);
+    &.with-icon {
+      li {
+        @include margin(null null 0.4rem);
+        p {
+          @include margin(0);
+        }
+      }
+    }
+    li {
+      @extend %flex;
+      p {
+        @include margin(null null 0.2rem);
+      }
+      .yamicons {
+        @include margin(null 0.3rem null null);
+      }
+    }
+  }
+}
+
 %overlaySection {
   .overlay-view {
     article {
       @include padding(null 1rem);
     }
     .container-scroller-overlay {
-      ul {
-        @include margin(null null 1rem);
-        &.with-icon {
-          li {
-            @include margin(null null 0.4rem);
-            p {
-              @include margin(0);
-            }
-          }
-        }
-        li {
-          @extend %flex;
-          p {
-            @include margin(null null 0.2rem);
-          }
-          .yamicons {
-            @include margin(null 0.3rem null null);
-          }
-        }
-      }
+      @extend %styleHelp;
     }
   }
 }

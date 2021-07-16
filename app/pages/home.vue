@@ -1,237 +1,198 @@
 <template>
-  <div class="container-app">
-    <!-- Contenuto centrale -->
-    <div class="wrapper-main">
-      <div class="container-match flex-center">
-        <template v-if="!startGame && userSocket === null">
-          <p>{{ $t('home.message_1') }}</p>
-          <button @click="joinAmatch">{{ $t('home.btn_1') }}</button>
-        </template>
-        <template
-          v-if="!startGame && userSocket && Object.keys(userSocket).length > 0"
-        >
-          <p v-if="userSocket.turnOn">
-            {{ $t('home.message_2_a') }} <strong>{{ userSocket.room }}</strong
-            >. <br />{{ $t('home.message_2_b') }}
-          </p>
-          <p v-else>{{ $t('home.message_2_c') }}</p>
-          <button v-if="userSocket.turnOn" @click="startAgame">
-            {{ $t('home.btn_2') }}
-          </button>
-        </template>
-        <template
-          v-if="
-            !newGame &&
-            activeGame &&
-            startGame &&
-            userSocket &&
-            Object.keys(userSocket).length > 0
-          "
-        >
-          <div class="box-dice flex-center">
-            <Dice :dice="dices.one" :before-dice="beforeDices.one"></Dice>
-            <Dice :dice="dices.two" :before-dice="beforeDices.two"></Dice>
-            <Dice :dice="dices.three" :before-dice="beforeDices.three"></Dice>
-            <div class="break"></div>
-            <Dice :dice="dices.four" :before-dice="beforeDices.four"></Dice>
-            <Dice :dice="dices.five" :before-dice="beforeDices.five"></Dice>
+  <div>
+    <Header></Header>
+    <div class="container-app">
+      <!-- Contenuto centrale -->
+      <div class="wrapper-main">
+        <div class="container-match flex-center">
+          <template v-if="!startGame && userSocket === null">
+            <p>{{ $t('home.message_1') }}</p>
+            <button @click="joinAmatch">{{ $t('home.btn_1') }}</button>
+          </template>
+          <template
+            v-if="
+              !startGame && userSocket && Object.keys(userSocket).length > 0
+            "
+          >
+            <p v-if="userSocket.turnOn">
+              {{ $t('home.message_2_a') }} <strong>{{ userSocket.room }}</strong
+              >. <br />{{ $t('home.message_2_b') }}
+            </p>
+            <p v-else>{{ $t('home.message_2_c') }}</p>
+            <button v-if="userSocket.turnOn" @click="startAgame">
+              {{ $t('home.btn_2') }}
+            </button>
+          </template>
+          <template
+            v-if="
+              !newGame &&
+              activeGame &&
+              startGame &&
+              userSocket &&
+              Object.keys(userSocket).length > 0
+            "
+          >
+            <div class="box-dice flex-center">
+              <Dice :dice="dices.one" :before-dice="beforeDices.one"></Dice>
+              <Dice :dice="dices.two" :before-dice="beforeDices.two"></Dice>
+              <Dice :dice="dices.three" :before-dice="beforeDices.three"></Dice>
+              <div class="break"></div>
+              <Dice :dice="dices.four" :before-dice="beforeDices.four"></Dice>
+              <Dice :dice="dices.five" :before-dice="beforeDices.five"></Dice>
+            </div>
+            <p>
+              {{ $t('home.message_3_a') }} <strong>{{ 3 - played }}</strong>
+              {{ $t('home.message_3_b') }} <strong>{{ dices.tot }}</strong>
+            </p>
+          </template>
+          <template
+            v-if="
+              !newGame &&
+              !activeGame &&
+              startGame &&
+              userSocket &&
+              Object.keys(userSocket).length > 0 &&
+              userSocket.turnOn
+            "
+          >
+            <p>{{ $t('home.message_5') }}</p>
+          </template>
+          <template
+            v-if="
+              !newGame &&
+              !activeGame &&
+              startGame &&
+              userSocket &&
+              Object.keys(userSocket).length > 0 &&
+              !userSocket.turnOn
+            "
+          >
+            <p>{{ $t('home.message_7') }}</p>
+          </template>
+          <template v-if="newGame">
+            <p>{{ $t('home.message_6') }}</p>
+            <button @click="startNewGame">{{ $t('home.btn_3') }}</button>
+          </template>
+        </div>
+
+        <!-- Tabs di navigazione tra giocate -->
+        <Tabs></Tabs>
+
+        <!-- Set delle giocate -->
+        <div class="container-box body-scroll-lock-ignore">
+          <div class="wrapper-box flex-center">
+            <Box
+              :class-name="'single'"
+              :title="$t('home.title_1')"
+              :info="$t('home.help_1')"
+            >
+              <Cube
+                :dimension="'medium'"
+                :data="game[playedView].data['one']"
+              ></Cube>
+              <Cube
+                :dimension="'medium'"
+                :data="game[playedView].data['two']"
+              ></Cube>
+              <Cube
+                :dimension="'medium'"
+                :data="game[playedView].data['three']"
+              ></Cube>
+              <div class="break"></div>
+              <Cube
+                :dimension="'medium'"
+                :data="game[playedView].data['four']"
+              ></Cube>
+              <Cube
+                :dimension="'medium'"
+                :data="game[playedView].data['five']"
+              ></Cube>
+              <Cube
+                :dimension="'medium'"
+                :data="game[playedView].data['six']"
+              ></Cube>
+            </Box>
+            <Box
+              :class-name="'maxmin'"
+              :title="$t('home.title_2')"
+              :info="$t('home.help_2')"
+            >
+              <Cube
+                :dimension="'big'"
+                :data="game[playedView].data['min']"
+              ></Cube>
+              <Cube
+                :dimension="'big'"
+                :data="game[playedView].data['max']"
+              ></Cube>
+            </Box>
+            <Box
+              :class-name="'extra1'"
+              :title="$t('home.title_3')"
+              :info="$t('home.help_3')"
+            >
+              <Cube
+                :dimension="'medium'"
+                :data="game[playedView].data['mineleven']"
+              ></Cube>
+              <Cube
+                :dimension="'medium'"
+                :data="game[playedView].data['full']"
+              ></Cube>
+              <Cube
+                :dimension="'medium'"
+                :data="game[playedView].data['poker']"
+              ></Cube>
+            </Box>
+            <Box
+              :class-name="'extra2'"
+              :title="$t('home.title_4')"
+              :info="$t('home.help_4')"
+            >
+              <Cube
+                :dimension="'big'"
+                :data="game[playedView].data['scale']"
+              ></Cube>
+              <Cube
+                :dimension="'big'"
+                :data="game[playedView].data['yam']"
+              ></Cube>
+            </Box>
           </div>
-          <p>
-            {{ $t('home.message_3_a') }} <strong>{{ 3 - played }}</strong>
-            {{ $t('home.message_3_b') }} <strong>{{ dices.tot }}</strong>
-          </p>
-        </template>
-        <template
-          v-if="
-            !newGame &&
-            !activeGame &&
-            startGame &&
-            userSocket &&
-            Object.keys(userSocket).length > 0 &&
-            userSocket.turnOn
-          "
-        >
-          <p>{{ $t('home.message_5') }}</p>
-        </template>
-        <template
-          v-if="
-            !newGame &&
-            !activeGame &&
-            startGame &&
-            userSocket &&
-            Object.keys(userSocket).length > 0 &&
-            !userSocket.turnOn
-          "
-        >
-          <p>{{ $t('home.message_7') }}</p>
-        </template>
-        <template v-if="newGame">
-          <p>{{ $t('home.message_6') }}</p>
-          <button @click="startNewGame">{{ $t('home.btn_3') }}</button>
-        </template>
-      </div>
-
-      <!-- Tabs di navigazione tra giocate -->
-      <Tabs></Tabs>
-
-      <!-- Set delle giocate -->
-      <div class="container-box body-scroll-lock-ignore">
-        <div class="wrapper-box flex-center">
-          <Box
-            :class-name="'single'"
-            :title="$t('home.title_1')"
-            :info="$t('home.help_1')"
-          >
-            <Cube
-              :dimension="'medium'"
-              :data="game[playedView].data['one']"
-            ></Cube>
-            <Cube
-              :dimension="'medium'"
-              :data="game[playedView].data['two']"
-            ></Cube>
-            <Cube
-              :dimension="'medium'"
-              :data="game[playedView].data['three']"
-            ></Cube>
-            <div class="break"></div>
-            <Cube
-              :dimension="'medium'"
-              :data="game[playedView].data['four']"
-            ></Cube>
-            <Cube
-              :dimension="'medium'"
-              :data="game[playedView].data['five']"
-            ></Cube>
-            <Cube
-              :dimension="'medium'"
-              :data="game[playedView].data['six']"
-            ></Cube>
-          </Box>
-          <Box
-            :class-name="'maxmin'"
-            :title="$t('home.title_2')"
-            :info="$t('home.help_2')"
-          >
-            <Cube
-              :dimension="'big'"
-              :data="game[playedView].data['min']"
-            ></Cube>
-            <Cube
-              :dimension="'big'"
-              :data="game[playedView].data['max']"
-            ></Cube>
-          </Box>
-          <Box
-            :class-name="'extra1'"
-            :title="$t('home.title_3')"
-            :info="$t('home.help_3')"
-          >
-            <Cube
-              :dimension="'medium'"
-              :data="game[playedView].data['mineleven']"
-            ></Cube>
-            <Cube
-              :dimension="'medium'"
-              :data="game[playedView].data['full']"
-            ></Cube>
-            <Cube
-              :dimension="'medium'"
-              :data="game[playedView].data['poker']"
-            ></Cube>
-          </Box>
-          <Box
-            :class-name="'extra2'"
-            :title="$t('home.title_4')"
-            :info="$t('home.help_4')"
-          >
-            <Cube
-              :dimension="'big'"
-              :data="game[playedView].data['scale']"
-            ></Cube>
-            <Cube
-              :dimension="'big'"
-              :data="game[playedView].data['yam']"
-            ></Cube>
-          </Box>
         </div>
       </div>
+
+      <!-- All overlay -->
+      <!-- <LazyOverlay :show-overlay="showConfig" :height-overlay="28">
+        <LazyViewConfig></LazyViewConfig>
+      </LazyOverlay>
+      <LazyOverlay :show-overlay="showSchema" :height-overlay="33">
+        <LazyViewSchemas></LazyViewSchemas>
+      </LazyOverlay>
+      <LazyOverlay :show-overlay="showChampionsShip" :height-overlay="25">
+        <LazyViewChampion></LazyViewChampion>
+      </LazyOverlay> -->
     </div>
-
-    <!-- Navigation -->
-    <Navigation></Navigation>
-
-    <!-- All overlay -->
-    <LazyOverlay :show-overlay="showConfig" :height-overlay="28">
-      <LazyViewConfig></LazyViewConfig>
-    </LazyOverlay>
-    <LazyOverlay :show-overlay="showSchema" :height-overlay="33">
-      <LazyViewSchemas></LazyViewSchemas>
-    </LazyOverlay>
-    <LazyOverlay :show-overlay="showChampionsShip" :height-overlay="25">
-      <LazyViewChampion></LazyViewChampion>
-    </LazyOverlay>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import NoSleep from 'nosleep.js'
-import { logger } from '~/utils'
+import WsMixin from '@/mixins/ws'
 
 export default {
+  mixins: [WsMixin],
+  beforeRouteLeave(to, from, next) {
+    this.$store.commit(`game/setNavigationRoute`, true)
+    next()
+  },
   middleware: ['authenticated'],
-  transition: 'slide-bottom',
   data() {
     return {
       noSleep: new NoSleep(),
       moveTop: null,
     }
-  },
-  sockets: {
-    updateUsersSocketEmit(users) {
-      logger('SOCKETS updateUsersSocketEmit', users, 'i')
-      this.$store.commit(`ws/updateUsersSocket`, users)
-    },
-    updateUserSocketEmit(user) {
-      logger('SOCKETS updateUserSocketEmit', user, 'i')
-      this.$store.commit(`ws/setUserSocket`, user)
-      this.$store.commit('game/startGame', false)
-    },
-    setUserTurnSocketEmit(user) {
-      logger('SOCKETS setUserTurnSocketEmit', user, 'i')
-      this.$store.commit('ws/setUserTurnSocket', user)
-    },
-    startGameSocketEmit(user) {
-      logger('SOCKETS startGameSocketEmit', user, 'i')
-      this.$store.commit('game/startGame', true)
-      this.$store.commit('game/initDices')
-      this.$store.commit('ws/setUserTurnSocket', user)
-    },
-    winnerIsSocketEmit(notificationInfo) {
-      logger('SOCKETS winnerIsSocketEmit', notificationInfo, 'i')
-      const type = notificationInfo.count === 0 ? 'success' : 'alert'
-      const message =
-        notificationInfo.count === 0
-          ? this.$t('notification.win')
-          : this.$t('notification.lose') + notificationInfo.name
-      this.$store.commit('game/toggleNotification', {
-        type,
-        message,
-      })
-      this.$store.dispatch(`firebase/updateRecordUser`, notificationInfo.user)
-    },
-    newGameSocketEmit(value) {
-      logger('SOCKETS newGameSocketEmit', value, 'i')
-      this.$store.dispatch(`game/newGame`, value)
-    },
-    userLeaveMatchSocketEmit(user) {
-      logger('SOCKETS userLeaveMatchSocketEmit', user, 'i')
-      this.$store.commit(`game/toggleNotification`, {
-        type: 'alert',
-        message: user.user.name + this.$t('home.notification_3'),
-      })
-    },
   },
   computed: {
     ...mapState('game', {
@@ -272,26 +233,27 @@ export default {
     this.noSleep.enable()
     // Serve per prevenire il bounce su ios
     // Prevents window from moving on touch on older browsers.
-    window.addEventListener(
+    /* window.addEventListener(
       'touchmove',
       function (event) {
         event.preventDefault()
       },
       { passive: false }
-    )
+    ) */
 
     // Allows content to move on touch.
-    document.querySelector('.body-scroll-lock-ignore').addEventListener(
+    /* document.querySelector('.body-scroll-lock-ignore').addEventListener(
       'touchmove',
       function (event) {
         event.stopPropagation()
       },
       { passive: false }
-    )
+    ) */
   },
   methods: {
     joinAmatch() {
-      this.$store.commit('game/toggleModal', 'config')
+      // this.$store.commit('game/toggleModal', 'config')
+      this.$router.push({ name: 'game-config' })
     },
     startAgame() {
       this.$store.dispatch('game/startGame')

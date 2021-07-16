@@ -1,86 +1,86 @@
 {
   "nameapp": "yamfive",
   "language": {
-    "it": "Italian",
-    "en": "English"
+    "it": "Italiano",
+    "en": "Inglese"
   },
   "view": {
-    "configuration": "Configuration"
+    "configuration": "Configurazione"
   },
   "games": {
-    "all": "All",
-    "short": "Short",
-    "veryshort": "Very short"
+    "all": "Completo",
+    "short": "Breve",
+    "veryshort": "Brevissimo"
   },
   "login": {
     "title_1": "Login",
-    "title_2": "Registration",
+    "title_2": "Registrazione",
     "form_1": "E-Mail",
     "form_2": "Password",
-    "form_3": "Confirm password",
-    "form_4": "Name",
-    "btn_1": "Enter",
-    "btn_2": "Register",
-    "link_1": "rule",
-    "link_message": "Before start read a "
+    "form_3": "Conferma password",
+    "form_4": "Nome",
+    "btn_1": "Entra",
+    "btn_2": "Registrati",
+    "link_1": "guida",
+    "link_message": "Prima di iniziare leggi la "
   },
   "recovery": {
-    "title": "Recovery password",
+    "title": "Recupera password",
     "form": "E-Mail",
-    "btn": "Recovery"
+    "btn": "Recupera"
   },
   "home": {
-    "message_1": "Go to settings and create or connect to a room before you can start a game.",
-    "btn_1": "Create or join to the play",
-    "btn_2": "Start a game",
-    "btn_3": "Start new game",
-    "message_2_a": "You were join to the room",
-    "message_2_b": "Start playing by making the first roll.",
-    "message_2_c": "Wait your opponent to start a game.",
-    "message_3_a": "The total of the roll number",
-    "message_3_b": " is ",
-    "message_5": "Play the game with the first roll ...",
-    "message_6": "Start now a other match...",
-    "message_7": "Your opponent he's playing... wait your turn.",
-    "title_1": "PLAY INDIVIDUALS",
-    "title_2": "MINIMUM & MAXIMUM",
+    "message_1": "Vai nelle impostazioni e crea o collegati ad una stanza prima di poter iniziare una partita.",
+    "btn_1": "Crea o unisciti ad un partita",
+    "btn_2": "Inizia a giocare",
+    "btn_3": "Inizia una nuova partita",
+    "message_2_a": "Sei stato unito alla stanza",
+    "message_2_b": "Inizia a giocare facendo il primo lancio.",
+    "message_2_c": "Aspetta il tuo avversario che inizi la partita.",
+    "message_3_a": "Il totale del lancio numero",
+    "message_3_b": " è ",
+    "message_5": "Lancia il dado per iniziare...",
+    "message_6": "Inizia subito un'altra partita...",
+    "message_7": "Il tuo avversario sta giocando... a breve sarà il tuo turno.",
+    "title_1": "GIOCATE SINGOLE",
+    "title_2": "MINIMO & MASSIMO",
     "title_3": "EXTRA 20/30",
     "title_4": "EXTRA 40/50",
-    "help_1": "BONUS<br />Sum > 60 = +20<br />Sum > 70 = +30",
-    "help_2": "BONUS<br />Min + Max > 50 = +30",
-    "help_3": "BONUS<br />Sum < 11 = +30<br />Full = +20<br />Poker = +30",
-    "help_4": "BONUS<br />Scale = +40<br />YamFive = +50",
-    "notification_1": "Is turn of: ",
-    "notification_2": "For better usability, keep the device in portrait.",
-    "notification_3": " has a problem and he exits of match. You exit of the room and init new match."
+    "help_1": "BONUS<br />Somma > 60 = +20<br />Somma > 70 = +30",
+    "help_2": "BONUS<br />Minimo + Massimo > 50 = +30",
+    "help_3": "BONUS<br />Somma < 11 = +30<br />Full = +20<br />Poker = +30",
+    "help_4": "BONUS<br />Scala = +40<br />YamFive = +50",
+    "notification_1": "E' il turno di: ",
+    "notification_2": "Per una migliore usabilità tenere il device in portrait.",
+    "notification_3": " ha avuto un problema ed ha abbandonato la partita. Lascia la stanza e inizia una nuova partita"
   },
   "config": {
-    "title_2": "Preferred language",
-    "title_3": "Type of the game",
-    "btn_1": "Join",
-    "btn_2": "Leave",
-    "btn_3": "Logout",
-    "btn_4": "Create",
-    "form_2": "Room",
-    "join_1": "You join into room ",
-    "join_2": " with other ",
-    "join_3": " users",
-    "tab_1": "Create",
-    "tab_2": "Join"
+    "title_2": "Lingua preferita",
+    "title_3": "Modalità di gioco",
+    "btn_1": "Unisciti",
+    "btn_2": "Abbandona",
+    "btn_3": "Esci",
+    "btn_4": "Crea",
+    "form_2": "Stanza",
+    "join_1": "Ti sei unito alla stanza ",
+    "join_2": " con altri ",
+    "join_3": " utenti",
+    "tab_1": "Crea",
+    "tab_2": "Unisciti"
   },
   "champions": {
-    "title_1": "Ranking",
+    "title_1": "Classifica",
     "title_2": "Records",
-    "empty_1": "Empty players",
-    "empty_2": "Empty champions",
-    "th_1": "Name",
-    "th_2": "Match",
-    "th_4": "All",
-    "th_8": "Total sun played"
+    "empty_1": "Nessun giocatore presente",
+    "empty_2": "Nessun giocatore in classifica",
+    "th_1": "Nome",
+    "th_2": "Partite",
+    "th_4": "Completo",
+    "th_8": "Totale giocate"
   },
   "schemas": {
-    "title_1": "Summary play",
-    "scale": "Scale",
+    "title_1": "Sommatoria giocate",
+    "scale": "Scala",
     "yam": "YamFive"
   },
   "help": {
@@ -173,31 +173,36 @@
     "game_12": "Scala",
     "game_13": "Yam"
   },
+  "stats": {
+    "title_1": "sssss",
+    "actual_roll": "sssadas da",
+    "dices": "ss "
+  },
   "notification": {
-    "refresh": "Refresh",
-    "add": "Add",
-    "win": "You WIN!!!",
-    "lose": "You LOST!!! The winner is: "
+    "refresh": "Aggiorna",
+    "add": "Aggiungi",
+    "win": "Hai VINTO!!!",
+    "lose": "Hai PERSO!!! Il vincitore è: "
   },
   "game": {
-    "one": "One",
-    "two": "Two",
-    "three": "Three",
-    "four": "Four",
-    "five": "Five",
-    "six": "Six",
+    "one": "Uno",
+    "two": "Due",
+    "three": "Tre",
+    "four": "Quattro",
+    "five": "Cinque",
+    "six": "Sei",
     "min": "Min",
     "max": "Max",
     "mineleven": "<= 11",
     "full": "Full",
     "poker": "Poker",
-    "scale": "Scale",
+    "scale": "Scala",
     "yam": "YamFive"
   },
   "tab": {
-    "down": "Down",
-    "up": "Up",
-    "free": "Free",
-    "dry": "Dry"
+    "down": "Scendere",
+    "up": "Salire",
+    "free": "Libero",
+    "dry": "Secco"
   }
 }

@@ -6,10 +6,12 @@ module.exports = {
   telemetry: false,
   srcDir: 'app',
   dev: process.env.NUXT_ENV_NODE_ENV !== 'production',
-  /* server: {
+  server: {
     host: 'localhost',
     port: 5000, // default: 3000
-  }, */
+  },
+  layoutTransition: 'fade-in',
+  pageTransition: 'fade-in',
   /*
    ** Headers of the page
    */
@@ -141,7 +143,7 @@ module.exports = {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#00A676', height: '3px' },
+  loading: false, // { color: '#00A676', height: '3px' },
   /*
    ** Global CSS
    */

@@ -78,6 +78,51 @@ ul {
   text-align: center;
 }
 
+.wrapper-page {
+  @include size(100%, calc(100vh - 3.5rem));
+  overflow: hidden;
+  .main {
+    @include size(100%, calc(100vh - 6.8rem));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    .wrapper-help {
+      @extend %styleHelp;
+    }
+  }
+  article {
+    @include padding(null 1rem);
+    @include margin(null null 2rem);
+    &:first-child {
+      @include margin(null null 0rem);
+    }
+    &:last-child {
+      @include margin(null null 0);
+    }
+    &.wrapper-tabs-form {
+      .container-btn {
+        justify-content: flex-end;
+      }
+      .text-inner {
+        @include padding(1rem null);
+      }
+    }
+    ul {
+      &.custom-tabs {
+        li {
+          @include size(100%, auto);
+          border-bottom: $border-base-tab;
+          &.active {
+            border-bottom: $border-base-tab-active;
+          }
+          &.disabled {
+            border-bottom: $border-base-tab;
+          }
+        }
+      }
+    }
+  }
+}
+
 @import "common/typography";
 @import "components/inputs";
 @import "components/buttons";

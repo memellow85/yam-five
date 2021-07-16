@@ -5,7 +5,7 @@
     @orientationHandler="orientationHandler"
   >
     <!-- Title -->
-    <h1>{{ $t('nameapp') }}</h1>
+    <!-- <h1>{{ $t('nameapp') }}</h1> -->
 
     <!-- Content -->
     <slot></slot>

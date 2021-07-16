@@ -246,6 +246,7 @@
             </p>
           </li>
         </ul>
+        <p>{{ $t('help.text_3_19_1') }}</p>
       </div>
       <div>
         <h4>{{ $t('help.title_4') }}</h4>

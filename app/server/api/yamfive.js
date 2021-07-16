@@ -4,11 +4,11 @@ const router = express.Router()
 
 const USER_DETAILS = 'users'
 
-const compare = (a, b) => {
+/* const compare = (a, b) => {
   if (a.tot > b.tot) return -1
   if (b.tot > a.tot) return 1
   return 0
-}
+} */
 
 router.route('/login').post((req, res) => {
   firebase.auth
@@ -47,19 +47,19 @@ router
   .route('/user')
   .get((req, res) => {
     firebase.db
-      .collection('users')
+      .collection(USER_DETAILS)
       .get()
       .then((data) => {
-        let list = []
+        const list = []
         data.docs.forEach((d) => {
-          const user = d.data()
+          /* const user = d.data()
           const objTmp = {
             uid: user.uid,
             name: user.name,
             tot: user.score + user.score_short + user.score_veryshort,
-          }
-          list.push(objTmp)
-          list = list.sort(compare)
+          } */
+          list.push(d.data())
+          // list = list.sort(compare)
         })
         res.status(200).json(list)
       })

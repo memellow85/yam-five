@@ -2,8 +2,13 @@
   <footer>
     <nav class="flex-between">
       <ul class="inline">
-        <li v-for="m in menuLeft" :key="m.name" @click="actionsHandler(m)">
-          <span :class="`yamicons mdi mdi-${m.icon}`"></span>
+        <li
+          v-for="m in menuLeft"
+          :key="m.name"
+          :class="{ selected: $route.name === m.name }"
+          @click="actionsHandler(m)"
+        >
+          <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
         </li>
       </ul>
       <div
@@ -16,8 +21,13 @@
         <span class="yamicons mdi mdi-cube-outline"></span>
       </div>
       <ul class="inline">
-        <li v-for="m in menuRight" :key="m.name" @click="actionsHandler(m)">
-          <span :class="`yamicons mdi mdi-${m.icon}`"></span>
+        <li
+          v-for="m in menuRight"
+          :key="m.name"
+          :class="{ selected: $route.name === m.name }"
+          @click="actionsHandler(m)"
+        >
+          <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
         </li>
       </ul>
     </nav>
@@ -32,22 +42,30 @@ export default {
     return {
       menuLeft: [
         {
-          name: 'config',
-          icon: 'cog-outline',
+          name: 'home',
+          icon: 'gamepad-variant-outline',
         },
         {
-          name: 'help',
-          icon: 'help-circle-outline',
+          name: 'game-games',
+          icon: 'view-grid-outline',
+        },
+        {
+          name: 'game-stats',
+          icon: 'chart-box-outline',
         },
       ],
       menuRight: [
         {
-          name: 'schema',
-          icon: 'view-grid-outline',
+          name: 'game-help',
+          icon: 'account-question-outline',
         },
         {
-          name: 'champions',
-          icon: 'chart-line-variant',
+          name: 'game-ranking',
+          icon: 'arm-flex-outline',
+        },
+        {
+          name: 'game-config',
+          icon: 'cog-outline',
         },
       ],
     }
@@ -74,10 +92,16 @@ export default {
     },
   },
   methods: {
+    getIconName(elm) {
+      return this.$route.name === elm.name
+        ? elm.icon.replace('-outline', '')
+        : elm.icon
+    },
     actionsHandler(data) {
-      this.$store.commit('game/toggleModal', data.name)
+      this.$router.push({ name: data.name })
     },
     gameHandler() {
+      this.$store.commit(`game/setNavigationRoute`, false)
       if (!this.disabled) {
         if (this.startGame) {
           this.$store.commit(`game/activeGame`)
@@ -103,7 +127,14 @@ footer {
     @include size(auto, 100%);
     ul {
       li {
-        @include margin(null 1.4rem);
+        @include margin(null 0.8rem);
+        &.selected {
+          .yamicons {
+            &::before {
+              color: $primary;
+            }
+          }
+        }
         .yamicons {
           &::before {
             color: $white;

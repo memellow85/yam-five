@@ -1,19 +1,10 @@
-/* Overlay */
-.overlay-enter-active, .overlay-leave-active {
-  opacity: 1;
+/* Overlay/Page/Layout */
+.overlay-enter-active, .overlay-leave-active,
+.fade-in-enter-active, .fade-in-leave-active {
+  transition: opacity 0.25s ease-in-out;
 }
 
-.overlay-enter, .overlay-leave-to {
+.overlay-enter, .overlay-leave-to,
+.fade-in-enter, .fade-in-leave-to {
   opacity: 0;
-}
-
-/* Page */
-.slide-bottom-enter-active,
-.slide-bottom-leave-active {
-  transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
-}
-.slide-bottom-enter,
-.slide-bottom-leave-to {
-  opacity: 0;
-  transform: translate3d(0, 1rem, 0);
 }

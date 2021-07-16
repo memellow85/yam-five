@@ -28,16 +28,28 @@
       <span v-else>{{ $t('recovery.btn') }}</span>
     </button>
     <div class="wrapper-button">
-      <nuxt-link :to="login ? '/registration' : '/'">
+      <nuxt-link
+        :to="login ? { name: 'offline-registration' } : { name: 'index' }"
+      >
         {{ login ? $t('login.btn_2') : $t('login.title_1') }}
       </nuxt-link>
       <span>-</span>
-      <nuxt-link :to="registration || login ? '/recovery' : '/registration'">
+      <nuxt-link
+        :to="
+          registration || login
+            ? { name: 'offline-recovery' }
+            : { name: 'offline-registration' }
+        "
+      >
         {{ registration || login ? $t('recovery.btn') : $t('login.btn_2') }}
       </nuxt-link>
       <p>
         {{ $t('login.link_message') }}
-        <a class="custom-link" href="javascript: void(0)" @click="showHelp">
+        <a
+          class="custom-link"
+          href="javascript: void(0)"
+          @click="showHelpHandler"
+        >
           {{ $t('login.link_1') }}
         </a>
       </p>
@@ -70,7 +82,7 @@ export default {
     },
   },
   methods: {
-    showHelp() {
+    showHelpHandler() {
       this.$store.commit('game/toggleModal', 'help')
     },
     submitHandler() {

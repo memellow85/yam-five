@@ -5,6 +5,5 @@
 <script>
 export default {
   layout: 'offline',
-  transition: 'slide-bottom',
 }
 </script>

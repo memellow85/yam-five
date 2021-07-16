@@ -1,5 +1,6 @@
 <template>
   <Layout>
+    <Header></Header>
     <div>
       <div class="container-app-offline">
         <nuxt />

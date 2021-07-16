@@ -72,7 +72,7 @@ export default {
       this.$store.dispatch('ws/leftRoomSocket')
     },
     leaveAppHandler() {
-      this.$store.commit('game/toggleModal', 'config')
+      // this.$store.commit('game/toggleModal', 'config')
       // if (this.userSocket) {
       this.leaveHandler()
       // }

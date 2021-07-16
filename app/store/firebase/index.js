@@ -1,5 +1,20 @@
 import { logger } from '~/utils'
 
+const compare = (a, b) => {
+  if (a.tot > b.tot) return -1
+  if (b.tot > a.tot) return 1
+  return 0
+}
+
+const sort = (data, type) => {
+  const tmp = []
+  data.map((v) => {
+    v.tot = type ? v[type] : 0
+    tmp.push(v)
+  })
+  return tmp.sort(compare)
+}
+
 /**
  * State
  */
@@ -8,6 +23,15 @@ export const state = () => ({
   userDetailsFirebase: null,
   usersChampions: [],
 })
+
+/**
+ * Getters
+ */
+export const getters = {
+  getTypeChampions: (state) => (type) => {
+    return sort(state.usersChampions, type)
+  },
+}
 
 /**
  * Mutations

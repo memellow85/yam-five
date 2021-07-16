@@ -34,6 +34,7 @@ export const state = () => ({
   startGame: null,
   newGame: false,
   activeGame: false,
+  navigationRoute: null,
 })
 
 /**
@@ -334,6 +335,9 @@ export const mutations = {
       return v
     })
     state.playedView = g
+  },
+  setNavigationRoute(state, value) {
+    state.navigationRoute = value
   },
 }
 
