@@ -297,7 +297,7 @@ export default {
       this.$store.dispatch('game/startGame')
     },
     startNewGame() {
-      this.$store.dispatch('game/reigniteGame')
+      this.$store.dispatch('game/reinitGame')
     },
   },
 }
