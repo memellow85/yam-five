@@ -351,8 +351,9 @@ export const actions = {
     commit('startGame', true)
     commit('initDices')
   },
-  reigniteGame({ commit }) {
-    logger('ACTION-GAME reigniteGame', null, 'i')
+  reinitGame({ commit, dispatch }) {
+    logger('ACTION-GAME reinitGame', null, 'i')
+    dispatch('ws/updateGameSocket', {}, { root: true })
     commit('newGame', false)
     commit('initDices')
     commit('initMatch')
