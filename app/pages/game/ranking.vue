@@ -22,7 +22,7 @@
             <h4>{{ $t('champions.title_2') }}</h4>
           </li>
         </ul>
-        <div class="wrapper-championship">
+        <div class="wrapper-championship body-scroll-lock-ignore-inner">
           <ul v-if="tab === 'older'" class="inline custom-tabs">
             <li
               :class="['center', { active: subTab === 'score' }]"
@@ -46,11 +46,9 @@
           <ul v-if="viewRanking > 0">
             <li class="flex header">
               <div class="col_1">
-                <p></p>
                 <p>{{ $t('champions.th_1') }}</p>
               </div>
               <div class="col_2">
-                <p v-if="viewRanking > 1">{{ $t('champions.th_2') }}</p>
                 <p>{{ $t('champions.th_4') }}</p>
               </div>
             </li>
@@ -62,13 +60,9 @@
               :class="['flex', { io: u.uid === userFirebase.uid }]"
             >
               <div class="col_1">
-                <p>{{ index + 1 }}</p>
-                <p>
-                  {{ u.name }}
-                </p>
+                <p>{{ index + 1 }}) {{ u.name }}</p>
               </div>
               <div class="col_2">
-                <p v-if="viewRanking > 1">{{ u.match }}</p>
                 <p>{{ u.tot }}</p>
               </div>
             </li>
@@ -126,11 +120,22 @@ export default {
       }
     },
   },
+  mounted() {
+    document.querySelector('.body-scroll-lock-ignore-inner').addEventListener(
+      'touchmove',
+      function (event) {
+        event.stopPropagation()
+      },
+      { passive: false }
+    )
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .wrapper-championship {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
   ul {
     li {
       &.header {
@@ -152,11 +157,6 @@ export default {
       }
       .col_1 {
         justify-content: flex-start;
-        p {
-          &:first-child {
-            @include size(1rem, auto);
-          }
-        }
       }
       .col_2 {
         justify-content: flex-end;

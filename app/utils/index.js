@@ -33,16 +33,13 @@ export const calculateActualGame = (data, dices, minMax) => {
     return tmp
   }
 
-  /**
-   * Sommo i dati per la giocata del poker
-   */
-  const getSum = (data, value) => {
+  /* const getSum = (data, value) => {
     data.map((v) => {
       value += v.value
       return true
     })
     return value
-  }
+  } */
 
   const arrayValue = []
   Object.keys(dices).map((v) => {
@@ -111,20 +108,16 @@ export const calculateActualGame = (data, dices, minMax) => {
     case 'poker':
       if (arrayUnique.length === 2) {
         if (arrayValue.filter((v) => v.value === arrayUnique[0]).length === 4) {
-          value = getSum(
-            arrayValue.filter((v) => v.value === arrayUnique[0]),
-            value
-          )
+          value = arrayUnique[0] * 4
         } else if (
           arrayValue.filter((v) => v.value === arrayUnique[1]).length === 4
         ) {
-          value = getSum(
-            arrayValue.filter((v) => v.value === arrayUnique[1]),
-            value
-          )
+          value = arrayUnique[1] * 4
         } else {
           value = 0
         }
+      } else if (arrayUnique.length === 1) {
+        value = arrayUnique[0] * 4
       } else {
         value = 0
       }

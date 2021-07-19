@@ -79,7 +79,7 @@
         <Tabs></Tabs>
 
         <!-- Set delle giocate -->
-        <div class="container-box body-scroll-lock-ignore">
+        <div class="container-box body-scroll-lock-ignore-inner">
           <div class="wrapper-box flex-center">
             <Box
               :class-name="'single'"
@@ -242,17 +242,16 @@ export default {
     ) */
 
     // Allows content to move on touch.
-    /* document.querySelector('.body-scroll-lock-ignore').addEventListener(
+    document.querySelector('.body-scroll-lock-ignore-inner').addEventListener(
       'touchmove',
       function (event) {
         event.stopPropagation()
       },
       { passive: false }
-    ) */
+    )
   },
   methods: {
     joinAmatch() {
-      // this.$store.commit('game/toggleModal', 'config')
       this.$router.push({ name: 'game-config' })
     },
     startAgame() {
@@ -292,7 +291,7 @@ export default {
   }
   .container-box {
     -webkit-overflow-scrolling: touch;
-    overflow: auto;
+    overflow-x: auto;
     display: flex;
     .wrapper-box {
       @include padding(0.7rem);

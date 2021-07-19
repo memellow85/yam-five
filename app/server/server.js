@@ -92,6 +92,7 @@ io.on('connection', (socket) => {
     } else {
       io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
     }
+    io.to(user.id).emit('redirectHome')
   })
 
   socket.on('start_game', (user) => {

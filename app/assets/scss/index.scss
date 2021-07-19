@@ -52,7 +52,7 @@ ul {
   @extend %flex;
   flex-direction: column;
   -webkit-overflow-scrolling: touch;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .flex {

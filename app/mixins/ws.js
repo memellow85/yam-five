@@ -2,6 +2,10 @@ import { logger } from '~/utils'
 
 export default {
   sockets: {
+    redirectHome() {
+      logger('SOCKETS redirectHome', '', 'i')
+      this.$router.push('/home')
+    },
     updateUsersSocketEmit(users) {
       logger('SOCKETS updateUsersSocketEmit', users, 'i')
       this.$store.commit(`ws/updateUsersSocket`, users)

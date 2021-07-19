@@ -5,35 +5,40 @@
       <li>
         <p>
           {{ $t('stats.dices') }}1:
-          {{ dices['one'].value ? dices['one'].value : '-' }}
+          <strong>{{ dices['one'].value ? dices['one'].value : '-' }}</strong>
         </p>
       </li>
       <li>
         <p>
           {{ $t('stats.dices') }}2:
-          {{ dices['two'].value ? dices['two'].value : '-' }}
+          <strong>{{ dices['two'].value ? dices['two'].value : '-' }}</strong>
         </p>
       </li>
       <li>
         <p>
           {{ $t('stats.dices') }}3:
-          {{ dices['three'].value ? dices['three'].value : '-' }}
+          <strong>{{
+            dices['three'].value ? dices['three'].value : '-'
+          }}</strong>
         </p>
       </li>
       <li>
         <p>
           {{ $t('stats.dices') }}4:
-          {{ dices['four'].value ? dices['four'].value : '-' }}
+          <strong>{{ dices['four'].value ? dices['four'].value : '-' }}</strong>
         </p>
       </li>
       <li>
         <p>
           {{ $t('stats.dices') }}5:
-          {{ dices['five'].value ? dices['five'].value : '-' }}
+          <strong>{{ dices['five'].value ? dices['five'].value : '-' }}</strong>
         </p>
       </li>
     </ul>
-    <p>{{ $t('stats.tot_actual_roll') }} {{ dices.tot ? dices.tot : '-' }}</p>
+    <p>
+      {{ $t('stats.tot_actual_roll') }}
+      <strong>{{ dices.tot ? dices.tot : '-' }}</strong>
+    </p>
   </div>
 </template>
 

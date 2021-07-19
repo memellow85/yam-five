@@ -5,5 +5,14 @@
 <script>
 export default {
   layout: 'offline',
+  mounted() {
+    window.addEventListener(
+      'touchmove',
+      function (event) {
+        event.preventDefault()
+      },
+      { passive: false }
+    )
+  },
 }
 </script>

@@ -75,7 +75,10 @@
     "empty_2": "Nessun giocatore in classifica",
     "th_1": "Nome",
     "th_4": "Completo",
-    "th_8": "Punteggio partita"
+    "th_8": "Punteggio partita",
+    "tab_1": "Completo",
+    "tab_2": "Breve",
+    "tab_3": "Brevissimo"
   },
   "schemas": {
     "title_1": "Griglia della partita",
@@ -199,5 +202,11 @@
     "up": "Salire",
     "free": "Libero",
     "dry": "Secco"
+  },
+  "stats": {
+    "title_1": "Statistiche lanci",
+    "actual_roll": "Riepilogo giocata corrente:",
+    "tot_actual_roll": "Totale giocata corrente:",
+    "dices": "Dado "
   }
 }
