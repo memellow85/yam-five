@@ -14,6 +14,15 @@
         <h4>{{ $t('config.title_2') }}</h4>
         <FormsLanguages></FormsLanguages>
       </article>
+      <article>
+        <h4>{{ $t('config.title_4') }}</h4>
+        <div class="flex-between">
+          <p>{{ $t('config.message_1') }}</p>
+          <button @click="resetTotalHandler">
+            <span>{{ $t('config.btn_5') }}</span>
+          </button>
+        </div>
+      </article>
       <article class="wrapper-tabs-form">
         <ul class="inline custom-tabs">
           <li
@@ -57,7 +66,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import WsMixin from '@/mixins/ws'
+import WsMixin from '~/mixins/ws'
 
 export default {
   mixins: [WsMixin],
@@ -81,6 +90,14 @@ export default {
       this.leaveHandler()
       this.$store.dispatch('firebase/logout').then(() => {
         this.$router.push('/')
+      })
+    },
+    resetTotalHandler() {
+      this.$store.dispatch(`firebase/resetRecordUser`).then(() => {
+        this.$store.commit('game/toggleNotification', {
+          type: 'success',
+          message: this.$t('config.message_2'),
+        })
       })
     },
   },

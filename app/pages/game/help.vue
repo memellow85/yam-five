@@ -15,19 +15,11 @@
 </template>
 
 <script>
-import WsMixin from '@/mixins/ws'
+import WsMixin from '~/mixins/ws'
+import ScrollMixin from '~/mixins/scroll'
 
 export default {
-  mixins: [WsMixin],
+  mixins: [WsMixin, ScrollMixin],
   middleware: ['authenticated'],
-  mounted() {
-    document.querySelector('.body-scroll-lock-ignore-inner').addEventListener(
-      'touchmove',
-      function (event) {
-        event.stopPropagation()
-      },
-      { passive: false }
-    )
-  },
 }
 </script>

@@ -57,16 +57,20 @@
   "config": {
     "title_2": "Seleziona Lingua",
     "title_3": "Modalità di gioco",
+    "title_4": "Resetta il tuo record",
     "btn_1": "Unisciti",
     "btn_2": "Abbandona",
     "btn_3": "Esci",
     "btn_4": "Crea",
+    "btn_5": "Resetta",
     "form_2": "Stanza",
     "join_1": "Ti sei unito alla stanza ",
     "join_2": " con altri ",
     "join_3": " utenti",
     "tab_1": "Crea",
-    "tab_2": "Unisciti"
+    "tab_2": "Unisciti",
+    "message_1": "Resetta il tuo record se non lo hai mai fatto così da poter vedere l'andamento nei grafici",
+    "message_2": "Records cancellati"
   },
   "champions": {
     "title_1": "Classifica",
@@ -207,6 +211,12 @@
     "title_1": "Statistiche lanci",
     "actual_roll": "Riepilogo giocata corrente:",
     "tot_actual_roll": "Totale giocata corrente:",
-    "dices": "Dado "
+    "dices": "Dado ",
+    "chart_1": "Grafico andamento totale rispetto al record",
+    "chart_2": "Grafico conteggio uscita giocate rispetto al record",
+    "legend_1": "Attuale",
+    "legend_2": "Record personale",
+    "legend_3": "Record globale",
+    "no_data_chart_1": "Dati al momento non disponibili"
   }
 }

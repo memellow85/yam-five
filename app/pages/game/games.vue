@@ -75,7 +75,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import WsMixin from '@/mixins/ws'
+import WsMixin from '~/mixins/ws'
 import { longPress } from '~/directives/longpress'
 
 export default {

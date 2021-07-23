@@ -25,10 +25,10 @@
         <div class="wrapper-championship body-scroll-lock-ignore-inner">
           <ul v-if="tab === 'older'" class="inline custom-tabs">
             <li
-              :class="['center', { active: subTab === 'score' }]"
-              @click="subTab = 'score'"
+              :class="['center', { active: subTab === 'score_veryshort' }]"
+              @click="subTab = 'score_veryshort'"
             >
-              <h4>{{ $t('champions.tab_1') }}</h4>
+              <h4>{{ $t('champions.tab_3') }}</h4>
             </li>
             <li
               :class="['center', { active: subTab === 'score_short' }]"
@@ -37,10 +37,10 @@
               <h4>{{ $t('champions.tab_2') }}</h4>
             </li>
             <li
-              :class="['center', { active: subTab === 'score_veryshort' }]"
-              @click="subTab = 'score_veryshort'"
+              :class="['center', { active: subTab === 'score' }]"
+              @click="subTab = 'score'"
             >
-              <h4>{{ $t('champions.tab_3') }}</h4>
+              <h4>{{ $t('champions.tab_1') }}</h4>
             </li>
           </ul>
           <ul v-if="viewRanking > 0">
@@ -87,15 +87,16 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import WsMixin from '@/mixins/ws'
+import WsMixin from '~/mixins/ws'
+import ScrollMixin from '~/mixins/scroll'
 
 export default {
-  mixins: [WsMixin],
+  mixins: [WsMixin, ScrollMixin],
   middleware: ['authenticated'],
   data() {
     return {
       tab: 'current',
-      subTab: 'score',
+      subTab: 'score_veryshort',
     }
   },
   computed: {
@@ -119,15 +120,6 @@ export default {
         return -2
       }
     },
-  },
-  mounted() {
-    document.querySelector('.body-scroll-lock-ignore-inner').addEventListener(
-      'touchmove',
-      function (event) {
-        event.stopPropagation()
-      },
-      { passive: false }
-    )
   },
 }
 </script>

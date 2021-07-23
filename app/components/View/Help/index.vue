@@ -13,15 +13,9 @@
 </template>
 
 <script>
+import ScrollMixin from '~/mixins/scroll'
+
 export default {
-  mounted() {
-    document.querySelector('.body-scroll-lock-ignore-inner').addEventListener(
-      'touchmove',
-      function (event) {
-        event.stopPropagation()
-      },
-      { passive: false }
-    )
-  },
+  mixins: [ScrollMixin],
 }
 </script>

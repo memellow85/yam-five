@@ -136,7 +136,21 @@ export const actions = {
     logger('ACTION-FIREBASE updateRecordUser', data, 'i')
     return new Promise((resolve, reject) => {
       this.$axios
-        .put(`/yam-five/user/${data.user.uid}`, data)
+        .put(`/yam-five/user/${data.details.user.uid}`, data)
+        .then(() => {
+          dispatch('getChampions')
+          resolve()
+        })
+        .catch((error) => {
+          reject(error.response.data.message)
+        })
+    })
+  },
+  resetRecordUser({ dispatch, state }) {
+    logger('ACTION-FIREBASE resetRecordUser', null, 'i')
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .put(`/yam-five/reset-record/${state.userDetailsFirebase.uid}`, {})
         .then(() => {
           dispatch('getChampions')
           resolve()

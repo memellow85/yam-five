@@ -91,13 +91,13 @@ ul {
   }
   article {
     @include padding(null 1rem);
-    @include margin(null null 2rem);
+    /* @include margin(null null 2rem);
     &:first-child {
-      @include margin(null null 0rem);
+      @include margin(null null 0);
     }
     &:last-child {
       @include margin(null null 0);
-    }
+    } */
     &.wrapper-tabs-form {
       .container-btn {
         justify-content: flex-end;

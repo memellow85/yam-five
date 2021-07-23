@@ -1,3 +1,4 @@
+import { mapState } from 'vuex'
 import { logger } from '~/utils'
 
 export default {
@@ -36,7 +37,11 @@ export default {
         type,
         message,
       })
-      this.$store.dispatch(`firebase/updateRecordUser`, notificationInfo.user)
+      this.$store.dispatch(`firebase/updateRecordUser`, {
+        details: notificationInfo.user,
+        chart_1: this.totalHistorical,
+        chart_2: this.probablyExitNumbers,
+      })
     },
     newGameSocketEmit(value) {
       logger('SOCKETS newGameSocketEmit', value, 'i')
@@ -49,5 +54,11 @@ export default {
         message: user.user.name + this.$t('home.notification_3'),
       })
     },
+  },
+  computed: {
+    ...mapState('game', {
+      totalHistorical: (state) => state.totalHistorical,
+      probablyExitNumbers: (state) => state.probablyExitNumbers,
+    }),
   },
 }

@@ -1,11 +1,17 @@
 import cloneDeep from 'lodash/cloneDeep'
-import { getRandomNumberCube, calculateActualGame, logger } from '~/utils'
+import {
+  getRandomNumberCube,
+  calculateActualGame,
+  logger,
+  setStatisticsDice,
+} from '~/utils'
 import {
   dicesTypesCabled,
   gamesTypesCabled,
   playedListCabled,
   dices,
   match,
+  probablyExitNumbers,
 } from '~/lists'
 
 /**
@@ -35,6 +41,8 @@ export const state = () => ({
   newGame: false,
   activeGame: false,
   navigationRoute: null,
+  probablyExitNumbers,
+  totalHistorical: [],
 })
 
 /**
@@ -115,6 +123,10 @@ export const mutations = {
       return true
     })
     state.dices.tot = tot
+    state.probablyExitNumbers = setStatisticsDice(
+      state.probablyExitNumbers,
+      state.dices
+    )
   },
   activeGame(state) {
     logger('COMMIT-GAME activeGame', null, 'i')
@@ -148,6 +160,8 @@ export const mutations = {
     logger('COMMIT-GAME setActualValue', data, 'i')
     gamesTypesCabled.map((g) => {
       if (g === state.playedView) {
+        const tmp = cloneDeep(state.dices)
+        state.totalHistorical.push(tmp)
         state.game[g].data[data.name].value = calculateActualGame(
           data,
           state.dices,

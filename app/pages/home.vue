@@ -179,10 +179,11 @@
 <script>
 import { mapState } from 'vuex'
 import NoSleep from 'nosleep.js'
-import WsMixin from '@/mixins/ws'
+import WsMixin from '~/mixins/ws'
+import ScrollMixin from '~/mixins/scroll'
 
 export default {
-  mixins: [WsMixin],
+  mixins: [WsMixin, ScrollMixin],
   beforeRouteLeave(to, from, next) {
     this.$store.commit(`game/setNavigationRoute`, true)
     next()
@@ -231,24 +232,6 @@ export default {
   mounted() {
     // No sleep functions
     this.noSleep.enable()
-    // Serve per prevenire il bounce su ios
-    // Prevents window from moving on touch on older browsers.
-    /* window.addEventListener(
-      'touchmove',
-      function (event) {
-        event.preventDefault()
-      },
-      { passive: false }
-    ) */
-
-    // Allows content to move on touch.
-    document.querySelector('.body-scroll-lock-ignore-inner').addEventListener(
-      'touchmove',
-      function (event) {
-        event.stopPropagation()
-      },
-      { passive: false }
-    )
   },
   methods: {
     joinAmatch() {

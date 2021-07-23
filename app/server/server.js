@@ -132,7 +132,7 @@ io.on('connection', (socket) => {
       championshipList.map((u) => {
         io.to(u.id).emit('winnerIsSocketEmit', {
           count,
-          name: championshipList[0].name,
+          name: championshipList[0].user.name,
           user,
         })
         io.to(u.id).emit('newGameSocketEmit', u.turnOn)
@@ -140,14 +140,6 @@ io.on('connection', (socket) => {
       })
     }
   })
-
-  /* socket.on('update_local_championship', (user) => {
-    Rooms.PUTChampionShipRoom(user)
-    io.to(user.room).emit(
-      'updateUsersSocketEmit',
-      Rooms.GETUsersRoom(user.room)
-    )
-  }) */
 
   socket.on('left_room', () => {
     leftRoom(socket.id, socket)

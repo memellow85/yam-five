@@ -2,12 +2,40 @@ export const dicesTypesCabled = ['one', 'two', 'three', 'four', 'five']
 
 export const gamesTypesCabled = ['up', 'free', 'dry', 'down']
 
+export const orderCharts = [
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'mineleven',
+  'full',
+  'poker',
+  'scale',
+  'yam',
+]
+
+export const probablyExitNumbers = {
+  one: 0,
+  two: 0,
+  three: 0,
+  four: 0,
+  five: 0,
+  six: 0,
+  mineleven: 0,
+  full: 0,
+  poker: 0,
+  scale: 0,
+  yam: 0,
+}
+
 const dice = () => {
   return {
     value: null,
     block: false,
     name: '',
-    total: null,
+    // total: null,
   }
 }
 

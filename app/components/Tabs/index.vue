@@ -45,7 +45,6 @@ section {
   @include padding(1.4rem 0 0.7rem);
   ul {
     @include padding(null 0.7rem);
-    // @include size(auto, 2.6rem);
     background: $color-2;
     border-radius: $rounded-small;
     li {

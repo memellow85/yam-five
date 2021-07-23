@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-stats">
-    <p>{{ $t('stats.actual_roll') }}</p>
+    <h4>{{ $t('stats.actual_roll') }}</h4>
     <ul class="inline">
       <li>
         <p>
@@ -57,6 +57,9 @@ export default {
 <style lang="scss" scoped>
 .wrapper-stats {
   @include margin(null null 0.6rem);
+  h4 {
+    @include margin(0 null null null);
+  }
   p {
     @include margin(0.5rem null);
     &:first-child {
