@@ -75,6 +75,7 @@ export default {
       played: (state) => state.played,
       startGame: (state) => state.startGame,
       newGame: (state) => state.newGame,
+      disabledButtonGame: (state) => state.disabledButtonGame,
     }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
@@ -84,7 +85,9 @@ export default {
         this.startGame === null ||
         !this.userSocket.turnOn ||
         !this.startGame ||
-        this.newGame
+        this.newGame ||
+        this.disabledButtonGame ||
+        this.played === 0
       )
     },
     notification() {
@@ -101,14 +104,20 @@ export default {
       this.$router.push({ name: data.name })
     },
     gameHandler() {
-      this.$store.commit(`game/setNavigationRoute`, false)
       if (!this.disabled) {
         if (this.startGame) {
+          this.$store.commit(`game/setDisabledButtonGame`, true)
+          this.$store.commit(`game/setNavigationRoute`, false)
           this.$store.commit(`game/activeGame`)
+
           setTimeout(() => {
             this.$store.dispatch('game/playedDecrease')
             this.$store.commit('game/disabledPossibilityGame', this.played)
           }, 100)
+
+          setTimeout(() => {
+            this.$store.commit(`game/setDisabledButtonGame`, false)
+          }, 1200)
         }
       }
     },

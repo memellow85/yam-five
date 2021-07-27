@@ -74,9 +74,16 @@ router
             uid: user.uid,
             match: 0,
             score: 0,
+            score_record_chart_1: '',
+            score_record_chart_2: '',
             score_short: 0,
+            score_short_record_chart_1: '',
+            score_short_record_chart_2: '',
             score_veryshort: 0,
+            score_veryshort_record_chart_1: '',
+            score_veryshort_record_chart_2: '',
             last_updated: firebase.utils.Timestamp.now(),
+            last_reset: firebase.utils.Timestamp.now(),
           })
           .then(() => {
             res.status(200).send()

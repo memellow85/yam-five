@@ -161,17 +161,6 @@
           </div>
         </div>
       </div>
-
-      <!-- All overlay -->
-      <!-- <LazyOverlay :show-overlay="showConfig" :height-overlay="28">
-        <LazyViewConfig></LazyViewConfig>
-      </LazyOverlay>
-      <LazyOverlay :show-overlay="showSchema" :height-overlay="33">
-        <LazyViewSchemas></LazyViewSchemas>
-      </LazyOverlay>
-      <LazyOverlay :show-overlay="showChampionsShip" :height-overlay="25">
-        <LazyViewChampion></LazyViewChampion>
-      </LazyOverlay> -->
     </div>
   </div>
 </template>
@@ -186,6 +175,7 @@ export default {
   mixins: [WsMixin, ScrollMixin],
   beforeRouteLeave(to, from, next) {
     this.$store.commit(`game/setNavigationRoute`, true)
+    this.$store.commit(`game/setDisabledButtonGame`, true)
     next()
   },
   middleware: ['authenticated'],
@@ -230,7 +220,7 @@ export default {
     },
   },
   mounted() {
-    // No sleep functions
+    this.$store.commit(`game/setDisabledButtonGame`, false)
     this.noSleep.enable()
   },
   methods: {

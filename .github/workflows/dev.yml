@@ -1,0 +1,17 @@
+name: Release
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Clean
+        run: yarn cache clean
+      - name: Install Dependencies
+        run: yarn install
+      - name: Build
+        run: yarn build

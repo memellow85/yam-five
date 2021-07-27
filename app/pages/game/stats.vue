@@ -16,7 +16,7 @@
             <strong>{{ $t('stats.chart_1') }}</strong>
           </p>
           <div id="chart1" class="chart"></div>
-          <div class="pagination-chart flex-center">
+          <div v-if="paginationView" class="pagination-chart flex-center">
             <p
               v-for="p in pages"
               :key="p"
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import ApexCharts from 'apexcharts'
 import cloneDeep from 'lodash/cloneDeep'
 import WsMixin from '~/mixins/ws'
@@ -49,6 +49,7 @@ import {
   legendOpt,
   styleTextChart,
   colorsChart,
+  colorsChart2,
   baseGrid,
   yaxisOpt,
   xaxisOpt,
@@ -109,7 +110,7 @@ export default {
         },
         series: [
           {
-            name: this.$t('stats.legend_1'),
+            name: this.$t('stats.legend_3'),
             data: [],
           },
           {
@@ -117,7 +118,7 @@ export default {
             data: [],
           },
           {
-            name: this.$t('stats.legend_3'),
+            name: this.$t('stats.legend_1'),
             data: [],
           },
         ],
@@ -141,7 +142,7 @@ export default {
         chart: Object.assign({}, baseChartOpt, {
           type: 'bar',
         }),
-        colors: colorsChart,
+        colors: colorsChart2,
         tooltip: tooltipOpt,
         legend: Object.assign({}, legendOpt, {
           showForSingleSeries: true,
@@ -184,7 +185,6 @@ export default {
           },
           xaxisOpt
         ),
-        yaxis: yaxisOpt,
       },
     }
   },
@@ -196,8 +196,15 @@ export default {
     }),
     ...mapState('firebase', {
       userDetailsFirebase: (state) => state.userDetailsFirebase,
-      usersChampions: (state) => state.usersChampions,
     }),
+    ...mapGetters('firebase', ['getTypeChampions']),
+    paginationView() {
+      return (
+        this.records.length > 0 ||
+        this.recordMan.length > 0 ||
+        this.totalHistorical.length > 0
+      )
+    },
   },
   beforeMount() {
     this.pages =
@@ -219,19 +226,28 @@ export default {
         ? `score_short_record_chart_${chart}`
         : `score_record_chart_${chart}`
     },
+    getKeyScore() {
+      return this.currentGame === 'veryshort'
+        ? `score_veryshort`
+        : this.currentGame === 'short'
+        ? `score_short`
+        : `score`
+    },
     getArrayTotal(list) {
       const tmp = []
       list.map((r, k) => {
         if (k === 0) {
-          tmp.push(r.tot)
+          tmp.push(r)
         } else {
-          tmp.push(r.tot + tmp[k - 1])
+          tmp.push(r + tmp[k - 1])
         }
       })
       return tmp
     },
     initChartTotal() {
       const key = this.getKeyChart('1')
+      const score = this.getKeyScore()
+
       if (
         this.userDetailsFirebase[key] &&
         this.userDetailsFirebase[key] !== ''
@@ -242,8 +258,13 @@ export default {
       } else {
         this.records = []
       }
-      if (this.usersChampions[0][key] && this.usersChampions[0][key] !== '') {
-        this.recordMan = this.getArrayTotal(this.usersChampions[0][key])
+      if (
+        this.getTypeChampions(score)[0][key] &&
+        this.getTypeChampions(score)[0][key] !== ''
+      ) {
+        this.recordMan = this.getArrayTotal(
+          JSON.parse(this.getTypeChampions(score)[0][key])
+        )
       } else {
         this.recordMan = []
       }
@@ -273,13 +294,13 @@ export default {
 
       chart.updateSeries([
         {
-          data,
+          data: recordMan,
         },
         {
           data: records,
         },
         {
-          data: recordMan,
+          data,
         },
       ])
       chart.updateOptions(
@@ -307,7 +328,7 @@ export default {
       }
       const data = []
       orderCharts.map((v, k) => {
-        if (records.length > 0) {
+        if (Object.keys(records).length > 0) {
           data.push({
             x: this.categoryChartsList[k],
             y: this.probablyExitNumbers[v],

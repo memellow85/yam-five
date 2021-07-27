@@ -76,11 +76,15 @@ export const actions = {
         .then((resp) => {
           const user = resp.data.user
           commit('setUserFirebase', user)
-          dispatch('getDetailsUser', user.uid).then((r) => {
-            commit('setUserDetailsFirebase', r)
-            resolve()
-          })
-          dispatch('getChampions')
+          dispatch('getDetailsUser', user.uid)
+            .then((r) => {
+              commit('setUserDetailsFirebase', r)
+              dispatch('getChampions')
+              resolve()
+            })
+            .catch((error) => {
+              reject(error.response.data.message)
+            })
         })
         .catch((error) => {
           reject(error.response.data.message)
@@ -132,13 +136,20 @@ export const actions = {
         })
     })
   },
-  updateRecordUser({ dispatch }, data) {
+  updateRecordUser({ dispatch, commit, state }, data) {
     logger('ACTION-FIREBASE updateRecordUser', data, 'i')
     return new Promise((resolve, reject) => {
       this.$axios
         .put(`/yam-five/user/${data.details.user.uid}`, data)
         .then(() => {
           dispatch('getChampions')
+          dispatch('getDetailsUser', state.userDetailsFirebase.uid)
+            .then((r) => {
+              commit('setUserDetailsFirebase', r)
+            })
+            .catch((error) => {
+              reject(error.response.data.message)
+            })
           resolve()
         })
         .catch((error) => {
@@ -146,13 +157,20 @@ export const actions = {
         })
     })
   },
-  resetRecordUser({ dispatch, state }) {
+  resetRecordUser({ dispatch, commit, state }) {
     logger('ACTION-FIREBASE resetRecordUser', null, 'i')
     return new Promise((resolve, reject) => {
       this.$axios
         .put(`/yam-five/reset-record/${state.userDetailsFirebase.uid}`, {})
         .then(() => {
           dispatch('getChampions')
+          dispatch('getDetailsUser', state.userDetailsFirebase.uid)
+            .then((r) => {
+              commit('setUserDetailsFirebase', r)
+            })
+            .catch((error) => {
+              reject(error.response.data.message)
+            })
           resolve()
         })
         .catch((error) => {

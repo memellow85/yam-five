@@ -63,6 +63,15 @@ export const xaxisOpt = {
 }
 
 export const colorsChart = [
+  '#15BDFF',
+  '#FB8600',
+  '#00A676',
+  '#DF1A1A',
+  '#D10EE9',
+  '#7046FF',
+]
+
+export const colorsChart2 = [
   '#00A676',
   '#FB8600',
   '#15BDFF',

@@ -84,6 +84,7 @@ export default {
   },
   methods: {
     leaveHandler() {
+      this.$store.commit(`game/resetStats`)
       this.$store.dispatch('ws/leftRoomSocket')
     },
     leaveAppHandler() {

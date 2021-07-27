@@ -43,6 +43,7 @@ export const state = () => ({
   navigationRoute: null,
   probablyExitNumbers,
   totalHistorical: [],
+  disabledButtonGame: false,
 })
 
 /**
@@ -160,13 +161,14 @@ export const mutations = {
     logger('COMMIT-GAME setActualValue', data, 'i')
     gamesTypesCabled.map((g) => {
       if (g === state.playedView) {
-        const tmp = cloneDeep(state.dices)
-        state.totalHistorical.push(tmp)
-        state.game[g].data[data.name].value = calculateActualGame(
+        // const tmp = cloneDeep(state.dices)
+        const sum = calculateActualGame(
           data,
           state.dices,
           data.name === 'min' ? state.game[g].data.max : state.game[g].data.min
         )
+        state.totalHistorical.push(sum)
+        state.game[g].data[data.name].value = sum
         state.game[g].data[data.name].active = false
       }
       return true
@@ -353,6 +355,13 @@ export const mutations = {
   setNavigationRoute(state, value) {
     state.navigationRoute = value
   },
+  resetStats(state) {
+    state.probablyExitNumbers = probablyExitNumbers
+    state.totalHistorical = []
+  },
+  setDisabledButtonGame(state, value) {
+    state.disabledButtonGame = value
+  },
 }
 
 /**
@@ -364,6 +373,7 @@ export const actions = {
     dispatch('ws/startGameSocket', {}, { root: true })
     commit('startGame', true)
     commit('initDices')
+    commit('resetStats')
   },
   reinitGame({ commit, dispatch }) {
     logger('ACTION-GAME reinitGame', null, 'i')
@@ -371,6 +381,7 @@ export const actions = {
     commit('newGame', false)
     commit('initDices')
     commit('initMatch')
+    commit('resetStats')
     // Reset classifica ?
   },
   playedDecrease({ commit, state }) {
