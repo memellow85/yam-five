@@ -1,4 +1,4 @@
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+// const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 module.exports = {
   ssr: false,
@@ -210,13 +210,13 @@ module.exports = {
         fs: 'empty',
       }
     },
-    plugins: [
+    /* plugins: [
       new LodashModuleReplacementPlugin({
         collections: true,
         paths: true,
         caching: true,
       }),
-    ],
+    ], */
     performance: {
       hints: 'warning',
       maxEntrypointSize: 300000,
