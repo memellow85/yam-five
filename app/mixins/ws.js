@@ -18,6 +18,9 @@ export default {
     },
     setUserTurnSocketEmit(user) {
       logger('SOCKETS setUserTurnSocketEmit', user, 'i')
+      if (user.user.uid === this.userDetailsFirebase.uid) {
+        this.$store.commit(`game/setDisabledButtonGame`, false)
+      }
       this.$store.commit('ws/setUserTurnSocket', user)
     },
     startGameSocketEmit(user) {
@@ -59,6 +62,9 @@ export default {
     ...mapState('game', {
       totalHistorical: (state) => state.totalHistorical,
       probablyExitNumbers: (state) => state.probablyExitNumbers,
+    }),
+    ...mapState('firebase', {
+      userDetailsFirebase: (state) => state.userDetailsFirebase,
     }),
   },
 }

@@ -84,6 +84,7 @@ export default {
       newValue: null,
       equalValue: false,
       blockValue: false,
+      blockDice: null,
     }
   },
   computed: {
@@ -110,7 +111,10 @@ export default {
         if (!this.dice.block) {
           this.blockValue = false
           this.equalValue = true
-          if (this.navigationRoute) {
+          if (
+            this.navigationRoute ||
+            (!this.blockDice && typeof this.blockDice === 'boolean')
+          ) {
             this.newValue = this.dice.value
           } else {
             if (this.dice.value >= 1 && this.dice.value <= 4) {
@@ -137,7 +141,10 @@ export default {
         if (!this.dice.block) {
           this.blockValue = false
           this.equalValue = true
-          if (this.navigationRoute) {
+          if (
+            this.navigationRoute ||
+            (!this.blockDice && typeof this.blockDice === 'boolean')
+          ) {
             this.newValue = this.dice.value
           } else {
             this.newValue = this.dice.value + 2
@@ -157,6 +164,7 @@ export default {
     },
     clickDiceHandler(dice) {
       if (this.played < 3) {
+        this.blockDice = !dice.block
         this.$store.commit('game/blockDice', dice)
       }
     },

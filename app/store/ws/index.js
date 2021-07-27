@@ -1,5 +1,21 @@
 import { logger } from '~/utils'
 
+const translateMessageError = (number) => {
+  let message = ''
+  switch (number) {
+    case '100':
+      message = 'Error code 100: Room already exists!'
+      break
+    case '200':
+      message = 'Error code 200: The match is already started!'
+      break
+    case '300':
+      message = 'Error code 300: Generic error!'
+      break
+  }
+  return message
+}
+
 /**
  * State
  */
@@ -71,7 +87,7 @@ export const actions = {
           'game/toggleNotification',
           {
             type: 'alert',
-            message: data.error,
+            message: translateMessageError(data.error),
           },
           { root: true }
         )
