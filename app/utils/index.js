@@ -199,7 +199,7 @@ export const calculateActualGame = (data, dices, minMax) => {
       value = isFull(arrayUnique, arrayValue) ? dices.tot : 0
       break
     case 'scale':
-      value = isScale(arrayValue) ? dices.tot : 0
+      value = isScale(arrayUnique) ? dices.tot : 0
       break
     case 'min':
       if (minMax.value !== '-' && dices.tot < minMax.value) {
