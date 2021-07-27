@@ -198,7 +198,9 @@ module.exports = {
     },
     baseURL:
       process.env.NUXT_ENV_NODE_ENV !== 'production'
-        ? 'http://localhost:5000/'
+        ? process.env.NUXT_ENV_NODE_ENV === 'beta'
+          ? 'https://yamfive-app-dev.herokuapp.com/'
+          : 'http://localhost:5000/'
         : 'https://yamfive-app.herokuapp.com/',
   },
   /*
