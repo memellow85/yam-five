@@ -218,5 +218,10 @@
     "legend_2": "Record personale",
     "legend_3": "Record globale",
     "no_data_chart_1": "Dati al momento non disponibili"
+  },
+  "alert": {
+    "yes": "Si",
+    "no": "No",
+    "message": "Sei sicuro di voler azzerare i tuoi records?"
   }
 }

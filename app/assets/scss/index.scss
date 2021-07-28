@@ -74,6 +74,11 @@ ul {
   @extend %flexSpaceBetween;
 }
 
+.flex-without-align {
+  @extend %basicFlex;
+  @extend %flexSpaceBetween;
+}
+
 .center {
   text-align: center;
 }

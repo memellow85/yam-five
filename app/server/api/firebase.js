@@ -1,6 +1,6 @@
-const firebase = require('firebase/app')
-require('firebase/auth')
-require('firebase/firestore')
+const firebase = require('@firebase/app')
+require('@firebase/auth')
+require('@firebase/firestore')
 require('dotenv').config()
 
 const config = {
@@ -14,10 +14,9 @@ const config = {
 
 const fb = firebase.default
 
-// eslint-disable-next-line no-unused-expressions
 if (!fb.apps.length) {
   fb.initializeApp(config)
-  fb.firestore().settings({ timestampsInSnapshots: true })
+  fb.firestore().settings({ timestampsInSnapshots: true, merge: true })
 }
 
 module.exports = {

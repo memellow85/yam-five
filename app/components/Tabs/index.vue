@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  @include padding(1.4rem 0 0.7rem);
+  // @include padding(1.4rem 0 0.7rem);
   ul {
     @include padding(null 0.7rem);
     background: $color-2;

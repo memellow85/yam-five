@@ -6,11 +6,11 @@
         {{ $t('stats.title_1') }}
       </h3>
     </article>
-    <div class="main">
+    <div class="main body-scroll-lock-ignore-inner">
       <article>
         <Stats></Stats>
       </article>
-      <article class="container-chart body-scroll-lock-ignore-inner">
+      <article class="container-chart">
         <div class="wrapper-chart first-chart">
           <p class="flex-center">
             <strong>{{ $t('stats.chart_1') }}</strong>
@@ -369,8 +369,6 @@ export default {
 
 <style lang="scss" scoped>
 .container-chart {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   .wrapper-chart {
     &.first-chart {
       > p {

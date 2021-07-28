@@ -22,7 +22,7 @@ module.exports = {
       {
         name: 'viewport',
         content:
-          'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+          'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi',
       },
       {
         hid: 'description',
@@ -134,7 +134,7 @@ module.exports = {
       short_name: 'YamFive',
       description: 'The dices game',
       viewport:
-        'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+        'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi',
     },
     /* meta: {
       mobileAppIOS: true,

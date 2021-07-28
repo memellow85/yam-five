@@ -22,6 +22,7 @@ export const state = () => ({
   showConfig: false,
   showChampionsShip: false,
   showSchema: false,
+  showAlert: false,
   showNotification: false,
   notificationTypes: null,
   notificationMessage: null,
@@ -56,6 +57,7 @@ export const mutations = {
     state.showChampionsShip = false
     state.showConfig = false
     state.showHelp = false
+    state.showAlert = false
   },
   toggleModal(state, type) {
     logger('COMMIT-GAME toggleModal', type, 'i')
@@ -71,6 +73,9 @@ export const mutations = {
         break
       case 'schema':
         state.showSchema = !state.showSchema
+        break
+      case 'alert':
+        state.showAlert = !state.showAlert
         break
     }
   },
