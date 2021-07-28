@@ -3,7 +3,7 @@
     <Header></Header>
     <div class="container-app">
       <!-- Contenuto centrale -->
-      <div class="wrapper-main">
+      <div class="wrapper-main flex-without-align">
         <div class="container-match flex-center">
           <template v-if="!startGame && userSocket === null">
             <p>{{ $t('home.message_1') }}</p>
@@ -75,89 +75,91 @@
           </template>
         </div>
 
-        <!-- Tabs di navigazione tra giocate -->
-        <Tabs></Tabs>
+        <div class="wrapper-games">
+          <!-- Tabs di navigazione tra giocate -->
+          <Tabs></Tabs>
 
-        <!-- Set delle giocate -->
-        <div class="container-box body-scroll-lock-ignore-inner">
-          <div class="wrapper-box flex-center">
-            <Box
-              :class-name="'single'"
-              :title="$t('home.title_1')"
-              :info="$t('home.help_1')"
-            >
-              <Cube
-                :dimension="'medium'"
-                :data="game[playedView].data['one']"
-              ></Cube>
-              <Cube
-                :dimension="'medium'"
-                :data="game[playedView].data['two']"
-              ></Cube>
-              <Cube
-                :dimension="'medium'"
-                :data="game[playedView].data['three']"
-              ></Cube>
-              <div class="break"></div>
-              <Cube
-                :dimension="'medium'"
-                :data="game[playedView].data['four']"
-              ></Cube>
-              <Cube
-                :dimension="'medium'"
-                :data="game[playedView].data['five']"
-              ></Cube>
-              <Cube
-                :dimension="'medium'"
-                :data="game[playedView].data['six']"
-              ></Cube>
-            </Box>
-            <Box
-              :class-name="'maxmin'"
-              :title="$t('home.title_2')"
-              :info="$t('home.help_2')"
-            >
-              <Cube
-                :dimension="'big'"
-                :data="game[playedView].data['min']"
-              ></Cube>
-              <Cube
-                :dimension="'big'"
-                :data="game[playedView].data['max']"
-              ></Cube>
-            </Box>
-            <Box
-              :class-name="'extra1'"
-              :title="$t('home.title_3')"
-              :info="$t('home.help_3')"
-            >
-              <Cube
-                :dimension="'medium'"
-                :data="game[playedView].data['mineleven']"
-              ></Cube>
-              <Cube
-                :dimension="'medium'"
-                :data="game[playedView].data['full']"
-              ></Cube>
-              <Cube
-                :dimension="'medium'"
-                :data="game[playedView].data['poker']"
-              ></Cube>
-            </Box>
-            <Box
-              :class-name="'extra2'"
-              :title="$t('home.title_4')"
-              :info="$t('home.help_4')"
-            >
-              <Cube
-                :dimension="'big'"
-                :data="game[playedView].data['scale']"
-              ></Cube>
-              <Cube
-                :dimension="'big'"
-                :data="game[playedView].data['yam']"
-              ></Cube>
-            </Box>
+          <!-- Set delle giocate -->
+          <div class="container-box body-scroll-lock-ignore-inner">
+            <div class="wrapper-box flex-center">
+              <Box
+                :class-name="'single'"
+                :title="$t('home.title_1')"
+                :info="$t('home.help_1')"
+              >
+                <Cube
+                  :dimension="'medium'"
+                  :data="game[playedView].data['one']"
+                ></Cube>
+                <Cube
+                  :dimension="'medium'"
+                  :data="game[playedView].data['two']"
+                ></Cube>
+                <Cube
+                  :dimension="'medium'"
+                  :data="game[playedView].data['three']"
+                ></Cube>
+                <div class="break"></div>
+                <Cube
+                  :dimension="'medium'"
+                  :data="game[playedView].data['four']"
+                ></Cube>
+                <Cube
+                  :dimension="'medium'"
+                  :data="game[playedView].data['five']"
+                ></Cube>
+                <Cube
+                  :dimension="'medium'"
+                  :data="game[playedView].data['six']"
+                ></Cube>
+              </Box>
+              <Box
+                :class-name="'maxmin'"
+                :title="$t('home.title_2')"
+                :info="$t('home.help_2')"
+              >
+                <Cube
+                  :dimension="'big'"
+                  :data="game[playedView].data['min']"
+                ></Cube>
+                <Cube
+                  :dimension="'big'"
+                  :data="game[playedView].data['max']"
+                ></Cube>
+              </Box>
+              <Box
+                :class-name="'extra1'"
+                :title="$t('home.title_3')"
+                :info="$t('home.help_3')"
+              >
+                <Cube
+                  :dimension="'medium'"
+                  :data="game[playedView].data['mineleven']"
+                ></Cube>
+                <Cube
+                  :dimension="'medium'"
+                  :data="game[playedView].data['full']"
+                ></Cube>
+                <Cube
+                  :dimension="'medium'"
+                  :data="game[playedView].data['poker']"
+                ></Cube>
+              </Box>
+              <Box
+                :class-name="'extra2'"
+                :title="$t('home.title_4')"
+                :info="$t('home.help_4')"
+              >
+                <Cube
+                  :dimension="'big'"
+                  :data="game[playedView].data['scale']"
+                ></Cube>
+                <Cube
+                  :dimension="'big'"
+                  :data="game[playedView].data['yam']"
+                ></Cube>
+              </Box>
+            </div>
           </div>
         </div>
       </div>
@@ -240,19 +242,22 @@ export default {
 <style lang="scss" scoped>
 .container-app {
   .wrapper-main {
-    @include position(absolute, 4rem null null 50%);
-    @include size(100%, auto);
-    transform: translate(-50%, 0);
-    overflow: hidden;
+    // @include position(absolute, 4rem null null 50%);
+    @include size(100%, calc(100vh - 7.5rem));
+    // @include size(100%, auto);
+    // transform: translate(-50%, 0);
+    // overflow: hidden;
+    flex-direction: column;
   }
   button {
     @include margin(0.7rem null null);
   }
   .container-match {
-    @include size(calc(100% - 2rem), calc(100vh - 26rem));
+    // @include size(calc(100% - 2rem), calc(100vh - 26rem));
+    @include size(calc(100% - 2rem), 100%);
     @include padding(null 1rem);
     flex-direction: column;
-    overflow: hidden;
+    // overflow: hidden;
     text-align: center;
     > p {
       line-height: 1.2rem;
@@ -267,7 +272,7 @@ export default {
     overflow-x: auto;
     display: flex;
     .wrapper-box {
-      @include padding(0.7rem);
+      @include padding(0.7rem 0.7rem 1.2rem);
       flex-wrap: nowrap;
       ::v-deep article {
         @include margin(null 0.7rem null null);

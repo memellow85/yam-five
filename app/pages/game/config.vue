@@ -82,6 +82,14 @@ export default {
       usersSocket: (state) => state.usersSocket,
     }),
   },
+  created() {
+    this.$nuxt.$on('confirmSubmitHandler', () => {
+      this.confirmSubmitReset()
+    })
+  },
+  destroyed() {
+    this.$nuxt.$off('confirmSubmitHandler')
+  },
   methods: {
     leaveHandler() {
       this.$store.commit(`game/resetStats`)
@@ -94,6 +102,9 @@ export default {
       })
     },
     resetTotalHandler() {
+      this.$store.commit(`game/toggleModal`, 'alert')
+    },
+    confirmSubmitReset() {
       this.$store.dispatch(`firebase/resetRecordUser`).then(() => {
         this.$store.commit('game/toggleNotification', {
           type: 'success',

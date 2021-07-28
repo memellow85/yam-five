@@ -65,8 +65,12 @@
   -webkit-tap-highlight-color: rgba(0, 166, 118, 0.1);
 }
 
-%flex {
+%basicFlex {
   display: flex;
+}
+
+%flex {
+  @extend %basicFlex;
   align-items: center;
 }
 

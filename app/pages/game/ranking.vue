@@ -57,10 +57,19 @@
                 ? getTypeChampions(subTab)
                 : usersOrderedSocket"
               :key="u.id"
-              :class="['flex', { io: u.uid === userFirebase.uid }]"
+              :class="[
+                'flex',
+                {
+                  io:
+                    u.uid === userFirebase.uid ||
+                    (u.user && u.user.uid === userFirebase.uid),
+                },
+              ]"
             >
               <div class="col_1">
-                <p>{{ index + 1 }}) {{ u.name }}</p>
+                <p>
+                  {{ index + 1 }}) {{ viewRanking > 1 ? u.name : u.user.name }}
+                </p>
               </div>
               <div class="col_2">
                 <p>{{ u.tot }}</p>

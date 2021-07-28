@@ -113,7 +113,7 @@ export default {
           setTimeout(() => {
             this.$store.dispatch('game/playedDecrease')
             this.$store.commit('game/disabledPossibilityGame', this.played)
-          }, 100)
+          }, 300)
 
           setTimeout(() => {
             this.$store.commit(`game/setDisabledButtonGame`, false)
