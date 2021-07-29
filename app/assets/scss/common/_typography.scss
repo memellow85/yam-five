@@ -33,6 +33,9 @@ p {
   &.small {
     @extend %small;
   }
+  &.red {
+    color: $error;
+  }
 }
 
 strong {

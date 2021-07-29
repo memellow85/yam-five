@@ -43,12 +43,12 @@
     "message_6": "Inizia subito un'altra partita...",
     "message_7": "Sta giocando il tuo avversario...attendi il tuo turno.",
     "title_1": "MAGGIOR NUMERO DI...",
-    "title_2": "TIRI MINIMO & MASSIMO",
-    "title_3": "COMBINAZIONI BONUS 20/30",
-    "title_4": "COMBINAZIONI BONUS 40/50",
+    "title_2": "MINIMO & MASSIMO",
+    "title_3": "COMBINAZIONI 20/30",
+    "title_4": "COMBINAZIONI 40/50",
     "help_1": "BONUS<br />Somma Totale > 60 = +20<br />Somma Totale > 70 = +30",
     "help_2": "BONUS<br />Minimo + Massimo > 50 = +30",
-    "help_3": "BONUS<br />Totale lancio  < 11 = +30<br />Full = +20<br />Poker = +30",
+    "help_3": "BONUS<br />Totale lancio  <= 11 = +30<br />Full = +20<br />Poker = +30",
     "help_4": "BONUS<br />Scala = +40<br />YamFive = +50",
     "notification_1": "E' il turno di: ",
     "notification_2": "Per una migliore usabilità tieni il device in portrait.",
@@ -57,7 +57,7 @@
   "config": {
     "title_2": "Seleziona Lingua",
     "title_3": "Modalità di gioco",
-    "title_4": "Resetta il tuo record",
+    "title_4": "Resetta i tuoi records",
     "btn_1": "Unisciti",
     "btn_2": "Abbandona",
     "btn_3": "Esci",
@@ -69,7 +69,7 @@
     "join_3": " utenti",
     "tab_1": "Crea",
     "tab_2": "Unisciti",
-    "message_1": "Resetta il tuo record se non lo hai mai fatto così da poter vedere l'andamento nei grafici",
+    "message_1": "Cancella tutti i tuoi record",
     "message_2": "Records cancellati"
   },
   "champions": {
@@ -79,7 +79,7 @@
     "empty_2": "Nessun giocatore in classifica",
     "th_1": "Nome",
     "th_4": "Completo",
-    "th_8": "Punteggio partita",
+    "th_8": "Punteggio",
     "tab_1": "Completo",
     "tab_2": "Breve",
     "tab_3": "Brevissimo"
@@ -212,12 +212,13 @@
     "actual_roll": "Riepilogo giocata corrente:",
     "tot_actual_roll": "Totale giocata corrente:",
     "dices": "Dado ",
-    "chart_1": "Grafico andamento totale rispetto al record",
-    "chart_2": "Grafico conteggio uscita giocate rispetto al record",
+    "chart_1": "Andamento del totale",
+    "chart_2": "Conteggio singolo dado",
     "legend_1": "Attuale",
     "legend_2": "Record personale",
     "legend_3": "Record globale",
-    "no_data_chart_1": "Dati al momento non disponibili"
+    "no_data_chart_1": "Dati al momento non disponibili",
+    "reset_records": "NB: per vedere i tuoi record devi resettare i tuoi totali così dalla volta dopo possono essere salvati"
   },
   "alert": {
     "yes": "Si",

@@ -49,7 +49,7 @@
                 <p>{{ $t('champions.th_1') }}</p>
               </div>
               <div class="col_2">
-                <p>{{ $t('champions.th_4') }}</p>
+                <p>{{ $t('champions.th_8') }}</p>
               </div>
             </li>
             <li
