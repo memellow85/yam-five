@@ -23,8 +23,8 @@
               {{ $t('home.btn_2') }}
             </button>
           </template>
-          <template
-            v-if="
+          <div
+            v-show="
               !newGame &&
               activeGame &&
               startGame &&
@@ -44,7 +44,7 @@
               {{ $t('home.message_3_a') }} <strong>{{ 3 - played }}</strong>
               {{ $t('home.message_3_b') }} <strong>{{ dices.tot }}</strong>
             </p>
-          </template>
+          </div>
           <template
             v-if="
               !newGame &&
