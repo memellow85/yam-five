@@ -10,6 +10,9 @@
       <article>
         <Stats></Stats>
       </article>
+      <article v-if="records.length === 0">
+        <p class="red">{{ $t('stats.reset_records') }}</p>
+      </article>
       <article class="container-chart">
         <div class="wrapper-chart first-chart">
           <p class="flex-center">
