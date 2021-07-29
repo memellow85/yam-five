@@ -180,6 +180,7 @@ export default {
     this.$store.commit(`game/setDisabledButtonGame`, true)
     next()
   },
+  layout: 'private',
   middleware: ['authenticated'],
   data() {
     return {

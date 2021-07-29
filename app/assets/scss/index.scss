@@ -12,6 +12,9 @@ body {
   font-weight: $normal;
   color: $color-6;
   -webkit-font-smoothing: antialiased;
+  &.public {
+    background: $color-1;
+  }
 }
 
 *:focus {

@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  layout: 'offline',
+  layout: 'public',
 }
 </script>

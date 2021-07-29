@@ -10,6 +10,18 @@
   </Layout>
 </template>
 
+<script>
+export default {
+  head() {
+    return {
+      bodyAttrs: {
+        class: 'public',
+      },
+    }
+  },
+}
+</script>
+
 <style lang="scss">
 @import '../assets/scss/offline';
 </style>
