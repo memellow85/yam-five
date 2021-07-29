@@ -1,5 +1,3 @@
-// const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-
 module.exports = {
   ssr: false,
   components: true,
@@ -212,13 +210,6 @@ module.exports = {
         fs: 'empty',
       }
     },
-    /* plugins: [
-      new LodashModuleReplacementPlugin({
-        collections: true,
-        paths: true,
-        caching: true,
-      }),
-    ], */
     performance: {
       hints: 'warning',
       maxEntrypointSize: 300000,
