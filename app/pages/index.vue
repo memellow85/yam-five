@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  layout: 'offline',
+  layout: 'public',
   mounted() {
     window.addEventListener(
       'touchmove',

@@ -70,6 +70,7 @@ import WsMixin from '~/mixins/ws'
 
 export default {
   mixins: [WsMixin],
+  layout: 'private',
   middleware: ['authenticated'],
   data() {
     return {

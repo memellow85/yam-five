@@ -81,6 +81,7 @@ import { longPress } from '~/directives/longpress'
 export default {
   directives: { longPress },
   mixins: [WsMixin],
+  layout: 'private',
   middleware: ['authenticated'],
   data() {
     return {

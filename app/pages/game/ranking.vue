@@ -101,6 +101,7 @@ import ScrollMixin from '~/mixins/scroll'
 
 export default {
   mixins: [WsMixin, ScrollMixin],
+  layout: 'private',
   middleware: ['authenticated'],
   data() {
     return {
