@@ -1,11 +1,17 @@
 import cloneDeep from 'lodash/cloneDeep'
-import { getRandomNumberCube, calculateActualGame, logger } from '~/utils'
+import {
+  getRandomNumberCube,
+  calculateActualGame,
+  logger,
+  setStatisticsDice,
+} from '~/utils'
 import {
   dicesTypesCabled,
   gamesTypesCabled,
   playedListCabled,
   dices,
   match,
+  probablyExitNumbers,
 } from '~/lists'
 
 /**
@@ -16,6 +22,7 @@ export const state = () => ({
   showConfig: false,
   showChampionsShip: false,
   showSchema: false,
+  showAlert: false,
   showNotification: false,
   notificationTypes: null,
   notificationMessage: null,
@@ -34,6 +41,10 @@ export const state = () => ({
   startGame: null,
   newGame: false,
   activeGame: false,
+  navigationRoute: null,
+  probablyExitNumbers,
+  totalHistorical: [],
+  disabledButtonGame: false,
 })
 
 /**
@@ -46,6 +57,7 @@ export const mutations = {
     state.showChampionsShip = false
     state.showConfig = false
     state.showHelp = false
+    state.showAlert = false
   },
   toggleModal(state, type) {
     logger('COMMIT-GAME toggleModal', type, 'i')
@@ -61,6 +73,9 @@ export const mutations = {
         break
       case 'schema':
         state.showSchema = !state.showSchema
+        break
+      case 'alert':
+        state.showAlert = !state.showAlert
         break
     }
   },
@@ -114,6 +129,10 @@ export const mutations = {
       return true
     })
     state.dices.tot = tot
+    state.probablyExitNumbers = setStatisticsDice(
+      state.probablyExitNumbers,
+      state.dices
+    )
   },
   activeGame(state) {
     logger('COMMIT-GAME activeGame', null, 'i')
@@ -147,11 +166,14 @@ export const mutations = {
     logger('COMMIT-GAME setActualValue', data, 'i')
     gamesTypesCabled.map((g) => {
       if (g === state.playedView) {
-        state.game[g].data[data.name].value = calculateActualGame(
+        // const tmp = cloneDeep(state.dices)
+        const sum = calculateActualGame(
           data,
           state.dices,
           data.name === 'min' ? state.game[g].data.max : state.game[g].data.min
         )
+        state.totalHistorical.push(sum)
+        state.game[g].data[data.name].value = sum
         state.game[g].data[data.name].active = false
       }
       return true
@@ -335,6 +357,16 @@ export const mutations = {
     })
     state.playedView = g
   },
+  setNavigationRoute(state, value) {
+    state.navigationRoute = value
+  },
+  resetStats(state) {
+    state.probablyExitNumbers = probablyExitNumbers
+    state.totalHistorical = []
+  },
+  setDisabledButtonGame(state, value) {
+    state.disabledButtonGame = value
+  },
 }
 
 /**
@@ -346,13 +378,15 @@ export const actions = {
     dispatch('ws/startGameSocket', {}, { root: true })
     commit('startGame', true)
     commit('initDices')
+    commit('resetStats')
   },
   reinitGame({ commit, dispatch }) {
     logger('ACTION-GAME reinitGame', null, 'i')
     dispatch('ws/updateGameSocket', {}, { root: true })
-    commit('newGame', false)
+    /* commit('newGame', false)
     commit('initDices')
     commit('initMatch')
+    commit('resetStats') */
     // Reset classifica ?
   },
   playedDecrease({ commit, state }) {

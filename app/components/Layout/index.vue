@@ -5,7 +5,7 @@
     @orientationHandler="orientationHandler"
   >
     <!-- Title -->
-    <h1>{{ $t('nameapp') }}</h1>
+    <!-- <h1>{{ $t('nameapp') }}</h1> -->
 
     <!-- Content -->
     <slot></slot>
@@ -99,9 +99,7 @@ export default {
           clearTimeout(this.timeReset)
         } else {
           this.timeReset = setTimeout(() => {
-            // if (this.userSocket) {
             this.$store.dispatch('ws/leftRoomSocket')
-            // }
             this.$store.dispatch('firebase/logout').then(() => {
               this.$router.push('/')
             })

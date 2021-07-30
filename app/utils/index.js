@@ -1,3 +1,59 @@
+import cloneDeep from 'lodash/cloneDeep'
+import { dicesTypesCabled } from '~/lists'
+
+/**
+ * Raggruppo dadi per capire se può esserci un full o poker o yam
+ */
+const groupArrayByKey = (data) => {
+  const tmp = []
+  data.map((v) => {
+    if (!tmp.includes(v.value)) {
+      tmp.push(v.value)
+    }
+    return true
+  })
+  return tmp
+}
+
+const returnArrayValue = (dices) => {
+  const arrayValue = []
+  Object.keys(dices).map((v) => {
+    if (dices[v].value) {
+      arrayValue.push(dices[v])
+    }
+    return true
+  })
+  return arrayValue
+}
+
+const isScale = (arrayUnique) => {
+  const scaleUp = [2, 3, 4, 5, 6].toString()
+  const scaleDown = [1, 2, 3, 4, 5].toString()
+  const scale = arrayUnique
+    .sort((a, b) => (a > b ? 1 : b > a ? -1 : 0))
+    .toString()
+
+  return scale === scaleUp || scale === scaleDown
+}
+
+const isFull = (arrayUnique, arrayValue) => {
+  return (
+    arrayUnique.length === 2 &&
+    ((arrayValue.filter((v) => v.value === arrayUnique[0]).length === 2 &&
+      arrayValue.filter((v) => v.value === arrayUnique[1]).length === 3) ||
+      (arrayValue.filter((v) => v.value === arrayUnique[0]).length === 3 &&
+        arrayValue.filter((v) => v.value === arrayUnique[1]).length === 2))
+  )
+}
+
+const isPoker = (arrayUnique, arrayValue) => {
+  return (
+    arrayUnique.length === 2 &&
+    (arrayValue.filter((v) => v.value === arrayUnique[0]).length === 4 ||
+      arrayValue.filter((v) => v.value === arrayUnique[1]).length === 4)
+  )
+}
+
 export const getRandomNumberCube = () => Math.floor(Math.random() * 6) + 1
 
 export const logger = (message, data, type) => {
@@ -18,46 +74,60 @@ export const logger = (message, data, type) => {
   }
 }
 
-export const calculateActualGame = (data, dices, minMax) => {
-  /**
-   * Raggruppo dadi per capire se può esserci un full o poker o yam
-   */
-  const groupArrayByKey = (data) => {
-    const tmp = []
-    data.map((v) => {
-      if (!tmp.includes(v.value)) {
-        tmp.push(v.value)
-      }
-      return true
-    })
-    return tmp
-  }
-
-  /**
-   * Sommo i dati per la giocata del poker
-   */
-  const getSum = (data, value) => {
-    data.map((v) => {
-      value += v.value
-      return true
-    })
-    return value
-  }
-
-  const arrayValue = []
-  Object.keys(dices).map((v) => {
-    if (dices[v].value) {
-      arrayValue.push(dices[v])
+export const setStatisticsDice = (statistics, dices) => {
+  const tmpStatistics = cloneDeep(statistics)
+  dicesTypesCabled.map((k) => {
+    switch (dices[k].value) {
+      case 1:
+        tmpStatistics.one += 1
+        break
+      case 2:
+        tmpStatistics.two += 1
+        break
+      case 3:
+        tmpStatistics.three += 1
+        break
+      case 4:
+        tmpStatistics.four += 1
+        break
+      case 5:
+        tmpStatistics.five += 1
+        break
+      case 6:
+        tmpStatistics.six += 1
+        break
     }
-    return true
   })
 
+  if (dices.tot <= 11) {
+    tmpStatistics.mineleven += 1
+  }
+
+  const arrayValue = returnArrayValue(dices)
   const arrayUnique = groupArrayByKey(arrayValue)
-  const scale = arrayUnique
-    .sort((a, b) => (a > b ? 1 : b > a ? -1 : 0))
-    .toString()
-  const scaleUp = [2, 3, 4, 5, 6].toString()
-  const scaleDown = [1, 2, 3, 4, 5].toString()
+
+  if (isFull(arrayUnique, arrayValue)) {
+    tmpStatistics.full += 1
+  }
+
+  if (isPoker(arrayUnique, arrayValue)) {
+    tmpStatistics.poker += 1
+  }
+
+  if (isScale(arrayUnique)) {
+    tmpStatistics.scale += 1
+  }
+
+  if (arrayUnique.length === 1) {
+    tmpStatistics.yam += 1
+  }
+
+  return tmpStatistics
+}
+
+export const calculateActualGame = (data, dices, minMax) => {
+  const arrayValue = returnArrayValue(dices)
+  const arrayUnique = groupArrayByKey(arrayValue)
 
   let value = 0
   switch (data.name) {
@@ -111,47 +181,25 @@ export const calculateActualGame = (data, dices, minMax) => {
     case 'poker':
       if (arrayUnique.length === 2) {
         if (arrayValue.filter((v) => v.value === arrayUnique[0]).length === 4) {
-          value = getSum(
-            arrayValue.filter((v) => v.value === arrayUnique[0]),
-            value
-          )
+          value = arrayUnique[0] * 4
         } else if (
           arrayValue.filter((v) => v.value === arrayUnique[1]).length === 4
         ) {
-          value = getSum(
-            arrayValue.filter((v) => v.value === arrayUnique[1]),
-            value
-          )
+          value = arrayUnique[1] * 4
         } else {
           value = 0
         }
+      } else if (arrayUnique.length === 1) {
+        value = arrayUnique[0] * 4
       } else {
         value = 0
       }
       break
     case 'full':
-      if (arrayUnique.length === 2) {
-        if (
-          (arrayValue.filter((v) => v.value === arrayUnique[0]).length === 2 &&
-            arrayValue.filter((v) => v.value === arrayUnique[1]).length ===
-              3) ||
-          (arrayValue.filter((v) => v.value === arrayUnique[0]).length === 3 &&
-            arrayValue.filter((v) => v.value === arrayUnique[1]).length === 2)
-        ) {
-          value = dices.tot
-        } else {
-          value = 0
-        }
-      } else {
-        value = 0
-      }
+      value = isFull(arrayUnique, arrayValue) ? dices.tot : 0
       break
     case 'scale':
-      if (scale === scaleUp || scale === scaleDown) {
-        value = dices.tot
-      } else {
-        value = 0
-      }
+      value = isScale(arrayUnique) ? dices.tot : 0
       break
     case 'min':
       if (minMax.value !== '-' && dices.tot < minMax.value) {

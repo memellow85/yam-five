@@ -2,8 +2,13 @@
   <footer>
     <nav class="flex-between">
       <ul class="inline">
-        <li v-for="m in menuLeft" :key="m.name" @click="actionsHandler(m)">
-          <span :class="`yamicons mdi mdi-${m.icon}`"></span>
+        <li
+          v-for="m in menuLeft"
+          :key="m.name"
+          :class="{ selected: $route.name === m.name }"
+          @click="actionsHandler(m)"
+        >
+          <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
         </li>
       </ul>
       <div
@@ -16,8 +21,13 @@
         <span class="yamicons mdi mdi-cube-outline"></span>
       </div>
       <ul class="inline">
-        <li v-for="m in menuRight" :key="m.name" @click="actionsHandler(m)">
-          <span :class="`yamicons mdi mdi-${m.icon}`"></span>
+        <li
+          v-for="m in menuRight"
+          :key="m.name"
+          :class="{ selected: $route.name === m.name }"
+          @click="actionsHandler(m)"
+        >
+          <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
         </li>
       </ul>
     </nav>
@@ -32,22 +42,30 @@ export default {
     return {
       menuLeft: [
         {
-          name: 'config',
-          icon: 'cog-outline',
+          name: 'home',
+          icon: 'gamepad-variant-outline',
         },
         {
-          name: 'help',
-          icon: 'help-circle-outline',
+          name: 'game-games',
+          icon: 'view-grid-outline',
+        },
+        {
+          name: 'game-stats',
+          icon: 'chart-box-outline',
         },
       ],
       menuRight: [
         {
-          name: 'schema',
-          icon: 'view-grid-outline',
+          name: 'game-help',
+          icon: 'account-question-outline',
         },
         {
-          name: 'champions',
-          icon: 'chart-line-variant',
+          name: 'game-ranking',
+          icon: 'arm-flex-outline',
+        },
+        {
+          name: 'game-config',
+          icon: 'cog-outline',
         },
       ],
     }
@@ -57,34 +75,53 @@ export default {
       played: (state) => state.played,
       startGame: (state) => state.startGame,
       newGame: (state) => state.newGame,
+      disabledButtonGame: (state) => state.disabledButtonGame,
     }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
     }),
     disabled() {
-      return (
-        this.startGame === null ||
-        !this.userSocket.turnOn ||
-        !this.startGame ||
-        this.newGame
-      )
+      if (this.$route.name !== 'home') {
+        return true
+      } else {
+        return (
+          this.startGame === null ||
+          !this.userSocket.turnOn ||
+          !this.startGame ||
+          this.newGame ||
+          this.disabledButtonGame ||
+          this.played === 0
+        )
+      }
     },
     notification() {
       return this.startGame && this.userSocket.turnOn && !this.newGame
     },
   },
   methods: {
+    getIconName(elm) {
+      return this.$route.name === elm.name
+        ? elm.icon.replace('-outline', '')
+        : elm.icon
+    },
     actionsHandler(data) {
-      this.$store.commit('game/toggleModal', data.name)
+      this.$router.push({ name: data.name })
     },
     gameHandler() {
       if (!this.disabled) {
         if (this.startGame) {
+          this.$store.commit(`game/setDisabledButtonGame`, true)
+          this.$store.commit(`game/setNavigationRoute`, false)
           this.$store.commit(`game/activeGame`)
+
           setTimeout(() => {
             this.$store.dispatch('game/playedDecrease')
             this.$store.commit('game/disabledPossibilityGame', this.played)
-          }, 100)
+          }, 200)
+
+          setTimeout(() => {
+            this.$store.commit(`game/setDisabledButtonGame`, false)
+          }, 1200)
         }
       }
     },
@@ -103,7 +140,14 @@ footer {
     @include size(auto, 100%);
     ul {
       li {
-        @include margin(null 1.4rem);
+        @include margin(null 0.8rem);
+        &.selected {
+          .yamicons {
+            &::before {
+              color: $primary;
+            }
+          }
+        }
         .yamicons {
           &::before {
             color: $white;

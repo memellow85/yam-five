@@ -92,6 +92,7 @@ io.on('connection', (socket) => {
     } else {
       io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
     }
+    io.to(user.id).emit('redirectHome')
   })
 
   socket.on('start_game', (user) => {
@@ -109,6 +110,7 @@ io.on('connection', (socket) => {
     Rooms.PUTRoomUsers(usersIntoRoom, user.type)
     usersIntoRoom = Rooms.GETUsersRoom(user.room)
     io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
+    io.to(user.room).emit('resetUserSocketEmit')
   })
 
   socket.on('finish_turn', (user) => {
@@ -131,7 +133,7 @@ io.on('connection', (socket) => {
       championshipList.map((u) => {
         io.to(u.id).emit('winnerIsSocketEmit', {
           count,
-          name: championshipList[0].name,
+          name: championshipList[0].user.name,
           user,
         })
         io.to(u.id).emit('newGameSocketEmit', u.turnOn)
@@ -139,14 +141,6 @@ io.on('connection', (socket) => {
       })
     }
   })
-
-  /* socket.on('update_local_championship', (user) => {
-    Rooms.PUTChampionShipRoom(user)
-    io.to(user.room).emit(
-      'updateUsersSocketEmit',
-      Rooms.GETUsersRoom(user.room)
-    )
-  }) */
 
   socket.on('left_room', () => {
     leftRoom(socket.id, socket)

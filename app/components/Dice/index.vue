@@ -7,7 +7,9 @@
       <div
         :class="`content-dice dice-${newValue}`"
         :style="
-          !blockValue
+          navigationRoute
+            ? ''
+            : !blockValue
             ? `transition: transform ${equalValue ? '0.6' : '1.2'}s;`
             : ''
         "
@@ -82,11 +84,13 @@ export default {
       newValue: null,
       equalValue: false,
       blockValue: false,
+      blockDice: null,
     }
   },
   computed: {
     ...mapState('game', {
       played: (state) => state.played,
+      navigationRoute: (state) => state.navigationRoute,
     }),
   },
   watch: {
@@ -107,14 +111,21 @@ export default {
         if (!this.dice.block) {
           this.blockValue = false
           this.equalValue = true
-          if (this.dice.value >= 1 && this.dice.value <= 4) {
-            this.newValue = this.dice.value + 2
-          } else if (this.dice.value >= 5) {
-            this.newValue = this.dice.value - 2
-          }
-          setTimeout(() => {
+          if (
+            this.navigationRoute ||
+            (!this.blockDice && typeof this.blockDice === 'boolean')
+          ) {
             this.newValue = this.dice.value
-          }, 600)
+          } else {
+            if (this.dice.value >= 1 && this.dice.value <= 4) {
+              this.newValue = this.dice.value + 2
+            } else if (this.dice.value >= 5) {
+              this.newValue = this.dice.value - 2
+            }
+            setTimeout(() => {
+              this.newValue = this.dice.value
+            }, 600)
+          }
         } else {
           this.blockValue = true
           this.newValue = this.dice.value
@@ -130,10 +141,17 @@ export default {
         if (!this.dice.block) {
           this.blockValue = false
           this.equalValue = true
-          this.newValue = this.dice.value + 2
-          setTimeout(() => {
+          if (
+            this.navigationRoute ||
+            (!this.blockDice && typeof this.blockDice === 'boolean')
+          ) {
             this.newValue = this.dice.value
-          }, 600)
+          } else {
+            this.newValue = this.dice.value + 2
+            setTimeout(() => {
+              this.newValue = this.dice.value
+            }, 600)
+          }
         } else {
           this.blockValue = true
           this.newValue = this.dice.value
@@ -146,6 +164,7 @@ export default {
     },
     clickDiceHandler(dice) {
       if (this.played < 3) {
+        this.blockDice = !dice.block
         this.$store.commit('game/blockDice', dice)
       }
     },

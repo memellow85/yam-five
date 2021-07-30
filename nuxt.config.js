@@ -1,5 +1,3 @@
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-
 module.exports = {
   ssr: false,
   components: true,
@@ -10,6 +8,8 @@ module.exports = {
     host: 'localhost',
     port: 5000, // default: 3000
   }, */
+  layoutTransition: 'fade-in',
+  pageTransition: 'fade-in',
   /*
    ** Headers of the page
    */
@@ -20,7 +20,7 @@ module.exports = {
       {
         name: 'viewport',
         content:
-          'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+          'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi',
       },
       {
         hid: 'description',
@@ -132,7 +132,7 @@ module.exports = {
       short_name: 'YamFive',
       description: 'The dices game',
       viewport:
-        'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+        'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi',
     },
     /* meta: {
       mobileAppIOS: true,
@@ -196,7 +196,9 @@ module.exports = {
     },
     baseURL:
       process.env.NUXT_ENV_NODE_ENV !== 'production'
-        ? 'http://localhost:5000/'
+        ? process.env.NUXT_ENV_NODE_ENV === 'beta'
+          ? 'https://yamfive-app-dev.herokuapp.com/'
+          : 'http://localhost:5000/'
         : 'https://yamfive-app.herokuapp.com/',
   },
   /*
@@ -208,13 +210,6 @@ module.exports = {
         fs: 'empty',
       }
     },
-    plugins: [
-      new LodashModuleReplacementPlugin({
-        collections: true,
-        paths: true,
-        caching: true,
-      }),
-    ],
     performance: {
       hints: 'warning',
       maxEntrypointSize: 300000,

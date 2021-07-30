@@ -4,7 +4,6 @@
 
 <script>
 export default {
-  layout: 'offline',
-  transition: 'slide-bottom',
+  layout: 'public',
 }
 </script>

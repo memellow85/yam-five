@@ -12,7 +12,7 @@
           />
           <span class="radio__control"></span>
         </span>
-        <span class="radio__label">{{ r.name }}</span>
+        <span class="radio__label">{{ $t(r.name) }}</span>
       </label>
     </div>
   </div>
@@ -25,11 +25,11 @@ export default {
       langs: [
         {
           code: 'en',
-          name: this.$t('language.en'),
+          name: 'language.en',
         },
         {
           code: 'it',
-          name: this.$t('language.it'),
+          name: 'language.it',
         },
       ],
       currentLang: this.$i18n.locale,

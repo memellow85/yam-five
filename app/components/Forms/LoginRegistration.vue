@@ -97,7 +97,7 @@
         />
       </FormsInput>
 
-      <FormsNavigation
+      <NavigationPublic
         :login="login"
         :registration="!login"
         :loader="showLoader"
@@ -109,7 +109,7 @@
               conf_password === '' ||
               conf_password !== password
         "
-      ></FormsNavigation>
+      ></NavigationPublic>
     </div>
   </div>
 </template>

@@ -9,4 +9,11 @@
   &.full {
     @include size(100%, 2.6rem);
   }
+  &.small {
+    @include size(auto, 2.2rem);
+    min-width: 5rem;
+  }
+  &.red {
+    background: $error;
+  }
 }

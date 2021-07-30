@@ -25,11 +25,11 @@
         />
       </FormsInput>
 
-      <FormsNavigation
+      <NavigationPublic
         recovery
         :loader="showLoader"
         :disabled="recovery === ''"
-      ></FormsNavigation>
+      ></NavigationPublic>
     </div>
   </div>
 </template>

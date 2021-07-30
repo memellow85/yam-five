@@ -1,5 +1,20 @@
 import { logger } from '~/utils'
 
+const compare = (a, b) => {
+  if (a.tot > b.tot) return -1
+  if (b.tot > a.tot) return 1
+  return 0
+}
+
+const sort = (data, type) => {
+  const tmp = []
+  data.map((v) => {
+    v.tot = type ? v[type] : 0
+    tmp.push(v)
+  })
+  return tmp.sort(compare)
+}
+
 /**
  * State
  */
@@ -8,6 +23,15 @@ export const state = () => ({
   userDetailsFirebase: null,
   usersChampions: [],
 })
+
+/**
+ * Getters
+ */
+export const getters = {
+  getTypeChampions: (state) => (type) => {
+    return sort(state.usersChampions, type)
+  },
+}
 
 /**
  * Mutations
@@ -52,11 +76,15 @@ export const actions = {
         .then((resp) => {
           const user = resp.data.user
           commit('setUserFirebase', user)
-          dispatch('getDetailsUser', user.uid).then((r) => {
-            commit('setUserDetailsFirebase', r)
-            resolve()
-          })
-          dispatch('getChampions')
+          dispatch('getDetailsUser', user.uid)
+            .then((r) => {
+              commit('setUserDetailsFirebase', r)
+              dispatch('getChampions')
+              resolve()
+            })
+            .catch((error) => {
+              reject(error.response.data.message)
+            })
         })
         .catch((error) => {
           reject(error.response.data.message)
@@ -108,13 +136,41 @@ export const actions = {
         })
     })
   },
-  updateRecordUser({ dispatch }, data) {
+  updateRecordUser({ dispatch, commit, state }, data) {
     logger('ACTION-FIREBASE updateRecordUser', data, 'i')
     return new Promise((resolve, reject) => {
       this.$axios
-        .put(`/yam-five/user/${data.user.uid}`, data)
+        .put(`/yam-five/user/${data.details.user.uid}`, data)
         .then(() => {
           dispatch('getChampions')
+          dispatch('getDetailsUser', state.userDetailsFirebase.uid)
+            .then((r) => {
+              commit('setUserDetailsFirebase', r)
+            })
+            .catch((error) => {
+              reject(error.response.data.message)
+            })
+          resolve()
+        })
+        .catch((error) => {
+          reject(error.response.data.message)
+        })
+    })
+  },
+  resetRecordUser({ dispatch, commit, state }) {
+    logger('ACTION-FIREBASE resetRecordUser', null, 'i')
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .put(`/yam-five/reset-record/${state.userDetailsFirebase.uid}`, {})
+        .then(() => {
+          dispatch('getChampions')
+          dispatch('getDetailsUser', state.userDetailsFirebase.uid)
+            .then((r) => {
+              commit('setUserDetailsFirebase', r)
+            })
+            .catch((error) => {
+              reject(error.response.data.message)
+            })
           resolve()
         })
         .catch((error) => {

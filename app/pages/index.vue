@@ -4,7 +4,15 @@
 
 <script>
 export default {
-  layout: 'offline',
-  transition: 'slide-bottom',
+  layout: 'public',
+  mounted() {
+    window.addEventListener(
+      'touchmove',
+      function (event) {
+        event.preventDefault()
+      },
+      { passive: false }
+    )
+  },
 }
 </script>

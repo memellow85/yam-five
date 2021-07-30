@@ -63,7 +63,7 @@ export default {
           match = 13
           break
       }
-      this.$store.commit('game/toggleModal', 'config')
+      // this.$store.commit('game/toggleModal', 'config')
       // if (this.tab === 'create') {
       this.$store.dispatch(`ws/addUserSocket`, {
         user: this.userDetailsFirebase,
