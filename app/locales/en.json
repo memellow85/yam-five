@@ -224,5 +224,8 @@
     "yes": "Yes",
     "no": "No",
     "message": "Are you sure to want reset your records?"
+  },
+  "release": {
+    "title_1": "Release notes"
   }
 }

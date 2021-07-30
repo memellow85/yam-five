@@ -224,5 +224,8 @@
     "yes": "Si",
     "no": "No",
     "message": "Sei sicuro di voler azzerare i tuoi records?"
+  },
+  "release": {
+    "title_1": "Note revisioni"
   }
 }

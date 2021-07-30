@@ -1,11 +1,6 @@
 <template>
   <section class="wrapper-page">
-    <article>
-      <h3>
-        <span class="yamicons mdi mdi-arm-flex-outline"></span>
-        {{ $t('champions.title_1') }}
-      </h3>
-    </article>
+    <TitlePage label="champions" icon="arm-flex-outline"></TitlePage>
     <div class="main">
       <article class="wrapper-tabs-form">
         <ul class="inline custom-tabs">

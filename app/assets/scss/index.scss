@@ -33,6 +33,11 @@ body {
       font-size: $font-icons-size-small;
     }
   }
+  &.medium {
+    &:before {
+      font-size: $font-icons-size-medium;
+    }
+  }
   &.selected {
     &:before {
       color: $primary;
@@ -99,13 +104,6 @@ ul {
   }
   article {
     @include padding(null 1rem);
-    /* @include margin(null null 2rem);
-    &:first-child {
-      @include margin(null null 0);
-    }
-    &:last-child {
-      @include margin(null null 0);
-    } */
     &.wrapper-tabs-form {
       .container-btn {
         justify-content: flex-end;

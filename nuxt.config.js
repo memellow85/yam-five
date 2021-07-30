@@ -4,10 +4,10 @@ module.exports = {
   telemetry: false,
   srcDir: 'app',
   dev: process.env.NUXT_ENV_NODE_ENV !== 'production',
-  /* server: {
+  server: {
     host: 'localhost',
     port: 5000, // default: 3000
-  }, */
+  },
   layoutTransition: 'fade-in',
   pageTransition: 'fade-in',
   /*
@@ -205,7 +205,7 @@ module.exports = {
    ** Build configuration
    */
   build: {
-    extend(config, { isDev, isClient }) {
+    extend(config) {
       config.node = {
         fs: 'empty',
       }

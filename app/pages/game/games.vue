@@ -1,11 +1,6 @@
 <template>
   <section class="wrapper-page">
-    <article>
-      <h3>
-        <span class="yamicons mdi mdi-view-grid-outline"></span>
-        {{ $t('schemas.title_1') }}
-      </h3>
-    </article>
+    <TitlePage label="schemas" icon="view-grid-outline"></TitlePage>
     <div class="main">
       <article>
         <Stats></Stats>
