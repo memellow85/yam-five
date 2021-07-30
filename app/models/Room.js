@@ -90,14 +90,7 @@ class Rooms {
   PUTTurnUsers(room) {
     let indexNew = null
     let indexOld = null
-    /* this.users = this.users.map((v, k) => {
-      if (v.turnOn && v.room === room) {
-        index = k + 1
-        v.turnOn = false
-        v.match = v.match - 1
-      }
-      return v
-    }) */
+
     const usersRoom = this.users.filter((v) => v.room === room)
     usersRoom.map((v, k) => {
       if (v.turnOn) {
@@ -110,30 +103,24 @@ class Rooms {
 
     if (usersRoom.length > 1) {
       this.users = this.users.map((v) => {
-        if (indexOld && usersRoom[indexOld].id === v.id) {
+        if (usersRoom[indexOld].id === v.id && v.room === room) {
           v.turnOn = false
           v.match = v.match - 1
         }
-        if (indexNew && usersRoom[indexNew].id === v.id) {
+        if (usersRoom[indexNew].id === v.id && v.room === room) {
           v.turnOn = true
         }
         return v
       })
     } else {
       this.users = this.users.map((v) => {
-        if (usersRoom[0].id === v.id) {
+        if (usersRoom[0].id === v.id && v.room === room) {
           v.turnOn = true
           v.match = v.match - 1
         }
         return v
       })
     }
-
-    /* if (this.users[index]) {
-      this.users[index].turnOn = true
-    } else {
-      this.users[0].turnOn = true
-    } */
   }
 
   GETTurnOnUser(room) {

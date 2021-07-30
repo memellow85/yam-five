@@ -57,6 +57,13 @@ export default {
         message: user.user.name + this.$t('home.notification_3'),
       })
     },
+    resetUserSocketEmit() {
+      logger('SOCKETS resetUserSocketEmit', null, 'i')
+      this.$store.commit('game/newGame', false)
+      this.$store.commit('game/initDices')
+      this.$store.commit('game/initMatch')
+      this.$store.commit('game/resetStats')
+    },
   },
   computed: {
     ...mapState('game', {

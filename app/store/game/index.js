@@ -383,10 +383,10 @@ export const actions = {
   reinitGame({ commit, dispatch }) {
     logger('ACTION-GAME reinitGame', null, 'i')
     dispatch('ws/updateGameSocket', {}, { root: true })
-    commit('newGame', false)
+    /* commit('newGame', false)
     commit('initDices')
     commit('initMatch')
-    commit('resetStats')
+    commit('resetStats') */
     // Reset classifica ?
   },
   playedDecrease({ commit, state }) {
