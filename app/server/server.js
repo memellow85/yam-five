@@ -110,6 +110,7 @@ io.on('connection', (socket) => {
     Rooms.PUTRoomUsers(usersIntoRoom, user.type)
     usersIntoRoom = Rooms.GETUsersRoom(user.room)
     io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
+    io.to(user.room).emit('resetUserSocketEmit')
   })
 
   socket.on('finish_turn', (user) => {

@@ -81,14 +81,18 @@ export default {
       userSocket: (state) => state.userSocket,
     }),
     disabled() {
-      return (
-        this.startGame === null ||
-        !this.userSocket.turnOn ||
-        !this.startGame ||
-        this.newGame ||
-        this.disabledButtonGame ||
-        this.played === 0
-      )
+      if (this.$route.name !== 'home') {
+        return true
+      } else {
+        return (
+          this.startGame === null ||
+          !this.userSocket.turnOn ||
+          !this.startGame ||
+          this.newGame ||
+          this.disabledButtonGame ||
+          this.played === 0
+        )
+      }
     },
     notification() {
       return this.startGame && this.userSocket.turnOn && !this.newGame
