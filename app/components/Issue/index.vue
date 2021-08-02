@@ -44,14 +44,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper-issue {
-  @include margin(null null 0.8rem);
-  @include padding(null null 0.8rem);
-  border-bottom: $border-base;
-  p {
-    &.small {
-      @include margin(null null 0.3rem null);
-    }
-  }
+  @extend %borderBottom;
   .wrapper-tags {
     @include margin(0.5rem null null null);
     ::v-deep .wrapper-label {

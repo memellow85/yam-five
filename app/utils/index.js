@@ -226,3 +226,16 @@ export const calculateActualGame = (data, dices, minMax) => {
 
   return value
 }
+
+export const toDateTime = (secs) => {
+  const t = new Date(1970, 0, 1)
+  t.setSeconds(secs)
+  return t
+}
+
+export const formatDate = (date) => {
+  const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date)
+  const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(date)
+  const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date)
+  return `${da}-${mo}-${ye}`
+}

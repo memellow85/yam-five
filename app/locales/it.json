@@ -59,6 +59,7 @@
     "title_3": "Modalità di gioco",
     "title_4": "Resetta i tuoi records",
     "title_5": "Segnalazioni/Consigli",
+    "title_6": "Benvenuto",
     "btn_1": "Unisciti",
     "btn_2": "Abbandona",
     "btn_3": "Esci",
@@ -71,7 +72,8 @@
     "tab_1": "Crea",
     "tab_2": "Unisciti",
     "message_1": "Cancella tutti i tuoi record",
-    "message_2": "Records cancellati"
+    "message_2": "Records cancellati",
+    "message_3": "Ultima partita finita"
   },
   "champions": {
     "title_1": "Classifica",
