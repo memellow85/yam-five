@@ -6,6 +6,7 @@
 export default {
   layout: 'public',
   mounted() {
+    console.log(this.$ga)
     window.addEventListener(
       'touchmove',
       function (event) {
