@@ -184,7 +184,10 @@ module.exports = {
    */
   googleAnalytics: {
     id: process.env.NUXT_ENV_ANALYTICS,
-    dev: process.env.NUXT_ENV_NODE_ENV !== 'production',
+    dev:
+      process.env.NUXT_ENV_NODE_ENV === 'beta'
+        ? false
+        : process.env.NUXT_ENV_NODE_ENV !== 'production',
   },
   /*
    ** Scss resources
