@@ -22,6 +22,7 @@ export const state = () => ({
   userFirebase: null,
   userDetailsFirebase: null,
   usersChampions: [],
+  issueList: [],
 })
 
 /**
@@ -47,7 +48,10 @@ export const mutations = {
   },
   setChampions(state, data) {
     logger('COMMIT-FIREBASE usersChampions', data, 'i')
-    state.usersChampions = data
+    state.usersChampions = data || []
+  },
+  setReportIssueList(state, data) {
+    state.issueList = data || []
   },
 }
 
@@ -171,6 +175,33 @@ export const actions = {
             .catch((error) => {
               reject(error.response.data.message)
             })
+          resolve()
+        })
+        .catch((error) => {
+          reject(error.response.data.message)
+        })
+    })
+  },
+  reportAIssueList({ commit }) {
+    logger('ACTION-FIREBASE reportAIssueList', null, 'i')
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .get(`/yam-five/report-issue`)
+        .then((resp) => {
+          commit('setReportIssueList', resp.data)
+          resolve()
+        })
+        .catch((error) => {
+          reject(error.response.data.message)
+        })
+    })
+  },
+  reportAIssue({ state }, data) {
+    logger('ACTION-FIREBASE reportAIssue', data, 'i')
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(`/yam-five/report-issue/${state.userDetailsFirebase.uid}`, data)
+        .then(() => {
           resolve()
         })
         .catch((error) => {

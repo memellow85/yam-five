@@ -87,6 +87,11 @@ ul {
   @extend %flexSpaceBetween;
 }
 
+.flex-end {
+  @extend %flex;
+  @extend %flexEnd;
+}
+
 .center {
   text-align: center;
 }

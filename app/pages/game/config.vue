@@ -9,7 +9,7 @@
         <span>{{ $t('config.btn_3') }}</span>
       </button>
     </article>
-    <div class="main">
+    <div class="main body-scroll-lock-ignore-inner">
       <article>
         <h4>{{ $t('config.title_2') }}</h4>
         <FormsLanguages></FormsLanguages>
@@ -60,6 +60,10 @@
           </button>
         </div>
       </article>
+      <article>
+        <h4>{{ $t('config.title_5') }}</h4>
+        <FormsBugsFeatures></FormsBugsFeatures>
+      </article>
     </div>
   </section>
 </template>
@@ -67,9 +71,10 @@
 <script>
 import { mapState } from 'vuex'
 import WsMixin from '~/mixins/ws'
+import ScrollMixin from '~/mixins/scroll'
 
 export default {
-  mixins: [WsMixin],
+  mixins: [WsMixin, ScrollMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {

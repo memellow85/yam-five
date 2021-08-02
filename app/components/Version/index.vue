@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-release">
-    <h2>
+    <h2 class="green">
       <strong>{{ data.version }}</strong>
     </h2>
     <h3>
