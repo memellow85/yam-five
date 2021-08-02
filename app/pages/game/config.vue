@@ -5,11 +5,18 @@
         <span class="yamicons mdi mdi-cog-outline"></span>
         {{ $t('view.configuration') }}
       </h3>
-      <button class="small" @click="leaveAppHandler">
+      <button class="small grey" @click="leaveAppHandler">
         <span>{{ $t('config.btn_3') }}</span>
       </button>
     </article>
-    <div class="main">
+    <div class="main body-scroll-lock-ignore-inner">
+      <article class="wrapper-welcome">
+        <h2>{{ $t('config.title_6') }} {{ userDetailsFirebase.name }}</h2>
+        <p>
+          {{ $t('config.message_3') }}:
+          {{ dateLastMatch }}
+        </p>
+      </article>
       <article>
         <h4>{{ $t('config.title_2') }}</h4>
         <FormsLanguages></FormsLanguages>
@@ -60,6 +67,10 @@
           </button>
         </div>
       </article>
+      <article>
+        <h4>{{ $t('config.title_5') }}</h4>
+        <FormsBugsFeatures></FormsBugsFeatures>
+      </article>
     </div>
   </section>
 </template>
@@ -67,9 +78,11 @@
 <script>
 import { mapState } from 'vuex'
 import WsMixin from '~/mixins/ws'
+import ScrollMixin from '~/mixins/scroll'
+import { toDateTime, formatDate } from '~/utils'
 
 export default {
-  mixins: [WsMixin],
+  mixins: [WsMixin, ScrollMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {
@@ -82,6 +95,14 @@ export default {
       userSocket: (state) => state.userSocket,
       usersSocket: (state) => state.usersSocket,
     }),
+    ...mapState('firebase', {
+      userDetailsFirebase: (state) => state.userDetailsFirebase,
+    }),
+    dateLastMatch() {
+      return formatDate(
+        toDateTime(this.userDetailsFirebase.last_updated.seconds)
+      )
+    },
   },
   created() {
     this.$nuxt.$on('confirmSubmitHandler', () => {
@@ -116,3 +137,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.wrapper-welcome {
+  @extend %borderBottom;
+  h2 {
+    @include margin(null null 0.3rem null);
+  }
+}
+</style>

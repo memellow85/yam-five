@@ -86,9 +86,32 @@
   justify-content: space-between;
 }
 
+%flexEnd {
+  justify-content: flex-end;
+}
+
+%borderBottom {
+  @include margin(null null 0.8rem);
+  @include padding(null null 0.8rem);
+  border-bottom: $border-base;
+  p {
+    &.small {
+      @include margin(null null 0.3rem);
+    }
+  }
+}
+
 %styleHelp {
   ul {
     @include margin(null null 1rem);
+    &.release {
+      @include margin(0);
+      li {
+        p {
+          @include margin(0.3rem null 0);
+        }
+      }
+    }
     &.with-icon {
       li {
         @include margin(null null 0.4rem);

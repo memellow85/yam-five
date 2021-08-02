@@ -1,11 +1,6 @@
 <template>
   <section class="wrapper-page">
-    <article>
-      <h3>
-        <span class="yamicons mdi mdi-chart-box-outline"></span>
-        {{ $t('stats.title_1') }}
-      </h3>
-    </article>
+    <TitlePage label="stats" icon="chart-box-outline"></TitlePage>
     <div class="main body-scroll-lock-ignore-inner">
       <article>
         <Stats></Stats>
@@ -219,6 +214,7 @@ export default {
         : [1, 2, 3, 4]
   },
   mounted() {
+    this.$ga.event('private_pages', 'mounted', 'stats', true)
     this.initChartTotal()
     this.initChartProbably()
   },

@@ -169,6 +169,7 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     '@nuxtjs/style-resources',
+    '@nuxtjs/google-analytics',
   ],
   /*
    ** Nuxt.js modules
@@ -178,6 +179,13 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/pwa',
   ],
+  /*
+   ** Google analytics
+   */
+  googleAnalytics: {
+    id: process.env.NUXT_ENV_ANALYTICS,
+    dev: process.env.NUXT_ENV_NODE_ENV !== 'production',
+  },
   /*
    ** Scss resources
    */
@@ -205,7 +213,7 @@ module.exports = {
    ** Build configuration
    */
   build: {
-    extend(config, { isDev, isClient }) {
+    extend(config) {
       config.node = {
         fs: 'empty',
       }

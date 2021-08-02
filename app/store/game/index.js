@@ -23,6 +23,7 @@ export const state = () => ({
   showChampionsShip: false,
   showSchema: false,
   showAlert: false,
+  showRelease: false,
   showNotification: false,
   notificationTypes: null,
   notificationMessage: null,
@@ -58,6 +59,7 @@ export const mutations = {
     state.showConfig = false
     state.showHelp = false
     state.showAlert = false
+    state.showRelease = false
   },
   toggleModal(state, type) {
     logger('COMMIT-GAME toggleModal', type, 'i')
@@ -73,6 +75,9 @@ export const mutations = {
         break
       case 'schema':
         state.showSchema = !state.showSchema
+        break
+      case 'release':
+        state.showRelease = !state.showRelease
         break
       case 'alert':
         state.showAlert = !state.showAlert
@@ -380,14 +385,9 @@ export const actions = {
     commit('initDices')
     commit('resetStats')
   },
-  reinitGame({ commit, dispatch }) {
+  reinitGame({ dispatch }) {
     logger('ACTION-GAME reinitGame', null, 'i')
     dispatch('ws/updateGameSocket', {}, { root: true })
-    /* commit('newGame', false)
-    commit('initDices')
-    commit('initMatch')
-    commit('resetStats') */
-    // Reset classifica ?
   },
   playedDecrease({ commit, state }) {
     logger('ACTION-GAME playedDecrease', null, 'i')

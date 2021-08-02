@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper-input">
     <label v-if="showLabel" :for="name">{{ name }}</label>
     <span
       v-if="icon && showIcon"
@@ -32,3 +32,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.wrapper-input {
+  @include font-size(0px, 1);
+}
+</style>
