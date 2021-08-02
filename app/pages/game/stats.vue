@@ -214,6 +214,7 @@ export default {
         : [1, 2, 3, 4]
   },
   mounted() {
+    this.$ga.event('private_pages', 'mounted', 'stats', true)
     this.initChartTotal()
     this.initChartProbably()
   },
