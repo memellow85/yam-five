@@ -4,10 +4,10 @@ module.exports = {
   telemetry: false,
   srcDir: 'app',
   dev: process.env.NUXT_ENV_NODE_ENV !== 'production',
-  /* server: {
+  server: {
     host: 'localhost',
     port: 5000, // default: 3000
-  }, */
+  },
   layoutTransition: 'fade-in',
   pageTransition: 'fade-in',
   /*
@@ -160,7 +160,6 @@ module.exports = {
     { src: '~/plugins/i18n.js' },
     { src: '~/plugins/visibility.js' },
     { src: '~/plugins/socket-client.js' },
-    // { src: '~/plugins/firebase.js', ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -169,7 +168,6 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     '@nuxtjs/style-resources',
-    '@nuxtjs/google-analytics',
   ],
   /*
    ** Nuxt.js modules
@@ -179,16 +177,6 @@ module.exports = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/pwa',
   ],
-  /*
-   ** Google analytics
-   */
-  googleAnalytics: {
-    id: process.env.NUXT_ENV_ANALYTICS,
-    /* dev:
-      process.env.NUXT_ENV_NODE_ENV === 'beta'
-        ? false
-        : process.env.NUXT_ENV_NODE_ENV !== 'production', */
-  },
   /*
    ** Scss resources
    */
