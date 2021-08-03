@@ -90,6 +90,10 @@
   justify-content: flex-end;
 }
 
+%flexStart {
+  justify-content: flex-start;
+}
+
 %borderBottom {
   @include margin(null null 0.8rem);
   @include padding(null null 0.8rem);

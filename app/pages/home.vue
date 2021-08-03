@@ -172,9 +172,10 @@ import { mapState } from 'vuex'
 import NoSleep from 'nosleep.js'
 import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
+import AnalyticsMixin from '~/mixins/analytics'
 
 export default {
-  mixins: [WsMixin, ScrollMixin],
+  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
   beforeRouteLeave(to, from, next) {
     this.$store.commit(`game/setNavigationRoute`, true)
     this.$store.commit(`game/setDisabledButtonGame`, true)
@@ -231,10 +232,18 @@ export default {
       this.$router.push({ name: 'game-config' })
     },
     startAgame() {
+      this.animateBtn()
       this.$store.dispatch('game/startGame')
     },
     startNewGame() {
+      this.animateBtn()
       this.$store.dispatch('game/reinitGame')
+    },
+    animateBtn() {
+      this.$store.commit(`game/setAnimateBtn`, true)
+      setTimeout(() => {
+        this.$store.commit(`game/setAnimateBtn`, false)
+      }, 1500)
     },
   },
 }

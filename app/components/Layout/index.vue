@@ -33,7 +33,7 @@ export default {
       link: [
         {
           rel: 'canonical',
-          href: `https://yamfive-app.herokuapp.com/${this.$route.path}`,
+          href: `${process.env.NUXT_ENV_PROD}${this.$route.path}`,
         },
       ],
     }
