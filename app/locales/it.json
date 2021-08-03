@@ -73,7 +73,8 @@
     "tab_2": "Unisciti",
     "message_1": "Cancella tutti i tuoi record",
     "message_2": "Records cancellati",
-    "message_3": "Ultima partita finita"
+    "message_3": "Ultima partita finita",
+    "message_4": "Num. partite"
   },
   "champions": {
     "title_1": "Classifica",

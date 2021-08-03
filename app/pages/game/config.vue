@@ -12,10 +12,16 @@
     <div class="main body-scroll-lock-ignore-inner">
       <article class="wrapper-welcome">
         <h2>{{ $t('config.title_6') }} {{ userDetailsFirebase.name }}</h2>
-        <p>
-          {{ $t('config.message_3') }}:
-          {{ dateLastMatch }}
-        </p>
+        <div class="flex-between">
+          <p>
+            {{ $t('config.message_3') }}:
+            {{ dateLastMatch }}
+          </p>
+          <p>
+            {{ $t('config.message_4') }}:
+            {{ userDetailsFirebase.match }}
+          </p>
+        </div>
       </article>
       <article>
         <h4>{{ $t('config.title_2') }}</h4>
@@ -79,10 +85,11 @@
 import { mapState } from 'vuex'
 import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
+import AnalyticsMixin from '~/mixins/analytics'
 import { toDateTime, formatDate } from '~/utils'
 
 export default {
-  mixins: [WsMixin, ScrollMixin],
+  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {

@@ -93,9 +93,10 @@
 import { mapGetters, mapState } from 'vuex'
 import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
+import AnalyticsMixin from '~/mixins/analytics'
 
 export default {
-  mixins: [WsMixin, ScrollMixin],
+  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {

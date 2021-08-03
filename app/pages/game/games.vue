@@ -71,11 +71,12 @@
 <script>
 import { mapState } from 'vuex'
 import WsMixin from '~/mixins/ws'
+import AnalyticsMixin from '~/mixins/analytics'
 import { longPress } from '~/directives/longpress'
 
 export default {
   directives: { longPress },
-  mixins: [WsMixin],
+  mixins: [WsMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {

@@ -92,6 +92,11 @@ ul {
   @extend %flexEnd;
 }
 
+.flex-start {
+  @extend %flex;
+  @extend %flexStart;
+}
+
 .center {
   text-align: center;
 }

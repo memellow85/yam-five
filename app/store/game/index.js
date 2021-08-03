@@ -46,6 +46,7 @@ export const state = () => ({
   probablyExitNumbers,
   totalHistorical: [],
   disabledButtonGame: false,
+  animateBtnDice: false,
 })
 
 /**
@@ -372,6 +373,9 @@ export const mutations = {
   setDisabledButtonGame(state, value) {
     state.disabledButtonGame = value
   },
+  setAnimateBtn(state, value) {
+    state.animateBtnDice = value
+  },
 }
 
 /**
@@ -394,7 +398,6 @@ export const actions = {
     if (state.played !== 0) {
       commit('playedDecrease')
       commit('setDice')
-      // commit('activeGame')
     }
   },
   setActualValue({ commit, dispatch }, data) {
