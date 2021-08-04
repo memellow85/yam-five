@@ -58,6 +58,8 @@
     "title_2": "Preferred language",
     "title_3": "Type of the game",
     "title_4": "Reset your records",
+    "title_5": "Issue/Features",
+    "title_6": "Welcome",
     "btn_1": "Join",
     "btn_2": "Leave",
     "btn_3": "Logout",
@@ -70,7 +72,9 @@
     "tab_1": "Create",
     "tab_2": "Join",
     "message_1": "Delete all your records",
-    "message_2": "Records deleted"
+    "message_2": "Records deleted",
+    "message_3": "Last finish match",
+    "message_4": "Num. match"
   },
   "champions": {
     "title_1": "Ranking",
@@ -226,6 +230,16 @@
     "message": "Are you sure to want reset your records?"
   },
   "release": {
-    "title_1": "Release notes"
+    "title_1": "Release notes",
+    "message_1": "Issue taking charge.",
+    "btn_1": "Send",
+    "link_1": "All issue",
+    "form_1": "Message",
+    "bug": "Bug",
+    "feature": "Feature"
+  },
+  "issue": {
+    "title_1": "Issue",
+    "open": "Open: "
   }
 }
