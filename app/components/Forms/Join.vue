@@ -30,8 +30,10 @@
 
 <script>
 import { mapState } from 'vuex'
+import AnalyticsCmpMixin from '~/mixins/analytics_cmp'
 
 export default {
+  mixins: [AnalyticsCmpMixin],
   props: {
     tab: {
       type: String,
@@ -63,6 +65,7 @@ export default {
           match = 13
           break
       }
+      this.logCustomEvent(this.tab)
       this.$store.dispatch(`ws/addUserSocket`, {
         user: this.userDetailsFirebase,
         room: this.room,

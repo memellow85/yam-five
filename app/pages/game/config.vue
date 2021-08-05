@@ -134,6 +134,7 @@ export default {
       this.$store.commit(`game/toggleModal`, 'alert')
     },
     confirmSubmitReset() {
+      this.logCustomEvent('reset_record')
       this.$store.dispatch(`firebase/resetRecordUser`).then(() => {
         this.$store.commit('game/toggleNotification', {
           type: 'success',
