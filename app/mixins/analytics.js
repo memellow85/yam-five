@@ -2,8 +2,11 @@ import firebase from '~/server/api/firebase'
 
 export default {
   mounted() {
-    console.log('mounted mixin', process.env.NODE_ENV)
-    if (process.env.NODE_ENV === 'production') {
+    console.log('mounted mixin', process.env.NUXT_ENV_NODE_ENV)
+    if (
+      process.env.NUXT_ENV_NODE_ENV === 'production' ||
+      process.env.NUXT_ENV_NODE_ENV === 'beta'
+    ) {
       this.logEvent(this.$route)
     }
   },
