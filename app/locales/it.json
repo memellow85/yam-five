@@ -235,8 +235,8 @@
     "btn_1": "Invia",
     "link_1": "Tutte le segnalazioni",
     "form_1": "Messaggio",
-    "bug": "Bug",
-    "feature": "Feature"
+    "bug": "Errore",
+    "feature": "Miglioria"
   },
   "issue": {
     "title_1": "Segnalazioni",
