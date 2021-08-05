@@ -1,5 +1,5 @@
 export default async ({ store }) => {
-  const workbox = await window.$workbox
+  /* const workbox = await window.$workbox
 
   if (!workbox) {
     return
@@ -13,5 +13,5 @@ export default async ({ store }) => {
         buttonRefresh: true,
       })
     }
-  })
+  }) */
 }

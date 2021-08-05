@@ -4,6 +4,7 @@ import {
   calculateActualGame,
   logger,
   setStatisticsDice,
+  generateRandomRoom,
 } from '~/utils'
 import {
   dicesTypesCabled,
@@ -45,6 +46,7 @@ export const state = () => ({
   probablyExitNumbers,
   totalHistorical: [],
   disabledButtonGame: false,
+  fastGame: false,
 })
 
 /**
@@ -367,12 +369,31 @@ export const mutations = {
   setDisabledButtonGame(state, value) {
     state.disabledButtonGame = value
   },
+  setFastGame(state, value) {
+    state.fastGame = value
+  },
 }
 
 /**
  * Actions
  */
 export const actions = {
+  fastGame({ commit, dispatch, rootState }) {
+    logger('ACTION-GAME fastGame', null, 'i')
+    dispatch(
+      'ws/addUserSocket',
+      {
+        user: rootState.firebase.userDetailsFirebase,
+        room: generateRandomRoom(8),
+        match: 13,
+        type: 'veryshort',
+        method: 'create',
+      },
+      { root: true }
+    )
+    commit('setFastGame', true)
+    // dispatch('startGame')
+  },
   startGame({ commit, dispatch }) {
     logger('ACTION-GAME startGame', null, 'i')
     dispatch('ws/startGameSocket', {}, { root: true })

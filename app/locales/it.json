@@ -31,9 +31,10 @@
   },
   "home": {
     "message_1": "Per iniziare a giocare crea una stanza o unisciti ad una stanza già creata.",
-    "btn_1": "Crea una stanza o unisciti",
+    "btn_1": "Crea partita",
     "btn_2": "Inizia a giocare",
     "btn_3": "Inizia una nuova partita",
+    "btn_4": "Partita veloce",
     "message_2_a": "Sei stato aggiunto alla stanza",
     "message_2_b": "Inizia a giocare facendo il primo tiro.",
     "message_2_c": "Attendi che il tuo avversario inizi la partita.",
@@ -223,6 +224,7 @@
   "alert": {
     "yes": "Si",
     "no": "No",
-    "message": "Sei sicuro di voler azzerare i tuoi records?"
+    "message": "Sei sicuro di voler azzerare i tuoi records?",
+    "message_update": "Nuova versione disponibile... Aggiorna ora!!"
   }
 }

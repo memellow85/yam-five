@@ -7,7 +7,12 @@
         <div class="container-match flex-center">
           <template v-if="!startGame && userSocket === null">
             <p>{{ $t('home.message_1') }}</p>
-            <button @click="joinAmatch">{{ $t('home.btn_1') }}</button>
+            <div class="container-button-match flex-center">
+              <button @click="joinAmatch">{{ $t('home.btn_1') }}</button>
+              <button @click="createSingleFastMatch">
+                {{ $t('home.btn_4') }}
+              </button>
+            </div>
           </template>
           <template
             v-if="
@@ -236,6 +241,9 @@ export default {
     startNewGame() {
       this.$store.dispatch('game/reinitGame')
     },
+    createSingleFastMatch() {
+      this.$store.dispatch(`game/fastGame`)
+    },
   },
 }
 </script>
@@ -243,22 +251,16 @@ export default {
 <style lang="scss" scoped>
 .container-app {
   .wrapper-main {
-    // @include position(absolute, 4rem null null 50%);
     @include size(100%, calc(100vh - 7.5rem));
-    // @include size(100%, auto);
-    // transform: translate(-50%, 0);
-    // overflow: hidden;
     flex-direction: column;
   }
   button {
     @include margin(0.7rem null null);
   }
   .container-match {
-    // @include size(calc(100% - 2rem), calc(100vh - 26rem));
     @include size(calc(100% - 2rem), 100%);
     @include padding(null 1rem);
     flex-direction: column;
-    // overflow: hidden;
     text-align: center;
     > p {
       line-height: 1.2rem;
@@ -266,6 +268,11 @@ export default {
     .box-dice {
       @include margin(null null 0.7rem null);
       flex-wrap: wrap;
+    }
+    .container-button-match {
+      button {
+        @include margin(null 0.3rem);
+      }
     }
   }
   .container-box {
