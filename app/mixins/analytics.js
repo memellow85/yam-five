@@ -2,6 +2,7 @@ import firebase from '~/server/api/firebase'
 
 export default {
   mounted() {
+    console.log('mounted mixin', process.env.NODE_ENV)
     if (process.env.NODE_ENV === 'production') {
       this.logEvent(this.$route)
     }
