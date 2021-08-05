@@ -17,6 +17,7 @@ import firebase from '~/server/api/firebase'
 
 export default {
   mounted() {
+    console.log('mounted', process.env.NODE_ENV)
     if (process.env.NODE_ENV === 'production') {
       console.log('init', firebase)
       firebase.analytics()
