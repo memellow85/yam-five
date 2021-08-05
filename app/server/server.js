@@ -77,7 +77,7 @@ io.on('connection', (socket) => {
     cb(callback)
   })
 
-  socket.on('join_room', (user) => {
+  socket.on('join_room', (user, cb) => {
     socket.join(user.room)
     let usersIntoRoom = Rooms.GETUsersRoom(user.room)
     if (usersIntoRoom.length === 1) {
@@ -93,9 +93,10 @@ io.on('connection', (socket) => {
       io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
     }
     io.to(user.id).emit('redirectHome')
+    cb()
   })
 
-  socket.on('start_game', (user) => {
+  socket.on('start_game', (user, cb) => {
     Rooms.PUTRoom(user.room)
     Rooms.defineOrderUsers(user.room)
     io.to(user.room).emit(
@@ -103,17 +104,19 @@ io.on('connection', (socket) => {
       Rooms.GETUsersRoom(user.room)
     )
     socket.to(user.room).emit('startGameSocketEmit', user)
+    cb()
   })
 
-  socket.on('update_game', (user) => {
+  socket.on('update_game', (user, cb) => {
     let usersIntoRoom = Rooms.GETUsersRoom(user.room)
     Rooms.PUTRoomUsers(usersIntoRoom, user.type)
     usersIntoRoom = Rooms.GETUsersRoom(user.room)
     io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
     io.to(user.room).emit('resetUserSocketEmit')
+    cb()
   })
 
-  socket.on('finish_turn', (user) => {
+  socket.on('finish_turn', (user, cb) => {
     Rooms.PUTChampionShipRoom(user)
     Rooms.PUTTurnUsers(user.room)
     io.to(user.room).emit(
@@ -124,9 +127,10 @@ io.on('connection', (socket) => {
       'setUserTurnSocketEmit',
       Rooms.GETTurnOnUser(user.room)
     )
+    cb()
   })
 
-  socket.on('finish_game', (user) => {
+  socket.on('finish_game', (user, cb) => {
     let count = 0
     if (Rooms.checkFinishGame(user.room)) {
       const championshipList = Rooms.GETChampionShipRoom(user.room)
@@ -140,6 +144,7 @@ io.on('connection', (socket) => {
         count++
       })
     }
+    cb()
   })
 
   socket.on('left_room', () => {

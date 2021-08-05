@@ -2,6 +2,7 @@ const firebase = require('@firebase/app')
 require('@firebase/auth')
 require('@firebase/analytics')
 require('@firebase/firestore')
+require('@firebase/performance')
 require('dotenv').config()
 
 const config = {
@@ -22,6 +23,7 @@ if (!fb.apps.length) {
 }
 
 const analytics = fb.analytics
+const performance = fb.performance
 
 module.exports = {
   auth: fb.auth(),
@@ -29,4 +31,5 @@ module.exports = {
   utils: fb.firestore,
   fb,
   analytics,
+  performance,
 }

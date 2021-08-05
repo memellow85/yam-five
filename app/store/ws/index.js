@@ -70,15 +70,21 @@ export const mutations = {
  * Actions
  */
 export const actions = {
-  socketEmit({ commit, state }, { action, payload }) {
+  socketEmit({ commit, state, rootState }, { action, payload }) {
     logger('ACTION-WS socketEmit', { action, payload }, 'i')
-    this._vm.$socket.client.emit(action, payload, (data) => {
-      logger('socketEmit actions response', data, 'i')
+    const log = rootState.performance.trace(`WS_${action}`)
+    log.start()
+    this._vm.$socket.client.emit(action, payload, () => {
+      log.stop()
+      logger('socketEmit actions response', null, 'i')
     })
   },
-  addUserSocket({ commit, dispatch }, user) {
+  addUserSocket({ commit, dispatch, rootState }, user) {
     logger('ACTION-WS addUserSocket', user, 'i')
+    const log = rootState.performance.trace('add_user')
+    log.start()
     this._vm.$socket.client.emit('add_user', user, (data) => {
+      log.stop()
       if (
         data.error &&
         (data.error === '100' || data.error === '200' || data.error === '300')
