@@ -8,6 +8,7 @@ export default {
   },
   methods: {
     logEvent(route) {
+      console.log(route)
       firebase.analytics().setCurrentScreen(route.fullPath)
       firebase
         .analytics()
