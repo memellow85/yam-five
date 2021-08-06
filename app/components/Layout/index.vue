@@ -53,6 +53,7 @@ export default {
     }),
   },
   created() {
+    // TODO Update con funzione
     if (process.env.NODE_ENV === 'production') {
       if (location.protocol !== 'https:') {
         location.replace(
@@ -79,6 +80,7 @@ export default {
   beforeMount() {
     window.addEventListener('beforeinstallprompt', (event) => {
       event.preventDefault()
+      setLocalStorageKey('version', process.env.NUXT_ENV_APP_VERSION)
       this.deferredPrompt = event
       this.$store.commit('game/toggleNotification', {
         type: 'warning',

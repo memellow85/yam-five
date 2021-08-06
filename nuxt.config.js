@@ -165,7 +165,6 @@ module.exports = {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~/plugins/pwa-update.js' },
     { src: '~/plugins/i18n.js' },
     { src: '~/plugins/visibility.js' },
     { src: '~/plugins/socket-client.js' },
