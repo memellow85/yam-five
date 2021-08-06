@@ -6,6 +6,10 @@ export default {
     redirectHome() {
       logger('SOCKETS redirectHome', '', 'i')
       this.$router.push('/home')
+      if (this.fastGame) {
+        this.$store.dispatch(`game/startGame`)
+        this.$store.commit(`game/setFastGame`, false)
+      }
     },
     updateUsersSocketEmit(users) {
       logger('SOCKETS updateUsersSocketEmit', users, 'i')
@@ -69,6 +73,7 @@ export default {
     ...mapState('game', {
       totalHistorical: (state) => state.totalHistorical,
       probablyExitNumbers: (state) => state.probablyExitNumbers,
+      fastGame: (state) => state.fastGame,
     }),
     ...mapState('firebase', {
       userDetailsFirebase: (state) => state.userDetailsFirebase,

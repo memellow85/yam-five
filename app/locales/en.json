@@ -31,9 +31,10 @@
   },
   "home": {
     "message_1": "Go to settings and create or connect to a room before you can start a game.",
-    "btn_1": "Create or join to the play",
+    "btn_1": "Create game",
     "btn_2": "Start a game",
     "btn_3": "Start new game",
+    "btn_4": "Fast game",
     "message_2_a": "You were join to the room",
     "message_2_b": "Start playing by making the first roll.",
     "message_2_c": "Wait your opponent to start a game.",
@@ -227,7 +228,8 @@
   "alert": {
     "yes": "Yes",
     "no": "No",
-    "message": "Are you sure to want reset your records?"
+    "message": "Are you sure to want reset your records?",
+    "message_update": "New version available... Update now!!"
   },
   "release": {
     "title_1": "Release notes",

@@ -18,6 +18,7 @@
 <script>
 import { mapState } from 'vuex'
 import { resize } from '~/directives/resize'
+import { getLocalStorageKey, setLocalStorageKey } from '~/utils'
 
 export default {
   directives: { resize },
@@ -52,12 +53,28 @@ export default {
     }),
   },
   created() {
+    if (process.env.NODE_ENV === 'production') {
+      if (location.protocol !== 'https:') {
+        location.replace(
+          `https:${location.href.substring(location.protocol.length)}`
+        )
+      }
+    }
+
     this.$nuxt.$on('refreshPWAHandler', () => {
       this.refreshPWAHandler()
     })
     this.$nuxt.$on('addToHomeHandler', () => {
       this.addToHomeHandler()
     })
+
+    if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
+      this.$store.commit('game/toggleNotification', {
+        type: 'warning',
+        message: this.$t('alert.message_update'),
+        buttonRefresh: true,
+      })
+    }
   },
   beforeMount() {
     window.addEventListener('beforeinstallprompt', (event) => {
@@ -81,6 +98,7 @@ export default {
   },
   methods: {
     refreshPWAHandler() {
+      setLocalStorageKey('version', process.env.NUXT_ENV_APP_VERSION)
       window.location.reload()
     },
     async addToHomeHandler() {

@@ -1,3 +1,4 @@
+const sslRedirect = require('heroku-ssl-redirect')
 const express = require('express')
 const app = express()
 // eslint-disable-next-line import/order
@@ -19,6 +20,7 @@ app.use(function (req, res, next) {
   next()
 })
 
+app.use(sslRedirect.default())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/yam-five', yamfive)

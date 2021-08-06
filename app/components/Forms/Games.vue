@@ -21,6 +21,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { getLocalStorageKey, setLocalStorageKey } from '~/utils'
 
 export default {
   data() {
@@ -51,10 +52,17 @@ export default {
   watch: {
     currentGameLocal() {
       this.$store.commit('game/changeGames', this.currentGameLocal)
+      if (getLocalStorageKey('game') !== this.currentGameLocal) {
+        setLocalStorageKey('game', this.currentGameLocal)
+      }
     },
   },
   mounted() {
-    this.currentGameLocal = this.currentGame
+    const game = getLocalStorageKey('game')
+    if (game !== this.currentGame) {
+      setLocalStorageKey('game', this.currentGame)
+    }
+    this.currentGameLocal = game || this.currentGame
   },
 }
 </script>
