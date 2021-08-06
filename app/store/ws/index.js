@@ -72,7 +72,8 @@ export const mutations = {
 export const actions = {
   socketEmit({ commit, state, rootState }, { action, payload }) {
     logger('ACTION-WS socketEmit', { action, payload }, 'i')
-    const log = rootState.performance.trace(`WS_${action}`)
+    const key = action.replace('_', '').toUpperCase()
+    const log = rootState.performance.trace(key)
     log.start()
     this._vm.$socket.client.emit(action, payload, () => {
       log.stop()
@@ -81,7 +82,7 @@ export const actions = {
   },
   addUserSocket({ commit, dispatch, rootState }, user) {
     logger('ACTION-WS addUserSocket', user, 'i')
-    const log = rootState.performance.trace('add_user')
+    const log = rootState.performance.trace('ADDUSER')
     log.start()
     this._vm.$socket.client.emit('add_user', user, (data) => {
       log.stop()

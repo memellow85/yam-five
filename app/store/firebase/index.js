@@ -74,7 +74,7 @@ export const actions = {
   },
   login({ commit, dispatch, rootState }, data) {
     logger('ACTION-FIREBASE login', data, 'i')
-    const log = rootState.performance.trace('FB_login')
+    const log = rootState.performance.trace('LOGIN')
     log.start()
     return new Promise((resolve, reject) => {
       this.$axios
@@ -101,7 +101,7 @@ export const actions = {
   },
   recovery({ commit, rootState }, data) {
     logger('ACTION-FIREBASE recovery', data, 'i')
-    const log = rootState.performance.trace('FB_recovery')
+    const log = rootState.performance.trace('RECOVERY')
     log.start()
     return new Promise((resolve, reject) => {
       this.$axios
@@ -118,7 +118,7 @@ export const actions = {
   },
   getDetailsUser({ commit, rootState }, uid) {
     logger('ACTION-FIREBASE getDetailsUser', uid, 'i')
-    const log = rootState.performance.trace('FB_getDetailsUser')
+    const log = rootState.performance.trace('GETDETAILSUSER')
     log.start()
     return new Promise((resolve, reject) => {
       this.$axios
@@ -135,7 +135,7 @@ export const actions = {
   },
   getChampions({ commit, rootState }) {
     logger('ACTION-FIREBASE getChampions', null, 'i')
-    const log = rootState.performance.trace('FB_getChampions')
+    const log = rootState.performance.trace('GETCHAMPIONS')
     log.start()
     this.$axios.get('/yam-five/user').then((resp) => {
       commit('setChampions', resp.data)
@@ -144,7 +144,7 @@ export const actions = {
   },
   registration({ dispatch, rootState }, data) {
     logger('ACTION-FIREBASE registration', data, 'i')
-    const log = rootState.performance.trace('FB_registration')
+    const log = rootState.performance.trace('REGISTRATION')
     log.start()
     return new Promise((resolve, reject) => {
       this.$axios
@@ -161,7 +161,7 @@ export const actions = {
   },
   updateRecordUser({ dispatch, commit, state, rootState }, data) {
     logger('ACTION-FIREBASE updateRecordUser', data, 'i')
-    const log = rootState.performance.trace('FB_updateRecordUser')
+    const log = rootState.performance.trace('UPDATERECORDUSER')
     log.start()
     return new Promise((resolve, reject) => {
       this.$axios
@@ -186,7 +186,7 @@ export const actions = {
   },
   resetRecordUser({ dispatch, commit, state, rootState }) {
     logger('ACTION-FIREBASE resetRecordUser', null, 'i')
-    const log = rootState.performance.trace('FB_resetRecordUser')
+    const log = rootState.performance.trace('RESETRECORDUSER')
     log.start()
     return new Promise((resolve, reject) => {
       this.$axios
@@ -211,7 +211,7 @@ export const actions = {
   },
   reportAIssueList({ commit, rootState }) {
     logger('ACTION-FIREBASE reportAIssueList', null, 'i')
-    const log = rootState.performance.trace('FB_reportAIssueList')
+    const log = rootState.performance.trace('REPORTISSUELIST')
     log.start()
     return new Promise((resolve, reject) => {
       this.$axios
@@ -229,7 +229,7 @@ export const actions = {
   },
   reportAIssue({ state, rootState }, data) {
     logger('ACTION-FIREBASE reportAIssue', data, 'i')
-    const log = rootState.performance.trace('FB_reportAIssue')
+    const log = rootState.performance.trace('REPORTISSUE')
     log.start()
     return new Promise((resolve, reject) => {
       this.$axios
