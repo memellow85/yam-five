@@ -1,6 +1,13 @@
 import cloneDeep from 'lodash/cloneDeep'
 import { dicesTypesCabled } from '~/lists'
 
+export const isProd = () => {
+  return (
+    process.env.NUXT_ENV_NODE_ENV === 'production' ||
+    process.env.NUXT_ENV_NODE_ENV === 'beta'
+  )
+}
+
 /**
  * Raggruppo dadi per capire se può esserci un full o poker o yam
  */
@@ -70,6 +77,18 @@ export const logger = (message, data, type) => {
         break
       default:
         console.log(message, data)
+    }
+  }
+}
+
+export const trace = (start, performance, key, log) => {
+  if (isProd()) {
+    if (start) {
+      const l = performance.trace(key)
+      l.start()
+      return l
+    } else {
+      log.stop()
     }
   }
 }

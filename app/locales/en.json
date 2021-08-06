@@ -240,6 +240,7 @@
   },
   "issue": {
     "title_1": "Issue",
-    "open": "Open: "
+    "open": "Open: ",
+    "empty": "Empty issues."
   }
 }

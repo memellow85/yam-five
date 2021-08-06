@@ -2,8 +2,13 @@
   <section class="wrapper-page">
     <TitlePage label="issue" icon="alert"></TitlePage>
     <div class="main body-scroll-lock-ignore-inner">
-      <article v-for="i in issueList" :key="i.id">
-        <Issue :data="i"></Issue>
+      <template v-if="issueList.length > 0">
+        <article v-for="i in issueList" :key="i.id">
+          <Issue :data="i"></Issue>
+        </article>
+      </template>
+      <article v-else class="flex-center">
+        <p>{{ $t('issue.empty') }}</p>
       </article>
     </div>
   </section>

@@ -1,12 +1,10 @@
 import firebase from '~/server/api/firebase'
+import { isProd } from '~/utils'
 
 export default {
   methods: {
     logCustomEvent(event) {
-      if (
-        process.env.NUXT_ENV_NODE_ENV === 'production' ||
-        process.env.NUXT_ENV_NODE_ENV === 'beta'
-      ) {
+      if (isProd()) {
         firebase
           .analytics()
           .logEvent(event, { env: process.env.NUXT_ENV_NODE_ENV })

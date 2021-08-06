@@ -3,7 +3,9 @@ module.exports = {
   components: true,
   telemetry: false,
   srcDir: 'app',
-  dev: process.env.NUXT_ENV_NODE_ENV !== 'production',
+  dev:
+    process.env.NUXT_ENV_NODE_ENV !== 'production' &&
+    process.env.NUXT_ENV_NODE_ENV !== 'beta',
   /* server: {
     host: 'localhost',
     port: 5000, // default: 3000

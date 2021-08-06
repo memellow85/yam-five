@@ -12,6 +12,7 @@
 
 <script>
 import firebase from '~/server/api/firebase'
+import { isProd } from '~/utils'
 
 export default {
   head() {
@@ -22,8 +23,10 @@ export default {
     }
   },
   mounted() {
-    const perf = firebase.performance()
-    this.$store.commit(`setPerformance`, perf)
+    if (isProd()) {
+      const perf = firebase.performance()
+      this.$store.commit(`setPerformance`, perf)
+    }
   },
 }
 </script>

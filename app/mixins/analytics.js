@@ -1,11 +1,9 @@
 import firebase from '~/server/api/firebase'
+import { isProd } from '~/utils'
 
 export default {
   mounted() {
-    if (
-      process.env.NUXT_ENV_NODE_ENV === 'production' ||
-      process.env.NUXT_ENV_NODE_ENV === 'beta'
-    ) {
+    if (isProd()) {
       this.logEvent(this.$route)
     }
   },

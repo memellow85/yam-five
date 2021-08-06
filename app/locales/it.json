@@ -240,6 +240,7 @@
   },
   "issue": {
     "title_1": "Segnalazioni",
-    "open": "Aperta: "
+    "open": "Aperta: ",
+    "empty": "Non ci sono segnalazioni."
   }
 }
