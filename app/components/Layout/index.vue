@@ -4,16 +4,8 @@
     v-visibility-change="visibilityChange"
     @orientationHandler="orientationHandler"
   >
-    <!-- Title -->
-    <!-- <h1>{{ $t('nameapp') }}</h1> -->
-
-    <!-- Content -->
     <slot></slot>
-
-    <!-- Notification -->
     <LazyNotification :show-notification="showNotification"></LazyNotification>
-
-    <!-- Overlay help -->
     <LazyOverlay :show-overlay="showHelp">
       <LazyViewHelp></LazyViewHelp>
     </LazyOverlay>
@@ -57,6 +49,7 @@ export default {
     }),
   },
   created() {
+    // TODO Update con funzione
     if (process.env.NODE_ENV === 'production') {
       if (location.protocol !== 'https:') {
         location.replace(
@@ -83,6 +76,7 @@ export default {
   beforeMount() {
     window.addEventListener('beforeinstallprompt', (event) => {
       event.preventDefault()
+      setLocalStorageKey('version', process.env.NUXT_ENV_APP_VERSION)
       this.deferredPrompt = event
       this.$store.commit('game/toggleNotification', {
         type: 'warning',
