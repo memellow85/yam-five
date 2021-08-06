@@ -22,7 +22,9 @@ export default {
     }
   },
   mounted() {
+    console.log('mounted', firebase)
     const perf = firebase.performance()
+    console.log('mounted', perf)
     this.$store.commit(`setPerformance`, perf)
   },
 }
