@@ -24,8 +24,8 @@ export default {
   },
   mounted() {
     if (isProd()) {
+      firebase.analytics()
       const perf = firebase.performance()
-      console.log(perf, perf.instrumentationEnabled, perf.dataCollectionEnabled)
       this.$store.commit(`setPerformance`, perf)
     }
   },
