@@ -301,7 +301,7 @@ export const mutations = {
               const totMinMax =
                 state.game[g].data[d].value + state.game[g].data.max.value
               state.extraTotal += totMinMax
-              if (totMinMax > 50) {
+              if (totMinMax >= 50) {
                 state.globalTotal += 30
                 state.extraTotal += 30
               }

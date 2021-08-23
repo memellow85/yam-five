@@ -136,7 +136,7 @@ io.on('connection', (socket) => {
         io.to(u.id).emit('winnerIsSocketEmit', {
           count,
           name: championshipList[0].user.name,
-          user,
+          user: u,
         })
         io.to(u.id).emit('newGameSocketEmit', u.turnOn)
         count++
