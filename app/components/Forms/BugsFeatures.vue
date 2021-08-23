@@ -8,7 +8,7 @@
               :id="r.code"
               v-model="typeModel"
               type="radio"
-              name="languages"
+              name="bugs_features"
               :value="r.code"
             />
             <span class="radio__control"></span>
