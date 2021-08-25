@@ -49,6 +49,7 @@ export const state = () => ({
   disabledButtonGame: false,
   animateBtnDice: false,
   fastGame: false,
+  blockAnimate: false,
 })
 
 /**
@@ -112,6 +113,9 @@ export const mutations = {
       return true
     })
   },
+  blockAnimate(state, value) {
+    state.blockAnimate = value
+  },
   initDices(state) {
     logger('COMMIT-GAME initDices', null, 'i')
     state.beforeDices = {}
@@ -174,7 +178,6 @@ export const mutations = {
     logger('COMMIT-GAME setActualValue', data, 'i')
     gamesTypesCabled.map((g) => {
       if (g === state.playedView) {
-        // const tmp = cloneDeep(state.dices)
         const sum = calculateActualGame(
           data,
           state.dices,
@@ -307,7 +310,7 @@ export const mutations = {
               const totMinMax =
                 state.game[g].data[d].value + state.game[g].data.max.value
               state.extraTotal += totMinMax
-              if (totMinMax > 50) {
+              if (totMinMax >= 50) {
                 state.globalTotal += 30
                 state.extraTotal += 30
               }
@@ -436,6 +439,7 @@ export const actions = {
     commit('setGlobalTotal')
     commit('resetTurn')
     commit('resetGame')
+    commit('blockAnimate', false)
     commit('initDices')
     dispatch(
       'ws/finishTurnSocket',

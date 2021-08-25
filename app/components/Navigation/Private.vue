@@ -114,6 +114,7 @@ export default {
     gameHandler() {
       if (!this.disabled) {
         if (this.startGame) {
+          this.$store.commit(`game/blockAnimate`, false)
           this.$store.commit(`game/setDisabledButtonGame`, true)
           this.$store.commit(`game/setNavigationRoute`, false)
           this.$store.commit(`game/activeGame`)
@@ -152,7 +153,7 @@ footer {
   background: $color-8;
   nav {
     @include position(relative, null);
-    @include padding(null 0.5rem);
+    @include padding(null 0.7rem);
     @include size(auto, 100%);
     ul {
       width: calc(calc(100vw - 7.2rem) / 2);
