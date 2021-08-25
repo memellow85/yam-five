@@ -9,7 +9,7 @@
         :style="
           navigationRoute
             ? ''
-            : !blockValue
+            : !dice.block
             ? `transition: transform ${equalValue ? '0.6' : '1.2'}s;`
             : ''
         "
@@ -84,19 +84,25 @@ export default {
       newValue: null,
       equalValue: false,
       blockValue: false,
-      blockDice: null,
+      blockDice: false,
     }
   },
   computed: {
     ...mapState('game', {
       played: (state) => state.played,
       navigationRoute: (state) => state.navigationRoute,
+      blockAnimate: (state) => state.blockAnimate,
     }),
   },
   watch: {
     $props: {
       handler() {
-        this.getAnimateCurrentDice()
+        if (
+          (!this.blockAnimate && !this.navigationRoute) ||
+          this.navigationRoute
+        ) {
+          this.getAnimateCurrentDice()
+        }
       },
       deep: true,
       immediate: true,
@@ -104,7 +110,39 @@ export default {
   },
   methods: {
     getAnimateCurrentDice() {
-      if (
+      // console.log(this.beforeDice, this.dice, this.blockDice, this.equalValue)
+      if (!this.dice.block) {
+        if (this.navigationRoute) {
+          this.newValue = this.dice.value
+        } else if (
+          Object.keys(this.beforeDice).length > 0 &&
+          this.dice.value === this.beforeDice.value
+        ) {
+          this.equalValue = true
+          if (this.dice.value >= 1 && this.dice.value <= 4) {
+            this.newValue = this.dice.value + 2
+          } else if (this.dice.value >= 5) {
+            this.newValue = this.dice.value - 2
+          }
+          setTimeout(() => {
+            this.newValue = this.dice.value
+          }, 600)
+        } else if (
+          Object.keys(this.beforeDice).length === 0 &&
+          this.dice.value === 1
+        ) {
+          this.newValue = this.dice.value + 2
+          setTimeout(() => {
+            this.newValue = this.dice.value
+          }, 600)
+        } else {
+          this.equalValue = false
+          this.newValue = this.dice.value
+        }
+      } else if (this.navigationRoute) {
+        this.newValue = this.dice.value
+      }
+      /* if (
         Object.keys(this.beforeDice).length > 0 &&
         this.dice.value === this.beforeDice.value
       ) {
@@ -160,11 +198,12 @@ export default {
         this.blockValue = false
         this.equalValue = false
         this.newValue = this.dice.value
-      }
+      } */
     },
     clickDiceHandler(dice) {
       if (this.played < 3) {
-        this.blockDice = !dice.block
+        // this.blockDice = !dice.block
+        this.$store.commit(`game/blockAnimate`, true)
         this.$store.commit('game/blockDice', dice)
       }
     },

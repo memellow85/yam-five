@@ -295,6 +295,7 @@ export default {
         this.recordMan.length > 0
           ? cloneDeep(this.recordMan).slice(start, end)
           : []
+      const dataView = data.length > 0 ? cloneDeep(data).slice(start, end) : []
 
       chart.updateSeries([
         {
@@ -304,7 +305,7 @@ export default {
           data: records,
         },
         {
-          data,
+          data: dataView,
         },
       ])
       chart.updateOptions(
