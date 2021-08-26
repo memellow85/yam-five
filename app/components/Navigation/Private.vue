@@ -1,7 +1,7 @@
 <template>
   <footer>
     <nav class="flex-between">
-      <ul class="inline">
+      <ul class="inline flex">
         <li
           v-for="m in menuLeft"
           :key="m.name"
@@ -12,7 +12,10 @@
         </li>
       </ul>
       <div
-        :class="['game flex-center', { disabled: disabled }]"
+        :class="[
+          'game flex-center',
+          { disabled: disabled, animateBtnDice: animateBtnDice },
+        ]"
         @click="gameHandler"
       >
         <span v-if="notification" class="notification flex-center">
@@ -20,7 +23,7 @@
         </span>
         <span class="yamicons mdi mdi-cube-outline"></span>
       </div>
-      <ul class="inline">
+      <ul class="inline flex">
         <li
           v-for="m in menuRight"
           :key="m.name"
@@ -76,6 +79,7 @@ export default {
       startGame: (state) => state.startGame,
       newGame: (state) => state.newGame,
       disabledButtonGame: (state) => state.disabledButtonGame,
+      animateBtnDice: (state) => state.animateBtnDice,
     }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
@@ -130,17 +134,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@keyframes blinker {
+  0% {
+    background: $primary;
+  }
+  50% {
+    background: $color-4;
+  }
+  100% {
+    background: $primary;
+  }
+}
+
 footer {
   @include position(absolute, null null 0 0);
   @include size(100%, 3.5rem);
   background: $color-8;
   nav {
     @include position(relative, null);
-    @include padding(null 0.5rem);
+    @include padding(null 1rem);
     @include size(auto, 100%);
     ul {
+      width: calc(calc(100vw - 8rem) / 2);
+      justify-content: space-between;
       li {
-        @include margin(null 0.8rem);
         &.selected {
           .yamicons {
             &::before {
@@ -157,10 +174,13 @@ footer {
     }
     .game {
       @include position(absolute, -1rem null null 50%);
-      @include size(3.2rem);
-      @include margin(null null null -1.6rem);
+      @include size(3.6rem);
+      @include margin(null null null -1.8rem);
       border-radius: 50%;
       background: $primary;
+      &.animateBtnDice {
+        animation: 0.8s blinker linear infinite;
+      }
       .notification {
         @include position(absolute, -0.1rem -0.1rem null null);
         @include size(1rem);

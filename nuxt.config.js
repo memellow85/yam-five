@@ -3,7 +3,9 @@ module.exports = {
   components: true,
   telemetry: false,
   srcDir: 'app',
-  dev: process.env.NUXT_ENV_NODE_ENV !== 'production',
+  dev:
+    process.env.NUXT_ENV_NODE_ENV !== 'production' &&
+    process.env.NUXT_ENV_NODE_ENV !== 'beta',
   /* server: {
     host: 'localhost',
     port: 5000, // default: 3000
@@ -160,7 +162,6 @@ module.exports = {
     { src: '~/plugins/i18n.js' },
     { src: '~/plugins/visibility.js' },
     { src: '~/plugins/socket-client.js' },
-    // { src: '~/plugins/firebase.js', ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -197,15 +198,15 @@ module.exports = {
     baseURL:
       process.env.NUXT_ENV_NODE_ENV !== 'production'
         ? process.env.NUXT_ENV_NODE_ENV === 'beta'
-          ? 'https://yamfive-app-dev.herokuapp.com/'
-          : 'http://localhost:5000/'
-        : 'https://yamfive-app.herokuapp.com/',
+          ? process.env.NUXT_ENV_DEV
+          : process.env.NUXT_ENV_LOCAL
+        : process.env.NUXT_ENV_PROD,
   },
   /*
    ** Build configuration
    */
   build: {
-    extend(config, { isDev, isClient }) {
+    extend(config) {
       config.node = {
         fs: 'empty',
       }

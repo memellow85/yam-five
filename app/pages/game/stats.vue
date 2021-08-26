@@ -1,11 +1,6 @@
 <template>
   <section class="wrapper-page">
-    <article>
-      <h3>
-        <span class="yamicons mdi mdi-chart-box-outline"></span>
-        {{ $t('stats.title_1') }}
-      </h3>
-    </article>
+    <TitlePage label="stats" icon="chart-box-outline"></TitlePage>
     <div class="main body-scroll-lock-ignore-inner">
       <article>
         <Stats></Stats>
@@ -46,6 +41,7 @@ import { mapGetters, mapState } from 'vuex'
 import ApexCharts from 'apexcharts'
 import cloneDeep from 'lodash/cloneDeep'
 import WsMixin from '~/mixins/ws'
+import AnalyticsMixin from '~/mixins/analytics'
 import {
   baseChartOpt,
   tooltipOpt,
@@ -64,7 +60,7 @@ import ScrollMixin from '~/mixins/scroll'
 import { orderCharts } from '~/lists'
 
 export default {
-  mixins: [WsMixin, ScrollMixin],
+  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {

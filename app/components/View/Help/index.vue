@@ -1,11 +1,6 @@
 <template>
   <section class="overlay-view">
-    <article>
-      <h3>
-        <span class="yamicons mdi mdi-help-circle-outline"></span>
-        {{ $t('help.title_1') }}
-      </h3>
-    </article>
+    <TitlePage label="help" icon="help-circle-outline"></TitlePage>
     <div class="container-scroller-overlay body-scroll-lock-ignore-inner">
       <Rule></Rule>
     </div>

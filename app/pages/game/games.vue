@@ -1,11 +1,6 @@
 <template>
   <section class="wrapper-page">
-    <article>
-      <h3>
-        <span class="yamicons mdi mdi-view-grid-outline"></span>
-        {{ $t('schemas.title_1') }}
-      </h3>
-    </article>
+    <TitlePage label="schemas" icon="view-grid-outline"></TitlePage>
     <div class="main">
       <article>
         <Stats></Stats>
@@ -76,11 +71,12 @@
 <script>
 import { mapState } from 'vuex'
 import WsMixin from '~/mixins/ws'
+import AnalyticsMixin from '~/mixins/analytics'
 import { longPress } from '~/directives/longpress'
 
 export default {
   directives: { longPress },
-  mixins: [WsMixin],
+  mixins: [WsMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {

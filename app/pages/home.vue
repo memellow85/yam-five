@@ -172,9 +172,10 @@ import { mapState } from 'vuex'
 import NoSleep from 'nosleep.js'
 import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
+import AnalyticsMixin from '~/mixins/analytics'
 
 export default {
-  mixins: [WsMixin, ScrollMixin],
+  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
   beforeRouteLeave(to, from, next) {
     this.$store.commit(`game/setNavigationRoute`, true)
     this.$store.commit(`game/setDisabledButtonGame`, true)
@@ -231,10 +232,18 @@ export default {
       this.$router.push({ name: 'game-config' })
     },
     startAgame() {
+      this.animateBtn()
       this.$store.dispatch('game/startGame')
     },
     startNewGame() {
+      this.animateBtn()
       this.$store.dispatch('game/reinitGame')
+    },
+    animateBtn() {
+      this.$store.commit(`game/setAnimateBtn`, true)
+      setTimeout(() => {
+        this.$store.commit(`game/setAnimateBtn`, false)
+      }, 1500)
     },
   },
 }
@@ -243,22 +252,16 @@ export default {
 <style lang="scss" scoped>
 .container-app {
   .wrapper-main {
-    // @include position(absolute, 4rem null null 50%);
     @include size(100%, calc(100vh - 7.5rem));
-    // @include size(100%, auto);
-    // transform: translate(-50%, 0);
-    // overflow: hidden;
     flex-direction: column;
   }
   button {
     @include margin(0.7rem null null);
   }
   .container-match {
-    // @include size(calc(100% - 2rem), calc(100vh - 26rem));
     @include size(calc(100% - 2rem), 100%);
     @include padding(null 1rem);
     flex-direction: column;
-    // overflow: hidden;
     text-align: center;
     > p {
       line-height: 1.2rem;

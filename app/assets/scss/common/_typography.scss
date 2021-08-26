@@ -1,8 +1,16 @@
 h1 {
   @extend %h1;
   @include size(100%, 4rem);
+  @include position(relative, null);
   line-height: 3rem;
   text-align: center;
+  span {
+    @include position(absolute, 0.9rem 1rem null null);
+  }
+}
+
+h2 {
+  @extend %h2;
 }
 
 h3 {
@@ -42,6 +50,14 @@ strong {
   font-weight: $semi-bold;
 }
 
+i {
+  font-style: italic;
+}
+
 a {
   @extend %link;
+}
+
+.green {
+  color: $primary;
 }

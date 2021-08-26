@@ -20,7 +20,7 @@
         @keypress.enter="submitHandler"
       />
     </FormsInput>
-    <div class="container-btn flex">
+    <div class="container-btn flex-end">
       <button :disabled="room === ''" @click="submitHandler">
         {{ tab === 'create' ? $t('config.btn_4') : $t('config.btn_1') }}
       </button>
@@ -30,8 +30,10 @@
 
 <script>
 import { mapState } from 'vuex'
+import AnalyticsCmpMixin from '~/mixins/analytics_cmp'
 
 export default {
+  mixins: [AnalyticsCmpMixin],
   props: {
     tab: {
       type: String,
@@ -63,8 +65,7 @@ export default {
           match = 13
           break
       }
-      // this.$store.commit('game/toggleModal', 'config')
-      // if (this.tab === 'create') {
+      this.logCustomEvent(this.tab)
       this.$store.dispatch(`ws/addUserSocket`, {
         user: this.userDetailsFirebase,
         room: this.room,
@@ -80,8 +81,5 @@ export default {
 <style lang="scss" scoped>
 .wrapper-form-join {
   @include margin(1rem null null);
-  .container-btn {
-    justify-content: flex-end;
-  }
 }
 </style>

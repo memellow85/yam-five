@@ -4,7 +4,9 @@ const config = require('../../nuxt.config.js')
 const { app, server } = require('./server')
 require('dotenv').config()
 
-config.dev = process.env.NUXT_ENV_NODE_ENV !== 'production'
+config.dev =
+  process.env.NUXT_ENV_NODE_ENV !== 'production' &&
+  process.env.NUXT_ENV_NODE_ENV !== 'beta'
 
 async function start() {
   const nuxt = new Nuxt(config)

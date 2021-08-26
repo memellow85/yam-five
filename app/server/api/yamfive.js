@@ -3,6 +3,7 @@ const firebase = require('./firebase.js')
 const router = express.Router()
 
 const USER_DETAILS = 'users'
+const ISSUE_DETAILS = 'messages'
 
 router.route('/login').post((req, res) => {
   firebase.auth
@@ -46,14 +47,7 @@ router
       .then((data) => {
         const list = []
         data.docs.forEach((d) => {
-          /* const user = d.data()
-          const objTmp = {
-            uid: user.uid,
-            name: user.name,
-            tot: user.score + user.score_short + user.score_veryshort,
-          } */
           list.push(d.data())
-          // list = list.sort(compare)
         })
         res.status(200).json(list)
       })
@@ -207,6 +201,43 @@ router.route('/reset-record/:uid').put((req, res) => {
             })
         }
       })
+    })
+})
+
+router.route('/report-issue').get((req, res) => {
+  firebase.db
+    .collection(ISSUE_DETAILS)
+    .orderBy('date_open', 'desc')
+    .get()
+    .then((data) => {
+      const list = []
+      data.docs.forEach((d) => {
+        list.push(d.data())
+      })
+      res.status(200).json(list)
+    })
+    .catch((error) => {
+      res.status(404).json(error)
+    })
+})
+
+router.route('/report-issue/:uid').post((req, res) => {
+  firebase.db
+    .collection(ISSUE_DETAILS)
+    .add({
+      date_close: null,
+      date_open: firebase.utils.Timestamp.now(),
+      message: req.body.message,
+      status: 'open', // open, close, in progress
+      type: req.body.type,
+      priority: 'low', // low, medium, high
+      uid: req.params.uid,
+    })
+    .then(() => {
+      res.status(200).send()
+    })
+    .catch((error) => {
+      res.status(404).json(error)
     })
 })
 
