@@ -45,13 +45,14 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.0.3 - Remove Firebase for manage game rooms and integrate websocket + feature + bugfix
 - 1.0.4 - Bugfix
 - 1.1.0 - New navigation app and new statistics section
-- 1.1.1 - Increase performance + bugfix + new sections: release and bug report
+- 1.1.1 - Bugfix + new sections: release and bug report
+- 1.1.2 - Increase performance + SEO + Fast match
 
 ## Next release
 
-- 1.1.2 - New feature (tris, scale with four number)
-- 1.1.3 - Section for report a bug/features
-- 1.2.0 - Optimize app for desktop
+- 1.x.x - New feature (tris, scale with four number)
+- 1.x.x - Section for report a bug/features
+- 1.x.x - Optimize app for desktop
 
 ## License
 

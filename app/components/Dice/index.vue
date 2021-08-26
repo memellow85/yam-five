@@ -84,7 +84,7 @@ export default {
       newValue: null,
       equalValue: false,
       blockValue: false,
-      blockDice: false,
+      // blockDice: false,
     }
   },
   computed: {
