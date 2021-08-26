@@ -29,6 +29,13 @@ export const setLocalStorageKey = (key, value) => {
   return localStorage.setItem(`${keyApp}${key}`, value)
 }
 
+export const isProd = () => {
+  return (
+    process.env.NUXT_ENV_NODE_ENV === 'production' ||
+    process.env.NUXT_ENV_NODE_ENV === 'beta'
+  )
+}
+
 /**
  * Raggruppo dadi per capire se può esserci un full o poker o yam
  */

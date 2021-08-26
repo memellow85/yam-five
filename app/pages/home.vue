@@ -253,6 +253,12 @@ export default {
     createSingleFastMatch() {
       this.$store.dispatch(`game/fastGame`)
     },
+    animateBtn() {
+      this.$store.commit(`game/setAnimateBtn`, true)
+      setTimeout(() => {
+        this.$store.commit(`game/setAnimateBtn`, false)
+      }, 1500)
+    },
   },
 }
 </script>
