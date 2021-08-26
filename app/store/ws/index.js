@@ -1,4 +1,4 @@
-import { logger } from '~/utils'
+import { logger, trace } from '~/utils'
 
 const translateMessageError = (number) => {
   let message = ''
@@ -70,15 +70,20 @@ export const mutations = {
  * Actions
  */
 export const actions = {
-  socketEmit({ commit, state }, { action, payload }) {
+  socketEmit({ commit, state, rootState }, { action, payload }) {
     logger('ACTION-WS socketEmit', { action, payload }, 'i')
-    this._vm.$socket.client.emit(action, payload, (data) => {
-      logger('socketEmit actions response', data, 'i')
+    const key = action.replace('_', '').toUpperCase()
+    const log = trace(true, rootState.performance, key, null)
+    this._vm.$socket.client.emit(action, payload, () => {
+      trace(false, null, null, log)
+      logger('socketEmit actions response', null, 'i')
     })
   },
-  addUserSocket({ commit, dispatch }, user) {
+  addUserSocket({ commit, dispatch, rootState }, user) {
     logger('ACTION-WS addUserSocket', user, 'i')
+    const log = trace(true, rootState.performance, 'ADDUSER', null)
     this._vm.$socket.client.emit('add_user', user, (data) => {
+      trace(false, null, null, log)
       if (
         data.error &&
         (data.error === '100' || data.error === '200' || data.error === '300')

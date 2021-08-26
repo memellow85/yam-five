@@ -1,11 +1,6 @@
 <template>
   <section class="wrapper-page">
-    <article>
-      <h3>
-        <span class="yamicons mdi mdi-account-question-outline"></span>
-        {{ $t('help.title_1') }}
-      </h3>
-    </article>
+    <TitlePage label="help" icon="account-question-outline"></TitlePage>
     <div class="main">
       <article class="wrapper-help body-scroll-lock-ignore-inner">
         <Rule></Rule>
@@ -17,9 +12,10 @@
 <script>
 import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
+import AnalyticsMixin from '~/mixins/analytics'
 
 export default {
-  mixins: [WsMixin, ScrollMixin],
+  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
 }

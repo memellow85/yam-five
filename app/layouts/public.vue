@@ -11,12 +11,22 @@
 </template>
 
 <script>
+import firebase from '~/server/api/firebase'
+import { isProd } from '~/utils'
+
 export default {
   head() {
     return {
       bodyAttrs: {
         class: 'public',
       },
+    }
+  },
+  mounted() {
+    if (isProd()) {
+      firebase.analytics()
+      const perf = firebase.performance()
+      this.$store.commit(`setPerformance`, perf)
     }
   },
 }

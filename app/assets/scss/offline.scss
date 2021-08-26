@@ -35,4 +35,10 @@
   @extend %flex;
   @extend %flexCenter;
   @include size(100%, 2.5rem);
+  span {
+    text-decoration: underline;
+  }
+  .yamicons {
+    @include margin(null null null 0.2rem);
+  }
 }

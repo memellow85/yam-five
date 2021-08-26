@@ -24,6 +24,7 @@ export const state = () => ({
   showChampionsShip: false,
   showSchema: false,
   showAlert: false,
+  showRelease: false,
   showNotification: false,
   notificationTypes: null,
   notificationMessage: null,
@@ -46,6 +47,7 @@ export const state = () => ({
   probablyExitNumbers,
   totalHistorical: [],
   disabledButtonGame: false,
+  animateBtnDice: false,
   fastGame: false,
   blockAnimate: false,
 })
@@ -61,6 +63,7 @@ export const mutations = {
     state.showConfig = false
     state.showHelp = false
     state.showAlert = false
+    state.showRelease = false
   },
   toggleModal(state, type) {
     logger('COMMIT-GAME toggleModal', type, 'i')
@@ -76,6 +79,9 @@ export const mutations = {
         break
       case 'schema':
         state.showSchema = !state.showSchema
+        break
+      case 'release':
+        state.showRelease = !state.showRelease
         break
       case 'alert':
         state.showAlert = !state.showAlert
@@ -264,6 +270,7 @@ export const mutations = {
           // Number
           if (d === 'one') {
             if (
+              state.game[g].data.one.value !== '-' &&
               state.game[g].data.two.value !== '-' &&
               state.game[g].data.three.value !== '-' &&
               state.game[g].data.four.value !== '-' &&
@@ -271,6 +278,7 @@ export const mutations = {
               state.game[g].data.six.value !== '-'
             ) {
               const totDices =
+                state.game[g].data.one.value +
                 state.game[g].data.two.value +
                 state.game[g].data.three.value +
                 state.game[g].data.four.value +
@@ -375,6 +383,9 @@ export const mutations = {
   setFastGame(state, value) {
     state.fastGame = value
   },
+  setAnimateBtn(state, value) {
+    state.animateBtnDice = value
+  },
 }
 
 /**
@@ -404,21 +415,15 @@ export const actions = {
     commit('initDices')
     commit('resetStats')
   },
-  reinitGame({ commit, dispatch }) {
+  reinitGame({ dispatch }) {
     logger('ACTION-GAME reinitGame', null, 'i')
     dispatch('ws/updateGameSocket', {}, { root: true })
-    /* commit('newGame', false)
-    commit('initDices')
-    commit('initMatch')
-    commit('resetStats') */
-    // Reset classifica ?
   },
   playedDecrease({ commit, state }) {
     logger('ACTION-GAME playedDecrease', null, 'i')
     if (state.played !== 0) {
       commit('playedDecrease')
       commit('setDice')
-      // commit('activeGame')
     }
   },
   setActualValue({ commit, dispatch }, data) {

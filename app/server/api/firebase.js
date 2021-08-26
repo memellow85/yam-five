@@ -1,6 +1,8 @@
-const firebase = require('@firebase/app')
-require('@firebase/auth')
-require('@firebase/firestore')
+const firebase = require('firebase/app').default
+require('firebase/auth')
+require('firebase/analytics')
+require('firebase/firestore')
+require('firebase/performance')
 require('dotenv').config()
 
 const config = {
@@ -10,18 +12,22 @@ const config = {
   storageBucket: process.env.NUXT_ENV_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NUXT_ENV_FIREBASE_MESSAGE_SENDER_ID,
   appId: process.env.NUXT_ENV_FIREBASE_APP_ID,
+  measurementId: process.env.NUXT_ENV_FIREBASE_ANALYTICS,
 }
 
-const fb = firebase.default
-
-if (!fb.apps.length) {
-  fb.initializeApp(config)
-  fb.firestore().settings({ timestampsInSnapshots: true, merge: true })
+if (!firebase.apps.length) {
+  firebase.initializeApp(config)
+  firebase.firestore().settings({ timestampsInSnapshots: true, merge: true })
 }
+
+const analytics = firebase.analytics
+const performance = firebase.performance
 
 module.exports = {
-  auth: fb.auth(),
-  db: fb.firestore(),
-  utils: fb.firestore,
-  fb,
+  auth: firebase.auth(),
+  db: firebase.firestore(),
+  utils: firebase.firestore,
+  fb: firebase,
+  analytics,
+  performance,
 }

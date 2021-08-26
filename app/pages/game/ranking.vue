@@ -1,11 +1,6 @@
 <template>
   <section class="wrapper-page">
-    <article>
-      <h3>
-        <span class="yamicons mdi mdi-arm-flex-outline"></span>
-        {{ $t('champions.title_1') }}
-      </h3>
-    </article>
+    <TitlePage label="champions" icon="arm-flex-outline"></TitlePage>
     <div class="main">
       <article class="wrapper-tabs-form">
         <ul class="inline custom-tabs">
@@ -98,9 +93,10 @@
 import { mapGetters, mapState } from 'vuex'
 import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
+import AnalyticsMixin from '~/mixins/analytics'
 
 export default {
-  mixins: [WsMixin, ScrollMixin],
+  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {

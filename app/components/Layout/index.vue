@@ -9,6 +9,9 @@
     <LazyOverlay :show-overlay="showHelp">
       <LazyViewHelp></LazyViewHelp>
     </LazyOverlay>
+    <LazyOverlay :show-overlay="showRelease">
+      <LazyViewRelease></LazyViewRelease>
+    </LazyOverlay>
   </div>
 </template>
 
@@ -31,7 +34,7 @@ export default {
       link: [
         {
           rel: 'canonical',
-          href: 'https://yamfive-app.herokuapp.com/' + this.$route.path,
+          href: `${process.env.NUXT_ENV_PROD}${this.$route.path}`,
         },
       ],
     }
@@ -43,6 +46,7 @@ export default {
     ...mapState('game', {
       showNotification: (state) => state.showNotification,
       showHelp: (state) => state.showHelp,
+      showRelease: (state) => state.showRelease,
     }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
