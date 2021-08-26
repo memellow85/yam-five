@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="https://yamfive-app.herokuapp.com/icons/icon120.png" />
+  <img src="https://yamfive-app.herokuapp.com/icons/icon120.png" alt="YamFive" />
 </p>
 
-# Yam Five
+# YamFive
 
 > The scope of the game is created more combinations with five dices for the get more points
 
@@ -12,7 +12,7 @@
 
 - Firebase Authentication
 - Firebase Firestore Database
-- Support websocket
+- Websocket
 
 ## Configurations
 
@@ -45,10 +45,10 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.0.3 - Remove Firebase for manage game rooms and integrate websocket + feature + bugfix
 - 1.0.4 - Bugfix
 - 1.1.0 - New navigation app and new statistics section
+- 1.1.1 - Increase performance + bugfix + new sections: release and bug report
 
 ## Next release
 
-- 1.1.1 - Increase performance
 - 1.1.2 - New feature (tris, scale with four number)
 - 1.1.3 - Section for report a bug/features
 - 1.2.0 - Optimize app for desktop
