@@ -152,10 +152,10 @@ footer {
   background: $color-8;
   nav {
     @include position(relative, null);
-    @include padding(null 0.5rem);
+    @include padding(null 1rem);
     @include size(auto, 100%);
     ul {
-      width: calc(calc(100vw - 7.2rem) / 2);
+      width: calc(calc(100vw - 8rem) / 2);
       justify-content: space-between;
       li {
         &.selected {
