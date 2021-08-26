@@ -270,6 +270,7 @@ export const mutations = {
           // Number
           if (d === 'one') {
             if (
+              state.game[g].data.one.value !== '-' &&
               state.game[g].data.two.value !== '-' &&
               state.game[g].data.three.value !== '-' &&
               state.game[g].data.four.value !== '-' &&
@@ -277,6 +278,7 @@ export const mutations = {
               state.game[g].data.six.value !== '-'
             ) {
               const totDices =
+                state.game[g].data.one.value +
                 state.game[g].data.two.value +
                 state.game[g].data.three.value +
                 state.game[g].data.four.value +
