@@ -1,13 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep'
 import { dicesTypesCabled } from '~/lists'
 
-export const isProd = () => {
-  return (
-    process.env.NUXT_ENV_NODE_ENV === 'production' ||
-    process.env.NUXT_ENV_NODE_ENV === 'beta'
-  )
-}
-
 export const generateRandomRoom = (length) => {
   let result = ''
   const characters =
