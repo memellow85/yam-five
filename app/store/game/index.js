@@ -28,6 +28,8 @@ export const state = () => ({
   showNotification: false,
   notificationTypes: null,
   notificationMessage: null,
+  notificationTimer: false,
+  notificationSound: true,
   buttonRefresh: false,
   buttonAddToHome: false,
   globalTotal: 0,
@@ -114,6 +116,7 @@ export const mutations = {
     })
   },
   blockAnimate(state, value) {
+    logger('COMMIT-GAME blockAnimate', value, 'i')
     state.blockAnimate = value
   },
   initDices(state) {
@@ -234,6 +237,7 @@ export const mutations = {
   toggleNotification(state, data) {
     logger('COMMIT-GAME toggleNotification', data, 'i')
     if (data) {
+      state.notificationSound = !data.withoutSound
       state.showNotification = true
       state.notificationTypes = data.type
       state.notificationMessage = data.message
@@ -241,7 +245,10 @@ export const mutations = {
       state.buttonAddToHome = data.buttonAddToHome
         ? data.buttonAddToHome
         : false
+      state.notificationTimer = !(data.buttonRefresh || data.buttonAddToHome)
     } else {
+      state.notificationSound = true
+      state.notificationTimer = false
       state.showNotification = false
       state.notificationTypes = null
       state.notificationMessage = null
@@ -287,10 +294,12 @@ export const mutations = {
               if (totDices > 60) {
                 state.globalTotal += 20
                 state.numberTotal += 20
+                state.game[g].bonusNumber60 = true
               }
               if (totDices > 70) {
                 state.globalTotal += 30
                 state.numberTotal += 30
+                state.game[g].bonusNumber70 = true
               }
             }
           }
@@ -315,6 +324,7 @@ export const mutations = {
               if (totMinMax >= 50) {
                 state.globalTotal += 30
                 state.extraTotal += 30
+                state.game[g].bonusMinMax = true
               }
             }
           }
@@ -371,19 +381,24 @@ export const mutations = {
     state.playedView = g
   },
   setNavigationRoute(state, value) {
+    logger('COMMIT-GAME navigationRoute', value, 'i')
     state.navigationRoute = value
   },
   resetStats(state) {
+    logger('COMMIT-GAME resetStats', null, 'i')
     state.probablyExitNumbers = probablyExitNumbers
     state.totalHistorical = []
   },
   setDisabledButtonGame(state, value) {
+    logger('COMMIT-GAME setDisabledButtonGame', value, 'i')
     state.disabledButtonGame = value
   },
   setFastGame(state, value) {
+    logger('COMMIT-GAME setFastGame', value, 'i')
     state.fastGame = value
   },
   setAnimateBtn(state, value) {
+    logger('COMMIT-GAME setAnimateBtn', value, 'i')
     state.animateBtnDice = value
   },
 }
@@ -452,15 +467,6 @@ export const actions = {
       },
       { root: true }
     )
-    /* dispatch(
-      'ws/updateTotalSocket',
-      {
-        global: state.globalTotal,
-        extra: state.extraTotal,
-        number: state.numberTotal,
-      },
-      { root: true }
-    ) */
     dispatch('ws/finishGameSocket', null, { root: true })
   },
   newGame({ commit }, value) {

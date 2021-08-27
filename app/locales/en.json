@@ -4,6 +4,10 @@
     "it": "Italian",
     "en": "English"
   },
+  "sound": {
+    "yes": "Yes",
+    "no": "No"
+  },
   "view": {
     "configuration": "Configuration"
   },
@@ -62,6 +66,7 @@
     "title_4": "Reset your records",
     "title_5": "Issue/Features",
     "title_6": "Welcome",
+    "title_7": "Sounds effect",
     "btn_1": "Join",
     "btn_2": "Leave",
     "btn_3": "Logout",
@@ -93,7 +98,8 @@
   "schemas": {
     "title_1": "Summary play",
     "scale": "Scale",
-    "yam": "YamFive"
+    "yam": "YamFive",
+    "bonus": "Bonus"
   },
   "help": {
     "title_1": "Regolamento",

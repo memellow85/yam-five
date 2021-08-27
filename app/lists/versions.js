@@ -1,7 +1,18 @@
 export const versionsRelease = [
   {
+    version: '1.1.3',
+    date: '2021-08-30',
+    title: 'Improvement app',
+    messages: [
+      'Sounds effect',
+      'Save username and password',
+      'Update recap match',
+      'Bugfix',
+    ],
+  },
+  {
     version: '1.1.2',
-    date: '2021-08-28',
+    date: '2021-08-27',
     title: 'Improvement app',
     messages: [
       'Performance',

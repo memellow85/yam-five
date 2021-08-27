@@ -1,7 +1,13 @@
 import { mapState } from 'vuex'
-import { logger } from '~/utils'
+import { logger, play } from '~/utils'
 
 export default {
+  data() {
+    return {
+      win: new Audio('./sounds/win.mp3'),
+      lose: new Audio('./sounds/lose.mp3'),
+    }
+  },
   sockets: {
     redirectHome() {
       logger('SOCKETS redirectHome', '', 'i')
@@ -36,13 +42,18 @@ export default {
     winnerIsSocketEmit(notificationInfo) {
       logger('SOCKETS winnerIsSocketEmit', notificationInfo, 'i')
       const type = notificationInfo.count === 0 ? 'success' : 'alert'
-      const message =
-        notificationInfo.count === 0
-          ? this.$t('notification.win')
-          : this.$t('notification.lose') + notificationInfo.name
+      let message = ''
+      if (notificationInfo.count === 0) {
+        message = this.$t('notification.win')
+        play(this.win)
+      } else {
+        message = this.$t('notification.lose') + notificationInfo.name
+        play(this.lose)
+      }
       this.$store.commit('game/toggleNotification', {
         type,
         message,
+        withoutSound: true,
       })
       this.$store.dispatch(`firebase/updateRecordUser`, {
         details: notificationInfo.user,
