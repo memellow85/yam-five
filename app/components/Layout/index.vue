@@ -4,6 +4,9 @@
     v-visibility-change="visibilityChange"
     @orientationHandler="orientationHandler"
   >
+    {{ check }}
+    {{ v1 }}
+    {{ v2 }}
     <slot></slot>
     <LazyNotification :show-notification="showNotification"></LazyNotification>
     <LazyOverlay :show-overlay="showHelp">
@@ -31,6 +34,9 @@ export default {
   },
   head() {
     return {
+      check: '',
+      v1: '',
+      v2: '',
       link: [
         {
           rel: 'canonical',
@@ -68,6 +74,10 @@ export default {
     this.$nuxt.$on('addToHomeHandler', () => {
       this.addToHomeHandler()
     })
+
+    this.check = 'created'
+    this.v1 = getLocalStorageKey('version')
+    this.v2 = process.env.NUXT_ENV_APP_VERSION
 
     if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
       this.$store.commit('game/toggleNotification', {
