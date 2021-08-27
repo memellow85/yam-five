@@ -279,3 +279,9 @@ export const formatDate = (date) => {
   const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date)
   return `${da}-${mo}-${ye}`
 }
+
+export const play = (file) => {
+  if (getLocalStorageKey('sound') !== 'no') {
+    file.play()
+  }
+}

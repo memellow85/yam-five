@@ -4,9 +4,6 @@
     v-visibility-change="visibilityChange"
     @orientationHandler="orientationHandler"
   >
-    {{ check }}
-    {{ v1 }}
-    {{ v2 }}
     <slot></slot>
     <LazyNotification :show-notification="showNotification"></LazyNotification>
     <LazyOverlay :show-overlay="showHelp">
@@ -21,15 +18,12 @@
 <script>
 import { mapState } from 'vuex'
 import { resize } from '~/directives/resize'
-import { getLocalStorageKey, setLocalStorageKey } from '~/utils'
+import { getLocalStorageKey, setLocalStorageKey, isProd } from '~/utils'
 
 export default {
   directives: { resize },
   data() {
     return {
-      check: '',
-      v1: '',
-      v2: '',
       timeReset: null,
       visible: true,
       deferredPrompt: null,
@@ -59,8 +53,7 @@ export default {
     }),
   },
   created() {
-    // TODO Update con funzione
-    if (process.env.NODE_ENV === 'production') {
+    if (isProd()) {
       if (location.protocol !== 'https:') {
         location.replace(
           `https:${location.href.substring(location.protocol.length)}`
@@ -82,7 +75,7 @@ export default {
       this.deferredPrompt = event
       this.$store.commit('game/toggleNotification', {
         type: 'warning',
-        message: 'Add to home YamFive',
+        message: this.$t('alert.add_to_home'),
         buttonAddToHome: true,
       })
     })
@@ -93,19 +86,13 @@ export default {
     })
   },
   mounted() {
-    setTimeout(() => {
-      this.check = 'created'
-      this.v1 = getLocalStorageKey('version')
-      this.v2 = process.env.NUXT_ENV_APP_VERSION
-
-      if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
-        this.$store.commit('game/toggleNotification', {
-          type: 'warning',
-          message: this.$t('alert.message_update'),
-          buttonRefresh: true,
-        })
-      }
-    }, 500)
+    if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
+      this.$store.commit('game/toggleNotification', {
+        type: 'warning',
+        message: this.$t('alert.message_update'),
+        buttonRefresh: true,
+      })
+    }
   },
   destroyed() {
     this.$nuxt.$off('refreshPWAHandler')

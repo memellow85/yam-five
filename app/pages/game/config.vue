@@ -24,6 +24,10 @@
         </div>
       </article>
       <article>
+        <h4>{{ $t('config.title_7') }}</h4>
+        <FormsSounds></FormsSounds>
+      </article>
+      <article>
         <h4>{{ $t('config.title_2') }}</h4>
         <FormsLanguages></FormsLanguages>
       </article>

@@ -4,6 +4,10 @@
     "it": "Italiano",
     "en": "Inglese"
   },
+  "sound": {
+    "yes": "Si",
+    "no": "No"
+  },
   "view": {
     "configuration": "Configurazione"
   },
@@ -22,7 +26,8 @@
     "btn_1": "Entra",
     "btn_2": "Registrati",
     "link_1": "guida",
-    "link_message": "Prima di iniziare leggi la "
+    "link_message": "Prima di iniziare leggi la ",
+    "save_credential": "Salva username e password"
   },
   "recovery": {
     "title": "Recupera password",
@@ -61,6 +66,7 @@
     "title_4": "Resetta i tuoi records",
     "title_5": "Segnalazioni/Consigli",
     "title_6": "Benvenuto",
+    "title_7": "Effetti sonori",
     "btn_1": "Unisciti",
     "btn_2": "Abbandona",
     "btn_3": "Esci",
@@ -92,7 +98,8 @@
   "schemas": {
     "title_1": "Griglia della partita",
     "scale": "Scala",
-    "yam": "YamFive"
+    "yam": "YamFive",
+    "bonus": "Bonus"
   },
   "help": {
     "title_1": "Regolamento",
@@ -229,7 +236,8 @@
     "yes": "Si",
     "no": "No",
     "message": "Sei sicuro di voler azzerare i tuoi records?",
-    "message_update": "Nuova versione disponibile... Aggiorna ora!!"
+    "message_update": "Nuova versione disponibile... Aggiorna ora!!",
+    "add_to_home": "Aggiungi al desktop YamFive"
   },
   "release": {
     "title_1": "Note revisioni",

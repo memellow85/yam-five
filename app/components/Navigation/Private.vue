@@ -39,10 +39,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import { play } from '~/utils'
 
 export default {
   data() {
     return {
+      dices: new Audio('./sounds/dices.mp3'),
       menuLeft: [
         {
           name: 'home',
@@ -114,6 +116,7 @@ export default {
     gameHandler() {
       if (!this.disabled) {
         if (this.startGame) {
+          play(this.dices)
           this.$store.commit(`game/blockAnimate`, false)
           this.$store.commit(`game/setDisabledButtonGame`, true)
           this.$store.commit(`game/setNavigationRoute`, false)

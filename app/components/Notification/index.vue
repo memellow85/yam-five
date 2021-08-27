@@ -40,6 +40,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { play } from '~/utils'
 
 export default {
   props: {
@@ -48,13 +49,36 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      sound: new Audio('./sounds/notification.mp3'),
+    }
+  },
   computed: {
     ...mapState('game', {
       notificationTypes: (state) => state.notificationTypes,
       notificationMessage: (state) => state.notificationMessage,
+      notificationTimer: (state) => state.notificationTimer,
+      notificationSound: (state) => state.notificationSound,
       buttonRefresh: (state) => state.buttonRefresh,
       buttonAddToHome: (state) => state.buttonAddToHome,
     }),
+  },
+  watch: {
+    $props: {
+      handler() {
+        if (this.showNotification && this.notificationSound) {
+          play(this.sound)
+        }
+        if (this.notificationTimer && this.showNotification) {
+          setTimeout(() => {
+            this.$store.commit('game/toggleNotification', null)
+          }, 2500)
+        }
+      },
+      deep: true,
+      immediate: true,
+    },
   },
   methods: {
     refreshPWA() {

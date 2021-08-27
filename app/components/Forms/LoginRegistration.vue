@@ -97,6 +97,16 @@
         />
       </FormsInput>
 
+      <div v-if="login" class="wrapper-credential flex">
+        <label class="checkbox">
+          <span class="checkbox__input">
+            <input v-model="credential" type="checkbox" name="credential" />
+            <span class="checkbox__control"></span>
+          </span>
+          <span class="checkbox__label">{{ $t('login.save_credential') }}</span>
+        </label>
+      </div>
+
       <NavigationPublic
         :login="login"
         :registration="!login"
@@ -115,6 +125,8 @@
 </template>
 
 <script>
+import { getLocalStorageKey, setLocalStorageKey } from '~/utils'
+
 export default {
   props: {
     login: {
@@ -129,6 +141,7 @@ export default {
       email: '',
       password: '',
       conf_password: '',
+      credential: false,
       disabledAll: false,
       showLoader: false,
     }
@@ -137,6 +150,14 @@ export default {
     this.$nuxt.$on('submitHandler', () => {
       this.submitHandler()
     })
+  },
+  mounted() {
+    this.email = getLocalStorageKey('username')
+      ? getLocalStorageKey('username')
+      : ''
+    this.password = getLocalStorageKey('password')
+      ? getLocalStorageKey('password')
+      : ''
   },
   destroyed() {
     this.$nuxt.$off('submitHandler')
@@ -152,6 +173,10 @@ export default {
             password: this.password,
           })
           .then(() => {
+            if (this.credential) {
+              setLocalStorageKey('username', this.email)
+              setLocalStorageKey('password', this.password)
+            }
             this.$router.push('/home')
           })
           .catch((msg) => {
@@ -193,3 +218,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.wrapper-credential {
+  @include margin(null null 1rem);
+}
+</style>

@@ -47,12 +47,13 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.1.0 - New navigation app and new statistics section
 - 1.1.1 - Bugfix + new sections: release and bug report
 - 1.1.2 - Increase performance + SEO + Fast match
+- 1.1.3 - Sound effect + save username and password
 
 ## Next release
 
 - 1.x.x - New feature (tris, scale with four number)
-- 1.x.x - Section for report a bug/features
 - 1.x.x - Optimize app for desktop
+- 1.x.x - YamFiveChat
 
 ## License
 

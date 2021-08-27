@@ -4,6 +4,10 @@
     "it": "Italian",
     "en": "English"
   },
+  "sound": {
+    "yes": "Yes",
+    "no": "No"
+  },
   "view": {
     "configuration": "Configuration"
   },
@@ -22,7 +26,8 @@
     "btn_1": "Enter",
     "btn_2": "Register",
     "link_1": "rule",
-    "link_message": "Before start read a "
+    "link_message": "Before start read a ",
+    "save_credential": "Save username e password"
   },
   "recovery": {
     "title": "Recovery password",
@@ -61,6 +66,7 @@
     "title_4": "Reset your records",
     "title_5": "Issue/Features",
     "title_6": "Welcome",
+    "title_7": "Sounds effect",
     "btn_1": "Join",
     "btn_2": "Leave",
     "btn_3": "Logout",
@@ -92,7 +98,8 @@
   "schemas": {
     "title_1": "Summary play",
     "scale": "Scale",
-    "yam": "YamFive"
+    "yam": "YamFive",
+    "bonus": "Bonus"
   },
   "help": {
     "title_1": "Regolamento",
@@ -229,7 +236,8 @@
     "yes": "Yes",
     "no": "No",
     "message": "Are you sure to want reset your records?",
-    "message_update": "New version available... Update now!!"
+    "message_update": "New version available... Update now!!",
+    "add_to_home": "Add to home YamFive"
   },
   "release": {
     "title_1": "Release notes",

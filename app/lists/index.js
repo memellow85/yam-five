@@ -80,26 +80,30 @@ export const match = () => {
     down: {
       icon: 'sort-bool-ascending-variant',
       data: getGame(),
-      bonusMinMax: null,
-      bonusNumber: null,
+      bonusMinMax: false,
+      bonusNumber60: false,
+      bonusNumber70: false,
     },
     free: {
       icon: 'order-bool-ascending-variant',
       data: getGame(),
-      bonusMinMax: null,
-      bonusNumber: null,
+      bonusMinMax: false,
+      bonusNumber60: false,
+      bonusNumber70: false,
     },
     dry: {
       icon: 'target',
       data: getGame(),
-      bonusMinMax: null,
-      bonusNumber: null,
+      bonusMinMax: false,
+      bonusNumber60: false,
+      bonusNumber70: false,
     },
     up: {
       icon: 'sort-bool-descending-variant',
       data: getGame(),
-      bonusMinMax: null,
-      bonusNumber: null,
+      bonusMinMax: false,
+      bonusNumber60: false,
+      bonusNumber70: false,
     },
   }
 }
