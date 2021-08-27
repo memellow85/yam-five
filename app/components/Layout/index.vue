@@ -27,6 +27,9 @@ export default {
   directives: { resize },
   data() {
     return {
+      check: '',
+      v1: '',
+      v2: '',
       timeReset: null,
       visible: true,
       deferredPrompt: null,
@@ -34,9 +37,6 @@ export default {
   },
   head() {
     return {
-      check: '',
-      v1: '',
-      v2: '',
       link: [
         {
           rel: 'canonical',
