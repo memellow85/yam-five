@@ -244,6 +244,9 @@ export default {
       this.animateBtn()
       this.$store.dispatch('game/reinitGame')
     },
+    createSingleFastMatch() {
+      this.$store.dispatch(`game/fastGame`)
+    },
     animateBtn() {
       this.$store.commit(`game/setAnimateBtn`, true)
       setTimeout(() => {
