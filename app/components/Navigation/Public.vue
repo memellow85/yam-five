@@ -27,6 +27,7 @@
       <Loader v-if="loader"></Loader>
       <span v-else>{{ $t('recovery.btn') }}</span>
     </button>
+
     <div class="wrapper-button">
       <nuxt-link
         :to="login ? { name: 'offline-registration' } : { name: 'index' }"

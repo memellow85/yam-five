@@ -18,7 +18,7 @@
 <script>
 import { mapState } from 'vuex'
 import { resize } from '~/directives/resize'
-import { getLocalStorageKey, setLocalStorageKey } from '~/utils'
+import { getLocalStorageKey, setLocalStorageKey, isProd } from '~/utils'
 
 export default {
   directives: { resize },
@@ -53,8 +53,7 @@ export default {
     }),
   },
   created() {
-    // TODO Update con funzione
-    if (process.env.NODE_ENV === 'production') {
+    if (isProd()) {
       if (location.protocol !== 'https:') {
         location.replace(
           `https:${location.href.substring(location.protocol.length)}`
@@ -68,14 +67,6 @@ export default {
     this.$nuxt.$on('addToHomeHandler', () => {
       this.addToHomeHandler()
     })
-
-    if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
-      this.$store.commit('game/toggleNotification', {
-        type: 'warning',
-        message: this.$t('alert.message_update'),
-        buttonRefresh: true,
-      })
-    }
   },
   beforeMount() {
     window.addEventListener('beforeinstallprompt', (event) => {
@@ -84,7 +75,7 @@ export default {
       this.deferredPrompt = event
       this.$store.commit('game/toggleNotification', {
         type: 'warning',
-        message: 'Add to home YamFive',
+        message: this.$t('alert.add_to_home'),
         buttonAddToHome: true,
       })
     })
@@ -93,6 +84,15 @@ export default {
       this.$store.commit('game/toggleNotification', null)
       this.deferredPrompt = null
     })
+  },
+  mounted() {
+    if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
+      this.$store.commit('game/toggleNotification', {
+        type: 'warning',
+        message: this.$t('alert.message_update'),
+        buttonRefresh: true,
+      })
+    }
   },
   destroyed() {
     this.$nuxt.$off('refreshPWAHandler')

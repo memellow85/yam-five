@@ -22,7 +22,8 @@
     "btn_1": "Entra",
     "btn_2": "Registrati",
     "link_1": "guida",
-    "link_message": "Prima di iniziare leggi la "
+    "link_message": "Prima di iniziare leggi la ",
+    "save_credential": "Salva username e password"
   },
   "recovery": {
     "title": "Recupera password",
@@ -229,7 +230,8 @@
     "yes": "Si",
     "no": "No",
     "message": "Sei sicuro di voler azzerare i tuoi records?",
-    "message_update": "Nuova versione disponibile... Aggiorna ora!!"
+    "message_update": "Nuova versione disponibile... Aggiorna ora!!",
+    "add_to_home": "Aggiungi al desktop YamFive"
   },
   "release": {
     "title_1": "Note revisioni",

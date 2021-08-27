@@ -22,7 +22,8 @@
     "btn_1": "Enter",
     "btn_2": "Register",
     "link_1": "rule",
-    "link_message": "Before start read a "
+    "link_message": "Before start read a ",
+    "save_credential": "Save username e password"
   },
   "recovery": {
     "title": "Recovery password",
@@ -229,7 +230,8 @@
     "yes": "Yes",
     "no": "No",
     "message": "Are you sure to want reset your records?",
-    "message_update": "New version available... Update now!!"
+    "message_update": "New version available... Update now!!",
+    "add_to_home": "Add to home YamFive"
   },
   "release": {
     "title_1": "Release notes",

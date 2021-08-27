@@ -1,0 +1,63 @@
+@mixin generateClass($type) {
+  .#{$type} {
+    @extend %p;
+    @include margin(null 0.7rem null null);
+    display: grid;
+    place-items: center;
+    grid-template-columns: min-content auto;
+  }
+
+  .#{$type}__label {
+    @include margin(null null null 0.3rem);
+    line-height: 1;
+    transition: 180ms all ease-in-out;
+  }
+
+  .#{$type}__input {
+    display: flex;
+
+    input {
+      @include size(0);
+      opacity: 0;
+    }
+  }
+
+  .#{$type}__control {
+    display: grid;
+    place-items: center;
+  }
+
+  input + .#{$type}__control::before {
+    @include margin(2px null null 2px);
+    @include size(8px);
+    content: ' ';
+    display: block;
+    @if $type == 'radio' {
+      border-radius: 50%;
+    }
+    transition: 180ms transform ease-in-out;
+    transform: scale(0);
+    background: $color-3;
+  }
+
+  input:checked + .#{$type}__control::before {
+    transform: scale(1);
+    background: $primary;
+  }
+
+  input + .#{$type}__control {
+    @include size(12px);
+    display: block;
+    @if $type == 'radio' {
+      border-radius: 50%;
+    }
+    border: 2px solid $color-3;
+  }
+
+  input:checked + .#{$type}__control {
+    border: 2px solid $primary;
+  }
+}
+
+@include generateClass('radio')
+@include generateClass('checkbox')
