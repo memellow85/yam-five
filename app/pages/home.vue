@@ -7,7 +7,12 @@
         <div class="container-match flex-center">
           <template v-if="!startGame && userSocket === null">
             <p>{{ $t('home.message_1') }}</p>
-            <button @click="joinAmatch">{{ $t('home.btn_1') }}</button>
+            <div class="container-button-match flex-center">
+              <button @click="joinAmatch">{{ $t('home.btn_1') }}</button>
+              <button @click="createSingleFastMatch">
+                {{ $t('home.btn_4') }}
+              </button>
+            </div>
           </template>
           <template
             v-if="
@@ -239,6 +244,9 @@ export default {
       this.animateBtn()
       this.$store.dispatch('game/reinitGame')
     },
+    createSingleFastMatch() {
+      this.$store.dispatch(`game/fastGame`)
+    },
     animateBtn() {
       this.$store.commit(`game/setAnimateBtn`, true)
       setTimeout(() => {
@@ -269,6 +277,11 @@ export default {
     .box-dice {
       @include margin(null null 0.7rem null);
       flex-wrap: wrap;
+    }
+    .container-button-match {
+      button {
+        @include margin(null 0.3rem);
+      }
     }
   }
   .container-box {

@@ -17,17 +17,24 @@ module.exports = {
    */
   head: {
     title: 'YamFive',
+    htmlAttrs: {
+      lang: 'en',
+    },
     meta: [
       { charset: 'utf-8' },
       {
         name: 'viewport',
         content:
-          'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi',
+          'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height',
       },
       {
         hid: 'description',
         name: 'description',
         content: 'The dices game',
+      },
+      {
+        name: 'theme-color',
+        content: '#fff',
       },
       {
         name: 'mobile-web-app-capable',
@@ -134,7 +141,7 @@ module.exports = {
       short_name: 'YamFive',
       description: 'The dices game',
       viewport:
-        'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi',
+        'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height',
     },
     /* meta: {
       mobileAppIOS: true,
@@ -158,7 +165,6 @@ module.exports = {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~/plugins/pwa-update.js' },
     { src: '~/plugins/i18n.js' },
     { src: '~/plugins/visibility.js' },
     { src: '~/plugins/socket-client.js' },
@@ -178,6 +184,7 @@ module.exports = {
     '@nuxtjs/axios',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/pwa',
+    'nuxt-precompress',
   ],
   /*
    ** Scss resources

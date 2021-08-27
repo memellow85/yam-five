@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { getLocalStorageKey, setLocalStorageKey } from '~/utils'
+
 export default {
   data() {
     return {
@@ -40,8 +42,14 @@ export default {
       this.changeHandler(this.currentLang)
     },
   },
+  mounted() {
+    this.currentLang = getLocalStorageKey('lang') || this.$i18n.locale
+  },
   methods: {
     changeHandler(lang) {
+      if (getLocalStorageKey('lang') !== lang) {
+        setLocalStorageKey('lang', lang)
+      }
       this.$i18n.locale = lang
     },
   },

@@ -1,6 +1,6 @@
 {
   "name": "yam-five",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "The dices game",
   "author": "memellow85",
   "license": "MIT",
@@ -41,7 +41,9 @@
   },
   "dependencies": {
     "firebase": "8.9.0",
+    "heroku-ssl-redirect": "0.1.1",
     "nuxt": "2.15.7",
+    "nuxt-precompress": "0.5.9",
     "vue-i18n": "8.25.0"
   },
   "devDependencies": {

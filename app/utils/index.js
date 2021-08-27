@@ -1,6 +1,27 @@
 import cloneDeep from 'lodash/cloneDeep'
 import { dicesTypesCabled } from '~/lists'
 
+export const generateRandomRoom = (length) => {
+  let result = ''
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const charactersLength = characters.length
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+  return result
+}
+
+const keyApp = 'yamfive_'
+
+export const getLocalStorageKey = (key) => {
+  return localStorage.getItem(`${keyApp}${key}`)
+}
+
+export const setLocalStorageKey = (key, value) => {
+  return localStorage.setItem(`${keyApp}${key}`, value)
+}
+
 export const isProd = () => {
   return (
     process.env.NUXT_ENV_NODE_ENV === 'production' ||

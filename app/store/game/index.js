@@ -4,6 +4,7 @@ import {
   calculateActualGame,
   logger,
   setStatisticsDice,
+  generateRandomRoom,
 } from '~/utils'
 import {
   dicesTypesCabled,
@@ -47,6 +48,8 @@ export const state = () => ({
   totalHistorical: [],
   disabledButtonGame: false,
   animateBtnDice: false,
+  fastGame: false,
+  blockAnimate: false,
 })
 
 /**
@@ -110,6 +113,9 @@ export const mutations = {
       return true
     })
   },
+  blockAnimate(state, value) {
+    state.blockAnimate = value
+  },
   initDices(state) {
     logger('COMMIT-GAME initDices', null, 'i')
     state.beforeDices = {}
@@ -172,7 +178,6 @@ export const mutations = {
     logger('COMMIT-GAME setActualValue', data, 'i')
     gamesTypesCabled.map((g) => {
       if (g === state.playedView) {
-        // const tmp = cloneDeep(state.dices)
         const sum = calculateActualGame(
           data,
           state.dices,
@@ -307,7 +312,7 @@ export const mutations = {
               const totMinMax =
                 state.game[g].data[d].value + state.game[g].data.max.value
               state.extraTotal += totMinMax
-              if (totMinMax > 50) {
+              if (totMinMax >= 50) {
                 state.globalTotal += 30
                 state.extraTotal += 30
               }
@@ -375,6 +380,9 @@ export const mutations = {
   setDisabledButtonGame(state, value) {
     state.disabledButtonGame = value
   },
+  setFastGame(state, value) {
+    state.fastGame = value
+  },
   setAnimateBtn(state, value) {
     state.animateBtnDice = value
   },
@@ -384,6 +392,22 @@ export const mutations = {
  * Actions
  */
 export const actions = {
+  fastGame({ commit, dispatch, rootState }) {
+    logger('ACTION-GAME fastGame', null, 'i')
+    dispatch(
+      'ws/addUserSocket',
+      {
+        user: rootState.firebase.userDetailsFirebase,
+        room: generateRandomRoom(8),
+        match: 13,
+        type: 'veryshort',
+        method: 'create',
+      },
+      { root: true }
+    )
+    commit('setFastGame', true)
+    // dispatch('startGame')
+  },
   startGame({ commit, dispatch }) {
     logger('ACTION-GAME startGame', null, 'i')
     dispatch('ws/startGameSocket', {}, { root: true })
@@ -417,6 +441,7 @@ export const actions = {
     commit('setGlobalTotal')
     commit('resetTurn')
     commit('resetGame')
+    commit('blockAnimate', false)
     commit('initDices')
     dispatch(
       'ws/finishTurnSocket',
