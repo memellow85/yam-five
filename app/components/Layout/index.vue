@@ -74,18 +74,6 @@ export default {
     this.$nuxt.$on('addToHomeHandler', () => {
       this.addToHomeHandler()
     })
-
-    this.check = 'created'
-    this.v1 = getLocalStorageKey('version')
-    this.v2 = process.env.NUXT_ENV_APP_VERSION
-
-    if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
-      this.$store.commit('game/toggleNotification', {
-        type: 'warning',
-        message: this.$t('alert.message_update'),
-        buttonRefresh: true,
-      })
-    }
   },
   beforeMount() {
     window.addEventListener('beforeinstallprompt', (event) => {
@@ -103,6 +91,21 @@ export default {
       this.$store.commit('game/toggleNotification', null)
       this.deferredPrompt = null
     })
+  },
+  mounted() {
+    setTimeout(() => {
+      this.check = 'created'
+      this.v1 = getLocalStorageKey('version')
+      this.v2 = process.env.NUXT_ENV_APP_VERSION
+
+      if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
+        this.$store.commit('game/toggleNotification', {
+          type: 'warning',
+          message: this.$t('alert.message_update'),
+          buttonRefresh: true,
+        })
+      }
+    }, 500)
   },
   destroyed() {
     this.$nuxt.$off('refreshPWAHandler')
