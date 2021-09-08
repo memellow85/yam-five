@@ -35,7 +35,7 @@
     "btn": "Recupera"
   },
   "home": {
-    "message_1": "Per iniziare a giocare crea una stanza o unisciti ad una stanza già creata.",
+    "message_1": "Crea una stanza o unisciti ad una stanza già creata, altrimenti per iniziare fai una partita veloce",
     "btn_1": "Crea partita",
     "btn_2": "Inizia a giocare",
     "btn_3": "Inizia una nuova partita",
