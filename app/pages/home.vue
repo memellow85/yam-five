@@ -89,7 +89,9 @@
             <div class="wrapper-box flex-center">
               <Box
                 :class-name="'single'"
-                :title="$t('home.title_1')"
+                :title="`${$t('home.title_1')} (${
+                  numberTotalGames[playedView]
+                })`"
                 :info="$t('home.help_1')"
               >
                 <Cube
@@ -207,6 +209,7 @@ export default {
       showSchema: (state) => state.showSchema,
       showChampionsShip: (state) => state.showChampionsShip,
       showConfig: (state) => state.showConfig,
+      numberTotalGames: (state) => state.numberTotalGames,
     }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
