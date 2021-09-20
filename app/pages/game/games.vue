@@ -56,7 +56,7 @@
               <div><span :class="`yamicons mdi mdi-${ga.icon}`"></span></div>
               <template v-for="(g, i) in ga.data">
                 <div
-                  :key="i"
+                  :key="`b_1_${i}`"
                   :class="[
                     'cube',
                     {
@@ -84,13 +84,14 @@
                   ></span>
                   <p v-else>{{ g.value }}</p>
                 </div>
-                <div v-if="includesBonus.includes(i)" :key="i">
+                <div v-if="includesBonus.includes(i)" :key="`b_2_${i}`">
                   <template v-if="i === 'six'">
                     <span
                       :class="`yamicons mdi mdi-${
                         ga.bonusNumber60 ? 'check-bold' : 'close-thick'
                       }`"
                     ></span>
+                    <p>{{ numberTotalGames[index] }}</p>
                   </template>
                   <template v-if="i === 'max'">
                     <span
@@ -107,12 +108,13 @@
                     ></span>
                   </template>
                 </div>
-                <div v-if="i === 'six'" :key="i">
+                <div v-if="i === 'six'" :key="`b_3_${i}`">
                   <span
                     :class="`yamicons mdi mdi-${
                       ga.bonusNumber70 ? 'check-bold' : 'close-thick'
                     }`"
                   ></span>
+                  <p>{{ numberTotalGames[index] }}</p>
                 </div>
               </template>
             </div>
@@ -155,6 +157,7 @@ export default {
       game: (state) => state.game,
       playedList: (state) => state.playedList,
       currentGame: (state) => state.currentGame,
+      numberTotalGames: (state) => state.numberTotalGames,
     }),
   },
   methods: {

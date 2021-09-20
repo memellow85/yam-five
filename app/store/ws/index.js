@@ -138,13 +138,23 @@ export const actions = {
     commit('game/startGame', null, { root: true })
     // commit('game/intoRoom', false)
   },
-  finishTurnSocket({ commit, dispatch, state }, total) {
+  finishTurnSocket({ commit, dispatch, state, rootState }, total) {
     logger('ACTION-WS finishTurnSocket', null, 'i')
     commit('updateTotalSocket', total)
-    dispatch('socketEmit', {
+    const log = trace(
+      true,
+      rootState.performance,
+      'finish_turn'.toUpperCase(),
+      null
+    )
+    this._vm.$socket.client.emit('finish_turn', state.userSocket, () => {
+      trace(false, null, null, log)
+      dispatch('finishGameSocket', null)
+    })
+    /* dispatch('socketEmit', {
       action: 'finish_turn',
       payload: state.userSocket,
-    })
+    }) */
   },
   finishGameSocket({ dispatch, state }) {
     logger('ACTION-WS finishGameSocket', null, 'i')

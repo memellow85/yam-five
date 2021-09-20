@@ -4,7 +4,9 @@ const app = express()
 // eslint-disable-next-line import/order
 const http = require('http')
 const server = http.createServer(app)
-const io = require('socket.io')(server)
+const io = require('socket.io')(server, {
+  upgradeTimeout: 50000,
+})
 
 const Rooms = require('../models/Room')()
 const yamfive = require('./api/yamfive')
@@ -110,9 +112,8 @@ io.on('connection', (socket) => {
   })
 
   socket.on('update_game', (user, cb) => {
-    let usersIntoRoom = Rooms.GETUsersRoom(user.room)
-    Rooms.PUTRoomUsers(usersIntoRoom, user.type)
-    usersIntoRoom = Rooms.GETUsersRoom(user.room)
+    Rooms.PUTRoomUsers(user.room, user.type)
+    const usersIntoRoom = Rooms.GETUsersRoom(user.room)
     io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
     io.to(user.room).emit('resetUserSocketEmit')
     cb()
@@ -150,6 +151,11 @@ io.on('connection', (socket) => {
   })
 
   socket.on('left_room', () => {
+    leftRoom(socket.id, socket)
+  })
+
+  socket.on('error', (err) => {
+    io.emit('socketErrorEmit', err)
     leftRoom(socket.id, socket)
   })
 
