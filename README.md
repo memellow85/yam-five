@@ -48,6 +48,7 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.1.1 - Bugfix + new sections: release and bug report
 - 1.1.2 - Increase performance + SEO + Fast match
 - 1.1.3 - Sound effect + save username and password
+- 1.1.4 - Bugfix
 
 ## Next release
 

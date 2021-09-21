@@ -49,19 +49,21 @@ class Rooms {
     })
   }
 
-  PUTRoomUsers(users, type) {
-    this.users = this.users.map((v) => {
-      let match = 52
-      switch (type) {
-        case 'short':
-          match = 26
-          break
-        case 'veryshort':
-          match = 13
-          break
+  PUTRoomUsers(room, type) {
+    this.users = this.users.map((u) => {
+      if (u.room === room) {
+        let match = 52
+        switch (type) {
+          case 'short':
+            match = 26
+            break
+          case 'veryshort':
+            match = 13
+            break
+        }
+        u.match = match
       }
-      v.match = match
-      return v
+      return u
     })
   }
 

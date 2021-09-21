@@ -108,6 +108,15 @@ export const match = () => {
   }
 }
 
+export const numberTotalGames = () => {
+  return {
+    down: 0,
+    free: 0,
+    dry: 0,
+    up: 0,
+  }
+}
+
 export const playedListCabled = [
   {
     id: 1,

@@ -79,6 +79,13 @@ export default {
       this.$store.commit('game/initMatch')
       this.$store.commit('game/resetStats')
     },
+    socketErrorEmit(err) {
+      logger('SOCKETS socketErrorEmit', err, 'i')
+      this.$store.commit(`game/toggleNotification`, {
+        type: 'alert',
+        message: err.message,
+      })
+    },
   },
   computed: {
     ...mapState('game', {
