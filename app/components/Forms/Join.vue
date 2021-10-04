@@ -21,7 +21,7 @@
       />
     </FormsInput>
     <div class="container-btn flex-end">
-      <button :disabled="room === ''" @click="submitHandler">
+      <button v-touch="submitHandler" :disabled="room === ''">
         {{ tab === 'create' ? $t('config.btn_4') : $t('config.btn_1') }}
       </button>
     </div>

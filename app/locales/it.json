@@ -67,11 +67,13 @@
     "title_5": "Segnalazioni/Consigli",
     "title_6": "Benvenuto",
     "title_7": "Effetti sonori",
+    "title_8": "Condividi",
     "btn_1": "Unisciti",
     "btn_2": "Abbandona",
     "btn_3": "Esci",
     "btn_4": "Crea",
     "btn_5": "Resetta",
+    "btn_6": "Copia il link!",
     "form_2": "Stanza",
     "join_1": "Ti sei unito alla stanza ",
     "join_2": " con altri ",
@@ -81,7 +83,8 @@
     "message_1": "Cancella tutti i tuoi record",
     "message_2": "Records cancellati",
     "message_3": "Ultima partita finita",
-    "message_4": "Num. partite"
+    "message_4": "Num. partite",
+    "message_5": "Condividi il gioco con gli amici!"
   },
   "champions": {
     "title_1": "Classifica",
@@ -237,7 +240,8 @@
     "no": "No",
     "message": "Sei sicuro di voler azzerare i tuoi records?",
     "message_update": "Nuova versione disponibile... Aggiorna ora!!",
-    "add_to_home": "Aggiungi al desktop YamFive"
+    "add_to_home": "Aggiungi al desktop YamFive",
+    "socket_disconnect": "Socket disconnesso"
   },
   "release": {
     "title_1": "Note revisioni",
@@ -252,5 +256,12 @@
     "title_1": "Segnalazioni",
     "open": "Aperta: ",
     "empty": "Non ci sono segnalazioni."
+  },
+  "copy": {
+    "message": "Condividi il gioco con gli amici!!!",
+    "button": "Copia il link!",
+    "alert_message_success": "Link copiato",
+    "alert_message_error": "Errore nel copiare il link",
+    "copy_message": "https://yamfive-app.herokuapp.com/"
   }
 }

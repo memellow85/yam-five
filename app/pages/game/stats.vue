@@ -18,8 +18,8 @@
             <p
               v-for="p in pages"
               :key="p"
+              v-touch="() => changePage(p)"
               :class="['small flex-center', { active: page === p }]"
-              @click="changePage(p)"
             >
               <strong>{{ p }}</strong>
             </p>

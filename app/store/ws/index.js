@@ -124,9 +124,22 @@ export const actions = {
       payload: state.userSocket,
     })
   },
-  leftRoomSocket({ commit, dispatch }) {
+  leftRoomSocket({ commit, rootState }) {
     logger('ACTION-WS leftRoomSocket', null, 'i')
-    dispatch('socketEmit', {
+    const log = trace(true, rootState.performance, 'LEFTROOM', null)
+    return new Promise((resolve) => {
+      this._vm.$socket.client.emit('left_room', null, () => {
+        trace(false, null, null, log)
+        commit('clearDataSocket')
+        commit('game/newGame', false, { root: true })
+        commit('game/initMatch', null, { root: true })
+        commit('game/initDices', null, { root: true })
+        commit('game/resetTurn', null, { root: true })
+        commit('game/startGame', null, { root: true })
+        resolve()
+      })
+    })
+    /* dispatch('socketEmit', {
       action: 'left_room',
       payload: null,
     })
@@ -136,6 +149,7 @@ export const actions = {
     commit('game/initDices', null, { root: true })
     commit('game/resetTurn', null, { root: true })
     commit('game/startGame', null, { root: true })
+     */
     // commit('game/intoRoom', false)
   },
   finishTurnSocket({ commit, dispatch, state, rootState }, total) {

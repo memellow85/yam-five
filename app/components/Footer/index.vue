@@ -2,9 +2,12 @@
   <article class="footer-offline">
     <p class="small flex-center">
       Copyright &copy; {{ new Date().getFullYear() }} -
-      <span @click="releaseHandler">Release</span>:
+      <span v-touch="releaseHandler">Release</span>:
       {{ pkg.version }}
-      <span class="yamicons mdi mdi-github small" @click="githubHandler"></span>
+      <span
+        v-touch="githubHandler"
+        class="yamicons mdi mdi-github small"
+      ></span>
     </p>
   </article>
 </template>

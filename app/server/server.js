@@ -150,7 +150,13 @@ io.on('connection', (socket) => {
     cb()
   })
 
-  socket.on('left_room', () => {
+  socket.on('left_room', (data, cb) => {
+    leftRoom(socket.id, socket, cb)
+    cb()
+  })
+
+  socket.on('error', (err) => {
+    io.emit('socketErrorEmit', err)
     leftRoom(socket.id, socket)
   })
 
@@ -160,6 +166,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('disconnect', () => {
+    io.emit('socketDisconnectEmit', null)
     leftRoom(socket.id, socket)
   })
 })

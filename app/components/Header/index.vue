@@ -3,8 +3,8 @@
     {{ $t('nameapp') }}
     <span
       v-if="$route.name === 'release'"
+      v-touch="() => $router.push({ name: 'index' })"
       class="yamicons mdi mdi-chevron-left medium"
-      @click="$router.push({ name: 'index' })"
     ></span>
   </h1>
 </template>

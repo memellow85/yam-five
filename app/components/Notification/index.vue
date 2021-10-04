@@ -7,12 +7,12 @@
   >
     <div v-if="showNotification" class="notification-container">
       <div
+        v-touch="() => $store.commit('game/toggleNotification', null)"
         class="notification-mask"
-        @click="$store.commit('game/toggleNotification', null)"
       ></div>
       <div
+        v-touch="() => $store.commit('game/toggleNotification', null)"
         :class="['notification-content flex-between', notificationTypes]"
-        @click="$store.commit('game/toggleNotification', null)"
       >
         <p class="flex">
           <span
@@ -27,10 +27,10 @@
           ></span>
           {{ notificationMessage }}
         </p>
-        <button v-if="buttonRefresh" @click="refreshPWA">
+        <button v-if="buttonRefresh" v-touch="refreshPWA">
           {{ $t('notification.refresh') }}
         </button>
-        <button v-if="buttonAddToHome" @click="addToHome">
+        <button v-if="buttonAddToHome" v-touch="addToHome">
           {{ $t('notification.add') }}
         </button>
       </div>
