@@ -285,3 +285,28 @@ export const play = (file) => {
     file.play()
   }
 }
+
+export const bigMenuIphone = () => {
+  const iHeight = window.screen.height
+  const iWidth = window.screen.width
+
+  if (
+    (iWidth === 414 && iHeight === 896) ||
+    (iWidth === 375 && iHeight === 812)
+  ) {
+    return true
+  } else if (
+    (iWidth === 320 && iHeight === 480) ||
+    (iWidth === 375 && iHeight === 667) ||
+    (iWidth === 414 && iHeight === 736) ||
+    (iWidth === 320 && iHeight === 568) ||
+    iHeight <= 480
+  ) {
+    return false
+  }
+  return true
+}
+
+export const isIphone = () => {
+  return !!navigator.userAgent.match(/iPhone/i)
+}

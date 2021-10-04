@@ -9,13 +9,13 @@
     <template v-if="data.active">
       <div class="box-action flex-center">
         <span
-          v-longPress
+          v-touch="submitValue"
           :class="`yamicons mdi mdi-${
             changeValue ? 'trash-can-outline' : 'plus-box-outline'
           }`"
-          @click="submitValue"
-          @longPressStart="longPressStart"
         ></span>
+        <!-- v-longPress
+        @longPressStart="longPressStart" -->
       </div>
       <p>{{ $t(data.label) }}</p>
     </template>
@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import { longPress } from '~/directives/longpress'
+// import { longPress } from '~/directives/longpress'
 
 export default {
-  directives: { longPress },
+  // directives: { longPress },
   props: {
     dimension: {
       type: String,
@@ -63,9 +63,9 @@ export default {
         this.changeValue = false
       }
     },
-    longPressStart() {
+    /* longPressStart() {
       this.changeValue = !this.changeValue
-    },
+    }, */
   },
 }
 </script>

@@ -53,6 +53,12 @@ export const mutations = {
   setReportIssueList(state, data) {
     state.issueList = data || []
   },
+  reset(state) {
+    state.userFirebase = null
+    state.userDetailsFirebase = null
+    state.usersChampions = []
+    state.issueList = []
+  },
 }
 
 /**
@@ -65,6 +71,7 @@ export const actions = {
       this.$axios
         .post('/yam-five/logout')
         .then(() => {
+          commit('reset')
           resolve()
         })
         .catch((error) => {

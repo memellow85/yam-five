@@ -297,13 +297,13 @@ export const mutations = {
               if (totDices > 60) {
                 state.globalTotal += 20
                 state.numberTotal += 20
-                state.numberTotalGames[g] += 20
+                // state.numberTotalGames[g] += 20
                 state.game[g].bonusNumber60 = true
               }
               if (totDices > 70) {
                 state.globalTotal += 30
                 state.numberTotal += 30
-                state.numberTotalGames[g] += 30
+                // state.numberTotalGames[g] += 30
                 state.game[g].bonusNumber70 = true
               }
             }
@@ -476,11 +476,11 @@ export const actions = {
     )
     // dispatch('ws/finishGameSocket', null, { root: true })
   },
-  newGame({ commit }, value) {
+  /* newGame({ commit }, value) {
     logger('ACTION-GAME newGame', value, 'i')
     commit('newGame', value)
     // commit('initDices')
     // commit('initMatch')
     commit('resetTurn')
-  },
+  }, */
 }

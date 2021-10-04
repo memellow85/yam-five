@@ -6,13 +6,13 @@
         <ul class="inline custom-tabs">
           <li
             :class="['center', { active: tab === 'current' }]"
-            @click="tab = 'current'"
+            v-touch="() => setTab('current', false)"
           >
             <h4>{{ $t('champions.title_1') }}</h4>
           </li>
           <li
             :class="['center', { active: tab === 'older' }]"
-            @click="tab = 'older'"
+            v-touch="() => setTab('older', false)"
           >
             <h4>{{ $t('champions.title_2') }}</h4>
           </li>
@@ -21,19 +21,19 @@
           <ul v-if="tab === 'older'" class="inline custom-tabs">
             <li
               :class="['center', { active: subTab === 'score_veryshort' }]"
-              @click="subTab = 'score_veryshort'"
+              v-touch="() => setTab('score_veryshort', true)"
             >
               <h4>{{ $t('champions.tab_3') }}</h4>
             </li>
             <li
               :class="['center', { active: subTab === 'score_short' }]"
-              @click="subTab = 'score_short'"
+              v-touch="() => setTab('score_short', true)"
             >
               <h4>{{ $t('champions.tab_2') }}</h4>
             </li>
             <li
               :class="['center', { active: subTab === 'score' }]"
-              @click="subTab = 'score'"
+              v-touch="() => setTab('score', true)"
             >
               <h4>{{ $t('champions.tab_1') }}</h4>
             </li>
@@ -55,6 +55,7 @@
               :class="[
                 'flex',
                 {
+                  hide: hideList.includes(u.uid),
                   io:
                     u.uid === userFirebase.uid ||
                     (u.user && u.user.uid === userFirebase.uid),
@@ -103,6 +104,7 @@ export default {
     return {
       tab: 'current',
       subTab: 'score_veryshort',
+      hideList: [process.env.NUXT_ENV_USER_HIDE],
     }
   },
   computed: {
@@ -127,6 +129,15 @@ export default {
       }
     },
   },
+  methods: {
+    setTab(tab, subtab) {
+      if (!subtab) {
+        this.tab = tab
+      } else {
+        this.subTab = tab
+      }
+    },
+  },
 }
 </script>
 
@@ -141,6 +152,9 @@ export default {
         p {
           @include size(auto, 2.5rem);
         }
+      }
+      &.hide {
+        display: none;
       }
       &.io {
         p {

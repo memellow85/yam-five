@@ -36,10 +36,10 @@
       />
     </FormsInput>
     <div class="container-btn flex-between">
-      <a href="javascript: void(0)" @click="issueHandler">
+      <a href="javascript: void(0)" v-touch="issueHandler">
         {{ $t('release.link_1') }}
       </a>
-      <button :disabled="message === ''" @click="submitHandler">
+      <button :disabled="message === ''" v-touch="submitHandler">
         {{ $t('release.btn_1') }}
       </button>
     </div>

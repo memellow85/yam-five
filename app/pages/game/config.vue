@@ -5,13 +5,16 @@
         <span class="yamicons mdi mdi-cog-outline"></span>
         {{ $t('view.configuration') }}
       </h3>
-      <button class="small grey" @click="leaveAppHandler">
+      <button class="small grey" v-touch="leaveAppHandler">
         <span>{{ $t('config.btn_3') }}</span>
       </button>
     </article>
     <div class="main body-scroll-lock-ignore-inner">
       <article class="wrapper-welcome">
-        <h2>{{ $t('config.title_6') }} {{ userDetailsFirebase.name }}</h2>
+        <h2>
+          {{ $t('config.title_6') }}
+          {{ userDetailsFirebase ? userDetailsFirebase.name : '-' }}
+        </h2>
         <div class="flex-between">
           <p>
             {{ $t('config.message_3') }}:
@@ -19,7 +22,7 @@
           </p>
           <p>
             {{ $t('config.message_4') }}:
-            {{ userDetailsFirebase.match }}
+            {{ userDetailsFirebase ? userDetailsFirebase.match : '-' }}
           </p>
         </div>
       </article>
@@ -35,7 +38,7 @@
         <h4>{{ $t('config.title_4') }}</h4>
         <div class="flex-between">
           <p>{{ $t('config.message_1') }}</p>
-          <button @click="resetTotalHandler">
+          <button class="white" v-touch="resetTotalHandler">
             <span>{{ $t('config.btn_5') }}</span>
           </button>
         </div>
@@ -47,7 +50,7 @@
               'center',
               { active: tab === 'create', disabled: userSocket },
             ]"
-            @click="tab = 'create'"
+            v-touch="() => setTab('create')"
           >
             <h4>{{ $t('config.tab_1') }}</h4>
           </li>
@@ -56,7 +59,7 @@
               'center',
               { active: tab === 'join', disabled: userSocket },
             ]"
-            @click="tab = 'join'"
+            v-touch="() => setTab('join')"
           >
             <h4>{{ $t('config.tab_2') }}</h4>
           </li>
@@ -72,8 +75,22 @@
           {{ $t('config.join_3') }}
         </p>
         <div v-if="userSocket" class="container-btn flex">
-          <button @click="leaveHandler">
+          <button v-touch="leaveHandler">
             <span>{{ $t('config.btn_2') }}</span>
+          </button>
+        </div>
+      </article>
+      <article>
+        <h4>{{ $t('config.title_8') }}</h4>
+        <div class="flex-between">
+          <p>{{ $t('config.message_5') }}</p>
+          <button
+            v-clipboard:copy="$t('copy.copy_message')"
+            v-clipboard:success="onCopy"
+            v-clipboard:error="onError"
+            class="white"
+          >
+            <span>{{ $t('config.btn_6') }}</span>
           </button>
         </div>
       </article>
@@ -90,10 +107,11 @@ import { mapState } from 'vuex'
 import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
+import ClipboardMixin from '~/mixins/clipboard'
 import { toDateTime, formatDate } from '~/utils'
 
 export default {
-  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
+  mixins: [WsMixin, ScrollMixin, AnalyticsMixin, ClipboardMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {
@@ -110,9 +128,13 @@ export default {
       userDetailsFirebase: (state) => state.userDetailsFirebase,
     }),
     dateLastMatch() {
-      return formatDate(
-        toDateTime(this.userDetailsFirebase.last_updated.seconds)
-      )
+      if (this.userDetailsFirebase) {
+        return formatDate(
+          toDateTime(this.userDetailsFirebase.last_updated.seconds)
+        )
+      } else {
+        return '-'
+      }
     },
   },
   created() {
@@ -124,15 +146,24 @@ export default {
     this.$nuxt.$off('confirmSubmitHandler')
   },
   methods: {
-    leaveHandler() {
+    setTab(tab) {
+      this.tab = tab
+    },
+    leaveHandler($event, logout = false) {
       this.$store.commit(`game/resetStats`)
-      this.$store.dispatch('ws/leftRoomSocket')
+      this.$store.dispatch('ws/leftRoomSocket').then(() => {
+        if (logout) {
+          this.$store.dispatch('firebase/logout').then(() => {
+            this.$router.push('/')
+          })
+        }
+      })
     },
     leaveAppHandler() {
-      this.leaveHandler()
-      this.$store.dispatch('firebase/logout').then(() => {
+      this.leaveHandler(null, true)
+      /* this.$store.dispatch('firebase/logout').then(() => {
         this.$router.push('/')
-      })
+      }) */
     },
     resetTotalHandler() {
       this.$store.commit(`game/toggleModal`, 'alert')

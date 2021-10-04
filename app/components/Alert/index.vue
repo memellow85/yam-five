@@ -6,14 +6,14 @@
     leave-active-class="animated"
   >
     <div v-if="showAlert" class="wrapper-modal">
-      <div class="overlay-modal" @click="closeHandler"></div>
+      <div class="overlay-modal" v-touch="closeHandler"></div>
       <div class="content-modal">
         <h3>{{ message }}</h3>
         <div class="flex-between">
-          <button class="red" @click="closeHandler">
+          <button class="red" v-touch="closeHandler">
             {{ $t('alert.no') }}
           </button>
-          <button @click="confirmHandler">{{ $t('alert.yes') }}</button>
+          <button v-touch="confirmHandler">{{ $t('alert.yes') }}</button>
         </div>
       </div>
     </div>

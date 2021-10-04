@@ -3,13 +3,18 @@
     <Header></Header>
     <div class="container-app">
       <!-- Contenuto centrale -->
-      <div class="wrapper-main flex-without-align">
+      <div
+        :class="[
+          'wrapper-main flex-without-align',
+          { big: isIphone() && bigMenuIphone() },
+        ]"
+      >
         <div class="container-match flex-center">
           <template v-if="!startGame && userSocket === null">
             <p>{{ $t('home.message_1') }}</p>
             <div class="container-button-match flex-center">
-              <button @click="joinAmatch">{{ $t('home.btn_1') }}</button>
-              <button @click="createSingleFastMatch">
+              <button v-touch="joinAmatch">{{ $t('home.btn_1') }}</button>
+              <button v-touch="createSingleFastMatch">
                 {{ $t('home.btn_4') }}
               </button>
             </div>
@@ -24,7 +29,7 @@
               >. <br />{{ $t('home.message_2_b') }}
             </p>
             <p v-else>{{ $t('home.message_2_c') }}</p>
-            <button v-if="userSocket.turnOn" @click="startAgame">
+            <button v-if="userSocket.turnOn" v-touch="startAgame">
               {{ $t('home.btn_2') }}
             </button>
           </template>
@@ -76,7 +81,7 @@
           </template>
           <template v-if="newGame">
             <p>{{ $t('home.message_6') }}</p>
-            <button @click="startNewGame">{{ $t('home.btn_3') }}</button>
+            <button v-touch="startNewGame">{{ $t('home.btn_3') }}</button>
           </template>
         </div>
 
@@ -180,6 +185,7 @@ import NoSleep from 'nosleep.js'
 import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
+import { bigMenuIphone, isIphone } from '~/utils'
 
 export default {
   mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
@@ -188,10 +194,17 @@ export default {
     this.$store.commit(`game/setDisabledButtonGame`, true)
     next()
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.$store.commit(`game/setDisabledButtonGame`, false)
+    })
+  },
   layout: 'private',
   middleware: ['authenticated'],
   data() {
     return {
+      bigMenuIphone,
+      isIphone,
       noSleep: new NoSleep(),
       moveTop: null,
     }
@@ -232,7 +245,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit(`game/setDisabledButtonGame`, false)
+    // this.$store.commit(`game/setDisabledButtonGame`, false)
     this.noSleep.enable()
   },
   methods: {
@@ -265,6 +278,9 @@ export default {
   .wrapper-main {
     @include size(100%, calc(100vh - 7.5rem));
     flex-direction: column;
+    &.big {
+      @include size(100%, calc(100vh - 8.5rem));
+    }
   }
   button {
     @include margin(0.7rem null null);

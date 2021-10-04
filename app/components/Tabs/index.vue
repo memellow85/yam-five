@@ -6,8 +6,8 @@
           <li
             v-if="t.view.includes(currentGame)"
             :key="t.id"
+            v-touch="() => changePlayedHandler(t.name)"
             :class="[{ selected: t.selected }]"
-            @click="changePlayedHandler(t.name)"
           >
             <span
               :class="[`yamicons mdi mdi-${t.icon}`, { selected: t.selected }]"
