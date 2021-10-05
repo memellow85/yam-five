@@ -54,6 +54,7 @@
           {{ $t('login.link_1') }}
         </a>
       </p>
+      <br />
       <Copy></Copy>
     </div>
   </div>

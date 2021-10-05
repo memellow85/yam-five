@@ -49,12 +49,15 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.1.2 - Increase performance + SEO + Fast match
 - 1.1.3 - Sound effect + save username and password
 - 1.1.4 - Bugfix
+- 1.1.5 - Bugfix + touch + share link
 
 ## Next release
 
-- 1.x.x - New feature (tris, scale with four number)
-- 1.x.x - Optimize app for desktop
-- 1.x.x - YamFiveChat
+- x.x.x - New feature (tris, scale with four number)
+- x.x.x - Optimize app for desktop
+- x.x.x - Chat
+- x.x.x - Share match
+- x.x.x - Dark mode
 
 ## License
 

@@ -8,7 +8,7 @@
       class="custom-link"
       href="javascript: void(0)"
     >
-      <strong>{{ $t('copy.button') }}</strong>
+      {{ $t('copy.button') }}
     </a>
   </p>
 </template>
