@@ -192,7 +192,9 @@ module.exports = {
   styleResources: {
     // your settings here
     scss: [
+      '~/assets/scss/common/_themes.scss',
       '~/assets/scss/common/_variables.scss',
+      '~/assets/scss/common/_functions.scss',
       '~/assets/scss/common/_mixins.scss',
       '~/assets/scss/common/_helpers.scss',
     ],
