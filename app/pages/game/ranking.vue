@@ -5,14 +5,14 @@
       <article class="wrapper-tabs-form">
         <ul class="inline custom-tabs">
           <li
-            :class="['center', { active: tab === 'current' }]"
             v-touch="() => setTab('current', false)"
+            :class="['center', { active: tab === 'current' }]"
           >
             <h4>{{ $t('champions.title_1') }}</h4>
           </li>
           <li
-            :class="['center', { active: tab === 'older' }]"
             v-touch="() => setTab('older', false)"
+            :class="['center', { active: tab === 'older' }]"
           >
             <h4>{{ $t('champions.title_2') }}</h4>
           </li>
@@ -20,20 +20,20 @@
         <div class="wrapper-championship body-scroll-lock-ignore-inner">
           <ul v-if="tab === 'older'" class="inline custom-tabs">
             <li
-              :class="['center', { active: subTab === 'score_veryshort' }]"
               v-touch="() => setTab('score_veryshort', true)"
+              :class="['center', { active: subTab === 'score_veryshort' }]"
             >
               <h4>{{ $t('champions.tab_3') }}</h4>
             </li>
             <li
-              :class="['center', { active: subTab === 'score_short' }]"
               v-touch="() => setTab('score_short', true)"
+              :class="['center', { active: subTab === 'score_short' }]"
             >
               <h4>{{ $t('champions.tab_2') }}</h4>
             </li>
             <li
-              :class="['center', { active: subTab === 'score' }]"
               v-touch="() => setTab('score', true)"
+              :class="['center', { active: subTab === 'score' }]"
             >
               <h4>{{ $t('champions.tab_1') }}</h4>
             </li>
@@ -55,7 +55,7 @@
               :class="[
                 'flex',
                 {
-                  hide: hideList.includes(u.uid),
+                  hide: hideList.includes(u.uid) && tab !== 'current',
                   io:
                     u.uid === userFirebase.uid ||
                     (u.user && u.user.uid === userFirebase.uid),
