@@ -73,16 +73,16 @@
                         ? g.active
                         : false
                     "
-                    v-longPress
+                    v-touch="() => submitValue(g, index, i)"
                     :class="`yamicons mdi mdi-${
                       getChangeValue(index, i)
                         ? 'trash-can-outline'
                         : 'plus-box-outline'
                     }`"
-                    @click="submitValue(g, index, i)"
-                    @longPressStart="longPressStart(index, i)"
                   ></span>
                   <p v-else>{{ g.value }}</p>
+                  <!-- v-longPress
+                  @longPressStart="longPressStart(index, i)" -->
                 </div>
                 <div v-if="includesBonus.includes(i)" :key="`b_2_${i}`">
                   <template v-if="i === 'six'">
@@ -130,10 +130,10 @@ import { mapState } from 'vuex'
 import WsMixin from '~/mixins/ws'
 import AnalyticsMixin from '~/mixins/analytics'
 import ScrollMixin from '~/mixins/scroll'
-import { longPress } from '~/directives/longpress'
+// import { longPress } from '~/directives/longpress'
 
 export default {
-  directives: { longPress },
+  // directives: { longPress },
   mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
@@ -179,7 +179,7 @@ export default {
         }
       }
     },
-    longPressStart(index, i) {
+    /* longPressStart(index, i) {
       const tmp = Object.assign({}, this.changeValue)
       // eslint-disable-next-line no-prototype-builtins
       if (tmp.hasOwnProperty(index)) {
@@ -191,7 +191,7 @@ export default {
       }
       this.changeValue = {}
       this.changeValue = tmp
-    },
+    }, */
     getChangeValue(index, i) {
       // eslint-disable-next-line no-prototype-builtins
       if (this.changeValue.hasOwnProperty(index)) {

@@ -63,7 +63,9 @@ export default {
     },
     newGameSocketEmit(value) {
       logger('SOCKETS newGameSocketEmit', value, 'i')
-      this.$store.dispatch(`game/newGame`, value)
+      // this.$store.dispatch(`game/newGame`, value)
+      this.$store.commit('game/newGame', value)
+      this.$store.commit(`game/resetTurn`)
     },
     userLeaveMatchSocketEmit(user) {
       logger('SOCKETS userLeaveMatchSocketEmit', user, 'i')
@@ -84,6 +86,13 @@ export default {
       this.$store.commit(`game/toggleNotification`, {
         type: 'alert',
         message: err.message,
+      })
+    },
+    socketDisconnectEmit() {
+      logger('SOCKETS socketDisconnectEmit', null, 'i')
+      this.$store.commit(`game/toggleNotification`, {
+        type: 'alert',
+        message: this.$t('alert.socket_disconnect'),
       })
     },
   },

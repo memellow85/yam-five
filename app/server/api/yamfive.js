@@ -225,6 +225,7 @@ router.route('/report-issue/:uid').post((req, res) => {
   firebase.db
     .collection(ISSUE_DETAILS)
     .add({
+      id: firebase.utils.Timestamp.now().valueOf().toString(),
       date_close: null,
       date_open: firebase.utils.Timestamp.now(),
       message: req.body.message,

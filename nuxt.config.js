@@ -167,6 +167,8 @@ module.exports = {
   plugins: [
     { src: '~/plugins/i18n.js' },
     { src: '~/plugins/visibility.js' },
+    { src: '~/plugins/clipboard.js' },
+    { src: '~/plugins/touch.js' },
     { src: '~/plugins/socket-client.js' },
   ],
   /*
