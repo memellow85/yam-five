@@ -2,8 +2,8 @@
   <article :class="className">
     <div v-if="!showHelp" class="effect-border"></div>
     <span
+      v-touch="toogleHelp"
       :class="`yamicons small mdi mdi-${showHelp ? 'close' : 'help'}`"
-      @click="toogleHelp"
     ></span>
     <h5>{{ title }}</h5>
     <div class="container-box flex-center">

@@ -113,11 +113,13 @@ export default {
       if (this.userFirebase) {
         if (!this.visible) {
           clearTimeout(this.timeReset)
+          this.timeReset = null
         } else {
           this.timeReset = setTimeout(() => {
-            this.$store.dispatch('ws/leftRoomSocket')
-            this.$store.dispatch('firebase/logout').then(() => {
-              this.$router.push('/')
+            this.$store.dispatch('ws/leftRoomSocket').then(() => {
+              this.$store.dispatch('firebase/logout').then(() => {
+                this.$router.push('/')
+              })
             })
           }, 300000)
         }

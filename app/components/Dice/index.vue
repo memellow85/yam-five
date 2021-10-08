@@ -1,7 +1,7 @@
 <template>
   <div
+    v-touch="() => clickDiceHandler(dice)"
     :class="`container-dice dice-${newValue} ${dice.block ? 'block' : ''}`"
-    @click="clickDiceHandler(dice)"
   >
     <div class="wrapper-dice">
       <div

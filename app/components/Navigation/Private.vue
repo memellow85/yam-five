@@ -1,22 +1,22 @@
 <template>
-  <footer>
+  <footer :class="[{ big: isIphone() && bigMenuIphone() }]">
     <nav class="flex-between">
       <ul class="inline flex">
         <li
           v-for="m in menuLeft"
           :key="m.name"
+          v-touch="() => actionsHandler(m)"
           :class="{ selected: $route.name === m.name }"
-          @click="actionsHandler(m)"
         >
           <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
         </li>
       </ul>
       <div
+        v-touch="gameHandler"
         :class="[
           'game flex-center',
           { disabled: disabled, animateBtnDice: animateBtnDice },
         ]"
-        @click="gameHandler"
       >
         <span v-if="notification" class="notification flex-center">
           {{ played }}
@@ -27,8 +27,8 @@
         <li
           v-for="m in menuRight"
           :key="m.name"
+          v-touch="() => actionsHandler(m)"
           :class="{ selected: $route.name === m.name }"
-          @click="actionsHandler(m)"
         >
           <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
         </li>
@@ -39,11 +39,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import { play } from '~/utils'
+import { play, bigMenuIphone, isIphone } from '~/utils'
 
 export default {
   data() {
     return {
+      bigMenuIphone,
+      isIphone,
       dices: new Audio('./sounds/dices.mp3'),
       menuLeft: [
         {
@@ -154,6 +156,9 @@ footer {
   @include position(absolute, null null 0 0);
   @include size(100%, 3.5rem);
   background: $color-8;
+  &.big {
+    @include size(100%, 4.5rem);
+  }
   nav {
     @include position(relative, null);
     @include padding(null 1rem);

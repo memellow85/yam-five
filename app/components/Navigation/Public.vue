@@ -2,27 +2,27 @@
   <div class="container-btn">
     <button
       v-if="login"
+      v-touch="submitHandler"
       class="full"
       :disabled="disabled"
-      @click="submitHandler"
     >
       <Loader v-if="loader"></Loader>
       <span v-else>{{ $t('login.btn_1') }}</span>
     </button>
     <button
       v-if="registration"
+      v-touch="submitHandler"
       class="full"
       :disabled="disabled"
-      @click="submitHandler"
     >
       <Loader v-if="loader"></Loader>
       <span v-else>{{ $t('login.btn_2') }}</span>
     </button>
     <button
       v-if="recovery"
+      v-touch="submitHandler"
       class="full"
       :disabled="disabled"
-      @click="submitHandler"
     >
       <Loader v-if="loader"></Loader>
       <span v-else>{{ $t('recovery.btn') }}</span>
@@ -47,13 +47,15 @@
       <p>
         {{ $t('login.link_message') }}
         <a
+          v-touch="showHelpHandler"
           class="custom-link"
           href="javascript: void(0)"
-          @click="showHelpHandler"
         >
           {{ $t('login.link_1') }}
         </a>
       </p>
+      <br />
+      <Copy></Copy>
     </div>
   </div>
 </template>
