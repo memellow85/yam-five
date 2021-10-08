@@ -6,7 +6,7 @@ html {
 body {
   @include size(100%);
   @extend %changeTapBck;
-  @include themed() {
+  @include themed(true) {
     color: t($key-color-6);
     background: t($key-color-0);
   }
@@ -17,7 +17,10 @@ body {
   // color: $color-6;
   -webkit-font-smoothing: antialiased;
   &.public {
-    background: $color-1;
+    @include themed(true) {
+      background: t($key-color-1);
+    }
+    // background: $color-1;
   }
 }
 

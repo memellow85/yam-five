@@ -11,3 +11,17 @@
     <Alert :message="$t('alert.message')"></Alert>
   </Layout>
 </template>
+
+<script>
+import { getLocalStorageKey } from '~/utils'
+
+export default {
+  head() {
+    return {
+      bodyAttrs: {
+        class: `theme--${getLocalStorageKey('theme') || 'default'}`,
+      },
+    }
+  },
+}
+</script>

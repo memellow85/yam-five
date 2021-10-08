@@ -28,17 +28,12 @@
         <FormsSounds></FormsSounds>
       </article>
       <article>
-        <h4>{{ $t('config.title_2') }}</h4>
-        <FormsLanguages></FormsLanguages>
+        <h4>{{ $t('config.title_7') }}</h4>
+        <FormsThemes></FormsThemes>
       </article>
       <article>
-        <h4>{{ $t('config.title_4') }}</h4>
-        <div class="flex-between">
-          <p>{{ $t('config.message_1') }}</p>
-          <button @click="resetTotalHandler">
-            <span>{{ $t('config.btn_5') }}</span>
-          </button>
-        </div>
+        <h4>{{ $t('config.title_2') }}</h4>
+        <FormsLanguages></FormsLanguages>
       </article>
       <article class="wrapper-tabs-form">
         <ul class="inline custom-tabs">
@@ -80,6 +75,15 @@
       <article>
         <h4>{{ $t('config.title_5') }}</h4>
         <FormsBugsFeatures></FormsBugsFeatures>
+      </article>
+      <article>
+        <h4>{{ $t('config.title_4') }}</h4>
+        <div class="flex-between">
+          <p>{{ $t('config.message_1') }}</p>
+          <button @click="resetTotalHandler">
+            <span>{{ $t('config.btn_5') }}</span>
+          </button>
+        </div>
       </article>
     </div>
   </section>

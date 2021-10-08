@@ -12,13 +12,13 @@
 
 <script>
 import firebase from '~/server/api/firebase'
-import { isProd } from '~/utils'
+import { isProd, getLocalStorageKey } from '~/utils'
 
 export default {
   head() {
     return {
       bodyAttrs: {
-        class: 'public',
+        class: `public theme--${getLocalStorageKey('theme') || 'default'}`,
       },
     }
   },

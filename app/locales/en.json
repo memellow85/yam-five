@@ -67,6 +67,7 @@
     "title_5": "Issue/Features",
     "title_6": "Welcome",
     "title_7": "Sounds effect",
+    "title_8": "Change theme",
     "btn_1": "Join",
     "btn_2": "Leave",
     "btn_3": "Logout",
@@ -252,5 +253,9 @@
     "title_1": "Issue",
     "open": "Open: ",
     "empty": "Empty issues."
+  },
+  "themes": {
+    "default": "Light",
+    "dark": "Dark"
   }
 }
