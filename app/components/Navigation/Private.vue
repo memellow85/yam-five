@@ -155,7 +155,10 @@ export default {
 footer {
   @include position(absolute, null null 0 0);
   @include size(100%, 3.5rem);
-  background: $color-8;
+  @include themed() {
+    background: t($key-color-nav);
+  }
+  // background: $color-8;
   &.big {
     @include size(100%, 4.5rem);
   }
@@ -176,7 +179,7 @@ footer {
         }
         .yamicons {
           &::before {
-            color: $white;
+            color: $color-2;
           }
         }
       }

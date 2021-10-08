@@ -148,7 +148,11 @@ export default {
   ul {
     li {
       &.header {
+        @include margin(null null 0.5rem);
         border-bottom: $border-base-tab;
+        @include themed() {
+          border-color: t($key-color-2);
+        }
         p {
           @include size(auto, 2.5rem);
         }

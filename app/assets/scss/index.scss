@@ -124,6 +124,7 @@ ul {
   }
   article {
     @include padding(null 1rem);
+    // border-bottom: $border-base;
     &.wrapper-tabs-form {
       .container-btn {
         justify-content: flex-end;
@@ -145,6 +146,10 @@ ul {
           }
         }
       }
+    }
+    &:last-child {
+      @include padding(null null 1rem);
+      // border-bottom: 0;
     }
   }
 }

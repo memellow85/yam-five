@@ -73,7 +73,10 @@ export default {
 <style lang="scss" scoped>
 .cube {
   @include margin(0.3rem);
-  background: $color-1;
+  @include themed() {
+    background: t($key-color-1);
+  }
+  // background: $color-1;
   border-radius: $rounded-small;
   flex-direction: column;
   .yamicons {

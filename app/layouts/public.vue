@@ -12,13 +12,15 @@
 
 <script>
 import firebase from '~/server/api/firebase'
-import { isProd, getLocalStorageKey } from '~/utils'
+import ThemeMixin from '~/mixins/theme'
+import { isProd } from '~/utils'
 
 export default {
+  mixins: [ThemeMixin],
   head() {
     return {
       bodyAttrs: {
-        class: `public theme--${getLocalStorageKey('theme') || 'default'}`,
+        class: `public ${this.bodyClass}`,
       },
     }
   },

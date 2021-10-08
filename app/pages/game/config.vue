@@ -5,7 +5,7 @@
         <span class="yamicons mdi mdi-cog-outline"></span>
         {{ $t('view.configuration') }}
       </h3>
-      <button class="small grey" v-touch="leaveAppHandler">
+      <button v-touch="leaveAppHandler" class="small grey">
         <span>{{ $t('config.btn_3') }}</span>
       </button>
     </article>
@@ -31,39 +31,30 @@
         <FormsSounds></FormsSounds>
       </article>
       <article>
-        <h4>{{ $t('config.title_7') }}</h4>
+        <h4>{{ $t('config.title_9') }}</h4>
         <FormsThemes></FormsThemes>
       </article>
       <article>
         <h4>{{ $t('config.title_2') }}</h4>
         <FormsLanguages></FormsLanguages>
       </article>
-      <article>
-        <h4>{{ $t('config.title_4') }}</h4>
-        <div class="flex-between">
-          <p>{{ $t('config.message_1') }}</p>
-          <button class="white" v-touch="resetTotalHandler">
-            <span>{{ $t('config.btn_5') }}</span>
-          </button>
-        </div>
-      </article>
       <article class="wrapper-tabs-form">
         <ul class="inline custom-tabs">
           <li
+            v-touch="() => setTab('create')"
             :class="[
               'center',
               { active: tab === 'create', disabled: userSocket },
             ]"
-            v-touch="() => setTab('create')"
           >
             <h4>{{ $t('config.tab_1') }}</h4>
           </li>
           <li
+            v-touch="() => setTab('join')"
             :class="[
               'center',
               { active: tab === 'join', disabled: userSocket },
             ]"
-            v-touch="() => setTab('join')"
           >
             <h4>{{ $t('config.tab_2') }}</h4>
           </li>
@@ -106,7 +97,7 @@
         <h4>{{ $t('config.title_4') }}</h4>
         <div class="flex-between">
           <p>{{ $t('config.message_1') }}</p>
-          <button @click="resetTotalHandler">
+          <button v-touch="resetTotalHandler" class="white">
             <span>{{ $t('config.btn_5') }}</span>
           </button>
         </div>

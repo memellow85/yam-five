@@ -13,13 +13,14 @@
 </template>
 
 <script>
-import { getLocalStorageKey } from '~/utils'
+import ThemeMixin from '~/mixins/theme'
 
 export default {
+  mixins: [ThemeMixin],
   head() {
     return {
       bodyAttrs: {
-        class: `theme--${getLocalStorageKey('theme') || 'default'}`,
+        class: this.bodyClass,
       },
     }
   },

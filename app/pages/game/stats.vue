@@ -389,10 +389,14 @@ export default {
       z-index: 1;
       p {
         @include size(20px);
-        background: $color-2;
+        // background: $color-2;
         border-bottom: $border-base-tab;
         border-top: $border-base-tab;
         border-right: $border-base-tab;
+        @include themed() {
+          background: t($key-color-2);
+          border-color: t($key-color-2);
+        }
         &.active {
           background: $primary;
           color: $white;

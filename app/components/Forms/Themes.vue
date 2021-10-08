@@ -51,6 +51,7 @@ export default {
     changeHandler(theme) {
       if (getLocalStorageKey('theme') !== theme) {
         setLocalStorageKey('theme', theme)
+        this.$nuxt.$emit('updateThemeHandler')
       }
     },
   },
