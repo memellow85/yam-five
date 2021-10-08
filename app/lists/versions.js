@@ -1,7 +1,7 @@
 export const versionsRelease = [
   {
     version: '1.1.5',
-    date: '2021-10-06',
+    date: '2021-10-08',
     title: 'Improvement app',
     messages: ['Bugfix', 'Share link', 'Add touch'],
   },

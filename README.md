@@ -58,6 +58,7 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - x.x.x - Chat
 - x.x.x - Share match
 - x.x.x - Dark mode
+- x.x.x - Add seasons
 
 ## License
 
