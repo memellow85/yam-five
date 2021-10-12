@@ -5,6 +5,7 @@ import {
   logger,
   setStatisticsDice,
   generateRandomRoom,
+  getLocalStorageKey,
 } from '~/utils'
 import {
   dicesTypesCabled,
@@ -37,7 +38,7 @@ export const state = () => ({
   extraTotal: 0,
   numberTotal: 0,
   numberTotalGames: numberTotalGames(),
-  currentGame: 'all',
+  currentGame: getLocalStorageKey('game') ? getLocalStorageKey('game') : 'all',
   dices,
   beforeDices: {},
   game: match(),

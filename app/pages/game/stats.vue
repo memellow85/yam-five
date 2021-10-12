@@ -55,6 +55,7 @@ import {
   goals,
   markersOpt,
   createLabels,
+  getColorFont,
 } from '~/utils/baseCharts'
 import ScrollMixin from '~/mixins/scroll'
 import { orderCharts } from '~/lists'
@@ -86,9 +87,16 @@ export default {
         this.$t('game.yam'),
       ],
       optChart1: {
-        chart: Object.assign({}, baseChartOpt, {
-          type: 'area',
-        }),
+        chart: Object.assign(
+          {},
+          baseChartOpt,
+          {
+            type: 'area',
+          },
+          {
+            foreColor: getColorFont(),
+          }
+        ),
         colors: colorsChart,
         tooltip: tooltipOpt,
         legend: Object.assign({}, legendOpt, {
@@ -102,7 +110,7 @@ export default {
             enabled: false,
           },
           style: Object.assign({}, styleTextChart, {
-            fontWeight: 600,
+            colors: [getColorFont()],
           }),
         },
         markers: {
@@ -128,20 +136,35 @@ export default {
             position: 'top',
             categories: [],
           },
-          xaxisOpt
+          xaxisOpt,
+          {
+            labels: {
+              style: Object.assign({}, styleTextChart, {
+                colors: [getColorFont()],
+              }),
+            },
+          }
         ),
         yaxis: yaxisOpt,
         noData: {
           text: this.$t('stats.no_data_chart_1'),
           style: Object.assign({}, styleTextChart, {
             fontSize: '0.8rem',
+            colors: [getColorFont()],
           }),
         },
       },
       optChart2: {
-        chart: Object.assign({}, baseChartOpt, {
-          type: 'bar',
-        }),
+        chart: Object.assign(
+          {},
+          baseChartOpt,
+          {
+            type: 'bar',
+          },
+          {
+            foreColor: getColorFont(),
+          }
+        ),
         colors: colorsChart2,
         tooltip: tooltipOpt,
         legend: Object.assign({}, legendOpt, {
@@ -159,7 +182,7 @@ export default {
           enabled: true,
           offsetY: -10,
           style: Object.assign({}, styleTextChart, {
-            fontWeight: 600,
+            colors: [getColorFont()],
           }),
         },
         plotOptions: {
@@ -183,8 +206,22 @@ export default {
             position: 'bottom',
             categories: [],
           },
-          xaxisOpt
+          xaxisOpt,
+          {
+            labels: {
+              style: Object.assign({}, styleTextChart, {
+                colors: getColorFont(),
+              }),
+            },
+          }
         ),
+        yaxis: {
+          labels: {
+            style: Object.assign({}, styleTextChart, {
+              colors: getColorFont(),
+            }),
+          },
+        },
       },
     }
   },
@@ -217,6 +254,10 @@ export default {
   mounted() {
     this.initChartTotal()
     this.initChartProbably()
+  },
+  destroyed() {
+    this.chart_1.destroy()
+    this.chart_2.destroy()
   },
   methods: {
     getKeyChart(chart) {
