@@ -1,7 +1,5 @@
 export const dicesTypesCabled = ['one', 'two', 'three', 'four', 'five']
 
-export const gamesTypesCabled = ['up', 'free', 'dry', 'down']
-
 export const orderCharts = [
   'one',
   'two',

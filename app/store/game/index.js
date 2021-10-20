@@ -9,7 +9,6 @@ import {
 } from '~/utils'
 import {
   dicesTypesCabled,
-  gamesTypesCabled,
   playedListCabled,
   dices,
   match,
@@ -35,10 +34,9 @@ export const state = () => ({
   buttonRefresh: false,
   buttonAddToHome: false,
   globalTotal: 0,
-  extraTotal: 0,
-  numberTotal: 0,
   numberTotalGames: numberTotalGames(),
   currentGame: getLocalStorageKey('game') ? getLocalStorageKey('game') : 'all',
+  currentGamePlayed: [],
   dices,
   beforeDices: {},
   game: match(),
@@ -155,7 +153,7 @@ export const mutations = {
   activeGame(state) {
     logger('COMMIT-GAME activeGame', null, 'i')
     if (!state.activeGame) {
-      gamesTypesCabled.map((g) => {
+      state.currentGamePlayed.map((g) => {
         Object.keys(state.game[g].data).map((d) => {
           if (
             !state.game[g].data[d].active &&
@@ -172,7 +170,7 @@ export const mutations = {
   },
   resetGame(state) {
     logger('COMMIT-GAME resetGame', null, 'i')
-    gamesTypesCabled.map((g) => {
+    state.currentGamePlayed.map((g) => {
       Object.keys(state.game[g].data).map((d) => {
         state.game[g].data[d].active = false
         return true
@@ -182,7 +180,7 @@ export const mutations = {
   },
   setActualValue(state, data) {
     logger('COMMIT-GAME setActualValue', data, 'i')
-    gamesTypesCabled.map((g) => {
+    state.currentGamePlayed.map((g) => {
       if (g === state.playedView) {
         const sum = calculateActualGame(
           data,
@@ -229,7 +227,7 @@ export const mutations = {
   },
   resetActualValue(state, data) {
     logger('COMMIT-GAME resetActualValue', data, 'i')
-    gamesTypesCabled.map((g) => {
+    state.currentGamePlayed.map((g) => {
       if (g === state.playedView) {
         state.game[g].data[data.name].value = 0
         state.game[g].data[data.name].active = false
@@ -267,10 +265,8 @@ export const mutations = {
   setGlobalTotal(state) {
     logger('COMMIT-GAME setGlobalTotal', null, 'i')
     state.globalTotal = 0
-    state.numberTotal = 0
     state.numberTotalGames = numberTotalGames()
-    state.extraTotal = 0
-    gamesTypesCabled.map((g) => {
+    state.currentGamePlayed.map((g) => {
       Object.keys(state.game[g].data).map((d) => {
         if (state.game[g].data[d].value !== '-') {
           state.globalTotal += parseInt(state.game[g].data[d].value)
@@ -297,14 +293,10 @@ export const mutations = {
                 state.game[g].data.six.value
               if (totDices > 60) {
                 state.globalTotal += 20
-                state.numberTotal += 20
-                // state.numberTotalGames[g] += 20
                 state.game[g].bonusNumber60 = true
               }
               if (totDices > 70) {
                 state.globalTotal += 30
-                state.numberTotal += 30
-                // state.numberTotalGames[g] += 30
                 state.game[g].bonusNumber70 = true
               }
             }
@@ -318,7 +310,6 @@ export const mutations = {
             d === 'five' ||
             d === 'six'
           ) {
-            state.numberTotal += state.game[g].data[d].value
             state.numberTotalGames[g] += state.game[g].data[d].value
           }
 
@@ -327,10 +318,8 @@ export const mutations = {
             if (state.game[g].data.max.value !== '-') {
               const totMinMax =
                 state.game[g].data[d].value + state.game[g].data.max.value
-              state.extraTotal += totMinMax
               if (totMinMax >= 50) {
                 state.globalTotal += 30
-                state.extraTotal += 30
                 state.game[g].bonusMinMax = true
               }
             }
@@ -342,23 +331,15 @@ export const mutations = {
             (d === 'poker' || d === 'mineleven')
           ) {
             state.globalTotal += 30
-            const totExtraPokerEleven = state.game[g].data[d].value + 30
-            state.extraTotal += totExtraPokerEleven
           }
           if (state.game[g].data[d].value > 0 && d === 'full') {
             state.globalTotal += 20
-            const totExtraFull = state.game[g].data[d].value + 20
-            state.extraTotal += totExtraFull
           }
           if (state.game[g].data[d].value > 0 && d === 'scale') {
             state.globalTotal += 40
-            const totExtraScale = state.game[g].data[d].value + 40
-            state.extraTotal += totExtraScale
           }
           if (state.game[g].data[d].value > 0 && d === 'yam') {
             state.globalTotal += 50
-            const totExtraYam = state.game[g].data[d].value + 50
-            state.extraTotal += totExtraYam
           }
         }
         return true
@@ -370,8 +351,6 @@ export const mutations = {
     logger('COMMIT-GAME initMatch', null, 'i')
     state.game = match()
     state.globalTotal = 0
-    state.extraTotal = 0
-    state.numberTotal = 0
     state.numberTotalGames = numberTotalGames()
   },
   newGame(state, value) {
@@ -387,6 +366,9 @@ export const mutations = {
       return v
     })
     state.playedView = g
+    state.currentGamePlayed = state.playedList
+      .filter((p) => p.view.includes(state.currentGame))
+      .map((p) => p.name)
   },
   setNavigationRoute(state, value) {
     logger('COMMIT-GAME navigationRoute', value, 'i')
@@ -415,8 +397,17 @@ export const mutations = {
  * Actions
  */
 export const actions = {
+  resetGame({ commit }) {
+    commit('newGame', false)
+    commit('initMatch')
+    commit('initDices')
+    commit('resetTurn')
+    commit('startGame')
+    commit('resetStats')
+  },
   fastGame({ commit, dispatch, rootState }) {
     logger('ACTION-GAME fastGame', null, 'i')
+    commit('setFastGame', true)
     dispatch(
       'ws/addUserSocket',
       {
@@ -428,22 +419,10 @@ export const actions = {
       },
       { root: true }
     )
-    commit('setFastGame', true)
-    // dispatch('startGame')
-  },
-  startGame({ commit, dispatch }) {
-    logger('ACTION-GAME startGame', null, 'i')
-    dispatch('ws/startGameSocket', {}, { root: true })
-    commit('startGame', true)
-    commit('initDices')
-    commit('resetStats')
-  },
-  reinitGame({ dispatch }) {
-    logger('ACTION-GAME reinitGame', null, 'i')
-    dispatch('ws/updateGameSocket', {}, { root: true })
   },
   playedDecrease({ commit, state }) {
     logger('ACTION-GAME playedDecrease', null, 'i')
+    commit('disabledPossibilityGame', state.played)
     if (state.played !== 0) {
       commit('playedDecrease')
       commit('setDice')
@@ -461,27 +440,12 @@ export const actions = {
   },
   updateTurnUser({ commit, dispatch, state }) {
     logger('ACTION-GAME updateTurnUser', null, 'i')
+    commit('blockAnimate', false)
     commit('setGlobalTotal')
+    commit('initDices')
     commit('resetTurn')
     commit('resetGame')
-    commit('blockAnimate', false)
-    commit('initDices')
-    dispatch(
-      'ws/finishTurnSocket',
-      {
-        global: state.globalTotal,
-        extra: state.extraTotal,
-        number: state.numberTotal,
-      },
-      { root: true }
-    )
-    // dispatch('ws/finishGameSocket', null, { root: true })
+    commit('ws/updateTotalSocket', state.globalTotal, { root: true })
+    dispatch('ws/finishTurnSocket', null, { root: true })
   },
-  /* newGame({ commit }, value) {
-    logger('ACTION-GAME newGame', value, 'i')
-    commit('newGame', value)
-    // commit('initDices')
-    // commit('initMatch')
-    commit('resetTurn')
-  }, */
 }

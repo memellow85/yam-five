@@ -108,14 +108,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
 import ClipboardMixin from '~/mixins/clipboard'
 import { toDateTime, formatDate } from '~/utils'
 
 export default {
-  mixins: [WsMixin, ScrollMixin, AnalyticsMixin, ClipboardMixin],
+  mixins: [ScrollMixin, AnalyticsMixin, ClipboardMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {
@@ -154,7 +153,6 @@ export default {
       this.tab = tab
     },
     leaveHandler($event, logout = false) {
-      this.$store.commit(`game/resetStats`)
       this.$store.dispatch('ws/leftRoomSocket').then(() => {
         if (logout) {
           this.$store.dispatch('firebase/logout').then(() => {
@@ -165,9 +163,6 @@ export default {
     },
     leaveAppHandler() {
       this.leaveHandler(null, true)
-      /* this.$store.dispatch('firebase/logout').then(() => {
-        this.$router.push('/')
-      }) */
     },
     resetTotalHandler() {
       this.$store.commit(`game/toggleModal`, 'alert')

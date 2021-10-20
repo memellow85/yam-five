@@ -24,12 +24,12 @@
               !startGame && userSocket && Object.keys(userSocket).length > 0
             "
           >
-            <p v-if="userSocket.turnOn">
+            <p v-if="userSocket.turnOn && fastGame">
               {{ $t('home.message_2_a') }} <strong>{{ userSocket.room }}</strong
               >. <br />{{ $t('home.message_2_b') }}
             </p>
             <p v-else>{{ $t('home.message_2_c') }}</p>
-            <button v-if="userSocket.turnOn" v-touch="startAgame">
+            <button v-if="userSocket.turnOn && !fastGame" v-touch="startAgame">
               {{ $t('home.btn_2') }}
             </button>
           </template>
@@ -181,14 +181,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import NoSleep from 'nosleep.js'
-import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
 import { bigMenuIphone, isIphone } from '~/utils'
 
 export default {
-  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
+  mixins: [ScrollMixin, AnalyticsMixin],
   beforeRouteLeave(to, from, next) {
     this.$store.commit(`game/setNavigationRoute`, true)
     this.$store.commit(`game/setDisabledButtonGame`, true)
@@ -205,8 +203,6 @@ export default {
     return {
       bigMenuIphone,
       isIphone,
-      noSleep: new NoSleep(),
-      moveTop: null,
     }
   },
   computed: {
@@ -223,6 +219,7 @@ export default {
       showChampionsShip: (state) => state.showChampionsShip,
       showConfig: (state) => state.showConfig,
       numberTotalGames: (state) => state.numberTotalGames,
+      fastGame: (state) => state.fastGame,
     }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
@@ -231,7 +228,6 @@ export default {
   },
   watch: {
     userTurnSocket() {
-      this.$store.commit('game/resetModal')
       if (!this.userSocket.turnOn) {
         this.$store.commit('game/toggleNotification', {
           type: 'warning',
@@ -244,21 +240,17 @@ export default {
       }
     },
   },
-  mounted() {
-    // this.$store.commit(`game/setDisabledButtonGame`, false)
-    this.noSleep.enable()
-  },
   methods: {
     joinAmatch() {
       this.$router.push({ name: 'game-config' })
     },
     startAgame() {
       this.animateBtn()
-      this.$store.dispatch('game/startGame')
+      this.$store.dispatch('ws/startGameSocket')
     },
     startNewGame() {
       this.animateBtn()
-      this.$store.dispatch('game/reinitGame')
+      this.$store.dispatch('ws/updateGameSocket')
     },
     createSingleFastMatch() {
       this.$store.dispatch(`game/fastGame`)

@@ -32,10 +32,12 @@ const leftRoom = (id, socket) => {
   if (user) {
     Rooms.DELETEUser(id)
     socket.leave(user.room)
-    const users = Rooms.GETUsersRoom(user.room)
-    io.to(user.room).emit('updateUsersSocketEmit', users)
-    io.to(user.room).emit('userLeaveMatchSocketEmit', user)
-    if (users.length === 0) {
+    const usersIntoRoom = Rooms.GETUsersRoom(user.room)
+    io.to(user.room).emit('leftRoomSocketEmit', {
+      user: user.user,
+      users: usersIntoRoom,
+    })
+    if (usersIntoRoom.length === 0) {
       Rooms.DELETERoom(user.room)
     }
   }
@@ -43,13 +45,12 @@ const leftRoom = (id, socket) => {
 
 io.on('connection', (socket) => {
   socket.on('add_user', (user, cb) => {
+    let callback
     const u = {
       ...user,
       id: socket.id,
       turnOn: false,
       tot: 0,
-      num: 0,
-      extra: 0,
     }
     const r = {
       name: user.room,
@@ -58,7 +59,6 @@ io.on('connection', (socket) => {
       active: false,
     }
     const room = Rooms.GETRoom(user.room)
-    let callback = null
     if (user.method === 'create') {
       if (room) {
         callback = { error: '100' }
@@ -81,82 +81,63 @@ io.on('connection', (socket) => {
     cb(callback)
   })
 
-  socket.on('join_room', (user, cb) => {
+  socket.on('join_room', (user) => {
     socket.join(user.room)
     let usersIntoRoom = Rooms.GETUsersRoom(user.room)
     if (usersIntoRoom.length === 1) {
       Rooms.PUTUser(user.id)
-      io.to(user.room).emit('updateUserSocketEmit', {
+      const newUser = {
         ...user,
         turnOn: true,
         order: 1,
-      })
+      }
       usersIntoRoom = Rooms.GETUsersRoom(user.room)
-      io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
+      io.to(user.room).emit('joinRoomSocketEmit', {
+        user: newUser,
+        users: usersIntoRoom,
+      })
     } else {
-      io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
+      io.to(user.room).emit('joinRoomSocketEmit', usersIntoRoom)
     }
-    io.to(user.id).emit('redirectHome')
-    cb()
   })
 
-  socket.on('start_game', (user, cb) => {
+  socket.on('start_game', (user) => {
     Rooms.PUTRoom(user.room)
     Rooms.defineOrderUsers(user.room)
-    io.to(user.room).emit(
-      'updateUsersSocketEmit',
-      Rooms.GETUsersRoom(user.room)
-    )
-    socket.to(user.room).emit('startGameSocketEmit', user)
-    cb()
+    const usersIntoRoom = Rooms.GETUsersRoom(user.room)
+    io.to(user.room).emit('startGameSocketEmit', {
+      user,
+      users: usersIntoRoom,
+    })
   })
 
-  socket.on('update_game', (user, cb) => {
+  socket.on('update_game', (user) => {
     Rooms.PUTRoomUsers(user.room, user.type)
     const usersIntoRoom = Rooms.GETUsersRoom(user.room)
-    io.to(user.room).emit('updateUsersSocketEmit', usersIntoRoom)
-    io.to(user.room).emit('resetUserSocketEmit')
-    cb()
+    io.to(user.room).emit('updateGameSocketEmit', usersIntoRoom)
   })
 
   socket.on('finish_turn', (user, cb) => {
-    Rooms.PUTChampionShipRoom(user)
-    Rooms.PUTTurnUsers(user.room)
-    io.to(user.room).emit(
-      'updateUsersSocketEmit',
-      Rooms.GETUsersRoom(user.room)
-    )
-    io.to(user.room).emit(
-      'setUserTurnSocketEmit',
-      Rooms.GETTurnOnUser(user.room)
-    )
-    cb()
+    Rooms.PUTTurnUsers(user)
+    const usersIntoRoom = Rooms.GETUsersRoom(user.room)
+    const userTurn = Rooms.GETTurnOnUser(user.room)
+    const callback = {
+      userTurn: userTurn.user,
+      usersIntoRoom,
+    }
+    cb(callback)
   })
 
-  socket.on('finish_game', (user, cb) => {
-    let count = 0
+  socket.on('finish_game', (user) => {
     if (Rooms.checkFinishGame(user.room)) {
       const championshipList = Rooms.GETChampionShipRoom(user.room)
       championshipList.map((u) => {
-        io.to(u.id).emit('winnerIsSocketEmit', {
-          count,
-          name: championshipList[0].user.name,
-          user: u,
-        })
-        io.to(u.id).emit('newGameSocketEmit', u.turnOn)
-        count++
+        io.to(u.id).emit('finishGameSocketEmit', championshipList)
       })
     }
-    cb()
   })
 
-  socket.on('left_room', (data, cb) => {
-    leftRoom(socket.id, socket, cb)
-    cb()
-  })
-
-  socket.on('error', (err) => {
-    io.emit('socketErrorEmit', err)
+  socket.on('left_room', () => {
     leftRoom(socket.id, socket)
   })
 

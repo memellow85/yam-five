@@ -9,90 +9,91 @@ export default {
     }
   },
   sockets: {
-    redirectHome() {
-      logger('SOCKETS redirectHome', '', 'i')
+    // user, users
+    joinRoomSocketEmit(data) {
+      logger('SOCKETS joinRoomSocketEmit', data, 'i')
+      if (Object.keys(data).length === 2) {
+        this.$store.commit(`ws/setUserSocket`, data.user)
+        this.$store.commit('game/startGame', false)
+      }
+      this.$store.commit(`ws/updateUsersSocket`, data.users)
       this.$router.push('/home')
       if (this.fastGame) {
-        this.$store.dispatch(`game/startGame`)
+        this.$store.dispatch('ws/startGameSocket')
         this.$store.commit(`game/setFastGame`, false)
       }
     },
-    updateUsersSocketEmit(users) {
-      logger('SOCKETS updateUsersSocketEmit', users, 'i')
-      this.$store.commit(`ws/updateUsersSocket`, users)
-    },
-    updateUserSocketEmit(user) {
-      logger('SOCKETS updateUserSocketEmit', user, 'i')
-      this.$store.commit(`ws/setUserSocket`, user)
-      this.$store.commit('game/startGame', false)
-    },
-    setUserTurnSocketEmit(user) {
-      logger('SOCKETS setUserTurnSocketEmit', user, 'i')
-      if (user.user.uid === this.userDetailsFirebase.uid) {
-        this.$store.commit(`game/setDisabledButtonGame`, false)
-      }
-      this.$store.commit('ws/setUserTurnSocket', user)
-    },
-    startGameSocketEmit(user) {
-      logger('SOCKETS startGameSocketEmit', user, 'i')
+    // user, users
+    startGameSocketEmit(data) {
+      logger('SOCKETS startGameSocketEmit', data, 'i')
+      this.$store.commit(`ws/updateUsersSocket`, data.users)
+      this.$store.commit('ws/setUserTurnSocket', data.user)
       this.$store.commit('game/startGame', true)
       this.$store.commit('game/initDices')
-      this.$store.commit('ws/setUserTurnSocket', user)
+      this.$store.commit('game/resetStats')
     },
-    winnerIsSocketEmit(notificationInfo) {
-      logger('SOCKETS winnerIsSocketEmit', notificationInfo, 'i')
-      const type = notificationInfo.count === 0 ? 'success' : 'alert'
+    updateGameSocketEmit(users) {
+      logger('SOCKETS updateGameSocketEmit', users, 'i')
+      this.$store.commit(`ws/updateUsersSocket`, users)
+      this.$store.commit('game/newGame', false)
+      this.$store.commit('game/initMatch')
+      this.$store.commit('game/initDices')
+      this.$store.commit('game/resetStats')
+    },
+    finishGameSocketEmit(users) {
+      logger('SOCKETS finishGameSocketEmit', users, 'i')
+      let type = ''
       let message = ''
-      if (notificationInfo.count === 0) {
+      const currentUser = users.filter(
+        (u) => u.user.uid === this.userDetailsFirebase.uid
+      )[0]
+      if (users[0].user.uid === this.userDetailsFirebase.uid) {
+        type = 'success'
         message = this.$t('notification.win')
         play(this.win)
       } else {
-        message = this.$t('notification.lose') + notificationInfo.name
+        type = 'alert'
+        message = this.$t('notification.lose') + users[0].user.name
         play(this.lose)
       }
       this.$store.commit('game/toggleNotification', {
         type,
         message,
-        withoutSound: true,
       })
-      this.$store.dispatch(`firebase/updateRecordUser`, {
-        details: notificationInfo.user,
-        chart_1: this.totalHistorical,
-        chart_2: this.probablyExitNumbers,
-      })
+      this.$store
+        .dispatch(`firebase/updateRecordUser`, {
+          details: currentUser,
+          chart_1: this.totalHistorical,
+          chart_2: this.probablyExitNumbers,
+        })
+        .then(() => {
+          this.$store.commit('game/newGame', currentUser.turnOn)
+          this.$store.commit(`game/resetTurn`)
+        })
     },
-    newGameSocketEmit(value) {
-      logger('SOCKETS newGameSocketEmit', value, 'i')
-      // this.$store.dispatch(`game/newGame`, value)
-      this.$store.commit('game/newGame', value)
-      this.$store.commit(`game/resetTurn`)
-    },
-    userLeaveMatchSocketEmit(user) {
-      logger('SOCKETS userLeaveMatchSocketEmit', user, 'i')
-      this.$store.commit(`game/toggleNotification`, {
-        type: 'alert',
-        message: user.user.name + this.$t('home.notification_3'),
-      })
-    },
-    resetUserSocketEmit() {
-      logger('SOCKETS resetUserSocketEmit', null, 'i')
-      this.$store.commit('game/newGame', false)
-      this.$store.commit('game/initDices')
-      this.$store.commit('game/initMatch')
-      this.$store.commit('game/resetStats')
+    // user, users
+    leftRoomSocketEmit(data) {
+      logger('SOCKETS leftRoomSocketEmit', data, 'i')
+      if (data) {
+        this.$store.commit(`ws/updateUsersSocket`, data.users)
+        this.$store.commit(`game/toggleNotification`, {
+          type: 'alert',
+          message: data.user.name + this.$t('home.notification_3'),
+        })
+      }
     },
     socketErrorEmit(err) {
       logger('SOCKETS socketErrorEmit', err, 'i')
-      this.$store.commit(`game/toggleNotification`, {
-        type: 'alert',
+      this.$store.dispatch(`firebase/logErrors`, {
         message: err.message,
+        type: 'error_socket',
       })
     },
     socketDisconnectEmit() {
       logger('SOCKETS socketDisconnectEmit', null, 'i')
-      this.$store.commit(`game/toggleNotification`, {
-        type: 'alert',
+      this.$store.dispatch(`firebase/logErrors`, {
         message: this.$t('alert.socket_disconnect'),
+        type: 'disconnect_socket',
       })
     },
   },

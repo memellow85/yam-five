@@ -4,6 +4,7 @@ const router = express.Router()
 
 const USER_DETAILS = 'users'
 const ISSUE_DETAILS = 'messages'
+const ERROR_DETAILS = 'errors'
 
 router.route('/login').post((req, res) => {
   firebase.auth
@@ -233,6 +234,22 @@ router.route('/report-issue/:uid').post((req, res) => {
       type: req.body.type,
       priority: 'low', // low, medium, high
       uid: req.params.uid,
+    })
+    .then(() => {
+      res.status(200).send()
+    })
+    .catch((error) => {
+      res.status(404).json(error)
+    })
+})
+
+router.route('/errors').post((req, res) => {
+  firebase.db
+    .collection(ERROR_DETAILS)
+    .add({
+      message: req.body.message,
+      date: firebase.utils.Timestamp.now(),
+      type: req.body.type,
     })
     .then(() => {
       res.status(200).send()

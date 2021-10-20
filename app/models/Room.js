@@ -49,6 +49,11 @@ class Rooms {
     })
   }
 
+  DELETERoom(name) {
+    this.rooms = this.rooms.filter((room) => room.name !== name)
+  }
+
+  // OTHER
   PUTRoomUsers(room, type) {
     this.users = this.users.map((u) => {
       if (u.room === room) {
@@ -67,29 +72,21 @@ class Rooms {
     })
   }
 
-  DELETERoom(name) {
-    this.rooms = this.rooms.filter((room) => room.name !== name)
-  }
-
-  // OTHER
   GETChampionShipRoom(room) {
     return this.users
       .filter((u) => u.room === room)
       .sort((a, b) => b.tot - a.tot)
   }
 
-  PUTChampionShipRoom(user) {
+  PUTTurnUsers(user) {
     this.users = this.users.map((v) => {
       if (v.id === user.id) {
         v.tot = user.tot
-        v.num = user.num
-        v.extra = user.extra
       }
       return v
     })
-  }
 
-  PUTTurnUsers(room) {
+    const room = user.room
     let indexNew = null
     let indexOld = null
 
@@ -105,12 +102,14 @@ class Rooms {
 
     if (usersRoom.length > 1) {
       this.users = this.users.map((v) => {
-        if (usersRoom[indexOld].id === v.id && v.room === room) {
-          v.turnOn = false
-          v.match = v.match - 1
-        }
-        if (usersRoom[indexNew].id === v.id && v.room === room) {
-          v.turnOn = true
+        if (v.room === room) {
+          if (usersRoom[indexOld].id === v.id) {
+            v.turnOn = false
+            v.match = usersRoom[indexOld].match - 1
+          }
+          if (usersRoom[indexNew].id === v.id) {
+            v.turnOn = true
+          }
         }
         return v
       })

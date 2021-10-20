@@ -40,7 +40,6 @@
 import { mapGetters, mapState } from 'vuex'
 import ApexCharts from 'apexcharts'
 import cloneDeep from 'lodash/cloneDeep'
-import WsMixin from '~/mixins/ws'
 import AnalyticsMixin from '~/mixins/analytics'
 import {
   baseChartOpt,
@@ -61,7 +60,7 @@ import ScrollMixin from '~/mixins/scroll'
 import { orderCharts } from '~/lists'
 
 export default {
-  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
+  mixins: [ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {

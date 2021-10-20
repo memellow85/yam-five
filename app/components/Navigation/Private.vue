@@ -94,6 +94,7 @@ export default {
       } else {
         return (
           this.startGame === null ||
+          !this.userSocket ||
           !this.userSocket.turnOn ||
           !this.startGame ||
           this.newGame ||
@@ -103,7 +104,12 @@ export default {
       }
     },
     notification() {
-      return this.startGame && this.userSocket.turnOn && !this.newGame
+      return (
+        this.startGame &&
+        this.userSocket &&
+        this.userSocket.turnOn &&
+        !this.newGame
+      )
     },
   },
   methods: {
@@ -126,7 +132,6 @@ export default {
 
           setTimeout(() => {
             this.$store.dispatch('game/playedDecrease')
-            this.$store.commit('game/disabledPossibilityGame', this.played)
           }, 200)
 
           setTimeout(() => {

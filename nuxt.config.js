@@ -169,7 +169,7 @@ module.exports = {
     { src: '~/plugins/visibility.js' },
     { src: '~/plugins/clipboard.js' },
     { src: '~/plugins/touch.js' },
-    { src: '~/plugins/socket-client.js' },
+    { src: '~/plugins/socket-client.js', ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -202,7 +202,7 @@ module.exports = {
     ],
   },
   axios: {
-    debug: process.env.NUXT_ENV_NODE_ENV !== 'production',
+    // debug: process.env.NUXT_ENV_NODE_ENV !== 'production',
     headers: {
       'Content-Type': 'application/json',
     },
