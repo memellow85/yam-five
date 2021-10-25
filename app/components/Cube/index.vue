@@ -36,7 +36,7 @@ export default {
   methods: {
     submitValue() {
       if (this.data.active) {
-        this.$store.commit(`game/setDisabledButtonGame`, true)
+        // this.$store.commit(`game/setDisabledButtonGame`, true)
         this.$store.dispatch('game/setActualValue', this.data)
       }
     },

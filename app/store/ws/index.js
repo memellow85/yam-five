@@ -105,11 +105,13 @@ export const actions = {
     logger('ACTION-WS updateGameSocket', null, 'i')
     this._vm.$socket.client.emit('update_game', state.userSocket)
   },
-  leftRoomSocket({ commit, dispatch }) {
+  leftRoomSocket({ commit, dispatch, state }) {
     logger('ACTION-WS leftRoomSocket', null, 'i')
-    this._vm.$socket.client.emit('left_room')
-    commit('clearDataSocket')
-    dispatch('game/resetGame', null, { root: true })
+    if (state.userSocket) {
+      this._vm.$socket.client.emit('left_room', state.userSocket)
+      commit('clearDataSocket')
+      dispatch('game/resetGame', null, { root: true })
+    }
   },
   finishTurnSocket({ commit, dispatch, state, rootState }) {
     logger('ACTION-WS finishTurnSocket', null, 'i')
@@ -126,7 +128,25 @@ export const actions = {
       if (data.userTurn.uid === rootState.firebase.userDetailsFirebase.uid) {
         commit(`game/setDisabledButtonGame`, false, { root: true })
       }
-      dispatch('finishGameSocket', null)
+
+      const mapGames = {}
+      Object.keys(rootState.game.game).map((t) => {
+        if (rootState.game.currentGamePlayed.includes(t)) {
+          mapGames[t] = 0
+          Object.keys(rootState.game.game[t].data).map((g) => {
+            if (rootState.game.game[t].data[g].value !== '-') {
+              mapGames[t]++
+            }
+          })
+        }
+      })
+      let check = false
+      Object.keys(mapGames).map((g) => {
+        check = mapGames[g] === 13
+      })
+      if (check) {
+        dispatch('finishGameSocket', null)
+      }
     })
   },
   finishGameSocket({ state }) {

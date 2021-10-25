@@ -71,7 +71,7 @@ export default {
           this.$store.commit(`game/resetTurn`)
         })
     },
-    // user, users
+    // user, users, room
     leftRoomSocketEmit(data) {
       logger('SOCKETS leftRoomSocketEmit', data, 'i')
       if (data) {
@@ -89,13 +89,13 @@ export default {
         type: 'error_socket',
       })
     },
-    socketDisconnectEmit() {
+    /* socketDisconnectEmit() {
       logger('SOCKETS socketDisconnectEmit', null, 'i')
       this.$store.dispatch(`firebase/logErrors`, {
         message: this.$t('alert.socket_disconnect'),
         type: 'disconnect_socket',
       })
-    },
+    }, */
   },
   computed: {
     ...mapState('game', {

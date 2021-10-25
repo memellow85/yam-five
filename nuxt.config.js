@@ -6,10 +6,10 @@ module.exports = {
   dev:
     process.env.NUXT_ENV_NODE_ENV !== 'production' &&
     process.env.NUXT_ENV_NODE_ENV !== 'beta',
-  server: {
+  /* server: {
     host: 'localhost',
     port: 5000, // default: 3000
-  },
+  }, */
   layoutTransition: 'fade-in',
   pageTransition: 'fade-in',
   /*
@@ -202,7 +202,7 @@ module.exports = {
     ],
   },
   axios: {
-    // debug: process.env.NUXT_ENV_NODE_ENV !== 'production',
+    debug: process.env.NUXT_ENV_NODE_ENV !== 'production',
     headers: {
       'Content-Type': 'application/json',
     },

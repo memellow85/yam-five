@@ -33,7 +33,6 @@ const dice = () => {
     value: null,
     block: false,
     name: '',
-    // total: null,
   }
 }
 

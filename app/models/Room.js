@@ -128,6 +128,27 @@ class Rooms {
     return this.users.find((user) => user.room === room && user.turnOn)
   }
 
+  GETNextTurnOnUser(room) {
+    const usersSort = this.users
+      .filter((u) => u.room === room)
+      .sort((a, b) => b.order - a.order)
+    let userTurn = usersSort[0]
+    const checkTurn = usersSort.filter((v) => v.turnOn)
+    if (checkTurn.length === 0) {
+      usersSort.map((v) => {
+        if (userTurn.match > v.match) {
+          userTurn = v
+        }
+      })
+      this.users = this.users.map((v) => {
+        if (v.id === userTurn.id && v.room === room) {
+          v.turnOn = true
+        }
+      })
+    }
+    return this.users.filter((u) => u.room === room)
+  }
+
   defineOrderUsers(room) {
     let position = 1
     this.users = this.users.map((v) => {

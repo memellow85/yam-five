@@ -9,7 +9,7 @@ const io = require('socket.io')(server, {
 })
 
 const Rooms = require('../models/Room')()
-const yamfive = require('./api/yamfive')
+const yamfive = require('./api/yamfive').router
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
@@ -32,14 +32,18 @@ const leftRoom = (id, socket) => {
   if (user) {
     Rooms.DELETEUser(id)
     socket.leave(user.room)
+    let usersUpdateTurn = null
     const usersIntoRoom = Rooms.GETUsersRoom(user.room)
-    io.to(user.room).emit('leftRoomSocketEmit', {
-      user: user.user,
-      users: usersIntoRoom,
-    })
     if (usersIntoRoom.length === 0) {
       Rooms.DELETERoom(user.room)
+    } else {
+      // TODO verificare controllo
+      usersUpdateTurn = Rooms.GETNextTurnOnUser(user.room)
     }
+    io.to(user.room).emit('leftRoomSocketEmit', {
+      user: user.user,
+      users: usersUpdateTurn || usersIntoRoom,
+    })
   }
 }
 
@@ -48,7 +52,8 @@ io.on('connection', (socket) => {
     let callback
     const u = {
       ...user,
-      id: socket.id,
+      id: user.user.uid,
+      socket: socket.id,
       turnOn: false,
       tot: 0,
     }
@@ -122,7 +127,7 @@ io.on('connection', (socket) => {
     const usersIntoRoom = Rooms.GETUsersRoom(user.room)
     const userTurn = Rooms.GETTurnOnUser(user.room)
     const callback = {
-      userTurn: userTurn.user,
+      userTurn: userTurn ? userTurn.user : null,
       usersIntoRoom,
     }
     cb(callback)
@@ -137,19 +142,20 @@ io.on('connection', (socket) => {
     }
   })
 
-  socket.on('left_room', () => {
-    leftRoom(socket.id, socket)
+  socket.on('left_room', (user) => {
+    leftRoom(user.id, socket)
   })
 
   socket.on('error', (err) => {
     io.emit('socketErrorEmit', err)
-    leftRoom(socket.id, socket)
+    // leftRoom(socket.id, socket)
   })
 
-  socket.on('disconnect', () => {
-    io.emit('socketDisconnectEmit', null)
-    leftRoom(socket.id, socket)
-  })
+  /* socket.on('disconnect', () => {
+    console.log(Rooms.users, Rooms.rooms)
+    // io.emit('socketDisconnectEmit', null)
+    // leftRoom(socket.id, socket)
+  }) */
 })
 
 module.exports = {

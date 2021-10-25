@@ -153,13 +153,12 @@ export default {
       this.tab = tab
     },
     leaveHandler($event, logout = false) {
-      this.$store.dispatch('ws/leftRoomSocket').then(() => {
-        if (logout) {
-          this.$store.dispatch('firebase/logout').then(() => {
-            this.$router.push('/')
-          })
-        }
-      })
+      this.$store.dispatch('ws/leftRoomSocket')
+      if (logout) {
+        this.$store.dispatch('firebase/logout').then(() => {
+          this.$router.push('/')
+        })
+      }
     },
     leaveAppHandler() {
       this.leaveHandler(null, true)

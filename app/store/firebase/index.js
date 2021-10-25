@@ -131,12 +131,12 @@ export const actions = {
         })
     })
   },
-  getDetailsUser({ commit, dispatch, rootState }, uid) {
-    logger('ACTION-FIREBASE getDetailsUser', uid, 'i')
+  getDetailsUser({ commit, dispatch, rootState }, data) {
+    logger('ACTION-FIREBASE getDetailsUser', data, 'i')
     const log = trace(true, rootState.performance, 'GETDETAILSUSER', null)
     return new Promise((resolve, reject) => {
       this.$axios
-        .get(`/yam-five/user/${uid}`)
+        .get(`/yam-five/user/${data.value}/?check=${data.check}`)
         .then((resp) => {
           trace(false, null, null, log)
           commit('setUserDetailsFirebase', resp.data)
@@ -194,7 +194,7 @@ export const actions = {
     const log = trace(true, rootState.performance, 'UPDATERECORDUSER', null)
     return new Promise((resolve, reject) => {
       this.$axios
-        .put(`/yam-five/user/${data.details.user.uid}`, data)
+        .put(`/yam-five/user/${data.details.user.id_doc}`, data)
         .then(() => {
           trace(false, null, null, log)
           dispatch('dataFirebaseInit')
@@ -221,7 +221,7 @@ export const actions = {
     const log = trace(true, rootState.performance, 'RESETRECORDUSER', null)
     return new Promise((resolve, reject) => {
       this.$axios
-        .put(`/yam-five/reset-record/${state.userDetailsFirebase.uid}`, {})
+        .put(`/yam-five/reset-record/${state.userDetailsFirebase.id_doc}`, {})
         .then(() => {
           trace(false, null, null, log)
           dispatch('dataFirebaseInit')
@@ -301,7 +301,9 @@ export const actions = {
     logger('ACTION-FIREBASE updateAll', id, 'i')
     const log = trace(true, rootState.performance, 'UPDATEALL', null)
     return new Promise((resolve, reject) => {
-      dispatch('getDetailsUser', id || state.userDetailsFirebase.uid)
+      const value = id || state.userDetailsFirebase.id_doc
+      const check = !!id
+      dispatch('getDetailsUser', { value, check })
         .then(() => {
           trace(false, null, null, log)
           dispatch('getChampions')
