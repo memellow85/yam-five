@@ -43,7 +43,9 @@
 
 %link {
   @include font-size(12px, 1);
-  color: $color-8;
+  @include themed() {
+    color: t($key-color-6);
+  }
 }
 
 %notify {
@@ -55,6 +57,7 @@
   @extend %strong;
   @extend %flex;
   border: $border-base;
+  border-color: $primary;
   background: $primary;
   border-radius: $rounded-small;
   color: $white;

@@ -6,11 +6,11 @@
     leave-active-class="animated"
   >
     <div v-if="showAlert" class="wrapper-modal">
-      <div class="overlay-modal" v-touch="closeHandler"></div>
+      <div v-touch="closeHandler" class="overlay-modal"></div>
       <div class="content-modal">
         <h3>{{ message }}</h3>
         <div class="flex-between">
-          <button class="red" v-touch="closeHandler">
+          <button v-touch="closeHandler" class="red">
             {{ $t('alert.no') }}
           </button>
           <button v-touch="confirmHandler">{{ $t('alert.yes') }}</button>
@@ -57,17 +57,25 @@ export default {
   .overlay-modal {
     @include position(relative, 0 0);
     @include size(100vw, 100vh);
-    background: $bck-overlay;
+    // background: $bck-overlay;
+    @include themed() {
+      background: rgba(t($key-color-8), 0.5);
+    }
   }
   .content-modal {
     @include position(absolute, 50% 50%);
     @include size(70%, 5.5rem);
     @include padding(1rem);
     transform: translate(-50%, -50%);
-    background: $white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // background: $white;
+    @include themed() {
+      background: t($key-color-0);
+    }
     h3 {
       @include margin(0);
-      @include padding(0 null 1rem);
     }
   }
 }

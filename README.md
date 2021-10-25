@@ -50,6 +50,7 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.1.3 - Sound effect + save username and password
 - 1.1.4 - Bugfix
 - 1.1.5 - Bugfix + touch + share link
+- 1.2.0 - Update firebase + dark mode + bugfix + refactor store
 
 ## Next release
 
@@ -57,7 +58,7 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - x.x.x - Optimize app for desktop
 - x.x.x - Chat
 - x.x.x - Share match
-- x.x.x - Dark mode
+- x.x.x - Add seasons
 
 ## License
 

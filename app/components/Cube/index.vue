@@ -1,21 +1,11 @@
 <template>
-  <div
-    :class="[
-      'cube flex-center',
-      dimension,
-      { red: data.active && changeValue, green: data.active && !changeValue },
-    ]"
-  >
+  <div :class="['cube flex-center', dimension, { green: data.active }]">
     <template v-if="data.active">
       <div class="box-action flex-center">
         <span
           v-touch="submitValue"
-          :class="`yamicons mdi mdi-${
-            changeValue ? 'trash-can-outline' : 'plus-box-outline'
-          }`"
+          :class="`yamicons mdi mdi-plus-box-outline`"
         ></span>
-        <!-- v-longPress
-        @longPressStart="longPressStart" -->
       </div>
       <p>{{ $t(data.label) }}</p>
     </template>
@@ -29,10 +19,7 @@
 </template>
 
 <script>
-// import { longPress } from '~/directives/longpress'
-
 export default {
-  // directives: { longPress },
   props: {
     dimension: {
       type: String,
@@ -46,26 +33,13 @@ export default {
       required: false,
     },
   },
-  data() {
-    return {
-      changeValue: false,
-    }
-  },
   methods: {
     submitValue() {
       if (this.data.active) {
-        this.$store.commit(`game/setDisabledButtonGame`, true)
-        if (!this.changeValue) {
-          this.$store.dispatch('game/setActualValue', this.data)
-        } else {
-          this.$store.dispatch('game/resetActualValue', this.data)
-        }
-        this.changeValue = false
+        // this.$store.commit(`game/setDisabledButtonGame`, true)
+        this.$store.dispatch('game/setActualValue', this.data)
       }
     },
-    /* longPressStart() {
-      this.changeValue = !this.changeValue
-    }, */
   },
 }
 </script>
@@ -73,7 +47,9 @@ export default {
 <style lang="scss" scoped>
 .cube {
   @include margin(0.3rem);
-  background: $color-1;
+  @include themed() {
+    background: t($key-color-1);
+  }
   border-radius: $rounded-small;
   flex-direction: column;
   .yamicons {

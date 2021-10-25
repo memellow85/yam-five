@@ -6,14 +6,21 @@ html {
 body {
   @include size(100%);
   @extend %changeTapBck;
+  @include themed(true) {
+    color: t($key-color-6);
+    background: t($key-color-0);
+  }
   overflow: hidden;
-  background: $white;
   font-family: $font-family;
   font-weight: $normal;
-  color: $color-6;
+  // background: $white;
+  // color: $color-6;
   -webkit-font-smoothing: antialiased;
   &.public {
-    background: $color-1;
+    @include themed(true) {
+      background: t($key-color-1);
+    }
+    // background: $color-1;
   }
 }
 
@@ -26,7 +33,10 @@ body {
   display: block;
   &:before {
     font-size: $font-icons-size;
-    color: $color-6;
+    // color: $color-6;
+    @include themed() {
+      color: t($key-color-6);
+    }
   }
   &.small {
     &:before {
@@ -114,6 +124,7 @@ ul {
   }
   article {
     @include padding(null 1rem);
+    // border-bottom: $border-base;
     &.wrapper-tabs-form {
       .container-btn {
         justify-content: flex-end;
@@ -135,6 +146,10 @@ ul {
           }
         }
       }
+    }
+    &:last-child {
+      @include padding(null null 1rem);
+      // border-bottom: 0;
     }
   }
 }

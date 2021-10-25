@@ -169,7 +169,7 @@ module.exports = {
     { src: '~/plugins/visibility.js' },
     { src: '~/plugins/clipboard.js' },
     { src: '~/plugins/touch.js' },
-    { src: '~/plugins/socket-client.js' },
+    { src: '~/plugins/socket-client.js', ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -194,7 +194,9 @@ module.exports = {
   styleResources: {
     // your settings here
     scss: [
+      '~/assets/scss/common/_themes.scss',
       '~/assets/scss/common/_variables.scss',
+      '~/assets/scss/common/_functions.scss',
       '~/assets/scss/common/_mixins.scss',
       '~/assets/scss/common/_helpers.scss',
     ],

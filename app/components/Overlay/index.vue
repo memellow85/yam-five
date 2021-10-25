@@ -60,7 +60,11 @@ export default {
     border-top: $border-base;
     border-top-left-radius: $rounded;
     border-top-right-radius: $rounded;
-    background: $white;
+    @include themed() {
+      border-color: t($key-color-2);
+      background: t($key-color-0);
+    }
+    // background: $white;
     .overlay-close {
       @include position(absolute, 0.8rem 0.8rem null null);
     }

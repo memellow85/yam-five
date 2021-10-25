@@ -25,7 +25,6 @@ export default {
   data() {
     return {
       timeReset: null,
-      visible: true,
       deferredPrompt: null,
     }
   },
@@ -109,9 +108,9 @@ export default {
       await this.deferredPrompt.userChoice
       this.deferredPrompt = null
     },
-    visibilityChange() {
+    visibilityChange(evt, hidden) {
       if (this.userFirebase) {
-        if (!this.visible) {
+        if (!hidden) {
           clearTimeout(this.timeReset)
           this.timeReset = null
         } else {
@@ -124,7 +123,6 @@ export default {
           }, 300000)
         }
       }
-      this.visible = !this.visible
     },
     orientationHandler(ev) {
       if (ev === 90) {

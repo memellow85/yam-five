@@ -127,14 +127,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import WsMixin from '~/mixins/ws'
 import AnalyticsMixin from '~/mixins/analytics'
 import ScrollMixin from '~/mixins/scroll'
 // import { longPress } from '~/directives/longpress'
 
 export default {
   // directives: { longPress },
-  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
+  mixins: [ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {

@@ -110,7 +110,6 @@ export default {
   },
   methods: {
     getAnimateCurrentDice() {
-      // console.log(this.beforeDice, this.dice, this.blockDice, this.equalValue)
       if (!this.dice.block) {
         if (this.navigationRoute) {
           this.newValue = this.dice.value

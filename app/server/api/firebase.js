@@ -1,9 +1,12 @@
-const firebase = require('firebase/app').default
+/* const firebase = require('firebase/app').default
 require('firebase/auth')
 require('firebase/analytics')
 require('firebase/firestore')
-require('firebase/performance')
+require('firebase/performance') */
 require('dotenv').config()
+
+// const { getAnalytics } = require('firebase/analytics')
+// const { getPerformance } = require('firebase/performance')
 
 const config = {
   apiKey: process.env.NUXT_ENV_FIREBASE_API_KEY,
@@ -15,19 +18,13 @@ const config = {
   measurementId: process.env.NUXT_ENV_FIREBASE_ANALYTICS,
 }
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(config)
-  firebase.firestore().settings({ timestampsInSnapshots: true, merge: true })
-}
+// firebase.firestore().settings({ timestampsInSnapshots: true, merge: true })
 
-const analytics = firebase.analytics
-const performance = firebase.performance
+// const analytics = getAnalytics()
+// const performance = getPerformance()
 
 module.exports = {
-  auth: firebase.auth(),
-  db: firebase.firestore(),
-  utils: firebase.firestore,
-  fb: firebase,
-  analytics,
-  performance,
+  config,
+  // analytics,
+  // performance,
 }

@@ -35,14 +35,17 @@ export default {
   border-radius: $rounded-small;
   border: $border-base;
   &.red {
+    color: $error;
     border-color: $error;
     background: $error-bck;
   }
   &.green {
+    color: $primary;
     border-color: $primary;
     background: $success-bck;
   }
   &.yellow {
+    color: $warning;
     border-color: $warning;
     background: $warning-bck;
   }

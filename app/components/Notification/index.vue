@@ -112,6 +112,7 @@ export default {
     border-width: 0.05rem;
     border-top-style: solid;
     p {
+      color: $color-9;
       span {
         @include margin(null 0.4rem null null);
       }
@@ -126,6 +127,7 @@ export default {
       }
       button {
         background: $error;
+        border-color: $error;
       }
     }
     &.warning {
@@ -138,6 +140,7 @@ export default {
       }
       button {
         background: $warning;
+        border-color: $warning;
       }
     }
     &.success {
@@ -150,6 +153,7 @@ export default {
       }
       button {
         background: $primary;
+        border-color: $primary;
       }
     }
   }

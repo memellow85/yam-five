@@ -23,6 +23,35 @@ $alternative-2: #FB8600;
 $alternative-3: #D10EE9;
 $alternative-4: #7046FF;
 
+$themes: (
+  default: (
+    color-0: $white,
+    color-1: $color-1,
+    color-2: $color-2,
+    color-3: $color-3,
+    color-4: $color-4,
+    color-5: $color-5,
+    color-6: $color-6,
+    color-7: $color-7,
+    color-8: $color-8,
+    color-9: $color-9,
+    color-nav: $color-8
+  ),
+  dark: (
+    color-0: $color-8,
+    color-1: $color-9,
+    color-2: $color-7,
+    color-3: $color-6,
+    color-4: $color-5,
+    color-5: $color-4,
+    color-6: $color-3,
+    color-7: $color-2,
+    color-8: $color-1,
+    color-9: $white,
+    color-nav: $color-9
+  ),
+);
+
 $font-family: 'Nunito', sans-serif, Arial;
 $font-family-special: 'Pacifico', cursive, Arial;
 $base-font-size: 14px; // Serve per la mixin

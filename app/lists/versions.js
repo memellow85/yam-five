@@ -1,7 +1,13 @@
 export const versionsRelease = [
   {
+    version: '1.2.0',
+    date: '2021-10-15',
+    title: 'Improvement app',
+    messages: ['Update firebase', 'Dark mode', 'Bugfix', 'Refactor store'],
+  },
+  {
     version: '1.1.5',
-    date: '2021-10-06',
+    date: '2021-10-08',
     title: 'Improvement app',
     messages: ['Bugfix', 'Share link', 'Add touch'],
   },

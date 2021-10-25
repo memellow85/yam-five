@@ -1,3 +1,12 @@
+import { getLocalStorageKey } from '~/utils'
+
+export const getColorFont = () => {
+  return !getLocalStorageKey('theme') ||
+    getLocalStorageKey('theme') === 'default'
+    ? '#6C757D'
+    : '#DEE2E6'
+}
+
 export const baseChartOpt = {
   fontFamily: 'Nunito, sans-serif',
   parentHeightOffset: 0,
@@ -46,7 +55,10 @@ export const legendOpt = {
 export const styleTextChart = {
   fontSize: '0.6rem',
   fontWeight: 300,
-  colors: ['#6C757D'],
+  /* colors:
+    !getLocalStorageKey('theme') || getLocalStorageKey('theme') === 'default'
+      ? ['#6C757D']
+      : ['#DEE2E6'], */
 }
 
 export const yaxisOpt = {
@@ -57,9 +69,9 @@ export const xaxisOpt = {
   axisTicks: {
     show: false,
   },
-  labels: {
+  /* labels: {
     style: styleTextChart,
-  },
+  }, */
 }
 
 export const colorsChart = [

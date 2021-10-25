@@ -68,6 +68,7 @@
     "title_6": "Welcome",
     "title_7": "Sound effects",
     "title_8": "Share",
+    "title_9": "Change theme",
     "btn_1": "Join",
     "btn_2": "Leave",
     "btn_3": "Logout",
@@ -263,5 +264,9 @@
     "alert_message_success": "Link copied",
     "alert_message_error": "Error to copy a link",
     "copy_message": "https://yamfive-app.herokuapp.com/"
+  },
+  "themes": {
+    "default": "Light",
+    "dark": "Dark"
   }
 }

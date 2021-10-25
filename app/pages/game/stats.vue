@@ -40,7 +40,6 @@
 import { mapGetters, mapState } from 'vuex'
 import ApexCharts from 'apexcharts'
 import cloneDeep from 'lodash/cloneDeep'
-import WsMixin from '~/mixins/ws'
 import AnalyticsMixin from '~/mixins/analytics'
 import {
   baseChartOpt,
@@ -55,12 +54,13 @@ import {
   goals,
   markersOpt,
   createLabels,
+  getColorFont,
 } from '~/utils/baseCharts'
 import ScrollMixin from '~/mixins/scroll'
 import { orderCharts } from '~/lists'
 
 export default {
-  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
+  mixins: [ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {
@@ -86,9 +86,16 @@ export default {
         this.$t('game.yam'),
       ],
       optChart1: {
-        chart: Object.assign({}, baseChartOpt, {
-          type: 'area',
-        }),
+        chart: Object.assign(
+          {},
+          baseChartOpt,
+          {
+            type: 'area',
+          },
+          {
+            foreColor: getColorFont(),
+          }
+        ),
         colors: colorsChart,
         tooltip: tooltipOpt,
         legend: Object.assign({}, legendOpt, {
@@ -102,7 +109,7 @@ export default {
             enabled: false,
           },
           style: Object.assign({}, styleTextChart, {
-            fontWeight: 600,
+            colors: [getColorFont()],
           }),
         },
         markers: {
@@ -128,20 +135,35 @@ export default {
             position: 'top',
             categories: [],
           },
-          xaxisOpt
+          xaxisOpt,
+          {
+            labels: {
+              style: Object.assign({}, styleTextChart, {
+                colors: [getColorFont()],
+              }),
+            },
+          }
         ),
         yaxis: yaxisOpt,
         noData: {
           text: this.$t('stats.no_data_chart_1'),
           style: Object.assign({}, styleTextChart, {
             fontSize: '0.8rem',
+            colors: [getColorFont()],
           }),
         },
       },
       optChart2: {
-        chart: Object.assign({}, baseChartOpt, {
-          type: 'bar',
-        }),
+        chart: Object.assign(
+          {},
+          baseChartOpt,
+          {
+            type: 'bar',
+          },
+          {
+            foreColor: getColorFont(),
+          }
+        ),
         colors: colorsChart2,
         tooltip: tooltipOpt,
         legend: Object.assign({}, legendOpt, {
@@ -159,7 +181,7 @@ export default {
           enabled: true,
           offsetY: -10,
           style: Object.assign({}, styleTextChart, {
-            fontWeight: 600,
+            colors: [getColorFont()],
           }),
         },
         plotOptions: {
@@ -183,8 +205,22 @@ export default {
             position: 'bottom',
             categories: [],
           },
-          xaxisOpt
+          xaxisOpt,
+          {
+            labels: {
+              style: Object.assign({}, styleTextChart, {
+                colors: getColorFont(),
+              }),
+            },
+          }
         ),
+        yaxis: {
+          labels: {
+            style: Object.assign({}, styleTextChart, {
+              colors: getColorFont(),
+            }),
+          },
+        },
       },
     }
   },
@@ -217,6 +253,10 @@ export default {
   mounted() {
     this.initChartTotal()
     this.initChartProbably()
+  },
+  destroyed() {
+    this.chart_1.destroy()
+    this.chart_2.destroy()
   },
   methods: {
     getKeyChart(chart) {
@@ -389,10 +429,14 @@ export default {
       z-index: 1;
       p {
         @include size(20px);
-        background: $color-2;
+        // background: $color-2;
         border-bottom: $border-base-tab;
         border-top: $border-base-tab;
         border-right: $border-base-tab;
+        @include themed() {
+          background: t($key-color-2);
+          border-color: t($key-color-2);
+        }
         &.active {
           background: $primary;
           color: $white;
