@@ -24,12 +24,10 @@ export default {
       },
     }
   },
-  mounted() {
+  beforeMount() {
     if (isProd()) {
       const analytics = firebase.getAnalytics()
       this.$store.commit(`setAnalytics`, analytics)
-      const perf = firebase.getPerformance(firebase.app)
-      this.$store.commit(`setPerformance`, perf)
     }
   },
 }
