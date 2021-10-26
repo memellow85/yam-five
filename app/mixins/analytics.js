@@ -9,10 +9,10 @@ export default {
     }),
   },
   mounted() {
-    this.logEvent(this.$route)
+    this.logEventYamFive(this.$route)
   },
   methods: {
-    logEvent(route) {
+    logEventYamFive(route) {
       if (isProd()) {
         firebase.logEvent(this.analytics, 'screen_view', {
           route: route.fullPath,

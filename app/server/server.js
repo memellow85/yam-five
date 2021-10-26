@@ -9,7 +9,7 @@ const io = require('socket.io')(server, {
 })
 
 const Rooms = require('../models/Room')()
-const yamfive = require('./api/yamfive').router
+const yamfive = require('./api/yamfive')
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')

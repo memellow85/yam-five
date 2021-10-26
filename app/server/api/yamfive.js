@@ -1,7 +1,5 @@
 const express = require('express')
-const { initializeApp } = require('firebase/app')
 const {
-  getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   sendPasswordResetEmail,
@@ -9,7 +7,6 @@ const {
   signOut,
 } = require('firebase/auth')
 const {
-  getFirestore,
   collection,
   Timestamp,
   query,
@@ -21,23 +18,17 @@ const {
   orderBy,
   updateDoc,
 } = require('firebase/firestore')
-const { getAnalytics, logEvent } = require('firebase/analytics')
-const { getPerformance, trace } = require('firebase/performance')
 
-const firebaseConfig = require('./firebase.js')
+const firebase = require('./firebase.js')
 
 const router = express.Router()
-
-const app = initializeApp(firebaseConfig.config)
-const db = getFirestore(app)
-const auth = getAuth(app)
 
 const USER_DETAILS = 'users'
 const ISSUE_DETAILS = 'messages'
 const ERROR_DETAILS = 'errors'
 
 router.route('/login').post((req, res) => {
-  signInWithEmailAndPassword(auth, req.body.email, req.body.password)
+  signInWithEmailAndPassword(firebase.auth, req.body.email, req.body.password)
     .then((resp) => {
       res.status(200).json(resp)
     })
@@ -47,7 +38,7 @@ router.route('/login').post((req, res) => {
 })
 
 router.route('/logout').post((req, res) => {
-  signOut(auth)
+  signOut(firebase.auth)
     .then(() => {
       res.status(200).send()
     })
@@ -57,7 +48,7 @@ router.route('/logout').post((req, res) => {
 })
 
 router.route('/user-recovery-email').post((req, res) => {
-  sendPasswordResetEmail(auth, req.body.recovery)
+  sendPasswordResetEmail(firebase.auth, req.body.recovery)
     .then(() => {
       res.status(200).send()
     })
@@ -69,7 +60,7 @@ router.route('/user-recovery-email').post((req, res) => {
 router
   .route('/user')
   .get((req, res) => {
-    getDocs(collection(db, USER_DETAILS))
+    getDocs(collection(firebase.db, USER_DETAILS))
       .then((data) => {
         const list = []
         data.forEach((d) => {
@@ -82,11 +73,15 @@ router
       })
   })
   .post((req, res) => {
-    createUserWithEmailAndPassword(auth, req.body.email, req.body.password)
+    createUserWithEmailAndPassword(
+      firebase.auth,
+      req.body.email,
+      req.body.password
+    )
       .then(() => {
-        const user = auth.currentUser
+        const user = firebase.auth.currentUser
         sendEmailVerification(user)
-        addDoc(collection(db, USER_DETAILS), {
+        addDoc(collection(firebase.db, USER_DETAILS), {
           name: req.body.name,
           uid: user.uid,
           id_doc: '',
@@ -104,7 +99,7 @@ router
           last_reset: Timestamp.now(),
         })
           .then((docUser) => {
-            const refObj = doc(db, USER_DETAILS, docUser.id)
+            const refObj = doc(firebase.db, USER_DETAILS, docUser.id)
             updateDoc(refObj, {
               id_doc: docUser.id,
             })
@@ -129,7 +124,7 @@ router
   .get((req, res) => {
     if (req.query.check === 'true') {
       const q = query(
-        collection(db, USER_DETAILS),
+        collection(firebase.db, USER_DETAILS),
         where('uid', '==', req.params.id)
       )
       getDocs(q)
@@ -142,7 +137,7 @@ router
           res.status(404).json(error)
         })
     } else {
-      const refObj = doc(db, USER_DETAILS, req.params.id)
+      const refObj = doc(firebase.db, USER_DETAILS, req.params.id)
       getDoc(refObj)
         .then((resp) => {
           res.status(200).json(resp.data())
@@ -153,7 +148,7 @@ router
     }
   })
   .put((req, res) => {
-    const refObj = doc(db, USER_DETAILS, req.params.id)
+    const refObj = doc(firebase.db, USER_DETAILS, req.params.id)
     const reqBody = req.body
     const data = {
       match: reqBody.details.user.match + 1,
@@ -202,7 +197,7 @@ router
   })
 
 router.route('/reset-record/:id_doc').put((req, res) => {
-  const refObj = doc(db, USER_DETAILS, req.params.id_doc)
+  const refObj = doc(firebase.db, USER_DETAILS, req.params.id_doc)
   const data = {
     score: 0,
     score_record_chart_1: '',
@@ -225,7 +220,10 @@ router.route('/reset-record/:id_doc').put((req, res) => {
 })
 
 router.route('/report-issue').get((req, res) => {
-  const q = query(collection(db, ISSUE_DETAILS), orderBy('date_open', 'desc'))
+  const q = query(
+    collection(firebase.db, ISSUE_DETAILS),
+    orderBy('date_open', 'desc')
+  )
   getDocs(q)
     .then((data) => {
       const list = []
@@ -240,7 +238,7 @@ router.route('/report-issue').get((req, res) => {
 })
 
 router.route('/report-issue/:uid').post((req, res) => {
-  addDoc(collection(db, ISSUE_DETAILS), {
+  addDoc(collection(firebase.db, ISSUE_DETAILS), {
     id: Timestamp.now().valueOf().toString(),
     date_close: null,
     date_open: Timestamp.now(),
@@ -259,7 +257,7 @@ router.route('/report-issue/:uid').post((req, res) => {
 })
 
 router.route('/errors').post((req, res) => {
-  addDoc(collection(db, ERROR_DETAILS), {
+  addDoc(collection(firebase.db, ERROR_DETAILS), {
     message: req.body.message,
     date: Timestamp.now(),
     type: req.body.type,
@@ -272,11 +270,4 @@ router.route('/errors').post((req, res) => {
     })
 })
 
-module.exports = {
-  router,
-  getPerformance,
-  trace,
-  app,
-  getAnalytics,
-  logEvent,
-}
+module.exports = router
