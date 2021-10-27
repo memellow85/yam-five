@@ -10,7 +10,11 @@
         ]"
       >
         <div class="container-match flex-center">
-          <template v-if="!startGame && userSocket === null && !fastGame">
+          {{ startGame }}
+          {{ newGame }}
+          {{ fastGame }}
+          {{ activeGame }}
+          <template v-if="!startGame && userSocket === null">
             <p>{{ $t('home.message_1') }}</p>
             <div class="container-button-match flex-center">
               <button v-touch="joinAmatch">{{ $t('home.btn_1') }}</button>
@@ -19,20 +23,66 @@
               </button>
             </div>
           </template>
-          <template
-            v-if="
-              !startGame && userSocket && Object.keys(userSocket).length > 0
-            "
-          >
-            <p v-if="userSocket.turnOn && fastGame">
-              {{ $t('home.message_2_a') }} <strong>{{ userSocket.room }}</strong
-              >. <br />{{ $t('home.message_2_b') }}
-            </p>
-            <p v-else>{{ $t('home.message_2_c') }}</p>
-            <button v-if="userSocket.turnOn && !fastGame" v-touch="startAgame">
-              {{ $t('home.btn_2') }}
-            </button>
+          <template v-if="fastGame">
+            <template
+              v-if="
+                !newGame &&
+                !activeGame &&
+                startGame &&
+                userSocket &&
+                Object.keys(userSocket).length > 0 &&
+                userSocket.turnOn
+              "
+            >
+              <p>{{ $t('home.message_5') }}</p>
+            </template>
           </template>
+          <template v-if="!fastGame">
+            <template
+              v-if="
+                !startGame && userSocket && Object.keys(userSocket).length > 0
+              "
+            >
+              <p v-if="userSocket.turnOn">
+                {{ $t('home.message_2_a') }}
+                <strong>{{ userSocket.room }}</strong
+                >. <br />{{ $t('home.message_2_b') }}
+              </p>
+              <p v-else>{{ $t('home.message_2_c') }}</p>
+              <button v-if="userSocket.turnOn" v-touch="startAgame">
+                {{ $t('home.btn_2') }}
+              </button>
+            </template>
+            <template
+              v-if="
+                !newGame &&
+                !activeGame &&
+                startGame &&
+                userSocket &&
+                Object.keys(userSocket).length > 0 &&
+                userSocket.turnOn
+              "
+            >
+              <p>{{ $t('home.message_5') }}</p>
+            </template>
+            <template
+              v-if="
+                !newGame &&
+                !activeGame &&
+                startGame &&
+                userSocket &&
+                Object.keys(userSocket).length > 0 &&
+                !userSocket.turnOn
+              "
+            >
+              <p>{{ $t('home.message_7') }}</p>
+            </template>
+          </template>
+          <template v-if="newGame">
+            <p>{{ $t('home.message_6') }}</p>
+            <button v-touch="startNewGame">{{ $t('home.btn_3') }}</button>
+          </template>
+
           <div
             v-show="
               !newGame &&
@@ -55,34 +105,6 @@
               {{ $t('home.message_3_b') }} <strong>{{ dices.tot }}</strong>
             </p>
           </div>
-          <template
-            v-if="
-              !newGame &&
-              !activeGame &&
-              startGame &&
-              userSocket &&
-              Object.keys(userSocket).length > 0 &&
-              userSocket.turnOn
-            "
-          >
-            <p>{{ $t('home.message_5') }}</p>
-          </template>
-          <template
-            v-if="
-              !newGame &&
-              !activeGame &&
-              startGame &&
-              userSocket &&
-              Object.keys(userSocket).length > 0 &&
-              !userSocket.turnOn
-            "
-          >
-            <p>{{ $t('home.message_7') }}</p>
-          </template>
-          <template v-if="newGame">
-            <p>{{ $t('home.message_6') }}</p>
-            <button v-touch="startNewGame">{{ $t('home.btn_3') }}</button>
-          </template>
         </div>
 
         <div class="wrapper-games">

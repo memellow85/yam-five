@@ -1,6 +1,12 @@
 <template>
-  <div :class="['cube flex-center', dimension, { green: data.active }]">
-    <template v-if="data.active">
+  <div
+    :class="[
+      'cube flex-center',
+      dimension,
+      { green: data.active && !disabledButtonGame },
+    ]"
+  >
+    <template v-if="data.active && !disabledButtonGame">
       <div class="box-action flex-center">
         <span
           v-touch="submitValue"
@@ -19,6 +25,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     dimension: {
@@ -33,10 +41,14 @@ export default {
       required: false,
     },
   },
+  computed: {
+    ...mapState('game', {
+      disabledButtonGame: (state) => state.disabledButtonGame,
+    }),
+  },
   methods: {
     submitValue() {
       if (this.data.active) {
-        // this.$store.commit(`game/setDisabledButtonGame`, true)
         this.$store.dispatch('game/setActualValue', this.data)
       }
     },
