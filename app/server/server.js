@@ -137,7 +137,7 @@ io.on('connection', (socket) => {
     if (Rooms.checkFinishGame(user.room)) {
       const championshipList = Rooms.GETChampionShipRoom(user.room)
       championshipList.map((u) => {
-        io.to(u.id).emit('finishGameSocketEmit', championshipList)
+        io.to(u.socket).emit('finishGameSocketEmit', championshipList)
       })
     }
   })

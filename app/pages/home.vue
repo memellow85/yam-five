@@ -10,7 +10,7 @@
         ]"
       >
         <div class="container-match flex-center">
-          <template v-if="!startGame && userSocket === null">
+          <template v-if="!startGame && userSocket === null && !fastGame">
             <p>{{ $t('home.message_1') }}</p>
             <div class="container-button-match flex-center">
               <button v-touch="joinAmatch">{{ $t('home.btn_1') }}</button>
