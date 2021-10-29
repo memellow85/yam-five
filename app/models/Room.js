@@ -99,7 +99,6 @@ class Rooms {
       }
       return v
     })
-
     if (usersRoom.length > 1) {
       this.users = this.users.map((v) => {
         if (v.room === room) {

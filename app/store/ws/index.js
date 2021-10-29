@@ -113,41 +113,9 @@ export const actions = {
       dispatch('game/resetGame', null, { root: true })
     }
   },
-  finishTurnSocket({ commit, dispatch, state, rootState }) {
+  finishTurnSocket({ state }) {
     logger('ACTION-WS finishTurnSocket', null, 'i')
-    const log = trace(
-      true,
-      rootState.performance,
-      'finish_turn'.toUpperCase(),
-      null
-    )
-    this._vm.$socket.client.emit('finish_turn', state.userSocket, (data) => {
-      trace(false, null, null, log)
-      commit(`updateUsersSocket`, data.usersIntoRoom)
-      commit('setUserTurnSocket', data.userTurn)
-      if (data.userTurn.uid === rootState.firebase.userDetailsFirebase.uid) {
-        commit(`game/setDisabledButtonGame`, false, { root: true })
-      }
-
-      const mapGames = {}
-      Object.keys(rootState.game.game).map((t) => {
-        if (rootState.game.currentGamePlayed.includes(t)) {
-          mapGames[t] = 0
-          Object.keys(rootState.game.game[t].data).map((g) => {
-            if (rootState.game.game[t].data[g].value !== '-') {
-              mapGames[t]++
-            }
-          })
-        }
-      })
-      let check = false
-      Object.keys(mapGames).map((g) => {
-        check = mapGames[g] === 13
-      })
-      if (check) {
-        dispatch('finishGameSocket', null)
-      }
-    })
+    this._vm.$socket.client.emit('finish_turn', state.userSocket)
   },
   finishGameSocket({ state }) {
     logger('ACTION-WS finishGameSocket', null, 'i')

@@ -78,7 +78,7 @@
               <p>{{ $t('home.message_7') }}</p>
             </template>
           </template>
-          <template v-if="newGame">
+          <template v-if="newGame && !fastGame">
             <p>{{ $t('home.message_6') }}</p>
             <button v-touch="startNewGame">{{ $t('home.btn_3') }}</button>
           </template>
@@ -254,7 +254,7 @@ export default {
         this.$store.commit('game/toggleNotification', {
           type: 'warning',
           message: `${this.$t('home.notification_1')} ${
-            this.userTurnSocket.user.name
+            this.userTurnSocket.name
           }`,
         })
       } else {

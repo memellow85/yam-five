@@ -102,7 +102,9 @@ io.on('connection', (socket) => {
         users: usersIntoRoom,
       })
     } else {
-      io.to(user.room).emit('joinRoomSocketEmit', usersIntoRoom)
+      io.to(user.room).emit('joinRoomSocketEmit', {
+        users: usersIntoRoom,
+      })
     }
   })
 
@@ -122,23 +124,23 @@ io.on('connection', (socket) => {
     io.to(user.room).emit('updateGameSocketEmit', usersIntoRoom)
   })
 
-  socket.on('finish_turn', (user, cb) => {
+  socket.on('finish_turn', (user) => {
     Rooms.PUTTurnUsers(user)
     const usersIntoRoom = Rooms.GETUsersRoom(user.room)
     const userTurn = Rooms.GETTurnOnUser(user.room)
-    const callback = {
+    io.to(user.room).emit('finishTurnSocketEmit', {
       userTurn: userTurn ? userTurn.user : null,
       usersIntoRoom,
-    }
-    cb(callback)
+    })
   })
 
   socket.on('finish_game', (user) => {
     if (Rooms.checkFinishGame(user.room)) {
       const championshipList = Rooms.GETChampionShipRoom(user.room)
-      championshipList.map((u) => {
+      io.to(user.room).emit('finishGameSocketEmit', championshipList)
+      /* championshipList.map((u) => {
         io.to(u.socket).emit('finishGameSocketEmit', championshipList)
-      })
+      }) */
     }
   })
 

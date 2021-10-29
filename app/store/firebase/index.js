@@ -298,7 +298,7 @@ export const actions = {
       })
   },
   dataFirebaseInit({ commit, dispatch, state, rootState }, id) {
-    logger('ACTION-FIREBASE updateAll', id, 'i')
+    logger('ACTION-FIREBASE dataFirebaseInit', id, 'i')
     const log = trace(true, rootState.performance, 'UPDATEALL', null)
     return new Promise((resolve, reject) => {
       const value = id || state.userDetailsFirebase.id_doc
@@ -312,7 +312,8 @@ export const actions = {
         .catch((error) => {
           trace(false, null, null, log)
           dispatch('logErrors', {
-            message: 'ACTION-FIREBASE updateAll: ' + JSON.stringify(error),
+            message:
+              'ACTION-FIREBASE dataFirebaseInit: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
           reject(error.response.data.message)
