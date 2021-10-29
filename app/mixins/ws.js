@@ -71,6 +71,33 @@ export default {
           this.$store.commit(`game/resetTurn`)
         })
     },
+    finishTurnSocketEmit(data) {
+      logger('SOCKETS finishTurnSocketEmit', data, 'i')
+      this.$store.commit(`ws/updateUsersSocket`, data.usersIntoRoom)
+      this.$store.commit('ws/setUserTurnSocket', data.userTurn)
+      if (data.userTurn.uid === this.userDetailsFirebase.uid) {
+        this.$store.commit(`game/setDisabledButtonGame`, false)
+      }
+
+      const mapGames = {}
+      Object.keys(this.game).map((t) => {
+        if (this.currentGamePlayed.includes(t)) {
+          mapGames[t] = 0
+          Object.keys(this.game[t].data).map((g) => {
+            if (this.game[t].data[g].value !== '-') {
+              mapGames[t]++
+            }
+          })
+        }
+      })
+      let check = false
+      Object.keys(mapGames).map((g) => {
+        check = mapGames[g] === 13
+      })
+      if (check) {
+        this.$store.dispatch('ws/finishGameSocket')
+      }
+    },
     // user, users, room
     leftRoomSocketEmit(data) {
       logger('SOCKETS leftRoomSocketEmit', data, 'i')
@@ -102,6 +129,8 @@ export default {
       totalHistorical: (state) => state.totalHistorical,
       probablyExitNumbers: (state) => state.probablyExitNumbers,
       fastGame: (state) => state.fastGame,
+      currentGamePlayed: (state) => state.currentGamePlayed,
+      game: (state) => state.game,
     }),
     ...mapState('firebase', {
       userDetailsFirebase: (state) => state.userDetailsFirebase,
