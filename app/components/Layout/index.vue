@@ -36,6 +36,15 @@ export default {
           href: `${process.env.NUXT_ENV_PROD}${this.$route.path}`,
         },
       ],
+      meta: [
+        {
+          name: 'theme-color',
+          content:
+            localStorage.getItem('yamfive_theme') === 'default'
+              ? '#fff'
+              : '#343A40',
+        },
+      ],
     }
   },
   computed: {
