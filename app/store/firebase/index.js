@@ -79,7 +79,7 @@ export const actions = {
             message: 'ACTION-FIREBASE logout: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data.message)
+          reject(error.response.data)
         })
     })
   },
@@ -98,7 +98,7 @@ export const actions = {
               resolve()
             })
             .catch((error) => {
-              reject(error.response.data.message)
+              reject(error.response.data)
             })
         })
         .catch((error) => {
@@ -107,7 +107,7 @@ export const actions = {
             message: 'ACTION-FIREBASE login: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data.message)
+          reject(error.response.data)
         })
     })
   },
@@ -127,7 +127,7 @@ export const actions = {
             message: 'ACTION-FIREBASE recovery: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data.message)
+          reject(error.response.data)
         })
     })
   },
@@ -148,7 +148,7 @@ export const actions = {
             message: 'ACTION-FIREBASE getDetailsUser: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data.message)
+          reject(error.response.data)
         })
     })
   },
@@ -185,7 +185,7 @@ export const actions = {
             message: 'ACTION-FIREBASE registration: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data.message)
+          reject(error.response.data)
         })
     })
   },
@@ -202,7 +202,7 @@ export const actions = {
               resolve()
             })
             .catch((error) => {
-              reject(error.response.data.message)
+              reject(error.response.data)
             })
         })
         .catch((error) => {
@@ -212,7 +212,7 @@ export const actions = {
               'ACTION-FIREBASE updateRecordUser: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data.message)
+          reject(error.response.data)
         })
     })
   },
@@ -229,7 +229,7 @@ export const actions = {
               resolve()
             })
             .catch((error) => {
-              reject(error.response.data.message)
+              reject(error.response.data)
             })
         })
         .catch((error) => {
@@ -239,7 +239,7 @@ export const actions = {
               'ACTION-FIREBASE resetRecordUser: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data.message)
+          reject(error.response.data)
         })
     })
   },
@@ -261,7 +261,7 @@ export const actions = {
               'ACTION-FIREBASE reportAIssueList: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data.message)
+          reject(error.response.data)
         })
     })
   },
@@ -281,7 +281,7 @@ export const actions = {
             message: 'ACTION-FIREBASE reportAIssue: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data.message)
+          reject(error.response.data)
         })
     })
   },
@@ -316,7 +316,7 @@ export const actions = {
               'ACTION-FIREBASE dataFirebaseInit: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data.message)
+          reject(error.response.data)
         })
     })
   },

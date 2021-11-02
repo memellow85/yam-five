@@ -33,15 +33,17 @@ const leftRoom = (id, socket) => {
     Rooms.DELETEUser(id)
     socket.leave(user.room)
     let usersUpdateTurn = null
+    let userTurn = null
     const usersIntoRoom = Rooms.GETUsersRoom(user.room)
     if (usersIntoRoom.length === 0) {
       Rooms.DELETERoom(user.room)
     } else {
-      // TODO verificare controllo
       usersUpdateTurn = Rooms.GETNextTurnOnUser(user.room)
+      userTurn = Rooms.GETTurnOnUser(user.room)
     }
     io.to(user.room).emit('leftRoomSocketEmit', {
       user: user.user,
+      userTurn,
       users: usersUpdateTurn || usersIntoRoom,
     })
   }
