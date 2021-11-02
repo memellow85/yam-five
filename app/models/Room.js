@@ -143,6 +143,7 @@ class Rooms {
         if (v.id === userTurn.id && v.room === room) {
           v.turnOn = true
         }
+        return v
       })
     }
     return this.users.filter((u) => u.room === room)

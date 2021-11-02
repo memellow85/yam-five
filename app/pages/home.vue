@@ -250,7 +250,7 @@ export default {
   },
   watch: {
     userTurnSocket() {
-      if (!this.userSocket.turnOn) {
+      if (this.userSocket && !this.userSocket.turnOn) {
         this.$store.commit('game/toggleNotification', {
           type: 'warning',
           message: `${this.$t('home.notification_1')} ${

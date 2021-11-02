@@ -103,6 +103,9 @@ export default {
       logger('SOCKETS leftRoomSocketEmit', data, 'i')
       if (data) {
         this.$store.commit(`ws/updateUsersSocket`, data.users)
+        if (data.userTurn) {
+          this.$store.commit('ws/setUserTurnSocket', data.userTurn)
+        }
         this.$store.commit(`game/toggleNotification`, {
           type: 'alert',
           message: data.user.name + this.$t('home.notification_3'),
