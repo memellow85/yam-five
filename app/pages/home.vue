@@ -10,10 +10,6 @@
         ]"
       >
         <div class="container-match flex-center">
-          {{ startGame }}
-          {{ newGame }}
-          {{ fastGame }}
-          {{ activeGame }}
           <template v-if="!startGame && userSocket === null">
             <p>{{ $t('home.message_1') }}</p>
             <div class="container-button-match flex-center">

@@ -20,7 +20,7 @@ export default {
       this.$router.push('/home')
       if (this.fastGame) {
         this.$store.dispatch('ws/startGameSocket')
-        this.$store.commit(`game/setFastGame`, false)
+        // this.$store.commit(`game/setFastGame`, false)
       }
     },
     // user, users
@@ -31,6 +31,9 @@ export default {
       this.$store.commit('game/startGame', true)
       this.$store.commit('game/initDices')
       this.$store.commit('game/resetStats')
+      if (this.fastGame) {
+        this.$store.commit(`game/setFastGame`, false)
+      }
     },
     updateGameSocketEmit(users) {
       logger('SOCKETS updateGameSocketEmit', users, 'i')
