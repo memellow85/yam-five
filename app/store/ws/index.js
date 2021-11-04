@@ -49,12 +49,11 @@ export const mutations = {
     state.userSocket = null
     state.usersSocket = []
     state.usersOrderedSocket = []
+    state.userTurnSocket = null
   },
   updateTotalSocket(state, total) {
     logger('COMMIT-WS updateTotalSocket', total, 'i')
-    state.userSocket.tot = total.global
-    state.userSocket.num = total.number
-    state.userSocket.extra = total.extra
+    state.userSocket.tot = total
   },
   setUserTurnSocket(state, user) {
     logger('COMMIT-WS setUserTurnSocket', user, 'i')
@@ -70,15 +69,6 @@ export const mutations = {
  * Actions
  */
 export const actions = {
-  socketEmit({ commit, state, rootState }, { action, payload }) {
-    logger('ACTION-WS socketEmit', { action, payload }, 'i')
-    const key = action.replace('_', '').toUpperCase()
-    const log = trace(true, rootState.performance, key, null)
-    this._vm.$socket.client.emit(action, payload, () => {
-      trace(false, null, null, log)
-      logger('socketEmit actions response', null, 'i')
-    })
-  },
   addUserSocket({ commit, dispatch, rootState }, user) {
     logger('ACTION-WS addUserSocket', user, 'i')
     const log = trace(true, rootState.performance, 'ADDUSER', null)
@@ -103,78 +93,32 @@ export const actions = {
       }
     })
   },
-  joinRoomSocket({ dispatch, state }, data) {
+  joinRoomSocket({ state }, data) {
     logger('ACTION-WS joinRoomSocket', data, 'i')
-    dispatch('socketEmit', {
-      action: 'join_room',
-      payload: data,
-    })
+    this._vm.$socket.client.emit('join_room', data)
   },
-  startGameSocket({ dispatch, state }) {
+  startGameSocket({ state }) {
     logger('ACTION-WS startGameSocket', null, 'i')
-    dispatch('socketEmit', {
-      action: 'start_game',
-      payload: state.userSocket,
-    })
+    this._vm.$socket.client.emit('start_game', state.userSocket)
   },
-  updateGameSocket({ dispatch, state }) {
+  updateGameSocket({ state }) {
     logger('ACTION-WS updateGameSocket', null, 'i')
-    dispatch('socketEmit', {
-      action: 'update_game',
-      payload: state.userSocket,
-    })
+    this._vm.$socket.client.emit('update_game', state.userSocket)
   },
-  leftRoomSocket({ commit, rootState }) {
+  leftRoomSocket({ commit, dispatch, state }) {
     logger('ACTION-WS leftRoomSocket', null, 'i')
-    const log = trace(true, rootState.performance, 'LEFTROOM', null)
-    return new Promise((resolve) => {
-      this._vm.$socket.client.emit('left_room', null, () => {
-        trace(false, null, null, log)
-        commit('clearDataSocket')
-        commit('game/newGame', false, { root: true })
-        commit('game/initMatch', null, { root: true })
-        commit('game/initDices', null, { root: true })
-        commit('game/resetTurn', null, { root: true })
-        commit('game/startGame', null, { root: true })
-        resolve()
-      })
-    })
-    /* dispatch('socketEmit', {
-      action: 'left_room',
-      payload: null,
-    })
-    commit('clearDataSocket')
-    commit('game/newGame', false, { root: true })
-    commit('game/initMatch', null, { root: true })
-    commit('game/initDices', null, { root: true })
-    commit('game/resetTurn', null, { root: true })
-    commit('game/startGame', null, { root: true })
-     */
-    // commit('game/intoRoom', false)
+    if (state.userSocket) {
+      this._vm.$socket.client.emit('left_room', state.userSocket)
+      commit('clearDataSocket')
+      dispatch('game/resetGame', null, { root: true })
+    }
   },
-  finishTurnSocket({ commit, dispatch, state, rootState }, total) {
+  finishTurnSocket({ state }) {
     logger('ACTION-WS finishTurnSocket', null, 'i')
-    commit('updateTotalSocket', total)
-    const log = trace(
-      true,
-      rootState.performance,
-      'finish_turn'.toUpperCase(),
-      null
-    )
-    this._vm.$socket.client.emit('finish_turn', state.userSocket, () => {
-      trace(false, null, null, log)
-      dispatch('finishGameSocket', null)
-    })
-    /* dispatch('socketEmit', {
-      action: 'finish_turn',
-      payload: state.userSocket,
-    }) */
+    this._vm.$socket.client.emit('finish_turn', state.userSocket)
   },
-  finishGameSocket({ dispatch, state }) {
+  finishGameSocket({ state }) {
     logger('ACTION-WS finishGameSocket', null, 'i')
-    dispatch('socketEmit', {
-      action: 'finish_game',
-      payload: state.userSocket,
-    })
+    this._vm.$socket.client.emit('finish_game', state.userSocket)
   },
 }

@@ -5,7 +5,7 @@
         <span class="yamicons mdi mdi-cog-outline"></span>
         {{ $t('view.configuration') }}
       </h3>
-      <button class="small grey" v-touch="leaveAppHandler">
+      <button v-touch="leaveAppHandler" class="small grey">
         <span>{{ $t('config.btn_3') }}</span>
       </button>
     </article>
@@ -31,35 +31,30 @@
         <FormsSounds></FormsSounds>
       </article>
       <article>
-        <h4>{{ $t('config.title_2') }}</h4>
-        <FormsLanguages></FormsLanguages>
+        <h4>{{ $t('config.title_9') }}</h4>
+        <FormsThemes></FormsThemes>
       </article>
       <article>
-        <h4>{{ $t('config.title_4') }}</h4>
-        <div class="flex-between">
-          <p>{{ $t('config.message_1') }}</p>
-          <button class="white" v-touch="resetTotalHandler">
-            <span>{{ $t('config.btn_5') }}</span>
-          </button>
-        </div>
+        <h4>{{ $t('config.title_2') }}</h4>
+        <FormsLanguages></FormsLanguages>
       </article>
       <article class="wrapper-tabs-form">
         <ul class="inline custom-tabs">
           <li
+            v-touch="() => setTab('create')"
             :class="[
               'center',
               { active: tab === 'create', disabled: userSocket },
             ]"
-            v-touch="() => setTab('create')"
           >
             <h4>{{ $t('config.tab_1') }}</h4>
           </li>
           <li
+            v-touch="() => setTab('join')"
             :class="[
               'center',
               { active: tab === 'join', disabled: userSocket },
             ]"
-            v-touch="() => setTab('join')"
           >
             <h4>{{ $t('config.tab_2') }}</h4>
           </li>
@@ -98,20 +93,28 @@
         <h4>{{ $t('config.title_5') }}</h4>
         <FormsBugsFeatures></FormsBugsFeatures>
       </article>
+      <article>
+        <h4>{{ $t('config.title_4') }}</h4>
+        <div class="flex-between">
+          <p>{{ $t('config.message_1') }}</p>
+          <button v-touch="resetTotalHandler" class="white">
+            <span>{{ $t('config.btn_5') }}</span>
+          </button>
+        </div>
+      </article>
     </div>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
 import ClipboardMixin from '~/mixins/clipboard'
 import { toDateTime, formatDate } from '~/utils'
 
 export default {
-  mixins: [WsMixin, ScrollMixin, AnalyticsMixin, ClipboardMixin],
+  mixins: [ScrollMixin, AnalyticsMixin, ClipboardMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {
@@ -150,20 +153,15 @@ export default {
       this.tab = tab
     },
     leaveHandler($event, logout = false) {
-      this.$store.commit(`game/resetStats`)
-      this.$store.dispatch('ws/leftRoomSocket').then(() => {
-        if (logout) {
-          this.$store.dispatch('firebase/logout').then(() => {
-            this.$router.push('/')
-          })
-        }
-      })
+      this.$store.dispatch('ws/leftRoomSocket')
+      if (logout) {
+        this.$store.dispatch('firebase/logout').then(() => {
+          this.$router.push('/')
+        })
+      }
     },
     leaveAppHandler() {
       this.leaveHandler(null, true)
-      /* this.$store.dispatch('firebase/logout').then(() => {
-        this.$router.push('/')
-      }) */
     },
     resetTotalHandler() {
       this.$store.commit(`game/toggleModal`, 'alert')

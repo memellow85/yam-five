@@ -42,10 +42,12 @@ export default {
 
 <style lang="scss" scoped>
 section {
-  // @include padding(1.4rem 0 0.7rem);
   ul {
     @include padding(null 0.7rem);
-    background: $color-2;
+    @include themed() {
+      background: t($key-color-2);
+    }
+    // background: $color-2;
     border-radius: $rounded-small;
     li {
       @include padding(0.3rem 0.7rem);

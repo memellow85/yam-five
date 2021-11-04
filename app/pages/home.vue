@@ -19,20 +19,66 @@
               </button>
             </div>
           </template>
-          <template
-            v-if="
-              !startGame && userSocket && Object.keys(userSocket).length > 0
-            "
-          >
-            <p v-if="userSocket.turnOn">
-              {{ $t('home.message_2_a') }} <strong>{{ userSocket.room }}</strong
-              >. <br />{{ $t('home.message_2_b') }}
-            </p>
-            <p v-else>{{ $t('home.message_2_c') }}</p>
-            <button v-if="userSocket.turnOn" v-touch="startAgame">
-              {{ $t('home.btn_2') }}
-            </button>
+          <template v-if="fastGame">
+            <template
+              v-if="
+                !newGame &&
+                !activeGame &&
+                startGame &&
+                userSocket &&
+                Object.keys(userSocket).length > 0 &&
+                userSocket.turnOn
+              "
+            >
+              <p>{{ $t('home.message_5') }}</p>
+            </template>
           </template>
+          <template v-if="!fastGame">
+            <template
+              v-if="
+                !startGame && userSocket && Object.keys(userSocket).length > 0
+              "
+            >
+              <p v-if="userSocket.turnOn">
+                {{ $t('home.message_2_a') }}
+                <strong>{{ userSocket.room }}</strong
+                >. <br />{{ $t('home.message_2_b') }}
+              </p>
+              <p v-else>{{ $t('home.message_2_c') }}</p>
+              <button v-if="userSocket.turnOn" v-touch="startAgame">
+                {{ $t('home.btn_2') }}
+              </button>
+            </template>
+            <template
+              v-if="
+                !newGame &&
+                !activeGame &&
+                startGame &&
+                userSocket &&
+                Object.keys(userSocket).length > 0 &&
+                userSocket.turnOn
+              "
+            >
+              <p>{{ $t('home.message_5') }}</p>
+            </template>
+            <template
+              v-if="
+                !newGame &&
+                !activeGame &&
+                startGame &&
+                userSocket &&
+                Object.keys(userSocket).length > 0 &&
+                !userSocket.turnOn
+              "
+            >
+              <p>{{ $t('home.message_7') }}</p>
+            </template>
+          </template>
+          <template v-if="newGame && !fastGame">
+            <p>{{ $t('home.message_6') }}</p>
+            <button v-touch="startNewGame">{{ $t('home.btn_3') }}</button>
+          </template>
+
           <div
             v-show="
               !newGame &&
@@ -55,34 +101,6 @@
               {{ $t('home.message_3_b') }} <strong>{{ dices.tot }}</strong>
             </p>
           </div>
-          <template
-            v-if="
-              !newGame &&
-              !activeGame &&
-              startGame &&
-              userSocket &&
-              Object.keys(userSocket).length > 0 &&
-              userSocket.turnOn
-            "
-          >
-            <p>{{ $t('home.message_5') }}</p>
-          </template>
-          <template
-            v-if="
-              !newGame &&
-              !activeGame &&
-              startGame &&
-              userSocket &&
-              Object.keys(userSocket).length > 0 &&
-              !userSocket.turnOn
-            "
-          >
-            <p>{{ $t('home.message_7') }}</p>
-          </template>
-          <template v-if="newGame">
-            <p>{{ $t('home.message_6') }}</p>
-            <button v-touch="startNewGame">{{ $t('home.btn_3') }}</button>
-          </template>
         </div>
 
         <div class="wrapper-games">
@@ -181,14 +199,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import NoSleep from 'nosleep.js'
-import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
 import { bigMenuIphone, isIphone } from '~/utils'
 
 export default {
-  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
+  mixins: [ScrollMixin, AnalyticsMixin],
   beforeRouteLeave(to, from, next) {
     this.$store.commit(`game/setNavigationRoute`, true)
     this.$store.commit(`game/setDisabledButtonGame`, true)
@@ -205,8 +221,6 @@ export default {
     return {
       bigMenuIphone,
       isIphone,
-      noSleep: new NoSleep(),
-      moveTop: null,
     }
   },
   computed: {
@@ -223,6 +237,7 @@ export default {
       showChampionsShip: (state) => state.showChampionsShip,
       showConfig: (state) => state.showConfig,
       numberTotalGames: (state) => state.numberTotalGames,
+      fastGame: (state) => state.fastGame,
     }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
@@ -231,12 +246,11 @@ export default {
   },
   watch: {
     userTurnSocket() {
-      this.$store.commit('game/resetModal')
-      if (!this.userSocket.turnOn) {
+      if (this.userSocket && !this.userSocket.turnOn) {
         this.$store.commit('game/toggleNotification', {
           type: 'warning',
           message: `${this.$t('home.notification_1')} ${
-            this.userTurnSocket.user.name
+            this.userTurnSocket.name
           }`,
         })
       } else {
@@ -244,30 +258,17 @@ export default {
       }
     },
   },
-  mounted() {
-    // this.$store.commit(`game/setDisabledButtonGame`, false)
-    this.noSleep.enable()
-  },
   methods: {
     joinAmatch() {
       this.$router.push({ name: 'game-config' })
     },
     startAgame() {
       this.animateBtn()
-      this.$store.dispatch('game/startGame')
+      this.$store.dispatch('ws/startGameSocket')
     },
     startNewGame() {
       this.animateBtn()
-      this.$store.dispatch('game/reinitGame')
-    },
-    createSingleFastMatch() {
-      this.$store.dispatch(`game/fastGame`)
-    },
-    animateBtn() {
-      this.$store.commit(`game/setAnimateBtn`, true)
-      setTimeout(() => {
-        this.$store.commit(`game/setAnimateBtn`, false)
-      }, 1500)
+      this.$store.dispatch('ws/updateGameSocket')
     },
     createSingleFastMatch() {
       this.$store.dispatch(`game/fastGame`)

@@ -12,21 +12,22 @@
 
 <script>
 import firebase from '~/server/api/firebase'
+import ThemeMixin from '~/mixins/theme'
 import { isProd } from '~/utils'
 
 export default {
+  mixins: [ThemeMixin],
   head() {
     return {
       bodyAttrs: {
-        class: 'public',
+        class: `public ${this.bodyClass}`,
       },
     }
   },
-  mounted() {
+  beforeMount() {
     if (isProd()) {
-      firebase.analytics()
-      const perf = firebase.performance()
-      this.$store.commit(`setPerformance`, perf)
+      const analytics = firebase.getAnalytics()
+      this.$store.commit(`setAnalytics`, analytics)
     }
   },
 }

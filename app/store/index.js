@@ -1,9 +1,13 @@
+import cloneDeep from 'lodash/cloneDeep'
+import firebase from '~/server/api/firebase'
+
 export const state = () => ({
-  performance: null,
+  performance: cloneDeep(firebase.getPerformance(firebase.app)),
+  analytics: null,
 })
 
 export const mutations = {
-  setPerformance(state, value) {
-    state.performance = value
+  setAnalytics(state, value) {
+    state.analytics = value
   },
 }

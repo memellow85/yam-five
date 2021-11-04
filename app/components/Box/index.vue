@@ -56,8 +56,11 @@ article {
   @include position(relative, null);
   @include size(14rem, 10rem);
   @include padding(0.7rem);
+  @include themed() {
+    background: t($key-color-2);
+  }
   border-radius: $rounded-small;
-  background: $color-2;
+  // background: $color-2;
   overflow: hidden;
   &.single {
     .effect-border {
@@ -105,8 +108,11 @@ article {
   .overlay {
     @include position(absolute, null null 0 0);
     @include size(100%, 60%);
+    @include themed() {
+      background: t($key-color-0);
+    }
     border-radius: $rounded-small;
-    background: $white;
+    // background: $white;
     transition: all 0.3s;
     opacity: 1;
     border-width: 0.3rem;

@@ -68,6 +68,7 @@
     "title_6": "Benvenuto",
     "title_7": "Effetti sonori",
     "title_8": "Condividi",
+    "title_9": "Cambia il tema",
     "btn_1": "Unisciti",
     "btn_2": "Abbandona",
     "btn_3": "Esci",
@@ -263,5 +264,9 @@
     "alert_message_success": "Link copiato",
     "alert_message_error": "Errore nel copiare il link",
     "copy_message": "https://yamfive-app.herokuapp.com/"
+  },
+  "themes": {
+    "default": "Chiaro",
+    "dark": "Scuro"
   }
 }

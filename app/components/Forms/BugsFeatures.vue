@@ -36,10 +36,10 @@
       />
     </FormsInput>
     <div class="container-btn flex-between">
-      <a href="javascript: void(0)" v-touch="issueHandler">
+      <a v-touch="issueHandler" href="javascript: void(0)">
         {{ $t('release.link_1') }}
       </a>
-      <button :disabled="message === ''" v-touch="submitHandler">
+      <button v-touch="submitHandler" :disabled="message === ''">
         {{ $t('release.btn_1') }}
       </button>
     </div>
@@ -101,7 +101,6 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper-form-bug-feature {
-  @include margin(null null 1rem);
   > div {
     &:first-child {
       @include margin(null null 1rem);

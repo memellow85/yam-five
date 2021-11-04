@@ -5,6 +5,7 @@
   @extend %flexCenter;
   &:disabled {
     background: $color-4;
+    border-color: $color-4;
   }
   &.full {
     @include size(100%, 2.6rem);
@@ -15,9 +16,15 @@
   }
   &.red {
     background: $error;
+    border-color: $error;
   }
   &.grey {
-    background: $color-8;
+    @include themed() {
+      background: t($key-color-nav);
+      border-color: t($key-color-nav);
+    }
+    // background: $color-8;
+    // border-color: $color-8;
   }
   &.white {
     box-sizing: border-box;

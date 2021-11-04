@@ -92,12 +92,11 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import WsMixin from '~/mixins/ws'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
 
 export default {
-  mixins: [WsMixin, ScrollMixin, AnalyticsMixin],
+  mixins: [ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
   data() {
@@ -148,7 +147,11 @@ export default {
   ul {
     li {
       &.header {
+        @include margin(null null 0.5rem);
         border-bottom: $border-base-tab;
+        @include themed() {
+          border-color: t($key-color-2);
+        }
         p {
           @include size(auto, 2.5rem);
         }

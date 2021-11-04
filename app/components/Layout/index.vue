@@ -25,7 +25,6 @@ export default {
   data() {
     return {
       timeReset: null,
-      visible: true,
       deferredPrompt: null,
     }
   },
@@ -35,6 +34,15 @@ export default {
         {
           rel: 'canonical',
           href: `${process.env.NUXT_ENV_PROD}${this.$route.path}`,
+        },
+      ],
+      meta: [
+        {
+          name: 'theme-color',
+          content:
+            localStorage.getItem('yamfive_theme') === 'default'
+              ? '#fff'
+              : '#343A40',
         },
       ],
     }
@@ -109,22 +117,20 @@ export default {
       await this.deferredPrompt.userChoice
       this.deferredPrompt = null
     },
-    visibilityChange() {
+    visibilityChange(evt, hidden) {
       if (this.userFirebase) {
-        if (!this.visible) {
+        if (!hidden) {
           clearTimeout(this.timeReset)
           this.timeReset = null
         } else {
           this.timeReset = setTimeout(() => {
-            this.$store.dispatch('ws/leftRoomSocket').then(() => {
-              this.$store.dispatch('firebase/logout').then(() => {
-                this.$router.push('/')
-              })
+            this.$store.dispatch('ws/leftRoomSocket')
+            this.$store.dispatch('firebase/logout').then(() => {
+              this.$router.push('/')
             })
           }, 300000)
         }
       }
-      this.visible = !this.visible
     },
     orientationHandler(ev) {
       if (ev === 90) {

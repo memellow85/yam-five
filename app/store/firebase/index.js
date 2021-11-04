@@ -65,7 +65,7 @@ export const mutations = {
  * Actions
  */
 export const actions = {
-  logout({ commit }) {
+  logout({ commit, dispatch }) {
     logger('ACTION-FIREBASE logout', null, 'i')
     return new Promise((resolve, reject) => {
       this.$axios
@@ -75,7 +75,11 @@ export const actions = {
           resolve()
         })
         .catch((error) => {
-          reject(error.response.data.message)
+          dispatch('logErrors', {
+            message: 'ACTION-FIREBASE logout: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error.response.data)
         })
     })
   },
@@ -87,25 +91,27 @@ export const actions = {
         .post('/yam-five/login', data)
         .then((resp) => {
           trace(false, null, null, log)
-          const user = resp.data.user
-          commit('setUserFirebase', user)
-          dispatch('getDetailsUser', user.uid)
-            .then((r) => {
-              commit('setUserDetailsFirebase', r)
-              dispatch('getChampions')
+          // const user = resp.data.user
+          commit('setUserFirebase', resp.data.user)
+          dispatch('dataFirebaseInit', resp.data.user.uid)
+            .then(() => {
               resolve()
             })
             .catch((error) => {
-              reject(error.response.data.message)
+              reject(error.response.data)
             })
         })
         .catch((error) => {
           trace(false, null, null, log)
-          reject(error.response.data.message)
+          dispatch('logErrors', {
+            message: 'ACTION-FIREBASE login: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error.response.data)
         })
     })
   },
-  recovery({ commit, rootState }, data) {
+  recovery({ commit, dispatch, rootState }, data) {
     logger('ACTION-FIREBASE recovery', data, 'i')
     const log = trace(true, rootState.performance, 'RECOVERY', null)
     return new Promise((resolve, reject) => {
@@ -117,33 +123,51 @@ export const actions = {
         })
         .catch((error) => {
           trace(false, null, null, log)
-          reject(error.response.data.message)
+          dispatch('logErrors', {
+            message: 'ACTION-FIREBASE recovery: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error.response.data)
         })
     })
   },
-  getDetailsUser({ commit, rootState }, uid) {
-    logger('ACTION-FIREBASE getDetailsUser', uid, 'i')
+  getDetailsUser({ commit, dispatch, rootState }, data) {
+    logger('ACTION-FIREBASE getDetailsUser', data, 'i')
     const log = trace(true, rootState.performance, 'GETDETAILSUSER', null)
     return new Promise((resolve, reject) => {
       this.$axios
-        .get(`/yam-five/user/${uid}`)
+        .get(`/yam-five/user/${data.value}/?check=${data.check}`)
         .then((resp) => {
           trace(false, null, null, log)
+          commit('setUserDetailsFirebase', resp.data)
           resolve(resp.data)
         })
         .catch((error) => {
           trace(false, null, null, log)
-          reject(error.response.data.message)
+          dispatch('logErrors', {
+            message: 'ACTION-FIREBASE getDetailsUser: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error.response.data)
         })
     })
   },
-  getChampions({ commit, rootState }) {
+  getChampions({ commit, dispatch, rootState }) {
     logger('ACTION-FIREBASE getChampions', null, 'i')
     const log = trace(true, rootState.performance, 'GETCHAMPIONS', null)
-    this.$axios.get('/yam-five/user').then((resp) => {
-      commit('setChampions', resp.data)
-      trace(false, null, null, log)
-    })
+    this.$axios
+      .get('/yam-five/user')
+      .then((resp) => {
+        trace(false, null, null, log)
+        commit('setChampions', resp.data)
+      })
+      .catch((error) => {
+        trace(false, null, null, log)
+        dispatch('logErrors', {
+          message: 'ACTION-FIREBASE getChampions: ' + JSON.stringify(error),
+          type: 'firebase_store',
+        })
+      })
   },
   registration({ dispatch, rootState }, data) {
     logger('ACTION-FIREBASE registration', data, 'i')
@@ -157,7 +181,11 @@ export const actions = {
         })
         .catch((error) => {
           trace(false, null, null, log)
-          reject(error.response.data.message)
+          dispatch('logErrors', {
+            message: 'ACTION-FIREBASE registration: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error.response.data)
         })
     })
   },
@@ -166,67 +194,78 @@ export const actions = {
     const log = trace(true, rootState.performance, 'UPDATERECORDUSER', null)
     return new Promise((resolve, reject) => {
       this.$axios
-        .put(`/yam-five/user/${data.details.user.uid}`, data)
+        .put(`/yam-five/user/${data.details.user.id_doc}`, data)
         .then(() => {
           trace(false, null, null, log)
-          dispatch('getChampions')
-          dispatch('getDetailsUser', state.userDetailsFirebase.uid)
-            .then((r) => {
-              commit('setUserDetailsFirebase', r)
+          dispatch('dataFirebaseInit')
+            .then(() => {
+              resolve()
             })
             .catch((error) => {
-              reject(error.response.data.message)
+              reject(error.response.data)
             })
-          resolve()
         })
         .catch((error) => {
           trace(false, null, null, log)
-          reject(error.response.data.message)
+          dispatch('logErrors', {
+            message:
+              'ACTION-FIREBASE updateRecordUser: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error.response.data)
         })
     })
   },
-  resetRecordUser({ dispatch, commit, state, rootState }) {
+  resetRecordUser({ dispatch, state, rootState }) {
     logger('ACTION-FIREBASE resetRecordUser', null, 'i')
     const log = trace(true, rootState.performance, 'RESETRECORDUSER', null)
     return new Promise((resolve, reject) => {
       this.$axios
-        .put(`/yam-five/reset-record/${state.userDetailsFirebase.uid}`, {})
+        .put(`/yam-five/reset-record/${state.userDetailsFirebase.id_doc}`, {})
         .then(() => {
           trace(false, null, null, log)
-          dispatch('getChampions')
-          dispatch('getDetailsUser', state.userDetailsFirebase.uid)
-            .then((r) => {
-              commit('setUserDetailsFirebase', r)
+          dispatch('dataFirebaseInit')
+            .then(() => {
+              resolve()
             })
             .catch((error) => {
-              reject(error.response.data.message)
+              reject(error.response.data)
             })
-          resolve()
         })
         .catch((error) => {
           trace(false, null, null, log)
-          reject(error.response.data.message)
+          dispatch('logErrors', {
+            message:
+              'ACTION-FIREBASE resetRecordUser: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error.response.data)
         })
     })
   },
-  reportAIssueList({ commit, rootState }) {
+  reportAIssueList({ commit, dispatch, rootState }) {
     logger('ACTION-FIREBASE reportAIssueList', null, 'i')
     const log = trace(true, rootState.performance, 'REPORTISSUELIST', null)
     return new Promise((resolve, reject) => {
       this.$axios
         .get(`/yam-five/report-issue`)
         .then((resp) => {
+          trace(false, null, null, log)
           commit('setReportIssueList', resp.data)
           resolve()
-          trace(false, null, null, log)
         })
         .catch((error) => {
           trace(false, null, null, log)
-          reject(error.response.data.message)
+          dispatch('logErrors', {
+            message:
+              'ACTION-FIREBASE reportAIssueList: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error.response.data)
         })
     })
   },
-  reportAIssue({ state, rootState }, data) {
+  reportAIssue({ state, dispatch, rootState }, data) {
     logger('ACTION-FIREBASE reportAIssue', data, 'i')
     const log = trace(true, rootState.performance, 'REPORTISSUE', null)
     return new Promise((resolve, reject) => {
@@ -238,7 +277,46 @@ export const actions = {
         })
         .catch((error) => {
           trace(false, null, null, log)
-          reject(error.response.data.message)
+          dispatch('logErrors', {
+            message: 'ACTION-FIREBASE reportAIssue: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error.response.data)
+        })
+    })
+  },
+  logErrors({ rootState }, data) {
+    logger('ACTION-FIREBASE logErrors', data, 'i')
+    const log = trace(true, rootState.performance, 'ERRORS', null)
+    this.$axios
+      .post(`/yam-five/errors`, data)
+      .then(() => {
+        trace(false, null, null, log)
+      })
+      .catch(() => {
+        trace(false, null, null, log)
+      })
+  },
+  dataFirebaseInit({ commit, dispatch, state, rootState }, id) {
+    logger('ACTION-FIREBASE dataFirebaseInit', id, 'i')
+    const log = trace(true, rootState.performance, 'UPDATEALL', null)
+    return new Promise((resolve, reject) => {
+      const value = id || state.userDetailsFirebase.id_doc
+      const check = !!id
+      dispatch('getDetailsUser', { value, check })
+        .then(() => {
+          trace(false, null, null, log)
+          dispatch('getChampions')
+          resolve()
+        })
+        .catch((error) => {
+          trace(false, null, null, log)
+          dispatch('logErrors', {
+            message:
+              'ACTION-FIREBASE dataFirebaseInit: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error.response.data)
         })
     })
   },
