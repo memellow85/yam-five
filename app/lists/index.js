@@ -144,3 +144,50 @@ export const playedListCabled = [
     view: ['all'],
   },
 ]
+
+export const modelUser = {
+  id_doc: '',
+  match: 0,
+  score: 0,
+  score_record_chart_1: '',
+  score_record_chart_2: '',
+  score_short: 0,
+  score_short_record_chart_1: '',
+  score_short_record_chart_2: '',
+  score_veryshort: 0,
+  score_veryshort_record_chart_1: '',
+  score_veryshort_record_chart_2: '',
+}
+
+export const modelResetUser = {
+  score: 0,
+  score_record_chart_1: '',
+  score_record_chart_2: '',
+  score_short: 0,
+  score_short_record_chart_1: '',
+  score_short_record_chart_2: '',
+  score_veryshort: 0,
+  score_veryshort_record_chart_1: '',
+  score_veryshort_record_chart_2: '',
+  campaign_score: 0,
+  campaign_score_record_chart_1: '',
+  campaign_score_record_chart_2: '',
+  campaign_score_short: 0,
+  campaign_score_short_record_chart_1: '',
+  campaign_score_short_record_chart_2: '',
+  campaign_score_veryshort: 0,
+  campaign_score_veryshort_record_chart_1: '',
+  campaign_score_veryshort_record_chart_2: '',
+}
+
+export const modelResetCampaign = {
+  campaign_score: 0,
+  campaign_score_record_chart_1: '',
+  campaign_score_record_chart_2: '',
+  campaign_score_short: 0,
+  campaign_score_short_record_chart_1: '',
+  campaign_score_short_record_chart_2: '',
+  campaign_score_veryshort: 0,
+  campaign_score_veryshort_record_chart_1: '',
+  campaign_score_veryshort_record_chart_2: '',
+}

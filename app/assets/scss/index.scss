@@ -111,6 +111,13 @@ ul {
   text-align: center;
 }
 
+.circle {
+  @include size(0.5rem);
+  @include margin(null null null 0.5rem);
+  border-radius: 50%;
+  background: $primary;
+}
+
 .wrapper-page {
   @include size(100%, calc(100vh - 3.5rem));
   overflow: hidden;

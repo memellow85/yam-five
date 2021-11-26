@@ -11,6 +11,16 @@
             <h4>{{ $t('champions.title_1') }}</h4>
           </li>
           <li
+            v-if="campaignActive"
+            v-touch="() => setTab('campaign', false)"
+            :class="['center info', { active: tab === 'campaign' }]"
+          >
+            <h4>{{ $t('champions.title_3') }}</h4>
+            <p class="small">
+              {{ $t('champions.sub_title_3') + endOfCampaign }}
+            </p>
+          </li>
+          <li
             v-touch="() => setTab('older', false)"
             :class="['center', { active: tab === 'older' }]"
           >
@@ -18,22 +28,39 @@
           </li>
         </ul>
         <div class="wrapper-championship body-scroll-lock-ignore-inner">
-          <ul v-if="tab === 'older'" class="inline custom-tabs">
+          <ul v-if="tab !== 'current'" class="inline custom-tabs">
             <li
-              v-touch="() => setTab('score_veryshort', true)"
-              :class="['center', { active: subTab === 'score_veryshort' }]"
+              v-touch="() => setTab(getSubTab(tab, 'score_veryshort'), true)"
+              :class="[
+                'center',
+                {
+                  active:
+                    subTab === 'score_veryshort' ||
+                    subTab === 'campaign_score_veryshort',
+                },
+              ]"
             >
               <h4>{{ $t('champions.tab_3') }}</h4>
             </li>
             <li
-              v-touch="() => setTab('score_short', true)"
-              :class="['center', { active: subTab === 'score_short' }]"
+              v-touch="() => setTab(getSubTab(tab, 'score_short'), true)"
+              :class="[
+                'center',
+                {
+                  active:
+                    subTab === 'score_short' ||
+                    subTab === 'campaign_score_short',
+                },
+              ]"
             >
               <h4>{{ $t('champions.tab_2') }}</h4>
             </li>
             <li
-              v-touch="() => setTab('score', true)"
-              :class="['center', { active: subTab === 'score' }]"
+              v-touch="() => setTab(getSubTab(tab, 'score'), true)"
+              :class="[
+                'center',
+                { active: subTab === 'score' || subTab === 'campaign_score' },
+              ]"
             >
               <h4>{{ $t('champions.tab_1') }}</h4>
             </li>
@@ -55,7 +82,6 @@
               :class="[
                 'flex',
                 {
-                  hide: hideList.includes(u.uid) && tab !== 'current',
                   io:
                     u.uid === userFirebase.uid ||
                     (u.user && u.user.uid === userFirebase.uid),
@@ -65,6 +91,7 @@
               <div class="col_1">
                 <p>
                   {{ index + 1 }}) {{ viewRanking > 1 ? u.name : u.user.name }}
+                  <span v-if="u.turnOn" class="circle"></span>
                 </p>
               </div>
               <div class="col_2">
@@ -92,6 +119,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import { format } from 'timeago.js'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
 
@@ -103,7 +131,6 @@ export default {
     return {
       tab: 'current',
       subTab: 'score_veryshort',
-      hideList: [process.env.NUXT_ENV_USER_HIDE],
     }
   },
   computed: {
@@ -113,7 +140,16 @@ export default {
     ...mapState('ws', {
       usersOrderedSocket: (state) => state.usersOrderedSocket,
     }),
+    ...mapState('game', {
+      currentCampaign: (state) => state.currentCampaign,
+      campaignActive: (state) => state.campaignActive,
+    }),
     ...mapGetters('firebase', ['getTypeChampions']),
+    endOfCampaign() {
+      return this.currentCampaign
+        ? format(new Date(this.currentCampaign.end).valueOf())
+        : '-'
+    },
     viewRanking() {
       if (this.tab === 'current') {
         if (this.usersOrderedSocket.length > 0) {
@@ -129,9 +165,19 @@ export default {
     },
   },
   methods: {
+    getSubTab(tab, subtab) {
+      return tab === 'campaign' ? `${tab}_${subtab}` : subtab
+    },
     setTab(tab, subtab) {
       if (!subtab) {
         this.tab = tab
+        if (tab === 'campaign') {
+          if (!this.subTab.includes('campaign_')) {
+            this.subTab = `campaign_${this.subTab}`
+          }
+        } else if (this.subTab.includes('campaign_')) {
+          this.subTab = this.subTab.replace('campaign_', '')
+        }
       } else {
         this.subTab = tab
       }
@@ -141,6 +187,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ul {
+  li {
+    &.info {
+      h4 {
+        @include margin(1rem null 0.1rem);
+      }
+      p {
+        @include margin(null null 0.2rem);
+      }
+    }
+  }
+}
 .wrapper-championship {
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;

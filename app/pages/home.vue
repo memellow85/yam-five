@@ -13,10 +13,18 @@
           <template v-if="!startGame && userSocket === null">
             <p>{{ $t('home.message_1') }}</p>
             <div class="container-button-match flex-center">
-              <button v-touch="joinAmatch">{{ $t('home.btn_1') }}</button>
               <button v-touch="createSingleFastMatch">
                 {{ $t('home.btn_4') }}
               </button>
+            </div>
+            <p>{{ $t('home.message_2') }}</p>
+            <div class="container-button-match flex-center">
+              <a
+                v-touch="joinAmatch"
+                class="custom-link"
+                href="javascript: void(0)"
+                >{{ $t('home.btn_1') }}</a
+              >
             </div>
           </template>
           <template v-if="fastGame">
@@ -44,7 +52,14 @@
                 <strong>{{ userSocket.room }}</strong
                 >. <br />{{ $t('home.message_2_b') }}
               </p>
-              <p v-else>{{ $t('home.message_2_c') }}</p>
+              <div v-else class="wrapper-wait">
+                <p>{{ $t('home.message_2_c') }}</p>
+                <div class="wrapper-wait-icon">
+                  <span
+                    :class="`yamicons mdi mdi-dice-${getRandomNumberCube()}-outline`"
+                  ></span>
+                </div>
+              </div>
               <button v-if="userSocket.turnOn" v-touch="startAgame">
                 {{ $t('home.btn_2') }}
               </button>
@@ -201,7 +216,7 @@
 import { mapState } from 'vuex'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
-import { bigMenuIphone, isIphone } from '~/utils'
+import { bigMenuIphone, isIphone, getRandomNumberCube } from '~/utils'
 
 export default {
   mixins: [ScrollMixin, AnalyticsMixin],
@@ -221,6 +236,7 @@ export default {
     return {
       bigMenuIphone,
       isIphone,
+      getRandomNumberCube,
     }
   },
   computed: {
@@ -284,12 +300,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
 .container-app {
   .wrapper-main {
-    @include size(100%, calc(100vh - 7.5rem));
+    @include size(100%, calc(100vh - 8.5rem));
     flex-direction: column;
     &.big {
-      @include size(100%, calc(100vh - 8.5rem));
+      @include size(100%, calc(100vh - 9.5rem));
     }
   }
   button {
@@ -308,8 +331,9 @@ export default {
       flex-wrap: wrap;
     }
     .container-button-match {
+      @include margin(0.7rem null);
       button {
-        @include margin(null 0.3rem);
+        @include margin(0 null);
       }
     }
   }
@@ -325,6 +349,13 @@ export default {
         &:last-child {
           @include margin(null 0 null null);
         }
+      }
+    }
+  }
+  .wrapper-wait {
+    .wrapper-wait-icon {
+      span {
+        animation: spin 4s linear infinite;
       }
     }
   }

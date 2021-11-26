@@ -1,7 +1,7 @@
 .container-app-offline {
   @extend %flex;
   @extend %flexCenter;
-  @include size(auto, calc(100vh - 6.5rem));
+  @include size(auto, calc(100vh - 7.5rem));
   overflow: hidden;
   .offline {
     @include size(calc(100% - 3rem), fit-content);
@@ -11,17 +11,14 @@
     @include themed() {
       box-shadow: 0 0.7rem 1rem -0.2rem t($key-color-2), 0 0.25rem 0.4rem -0.13rem $color-8;
     }
-    // box-shadow: 0 0.7rem 1rem -0.2rem $color-3, 0 0.25rem 0.4rem -0.13rem $color-8;
     .inner-offline {
       @include padding(2rem 1rem);
       @include themed() {
         background: t($key-color-0);
         box-shadow: 0 0.7rem 1rem -0.2rem $color-8, 0 0.25rem 0.4rem -0.13rem t($key-color-1);
       }
-      // background: $white;
       border-radius: $rounded;
       transform: rotate(6deg);
-      // box-shadow: 0 0.7rem 1rem -0.2rem $color-8, 0 0.25rem 0.4rem -0.13rem $color-1;
       h2 {
         @extend %h2;
         @include margin(null null 1rem null)
@@ -33,6 +30,13 @@
       p {
         @include margin(1rem null null);
         text-align: center;
+      }
+    }
+    &.loading {
+      .inner-offline {
+        @extend %flex;
+        @extend %flexCenter;
+        height: 15rem;
       }
     }
   }

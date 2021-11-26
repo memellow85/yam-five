@@ -311,3 +311,10 @@ export const bigMenuIphone = () => {
 export const isIphone = () => {
   return !!navigator.userAgent.match(/iPhone/i)
 }
+
+export const isNowBetweenDate = (start, end) => {
+  const s = new Date(start).valueOf()
+  const e = new Date(end).valueOf()
+  const today = new Date().valueOf()
+  return today >= s && today <= e
+}

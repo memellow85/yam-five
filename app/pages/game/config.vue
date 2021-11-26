@@ -25,6 +25,13 @@
             {{ userDetailsFirebase ? userDetailsFirebase.match : '-' }}
           </p>
         </div>
+        <div v-if="campaignActive">
+          <h4>{{ $t('config.message_6') }}</h4>
+          <div class="flex-between">
+            <p>{{ currentCampaign.name }}</p>
+            <p>{{ currentCampaign.end }}</p>
+          </div>
+        </div>
       </article>
       <article>
         <h4>{{ $t('config.title_7') }}</h4>
@@ -129,6 +136,10 @@ export default {
     }),
     ...mapState('firebase', {
       userDetailsFirebase: (state) => state.userDetailsFirebase,
+    }),
+    ...mapState('game', {
+      campaignActive: (state) => state.campaignActive,
+      currentCampaign: (state) => state.currentCampaign,
     }),
     dateLastMatch() {
       if (this.userDetailsFirebase) {

@@ -53,6 +53,8 @@ export const state = () => ({
   animateBtnDice: false,
   fastGame: false,
   blockAnimate: false,
+  currentCampaign: null,
+  campaignActive: false,
 })
 
 /**
@@ -390,6 +392,11 @@ export const mutations = {
   setAnimateBtn(state, value) {
     logger('COMMIT-GAME setAnimateBtn', value, 'i')
     state.animateBtnDice = value
+  },
+  setCurrentCampaign(state, campaigns) {
+    logger('COMMIT-GAME setCurrentCampaign', campaigns, 'i')
+    state.campaignActive = campaigns.length === 1
+    state.currentCampaign = campaigns.length === 1 ? campaigns[0] : null
   },
 }
 
