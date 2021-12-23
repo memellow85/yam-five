@@ -14,10 +14,13 @@ const compare = (a, b) => {
 
 const sort = (data, type) => {
   const tmp = []
+  const campaignType =
+    type.split('_').length > 0 ? `campaigns_${type.split('_')[1]}` : 'campaigns'
   data.map((v) => {
     // TODO decommentare quando funziona la parte di campagne
     // if (v.uid !== process.env.NUXT_ENV_USER_HIDE) {
     v.tot = type ? (v[type] ? v[type] : 0) : 0
+    v.tot_campaigns = type ? (v[campaignType] ? v[campaignType] : 0) : 0
     tmp.push(v)
     // }
   })
@@ -105,7 +108,6 @@ export const actions = {
           trace(false, null, null, log)
           // const user = resp.data.user
           commit('setUserFirebase', resp.data.user)
-          console.log(rootState.activeRemoveConfig)
           dispatch('dataFirebaseInit', resp.data.user.uid)
             .then((r) => {
               dispatch('getCampaigns', r)
@@ -339,12 +341,11 @@ export const actions = {
             rootState.activeRemoveConfig.campaigns._value
           ).items */
           const cmps = data.items
-          const activeCampaigns = cmps.filter((c) =>
-            isNowBetweenDate(c.start, c.end)
-          )
+          const activeCampaigns = cmps.filter((c) => {
+            return isNowBetweenDate(c.start, c.end)
+          })
           // TODO il ragionamento non può funzionare perchè si vedrebbe la classifica della campagna mai aggiornata correttamente
           // TODO bisogna resettare tutti gli utenti al primo accesso di uno user
-          console.log(resp.data, activeCampaigns, user)
           commit('game/setCurrentCampaign', activeCampaigns, { root: true })
           if (activeCampaigns.length > 0) {
             // Active campaign
@@ -405,7 +406,6 @@ export const actions = {
     logger('ACTION-FIREBASE saveCampaign', data, 'i')
     const log = trace(true, rootState.performance, 'SAVECAMPAIGN', null)
     return new Promise((resolve, reject) => {
-      console.log(data)
       this.$axios
         .post(`${root}/campaign`, {
           id: data.id,
@@ -444,7 +444,6 @@ export const actions = {
         ? getters.getTypeChampions('campaign_score_veryshort')[0]
         : ''
     return new Promise((resolve, reject) => {
-      console.log(campaign, campaignShort, campaignVeryshort)
       this.$axios
         .put(`${root}/campaign/${data.id_doc}`, {
           active: false,
@@ -491,10 +490,8 @@ export const actions = {
     logger('ACTION-FIREBASE updateWinnerCampaign', data, 'i')
     const log = trace(true, rootState.performance, 'UPDATEUSERCAMPAIGN', null)
     return new Promise((resolve, reject) => {
-      console.log(state.userDetailsFirebase)
       const body = {}
       body[data.type] = state.userDetailsFirebase[data.type] + 1
-      console.log(body)
       this.$axios
         .put(`${root}/user/${data.id_doc}`, body)
         .then(() => {
@@ -519,7 +516,6 @@ export const actions = {
       const body = Object.assign({}, state.modelResetCampaign, {
         active_campaign: campaign,
       })
-      console.log(body)
       this.$axios
         .put(`${root}/reset-campaign`, body)
         .then(() => {

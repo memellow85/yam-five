@@ -194,10 +194,8 @@ router.route('/campaigns').get((req, res) => {
     collection(firebase.db, CAMPAIGN_DETAILS),
     where('active', '==', true)
   )
-  console.log('1', q)
   getDocs(q)
     .then((data) => {
-      console.log('2', data)
       const list = []
       data.forEach((d) => {
         list.push(d.data())
@@ -205,7 +203,6 @@ router.route('/campaigns').get((req, res) => {
       res.status(200).json(list)
     })
     .catch((error) => {
-      console.log('3', error)
       res.status(404).json(error)
     })
 })

@@ -86,7 +86,14 @@
                 !userSocket.turnOn
               "
             >
-              <p>{{ $t('home.message_7') }}</p>
+              <div class="wrapper-wait">
+                <p>{{ $t('home.message_7') }}</p>
+                <div class="wrapper-wait-icon">
+                  <span
+                    :class="`yamicons mdi mdi-dice-${getRandomNumberCube()}-outline`"
+                  ></span>
+                </div>
+              </div>
             </template>
           </template>
           <template v-if="newGame && !fastGame">
@@ -354,6 +361,7 @@ export default {
   }
   .wrapper-wait {
     .wrapper-wait-icon {
+      @include margin(0.7rem null null null);
       span {
         animation: spin 4s linear infinite;
       }

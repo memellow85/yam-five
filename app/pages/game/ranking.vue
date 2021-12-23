@@ -70,7 +70,10 @@
               <div class="col_1">
                 <p>{{ $t('champions.th_1') }}</p>
               </div>
-              <div class="col_2">
+              <div v-if="tab === 'older'" class="col_2">
+                <p>{{ $t('champions.th_7') }}</p>
+              </div>
+              <div :class="['col_3', { full: tab !== 'older' }]">
                 <p>{{ $t('champions.th_8') }}</p>
               </div>
             </li>
@@ -94,8 +97,27 @@
                   <span v-if="u.turnOn" class="circle"></span>
                 </p>
               </div>
-              <div class="col_2">
-                <p>{{ u.tot }}</p>
+              <div v-if="tab === 'older'" class="col_2">
+                <p v-if="u.tot_campaigns > 0">
+                  <span :class="`yamicons mdi mdi-medal-outline`"></span>
+                  ({{ u.tot_campaigns }})
+                </p>
+                <p v-else>-</p>
+              </div>
+              <div :class="['col_3', { full: tab !== 'older' }]">
+                <p>
+                  <span
+                    v-if="index <= 2"
+                    :class="`yamicons mdi mdi-${
+                      index === 0
+                        ? 'podium-gold'
+                        : index === 1
+                        ? 'podium-silver'
+                        : 'podium-bronze'
+                    }`"
+                  ></span>
+                  {{ u.tot }}
+                </p>
               </div>
             </li>
           </ul>
@@ -222,21 +244,48 @@ ul {
           color: $primary;
         }
       }
-      .col_1,
-      .col_2 {
+      .col_1 {
         @include size(50%, auto);
         display: flex;
         align-items: center;
       }
+      .col_2,
+      .col_3 {
+        @include size(25%, auto);
+        display: flex;
+        align-items: center;
+        &.full {
+          @include size(50%, auto);
+        }
+      }
       .col_1 {
         justify-content: flex-start;
       }
-      .col_2 {
+      .col_2,
+      .col_3 {
         justify-content: flex-end;
         p {
           justify-content: flex-end;
           &:last-child {
             @include size(3.5rem, auto);
+          }
+          span {
+            &.yamicons {
+              @include margin(null 0.5rem null null);
+              &:before {
+                color: $gold;
+              }
+              &.mdi-podium-silver {
+                &:before {
+                  color: $silver;
+                }
+              }
+              &.mdi-podium-bronze {
+                &:before {
+                  color: $bronze;
+                }
+              }
+            }
           }
         }
       }
