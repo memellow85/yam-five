@@ -140,9 +140,6 @@ io.on('connection', (socket) => {
     if (Rooms.checkFinishGame(user.room)) {
       const championshipList = Rooms.GETChampionShipRoom(user.room)
       io.to(user.room).emit('finishGameSocketEmit', championshipList)
-      /* championshipList.map((u) => {
-        io.to(u.socket).emit('finishGameSocketEmit', championshipList)
-      }) */
     }
   })
 
@@ -152,14 +149,7 @@ io.on('connection', (socket) => {
 
   socket.on('error', (err) => {
     io.emit('socketErrorEmit', err)
-    // leftRoom(socket.id, socket)
   })
-
-  /* socket.on('disconnect', () => {
-    console.log(Rooms.users, Rooms.rooms)
-    // io.emit('socketDisconnectEmit', null)
-    // leftRoom(socket.id, socket)
-  }) */
 })
 
 module.exports = {

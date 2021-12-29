@@ -83,7 +83,12 @@ const isPoker = (arrayUnique, arrayValue) => {
   )
 }
 
-export const getRandomNumberCube = () => Math.floor(Math.random() * 6) + 1
+// export const getRandomNumberCube = () => Math.floor(Math.random() * 6) + 1
+export const getRandomNumberCube = () => {
+  const array = new Uint32Array(1)
+  window.crypto.getRandomValues(array)
+  return (array[0] % 6) + 1
+}
 
 export const logger = (message, data, type) => {
   if (process.env.NUXT_ENV_APP_LOG === 'true') {
@@ -310,4 +315,11 @@ export const bigMenuIphone = () => {
 
 export const isIphone = () => {
   return !!navigator.userAgent.match(/iPhone/i)
+}
+
+export const isNowBetweenDate = (start, end) => {
+  const s = new Date(start.replaceAll('-', '/')).valueOf()
+  const e = new Date(end.replaceAll('-', '/')).valueOf()
+  const today = new Date().valueOf()
+  return today >= s && today <= e
 }

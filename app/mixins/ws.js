@@ -27,7 +27,7 @@ export default {
     startGameSocketEmit(data) {
       logger('SOCKETS startGameSocketEmit', data, 'i')
       this.$store.commit(`ws/updateUsersSocket`, data.users)
-      this.$store.commit('ws/setUserTurnSocket', data.user)
+      this.$store.commit('ws/setUserTurnSocket', data.user.user)
       this.$store.commit('game/startGame', true)
       this.$store.commit('game/initDices')
       this.$store.commit('game/resetStats')
@@ -108,6 +108,9 @@ export default {
         this.$store.commit(`ws/updateUsersSocket`, data.users)
         if (data.userTurn) {
           this.$store.commit('ws/setUserTurnSocket', data.userTurn)
+          if (data.userTurn.match === 0) {
+            this.$store.commit('game/newGame', data.userTurn.turnOn)
+          }
         }
         this.$store.commit(`game/toggleNotification`, {
           type: 'alert',
