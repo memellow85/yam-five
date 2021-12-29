@@ -108,6 +108,9 @@ export default {
         this.$store.commit(`ws/updateUsersSocket`, data.users)
         if (data.userTurn) {
           this.$store.commit('ws/setUserTurnSocket', data.userTurn)
+          if (data.userTurn.match === 0) {
+            this.$store.commit('game/newGame', data.userTurn.turnOn)
+          }
         }
         this.$store.commit(`game/toggleNotification`, {
           type: 'alert',

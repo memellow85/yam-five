@@ -130,15 +130,10 @@ class Rooms {
   GETNextTurnOnUser(room) {
     const usersSort = this.users
       .filter((u) => u.room === room)
-      .sort((a, b) => b.order - a.order)
-    let userTurn = usersSort[0]
+      .sort((a, b) => a.order - b.order)
     const checkTurn = usersSort.filter((v) => v.turnOn)
     if (checkTurn.length === 0) {
-      usersSort.map((v) => {
-        if (userTurn.match > v.match) {
-          userTurn = v
-        }
-      })
+      const userTurn = usersSort.sort((a, b) => b.match - a.match)[0]
       this.users = this.users.map((v) => {
         if (v.id === userTurn.id && v.room === room) {
           v.turnOn = true

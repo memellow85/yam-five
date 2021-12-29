@@ -94,7 +94,7 @@ export const actions = {
             message: 'ACTION-FIREBASE logout: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -115,11 +115,11 @@ export const actions = {
                   resolve()
                 })
                 .catch((error) => {
-                  reject(error.response.data)
+                  reject(error)
                 })
             })
             .catch((error) => {
-              reject(error.response.data)
+              reject(error)
             })
         })
         .catch((error) => {
@@ -128,7 +128,7 @@ export const actions = {
             message: 'ACTION-FIREBASE login: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -148,7 +148,7 @@ export const actions = {
             message: 'ACTION-FIREBASE recovery: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -169,26 +169,30 @@ export const actions = {
             message: 'ACTION-FIREBASE getDetailsUser: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
   getChampions({ commit, dispatch, rootState }) {
     logger('ACTION-FIREBASE getChampions', null, 'i')
     const log = trace(true, rootState.performance, 'GETCHAMPIONS', null)
-    this.$axios
-      .get(`${root}/user`)
-      .then((resp) => {
-        trace(false, null, null, log)
-        commit('setChampions', resp.data)
-      })
-      .catch((error) => {
-        trace(false, null, null, log)
-        dispatch('logErrors', {
-          message: 'ACTION-FIREBASE getChampions: ' + JSON.stringify(error),
-          type: 'firebase_store',
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .get(`${root}/user`)
+        .then((resp) => {
+          trace(false, null, null, log)
+          commit('setChampions', resp.data)
+          resolve()
         })
-      })
+        .catch((error) => {
+          trace(false, null, null, log)
+          dispatch('logErrors', {
+            message: 'ACTION-FIREBASE getChampions: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error)
+        })
+    })
   },
   registration({ dispatch, state, rootState }, data) {
     logger('ACTION-FIREBASE registration', data, 'i')
@@ -209,7 +213,7 @@ export const actions = {
             message: 'ACTION-FIREBASE registration: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -284,7 +288,7 @@ export const actions = {
               resolve()
             })
             .catch((error) => {
-              reject(error.response.data)
+              reject(error)
             })
         })
         .catch((error) => {
@@ -294,7 +298,7 @@ export const actions = {
               'ACTION-FIREBASE updateRecordUser: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -314,7 +318,7 @@ export const actions = {
               resolve()
             })
             .catch((error) => {
-              reject(error.response.data)
+              reject(error)
             })
         })
         .catch((error) => {
@@ -324,7 +328,7 @@ export const actions = {
               'ACTION-FIREBASE resetRecordUser: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -346,11 +350,13 @@ export const actions = {
           })
           // TODO il ragionamento non può funzionare perchè si vedrebbe la classifica della campagna mai aggiornata correttamente
           // TODO bisogna resettare tutti gli utenti al primo accesso di uno user
+          // TODO da aggiungere il fatto che quando non c'è nessuna campagna attiva bisogna resettare tutto
           commit('game/setCurrentCampaign', activeCampaigns, { root: true })
+
           if (activeCampaigns.length > 0) {
             // Active campaign
             if (user.active_campaign !== activeCampaigns[0].id) {
-              if (resp.data.length === 0 && activeCampaigns.length > 0) {
+              if (resp.data.length === 0) {
                 // Non esiste nessuna campagna quindi salvo e resetto
                 dispatch('saveCampaign', activeCampaigns[0]).then(() => {
                   dispatch('resetCampaign', activeCampaigns[0].id).then(() => {
@@ -358,7 +364,6 @@ export const actions = {
                   })
                 })
               } else if (
-                activeCampaigns.length > 0 &&
                 resp.data.length > 0 &&
                 resp.data[0].id !== activeCampaigns[0].id
               ) {
@@ -372,13 +377,6 @@ export const actions = {
                     )
                   })
                 })
-              } else if (resp.data.length > 0 && activeCampaigns.length === 0) {
-                // esiste una campagna ma nessuna è attiva quindi aggiorno e resetto
-                dispatch('updateCampaign', resp.data[0]).then(() => {
-                  dispatch('resetCampaign', activeCampaigns[0].id).then(() => {
-                    resolve()
-                  })
-                })
               } else {
                 // se esiste una campagna ma è diversa da quella che ho attiva io
                 dispatch('resetCampaign', activeCampaigns[0].id).then(() => {
@@ -388,6 +386,13 @@ export const actions = {
             } else {
               resolve()
             }
+          } else if (resp.data.length > 0) {
+            // Non esiste realmente una campagna attiva e quindi devo azzerare quella finita
+            dispatch('updateCampaign', resp.data[0]).then(() => {
+              dispatch('resetCampaign', null).then(() => {
+                resolve()
+              })
+            })
           } else {
             resolve()
           }
@@ -398,7 +403,7 @@ export const actions = {
             message: 'ACTION-FIREBASE getCampaigns: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -424,11 +429,11 @@ export const actions = {
             message: 'ACTION-FIREBASE saveCampaign: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
-  updateCampaign({ dispatch, rootState, getters }, data) {
+  updateCampaign({ dispatch, rootState, getters, state }, data) {
     logger('ACTION-FIREBASE updateCampaign', data, 'i')
     const log = trace(true, rootState.performance, 'UPDATECAMPAIGN', null)
     const campaign =
@@ -443,6 +448,7 @@ export const actions = {
       getters.getTypeChampions('campaign_score_veryshort')[0].tot > 0
         ? getters.getTypeChampions('campaign_score_veryshort')[0]
         : ''
+
     return new Promise((resolve, reject) => {
       this.$axios
         .put(`${root}/campaign/${data.id_doc}`, {
@@ -460,21 +466,26 @@ export const actions = {
             dispatch('updateWinnerCampaign', {
               id_doc: campaign.id_doc,
               type: 'campaigns',
+            }).then(() => {
+              resolve()
             })
-          }
-          if (campaignShort !== '') {
+          } else if (campaignShort !== '') {
             dispatch('updateWinnerCampaign', {
               id_doc: campaignShort.id_doc,
               type: 'campaigns_short',
+            }).then(() => {
+              resolve()
             })
-          }
-          if (campaignVeryshort !== '') {
+          } else if (campaignVeryshort !== '') {
             dispatch('updateWinnerCampaign', {
               id_doc: campaignVeryshort.id_doc,
               type: 'campaigns_veryshort',
+            }).then(() => {
+              resolve()
             })
+          } else {
+            resolve()
           }
-          resolve()
         })
         .catch((error) => {
           trace(false, null, null, log)
@@ -482,7 +493,7 @@ export const actions = {
             message: 'ACTION-FIREBASE updateCampaign: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -505,7 +516,7 @@ export const actions = {
               'ACTION-FIREBASE updateWinnerCampaign: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -513,9 +524,15 @@ export const actions = {
     logger('ACTION-FIREBASE resetCampaign', campaign, 'i')
     const log = trace(true, rootState.performance, 'RESETCAMPAIGN', null)
     return new Promise((resolve, reject) => {
-      const body = Object.assign({}, state.modelResetCampaign, {
-        active_campaign: campaign,
-      })
+      const body = Object.assign(
+        {},
+        state.modelResetCampaign,
+        campaign
+          ? {
+              active_campaign: campaign,
+            }
+          : {}
+      )
       this.$axios
         .put(`${root}/reset-campaign`, body)
         .then(() => {
@@ -525,7 +542,7 @@ export const actions = {
               resolve()
             })
             .catch((error) => {
-              reject(error.response.data)
+              reject(error)
             })
         })
         .catch((error) => {
@@ -534,7 +551,7 @@ export const actions = {
             message: 'ACTION-FIREBASE resetCampaign: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -556,7 +573,7 @@ export const actions = {
               'ACTION-FIREBASE reportAIssueList: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -581,7 +598,7 @@ export const actions = {
             message: 'ACTION-FIREBASE reportAIssue: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
@@ -611,7 +628,7 @@ export const actions = {
               resolve(resp)
             })
             .catch((error) => {
-              reject(error.response.data)
+              reject(error)
             })
         })
         .catch((error) => {
@@ -621,7 +638,7 @@ export const actions = {
               'ACTION-FIREBASE dataFirebaseInit: ' + JSON.stringify(error),
             type: 'firebase_store',
           })
-          reject(error.response.data)
+          reject(error)
         })
     })
   },
