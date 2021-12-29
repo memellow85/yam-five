@@ -4,9 +4,10 @@
 
 <script>
 import AnalyticsMixin from '~/mixins/analytics'
+import RemoteConfigMixin from '~/mixins/remote_config'
 
 export default {
-  mixins: [AnalyticsMixin],
+  mixins: [AnalyticsMixin, RemoteConfigMixin],
   layout: 'public',
   mounted() {
     window.addEventListener(

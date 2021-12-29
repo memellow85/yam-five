@@ -56,23 +56,25 @@ export default {
   },
   methods: {
     submitHandler() {
-      let match = 52
-      switch (this.currentGame) {
-        case 'short':
-          match = 26
-          break
-        case 'veryshort':
-          match = 13
-          break
+      if (this.room !== '') {
+        let match = 52
+        switch (this.currentGame) {
+          case 'short':
+            match = 26
+            break
+          case 'veryshort':
+            match = 13
+            break
+        }
+        this.logCustomEvent(this.tab)
+        this.$store.dispatch(`ws/addUserSocket`, {
+          user: this.userDetailsFirebase,
+          room: this.room,
+          match,
+          type: this.currentGame,
+          method: this.tab,
+        })
       }
-      this.logCustomEvent(this.tab)
-      this.$store.dispatch(`ws/addUserSocket`, {
-        user: this.userDetailsFirebase,
-        room: this.room,
-        match,
-        type: this.currentGame,
-        method: this.tab,
-      })
     },
   },
 }

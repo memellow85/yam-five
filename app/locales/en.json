@@ -27,7 +27,8 @@
     "btn_2": "Register",
     "link_1": "rules",
     "link_message": "Before start read the ",
-    "save_credential": "Save username e password"
+    "save_credential": "Save username e password",
+    "loading_game": "Loading configurations game..."
   },
   "recovery": {
     "title": "Recovery password",
@@ -35,8 +36,9 @@
     "btn": "Recovery"
   },
   "home": {
-    "message_1": "Create or join to a room, otherwise start a fast game",
-    "btn_1": "Create game",
+    "message_1": "Play a quick game to get started",
+    "message_2": "otherwise create or join to a room",
+    "btn_1": "Create or Join",
     "btn_2": "Start a game",
     "btn_3": "Start new game",
     "btn_4": "Fast game",
@@ -85,15 +87,19 @@
     "message_2": "Records deleted",
     "message_3": "Last finished match",
     "message_4": "Num. matches",
-    "message_5": "Share game with your friends!!"
+    "message_5": "Share game with your friends!!",
+    "message_6": "Active campaign:"
   },
   "champions": {
     "title_1": "Ranking",
     "title_2": "Records",
+    "title_3": "Campaign",
+    "sub_title_3": "Close ",
     "empty_1": "No match in progress",
     "empty_2": "Empty ranking",
     "th_1": "Name",
     "th_4": "All",
+    "th_7": "Campaigns",
     "th_8": "Score",
     "tab_1": "All",
     "tab_2": "Short",

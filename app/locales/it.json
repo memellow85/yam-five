@@ -27,7 +27,8 @@
     "btn_2": "Registrati",
     "link_1": "guida",
     "link_message": "Prima di iniziare leggi la ",
-    "save_credential": "Salva username e password"
+    "save_credential": "Salva username e password",
+    "loading_game": "Caricamento impostazioni gioco..."
   },
   "recovery": {
     "title": "Recupera password",
@@ -35,8 +36,9 @@
     "btn": "Recupera"
   },
   "home": {
-    "message_1": "Crea una stanza o unisciti ad una stanza già creata, altrimenti per iniziare fai una partita veloce",
-    "btn_1": "Crea partita",
+    "message_1": "Per iniziare fai una partita veloce",
+    "message_2": "altrimenti crea o unisciti ad una stanza",
+    "btn_1": "Crea o Unisciti",
     "btn_2": "Inizia a giocare",
     "btn_3": "Inizia una nuova partita",
     "btn_4": "Partita veloce",
@@ -85,15 +87,19 @@
     "message_2": "Records cancellati",
     "message_3": "Ultima partita finita",
     "message_4": "Num. partite",
-    "message_5": "Condividi il gioco con gli amici!"
+    "message_5": "Condividi il gioco con gli amici!",
+    "message_6": "Campagna attiva:"
   },
   "champions": {
     "title_1": "Classifica",
     "title_2": "Records",
+    "title_3": "Campagna",
+    "sub_title_3": "Finisce ",
     "empty_1": "Nessuna partita in corso",
     "empty_2": "Nessun giocatore in classifica",
     "th_1": "Nome",
     "th_4": "Completo",
+    "th_7": "Campagne",
     "th_8": "Punteggio",
     "tab_1": "Completo",
     "tab_2": "Breve",

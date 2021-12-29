@@ -8,7 +8,7 @@ module.exports = {
     process.env.NUXT_ENV_NODE_ENV !== 'beta',
   /* server: {
     host: 'localhost',
-    port: 5000, // default: 3000
+    port: 5001, // default: 3000
   }, */
   layoutTransition: 'fade-in',
   pageTransition: 'fade-in',
