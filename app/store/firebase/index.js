@@ -2,7 +2,7 @@ import { fetchAndActivate } from 'firebase/remote-config'
 import { logger, trace, isNowBetweenDate } from '~/utils'
 import { modelResetUser, modelResetCampaign, modelUser } from '~/lists'
 
-const data = require('../../lists/campaign.json')
+// const data = require('../../lists/campaign.json')
 
 const root = '/yam-five'
 
@@ -18,11 +18,11 @@ const sort = (data, type) => {
     type.split('_').length > 0 ? `campaigns_${type.split('_')[1]}` : 'campaigns'
   data.map((v) => {
     // TODO decommentare quando funziona la parte di campagne
-    // if (v.uid !== process.env.NUXT_ENV_USER_HIDE) {
-    v.tot = type ? (v[type] ? v[type] : 0) : 0
-    v.tot_campaigns = type ? (v[campaignType] ? v[campaignType] : 0) : 0
-    tmp.push(v)
-    // }
+    if (v.uid !== process.env.NUXT_ENV_USER_HIDE) {
+      v.tot = type ? (v[type] ? v[type] : 0) : 0
+      v.tot_campaigns = type ? (v[campaignType] ? v[campaignType] : 0) : 0
+      tmp.push(v)
+    }
   })
   return tmp.sort(compare)
 }
@@ -341,10 +341,10 @@ export const actions = {
         .then((resp) => {
           trace(false, null, null, log)
           // TODO da decommentare per usare le remoteConfig
-          /* const cmps = JSON.parse(
+          const cmps = JSON.parse(
             rootState.activeRemoveConfig.campaigns._value
-          ).items */
-          const cmps = data.items
+          ).items
+          // const cmps = data.items
           const activeCampaigns = cmps.filter((c) => {
             return isNowBetweenDate(c.start, c.end)
           })
