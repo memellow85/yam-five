@@ -1,6 +1,6 @@
 {
   "name": "yam-five",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "The dices game",
   "author": "memellow85",
   "license": "MIT",
@@ -40,7 +40,7 @@
     "update_package": "rm yarn.lock && yarn cache clean && yarn install"
   },
   "dependencies": {
-    "firebase": "9.6.0",
+    "firebase": "9.6.1",
     "heroku-ssl-redirect": "0.1.1",
     "nuxt": "2.15.8",
     "nuxt-precompress": "0.5.9",
