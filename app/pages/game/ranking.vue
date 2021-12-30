@@ -252,6 +252,9 @@ ul {
         align-items: center;
         justify-content: flex-start;
       }
+      .col_2 {
+        @include margin(null 1.5rem null);
+      }
       .col_2,
       .col_3 {
         @include size(25%, auto);
