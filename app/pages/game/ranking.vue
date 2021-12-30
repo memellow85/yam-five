@@ -100,7 +100,7 @@
               <div v-if="tab === 'older'" class="col_2">
                 <p v-if="u.tot_campaigns > 0">
                   <span :class="`yamicons mdi mdi-medal-outline`"></span>
-                  ({{ u.tot_campaigns }})
+                  <span>({{ u.tot_campaigns }})</span>
                 </p>
                 <p v-else>-</p>
               </div>
@@ -116,7 +116,7 @@
                         : 'podium-bronze'
                     }`"
                   ></span>
-                  {{ u.tot }}
+                  <span>{{ u.tot }}</span>
                 </p>
               </div>
             </li>
@@ -169,7 +169,9 @@ export default {
     ...mapGetters('firebase', ['getTypeChampions']),
     endOfCampaign() {
       return this.currentCampaign
-        ? format(new Date(this.currentCampaign.end).valueOf())
+        ? format(
+            new Date(this.currentCampaign.end.replaceAll('-', '/')).valueOf()
+          )
         : '-'
     },
     viewRanking() {
@@ -248,28 +250,27 @@ ul {
         @include size(50%, auto);
         display: flex;
         align-items: center;
+        justify-content: flex-start;
       }
       .col_2,
       .col_3 {
         @include size(25%, auto);
         display: flex;
         align-items: center;
+        justify-content: flex-end;
         &.full {
           @include size(50%, auto);
         }
-      }
-      .col_1 {
-        justify-content: flex-start;
-      }
-      .col_2,
-      .col_3 {
-        justify-content: flex-end;
         p {
           justify-content: flex-end;
           &:last-child {
             @include size(3.5rem, auto);
           }
           span {
+            &:not(.yamicons) {
+              text-align: right;
+              min-width: 3rem;
+            }
             &.yamicons {
               @include margin(null 0.5rem null null);
               &:before {
@@ -287,6 +288,11 @@ ul {
               }
             }
           }
+        }
+      }
+      .col_3 {
+        p {
+          min-width: 5rem;
         }
       }
       p {
