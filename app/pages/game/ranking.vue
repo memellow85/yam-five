@@ -270,10 +270,6 @@ ul {
             @include size(3.5rem, auto);
           }
           span {
-            &:not(.yamicons) {
-              text-align: right;
-              min-width: 3rem;
-            }
             &.yamicons {
               @include margin(null 0.5rem null null);
               &:before {
@@ -296,6 +292,12 @@ ul {
       .col_3 {
         p {
           min-width: 5rem;
+          span {
+            &:not(.yamicons) {
+              text-align: right;
+              min-width: 3rem;
+            }
+          }
         }
       }
       p {
