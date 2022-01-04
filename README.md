@@ -52,6 +52,7 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.1.5 - Bugfix + touch + share link
 - 1.2.0 - Update firebase + dark mode + bugfix + refactor store
 - 1.3.0 - Add campaigns + Bugfix + New random number function
+- 1.3.1 - Bugfix
 
 ## Next release
 

@@ -1,5 +1,11 @@
 export const versionsRelease = [
   {
+    version: '1.3.1',
+    date: '2022-01-05',
+    title: 'Bugfix',
+    messages: ['Bugfix'],
+  },
+  {
     version: '1.3.0',
     date: '2022-01-05',
     title: 'Improvement app',
