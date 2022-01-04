@@ -143,6 +143,11 @@ module.exports = {
       viewport:
         'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height',
     },
+    workbox: {
+      workboxVersion: 'v1',
+      cacheAssets: false, // for /*
+      offline: false, // for /_nuxt/*
+    },
     /* meta: {
       mobileAppIOS: true,
     }, */
