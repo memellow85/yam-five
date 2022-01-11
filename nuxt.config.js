@@ -6,10 +6,10 @@ module.exports = {
   dev:
     process.env.NUXT_ENV_NODE_ENV !== 'production' &&
     process.env.NUXT_ENV_NODE_ENV !== 'beta',
-  /* server: {
+  server: {
     host: 'localhost',
     port: 5001, // default: 3000
-  }, */
+  },
   layoutTransition: 'fade-in',
   pageTransition: 'fade-in',
   /*
@@ -143,8 +143,8 @@ module.exports = {
       viewport:
         'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height',
     },
+    icon: false,
     workbox: {
-      workboxVersion: 'v1',
       cacheAssets: false, // for /*
       offline: false, // for /_nuxt/*
     },
