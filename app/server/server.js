@@ -7,6 +7,10 @@ const server = http.createServer(app)
 const io = require('socket.io')(server, {
   upgradeTimeout: 50000,
 })
+require('dotenv').config()
+const { IncomingWebhook } = require('@slack/webhook')
+const WEBHOOK_URL = process.env.NUXT_ENV_SLACK_NOTIFICATION
+const webhook = new IncomingWebhook(WEBHOOK_URL)
 
 const Rooms = require('../models/Room')()
 const yamfive = require('./api/yamfive')
@@ -147,7 +151,18 @@ io.on('connection', (socket) => {
     leftRoom(user.id, socket)
   })
 
+  /* socket.on('disconnect', () => {
+    webhook.send({
+      channel: '#yamfive',
+      text: 'Disconnect websocket',
+    })
+  }) */
+
   socket.on('error', (err) => {
+    webhook.send({
+      channel: '#yamfive',
+      text: 'Error websocket: ' + JSON.stringify(err),
+    })
     io.emit('socketErrorEmit', err)
   })
 })

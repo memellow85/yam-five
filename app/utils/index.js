@@ -171,6 +171,53 @@ export const setStatisticsDice = (statistics, dices) => {
   return tmpStatistics
 }
 
+export const checkPossibleActiveDice = (data, dices) => {
+  const arrayValue = returnArrayValue(dices)
+  const arrayUnique = groupArrayByKey(arrayValue)
+
+  let value = false
+  switch (data.name) {
+    case 'one':
+      value = arrayUnique.includes(1)
+      break
+    case 'two':
+      value = arrayUnique.includes(2)
+      break
+    case 'three':
+      value = arrayUnique.includes(3)
+      break
+    case 'four':
+      value = arrayUnique.includes(4)
+      break
+    case 'five':
+      value = arrayUnique.includes(5)
+      break
+    case 'six':
+      value = arrayUnique.includes(6)
+      break
+    case 'mineleven':
+      value = dices.tot <= 11
+      break
+    case 'poker':
+      value = isPoker(arrayUnique, arrayValue)
+      break
+    case 'full':
+      value = isFull(arrayUnique, arrayValue)
+      break
+    case 'scale':
+      value = isScale(arrayUnique)
+      break
+    case 'min':
+      break
+    case 'max':
+      break
+    case 'yam':
+      value = arrayUnique.length === 1
+      break
+  }
+  return value
+}
+
 export const calculateActualGame = (data, dices, minMax) => {
   const arrayValue = returnArrayValue(dices)
   const arrayUnique = groupArrayByKey(arrayValue)

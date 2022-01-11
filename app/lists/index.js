@@ -51,6 +51,7 @@ const getSingleMatch = (name) => {
     name,
     label: `game.${name}`,
     active: false,
+    icon: '',
   }
 }
 

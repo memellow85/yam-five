@@ -6,6 +6,7 @@ import {
   setStatisticsDice,
   generateRandomRoom,
   getLocalStorageKey,
+  checkPossibleActiveDice,
 } from '~/utils'
 import {
   dicesTypesCabled,
@@ -151,6 +152,24 @@ export const mutations = {
       state.probablyExitNumbers,
       state.dices
     )
+
+    state.currentGamePlayed.map((g) => {
+      Object.keys(state.game[g].data).map((d) => {
+        if (
+          state.game[g].data[d].active &&
+          state.game[g].data[d].value === '-'
+        ) {
+          state.game[g].data[d].icon =
+            getLocalStorageKey('helper') === 'no'
+              ? 'plus-box'
+              : checkPossibleActiveDice(state.game[g].data[d], state.dices)
+              ? 'plus-box'
+              : 'trash-can'
+        }
+        return true
+      })
+      return true
+    })
   },
   activeGame(state) {
     logger('COMMIT-GAME activeGame', null, 'i')
