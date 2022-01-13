@@ -1,5 +1,11 @@
 import { fetchAndActivate } from 'firebase/remote-config'
-import { logger, trace, isNowBetweenDate, getLocalStorageKey } from '~/utils'
+import {
+  logger,
+  trace,
+  isNowBetweenDate,
+  getLocalStorageKey,
+  setLocalStorageKey,
+} from '~/utils'
 import { modelResetUser, modelResetCampaign, modelUser } from '~/lists'
 
 // const data = require('../../lists/campaign.json')
@@ -108,6 +114,7 @@ export const actions = {
       ) {
         resolve('change_version')
       } else {
+        setLocalStorageKey('version', process.env.NUXT_ENV_APP_VERSION)
         this.$axios
           .post(`${root}/login`, data)
           .then((resp) => {
