@@ -1,5 +1,11 @@
 import { fetchAndActivate } from 'firebase/remote-config'
-import { logger, trace, isNowBetweenDate } from '~/utils'
+import {
+  logger,
+  trace,
+  isNowBetweenDate,
+  getLocalStorageKey,
+  setLocalStorageKey,
+} from '~/utils'
 import { modelResetUser, modelResetCampaign, modelUser } from '~/lists'
 
 // const data = require('../../lists/campaign.json')
@@ -17,7 +23,6 @@ const sort = (data, type) => {
   const campaignType =
     type.split('_').length > 0 ? `campaigns_${type.split('_')[1]}` : 'campaigns'
   data.map((v) => {
-    // TODO decommentare quando funziona la parte di campagne
     if (v.uid !== process.env.NUXT_ENV_USER_HIDE) {
       v.tot = type ? (v[type] ? v[type] : 0) : 0
       v.tot_campaigns = type ? (v[campaignType] ? v[campaignType] : 0) : 0
@@ -102,34 +107,43 @@ export const actions = {
     logger('ACTION-FIREBASE login', data, 'i')
     const log = trace(true, rootState.performance, 'LOGIN', null)
     return new Promise((resolve, reject) => {
-      this.$axios
-        .post(`${root}/login`, data)
-        .then((resp) => {
-          trace(false, null, null, log)
-          // const user = resp.data.user
-          commit('setUserFirebase', resp.data.user)
-          dispatch('dataFirebaseInit', resp.data.user.uid)
-            .then((r) => {
-              dispatch('getCampaigns', r)
-                .then(() => {
-                  resolve()
-                })
-                .catch((error) => {
-                  reject(error)
-                })
-            })
-            .catch((error) => {
-              reject(error)
-            })
-        })
-        .catch((error) => {
-          trace(false, null, null, log)
-          dispatch('logErrors', {
-            message: 'ACTION-FIREBASE login: ' + JSON.stringify(error),
-            type: 'firebase_store',
+      if (
+        getLocalStorageKey('version') &&
+        getLocalStorageKey('version') !== '' &&
+        getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION
+      ) {
+        resolve('change_version')
+      } else {
+        setLocalStorageKey('version', process.env.NUXT_ENV_APP_VERSION)
+        this.$axios
+          .post(`${root}/login`, data)
+          .then((resp) => {
+            trace(false, null, null, log)
+            // const user = resp.data.user
+            commit('setUserFirebase', resp.data.user)
+            dispatch('dataFirebaseInit', resp.data.user.uid)
+              .then((r) => {
+                dispatch('getCampaigns', r)
+                  .then(() => {
+                    resolve()
+                  })
+                  .catch((error) => {
+                    reject(error)
+                  })
+              })
+              .catch((error) => {
+                reject(error)
+              })
           })
-          reject(error)
-        })
+          .catch((error) => {
+            trace(false, null, null, log)
+            dispatch('logErrors', {
+              message: 'ACTION-FIREBASE login: ' + JSON.stringify(error),
+              type: 'firebase_store',
+            })
+            reject(error)
+          })
+      }
     })
   },
   recovery({ commit, dispatch, rootState }, data) {
@@ -340,17 +354,13 @@ export const actions = {
         .get(`${root}/campaigns`)
         .then((resp) => {
           trace(false, null, null, log)
-          // TODO da decommentare per usare le remoteConfig
           const cmps = JSON.parse(
             rootState.activeRemoveConfig.campaigns._value
           ).items
-          // const cmps = data.items
+
           const activeCampaigns = cmps.filter((c) => {
             return isNowBetweenDate(c.start, c.end)
           })
-          // TODO il ragionamento non può funzionare perchè si vedrebbe la classifica della campagna mai aggiornata correttamente
-          // TODO bisogna resettare tutti gli utenti al primo accesso di uno user
-          // TODO da aggiungere il fatto che quando non c'è nessuna campagna attiva bisogna resettare tutto
           commit('game/setCurrentCampaign', activeCampaigns, { root: true })
 
           if (activeCampaigns.length > 0) {
@@ -646,7 +656,6 @@ export const actions = {
     logger('ACTION-FIREBASE getRemoteConfigFirebase', null, 'i')
     const log = trace(true, rootState.performance, 'GETREMOTECONFIG', null)
     return new Promise((resolve, reject) => {
-      // TODO verificare questo controllo
       if (!remoteConfig._isInitializationComplete) {
         fetchAndActivate(remoteConfig)
           .then(() => {

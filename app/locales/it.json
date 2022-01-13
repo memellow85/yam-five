@@ -8,6 +8,10 @@
     "yes": "Si",
     "no": "No"
   },
+  "helper": {
+    "yes": "Si",
+    "no": "No"
+  },
   "view": {
     "configuration": "Configurazione"
   },
@@ -71,6 +75,7 @@
     "title_7": "Effetti sonori",
     "title_8": "Condividi",
     "title_9": "Cambia il tema",
+    "title_10": "Attiva aiuti",
     "btn_1": "Unisciti",
     "btn_2": "Abbandona",
     "btn_3": "Esci",
@@ -245,8 +250,12 @@
   "alert": {
     "yes": "Si",
     "no": "No",
+    "update": "Aggiorna",
+    "title": "Attenzione!",
     "message": "Sei sicuro di voler azzerare i tuoi records?",
-    "message_update": "Nuova versione disponibile... Aggiorna ora!!",
+    "message_update_1": "Di seguito gli interventi fatti:",
+    "message_update_2": "Aggiorna subito per poter giocare!!",
+    "title_update": "Nuova versione disponibile",
     "add_to_home": "Aggiungi al desktop YamFive",
     "socket_disconnect": "Socket disconnesso"
   },

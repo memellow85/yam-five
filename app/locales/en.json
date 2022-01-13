@@ -8,6 +8,10 @@
     "yes": "Yes",
     "no": "No"
   },
+  "helper": {
+    "yes": "Yes",
+    "no": "No"
+  },
   "view": {
     "configuration": "Settings"
   },
@@ -71,6 +75,7 @@
     "title_7": "Sound effects",
     "title_8": "Share",
     "title_9": "Change theme",
+    "title_10": "Active help",
     "btn_1": "Join",
     "btn_2": "Leave",
     "btn_3": "Logout",
@@ -245,8 +250,12 @@
   "alert": {
     "yes": "Yes",
     "no": "No",
+    "update": "Update",
+    "title": "Warning!",
     "message": "Are you sure you want to reset your records?",
-    "message_update": "New version available... Update now!!",
+    "message_update_1": "The following are the interventions made:",
+    "message_update_2": "Update now!!",
+    "title_update": "New version available",
     "add_to_home": "Add to home YamFive",
     "socket_disconnect": "Socket disconnected"
   },

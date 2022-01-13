@@ -18,7 +18,7 @@
 <script>
 import { mapState } from 'vuex'
 import { resize } from '~/directives/resize'
-import { getLocalStorageKey, setLocalStorageKey, isProd } from '~/utils'
+import { setLocalStorageKey, isProd } from '~/utils'
 
 export default {
   directives: { resize },
@@ -92,15 +92,6 @@ export default {
       this.$store.commit('game/toggleNotification', null)
       this.deferredPrompt = null
     })
-  },
-  mounted() {
-    if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
-      this.$store.commit('game/toggleNotification', {
-        type: 'warning',
-        message: this.$t('alert.message_update'),
-        buttonRefresh: true,
-      })
-    }
   },
   destroyed() {
     this.$nuxt.$off('refreshPWAHandler')

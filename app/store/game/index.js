@@ -6,6 +6,7 @@ import {
   setStatisticsDice,
   generateRandomRoom,
   getLocalStorageKey,
+  checkPossibleActiveDice,
 } from '~/utils'
 import {
   dicesTypesCabled,
@@ -25,6 +26,9 @@ export const state = () => ({
   showChampionsShip: false,
   showSchema: false,
   showAlert: false,
+  messageAlert: null,
+  titleAlert: '',
+  updateVersion: false,
   showRelease: false,
   showNotification: false,
   notificationTypes: null,
@@ -70,8 +74,12 @@ export const mutations = {
     state.showAlert = false
     state.showRelease = false
   },
-  toggleModal(state, type) {
-    logger('COMMIT-GAME toggleModal', type, 'i')
+  toggleModal(state, data) {
+    logger('COMMIT-GAME toggleModal', data, 'i')
+    const type = typeof data === 'string' ? data : data.type
+    state.messageAlert = typeof data === 'string' ? null : data.message
+    state.titleAlert = typeof data === 'string' ? '' : data.title
+    state.updateVersion = data.update ? data.update : false
     switch (type) {
       case 'help':
         state.showHelp = !state.showHelp
@@ -151,6 +159,24 @@ export const mutations = {
       state.probablyExitNumbers,
       state.dices
     )
+
+    state.currentGamePlayed.map((g) => {
+      Object.keys(state.game[g].data).map((d) => {
+        if (
+          state.game[g].data[d].active &&
+          state.game[g].data[d].value === '-'
+        ) {
+          state.game[g].data[d].icon =
+            getLocalStorageKey('helper') === 'no'
+              ? 'plus-box'
+              : checkPossibleActiveDice(state.game[g].data[d], state.dices)
+              ? 'plus-box'
+              : 'trash-can'
+        }
+        return true
+      })
+      return true
+    })
   },
   activeGame(state) {
     logger('COMMIT-GAME activeGame', null, 'i')
