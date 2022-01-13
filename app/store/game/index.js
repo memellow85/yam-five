@@ -26,6 +26,9 @@ export const state = () => ({
   showChampionsShip: false,
   showSchema: false,
   showAlert: false,
+  messageAlert: null,
+  titleAlert: '',
+  updateVersion: false,
   showRelease: false,
   showNotification: false,
   notificationTypes: null,
@@ -71,8 +74,12 @@ export const mutations = {
     state.showAlert = false
     state.showRelease = false
   },
-  toggleModal(state, type) {
-    logger('COMMIT-GAME toggleModal', type, 'i')
+  toggleModal(state, data) {
+    logger('COMMIT-GAME toggleModal', data, 'i')
+    const type = typeof data === 'string' ? data : data.type
+    state.messageAlert = typeof data === 'string' ? null : data.message
+    state.titleAlert = typeof data === 'string' ? '' : data.title
+    state.updateVersion = data.update ? data.update : false
     switch (type) {
       case 'help':
         state.showHelp = !state.showHelp

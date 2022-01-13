@@ -3,7 +3,7 @@ export const versionsRelease = [
     version: '1.3.1',
     date: '2022-01-05',
     title: 'Bugfix',
-    messages: ['Bugfix'],
+    messages: ['Help during the game', 'Updated mountly tournaments', 'Bugfix'],
   },
   {
     version: '1.3.0',
