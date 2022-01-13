@@ -101,7 +101,11 @@ export const actions = {
     logger('ACTION-FIREBASE login', data, 'i')
     const log = trace(true, rootState.performance, 'LOGIN', null)
     return new Promise((resolve, reject) => {
-      if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
+      if (
+        getLocalStorageKey('version') &&
+        getLocalStorageKey('version') !== '' &&
+        getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION
+      ) {
         resolve('change_version')
       } else {
         this.$axios
