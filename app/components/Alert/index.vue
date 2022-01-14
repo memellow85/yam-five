@@ -61,6 +61,7 @@ export default {
       messageAlert: (state) => state.messageAlert,
       titleAlert: (state) => state.titleAlert,
       updateVersion: (state) => state.updateVersion,
+      newVersion: (state) => state.newVersion,
     }),
   },
   methods: {
@@ -83,7 +84,7 @@ export default {
     },
     updateHandler() {
       this.$store.commit(`game/toggleModal`, 'alert')
-      this.$nuxt.$emit('refreshPWAHandler')
+      this.$nuxt.$emit('refreshPWAHandler', this.newVersion)
     },
   },
 }

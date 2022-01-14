@@ -207,12 +207,13 @@ export default {
             password: this.password,
           })
           .then((resp) => {
-            if (resp === 'change_version') {
+            if (resp && resp.type && resp.type === 'change_version') {
               this.$store.commit(`game/toggleModal`, {
                 type: 'alert',
                 message: this.$t('alert.message_update_1'),
                 title: this.$t('alert.title_update'),
                 update: true,
+                version: resp.version,
               })
               this.showLoader = false
               this.disabledAll = false

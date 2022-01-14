@@ -27,12 +27,24 @@ const USER_DETAILS = 'users'
 const ISSUE_DETAILS = 'messages'
 const ERROR_DETAILS = 'errors'
 const CAMPAIGN_DETAILS = 'campaigns'
+const CONFIGURATION_DETAILS = 'configurations'
 
 async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array)
   }
 }
+
+router.route('/version').get((req, res) => {
+  const refObj = doc(firebase.db, CONFIGURATION_DETAILS, 'version')
+  getDoc(refObj)
+    .then((resp) => {
+      res.status(200).json(resp.data())
+    })
+    .catch((error) => {
+      res.status(404).json(error)
+    })
+})
 
 router.route('/login').post((req, res) => {
   signInWithEmailAndPassword(firebase.auth, req.body.email, req.body.password)
