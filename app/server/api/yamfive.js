@@ -19,6 +19,11 @@ const {
   updateDoc,
 } = require('firebase/firestore')
 
+require('dotenv').config()
+const { IncomingWebhook } = require('@slack/webhook')
+const WEBHOOK_URL = process.env.NUXT_ENV_SLACK_NOTIFICATION
+const webhook = new IncomingWebhook(WEBHOOK_URL)
+
 const firebase = require('./firebase.js')
 
 const router = express.Router()
@@ -35,6 +40,13 @@ async function asyncForEach(array, callback) {
   }
 }
 
+const logSlack = (name, err) => {
+  webhook.send({
+    channel: '#yamfive',
+    text: `Error ${name}: ${JSON.stringify(err)}`,
+  })
+}
+
 router.route('/version').get((req, res) => {
   const refObj = doc(firebase.db, CONFIGURATION_DETAILS, 'version')
   getDoc(refObj)
@@ -42,6 +54,7 @@ router.route('/version').get((req, res) => {
       res.status(200).json(resp.data())
     })
     .catch((error) => {
+      logSlack('/version', error)
       res.status(404).json(error)
     })
 })
@@ -52,6 +65,7 @@ router.route('/login').post((req, res) => {
       res.status(200).json(resp)
     })
     .catch((error) => {
+      logSlack('/login', error)
       res.status(404).json(error)
     })
 })
@@ -62,6 +76,7 @@ router.route('/logout').post((req, res) => {
       res.status(200).send()
     })
     .catch((error) => {
+      logSlack('/logout', error)
       res.status(404).json(error)
     })
 })
@@ -72,6 +87,7 @@ router.route('/user-recovery-email').post((req, res) => {
       res.status(200).send()
     })
     .catch((error) => {
+      logSlack('/user-recovery-email', error)
       res.status(404).json(error)
     })
 })
@@ -88,6 +104,7 @@ router
         res.status(200).json(list)
       })
       .catch((error) => {
+        logSlack('/user get', error)
         res.status(404).json(error)
       })
   })
@@ -119,14 +136,17 @@ router
                 res.status(200).send()
               })
               .catch((error) => {
+                logSlack('/user post updateDoc', error)
                 res.status(404).json(error)
               })
           })
           .catch((error) => {
+            logSlack('/user post addDoc', error)
             res.status(404).json(error)
           })
       })
       .catch((error) => {
+        logSlack('/user post create', error)
         res.status(404).json(error)
       })
   })
@@ -146,6 +166,7 @@ router
           })
         })
         .catch((error) => {
+          logSlack(`/user/${req.params.id} get getDocs`, error)
           res.status(404).json(error)
         })
     } else {
@@ -155,6 +176,7 @@ router
           res.status(200).json(resp.data())
         })
         .catch((error) => {
+          logSlack(`/user/${req.params.id} get getDoc`, error)
           res.status(404).json(error)
         })
     }
@@ -169,16 +191,18 @@ router
       req.body
     )
     getDoc(refObj)
-      .then((resp) => {
+      .then(() => {
         updateDoc(refObj, data)
           .then(() => {
             res.status(200).send()
           })
           .catch((error) => {
+            logSlack(`/user/${req.params.id} put updateDoc`, error)
             res.status(404).json(error)
           })
       })
       .catch((error) => {
+        logSlack(`/user/${req.params.id} put getDoc`, error)
         res.status(404).json(error)
       })
   })
@@ -197,6 +221,7 @@ router.route('/reset-record/:id_doc').put((req, res) => {
       res.status(200).send()
     })
     .catch((error) => {
+      logSlack(`/reset-record/${req.params.id_doc}`, error)
       res.status(404).json(error)
     })
 })
@@ -215,6 +240,7 @@ router.route('/campaigns').get((req, res) => {
       res.status(200).json(list)
     })
     .catch((error) => {
+      logSlack(`/campaigns`, error)
       res.status(404).json(error)
     })
 })
@@ -230,10 +256,12 @@ router.route('/campaign').post((req, res) => {
           res.status(200).send()
         })
         .catch((error) => {
+          logSlack(`/campaign updateDoc`, error)
           res.status(404).json(error)
         })
     })
     .catch((error) => {
+      logSlack(`/campaign addDoc`, error)
       res.status(404).json(error)
     })
 })
@@ -245,6 +273,7 @@ router.route('/campaign/:id_doc').put((req, res) => {
       res.status(200).send()
     })
     .catch((error) => {
+      logSlack(`/campaign/${req.params.id_doc}`, error)
       res.status(404).json(error)
     })
 })
@@ -266,6 +295,7 @@ router.route('/reset-campaign').put((req, res) => {
       updateUsers(users)
     })
     .catch((error) => {
+      logSlack(`/reset-campaign`, error)
       res.status(404).json(error)
     })
 })
@@ -284,6 +314,7 @@ router.route('/report-issue').get((req, res) => {
       res.status(200).json(list)
     })
     .catch((error) => {
+      logSlack(`/report-issue`, error)
       res.status(404).json(error)
     })
 })
@@ -299,6 +330,7 @@ router.route('/report-issue/:uid').post((req, res) => {
       res.status(200).send()
     })
     .catch((error) => {
+      logSlack(`/report-issue/${req.params.uid}`, error)
       res.status(404).json(error)
     })
 })
@@ -312,6 +344,7 @@ router.route('/errors').post((req, res) => {
       res.status(200).send()
     })
     .catch((error) => {
+      logSlack(`/errors`, error)
       res.status(404).json(error)
     })
 })

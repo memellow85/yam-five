@@ -156,10 +156,6 @@ export const actions = {
         })
         .catch((error) => {
           trace(false, null, null, log)
-          dispatch('logErrors', {
-            message: 'ACTION-FIREBASE login: ' + JSON.stringify(error),
-            type: 'firebase_store',
-          })
           reject(error)
         })
     })
