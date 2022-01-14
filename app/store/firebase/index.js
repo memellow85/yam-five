@@ -8,8 +8,6 @@ import {
 } from '~/utils'
 import { modelResetUser, modelResetCampaign, modelUser } from '~/lists'
 
-// const data = require('../../lists/campaign.json')
-
 const root = '/yam-five'
 
 const compare = (a, b) => {
@@ -107,43 +105,59 @@ export const actions = {
     logger('ACTION-FIREBASE login', data, 'i')
     const log = trace(true, rootState.performance, 'LOGIN', null)
     return new Promise((resolve, reject) => {
-      if (
-        getLocalStorageKey('version') &&
-        getLocalStorageKey('version') !== '' &&
-        getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION
-      ) {
-        resolve('change_version')
-      } else {
-        setLocalStorageKey('version', process.env.NUXT_ENV_APP_VERSION)
-        this.$axios
-          .post(`${root}/login`, data)
-          .then((resp) => {
-            trace(false, null, null, log)
-            // const user = resp.data.user
-            commit('setUserFirebase', resp.data.user)
-            dispatch('dataFirebaseInit', resp.data.user.uid)
-              .then((r) => {
-                dispatch('getCampaigns', r)
+      this.$axios
+        .post(`${root}/login`, data)
+        .then((resp) => {
+          trace(false, null, null, log)
+          this.$axios
+            .get(`${root}/version`)
+            .then((v) => {
+              if (
+                getLocalStorageKey('version') &&
+                getLocalStorageKey('version') !== '' &&
+                getLocalStorageKey('version') !== v.data.number
+              ) {
+                dispatch('logout')
                   .then(() => {
-                    resolve()
+                    resolve({
+                      type: 'change_version',
+                      version: v.data.number,
+                    })
                   })
                   .catch((error) => {
                     reject(error)
                   })
-              })
-              .catch((error) => {
-                reject(error)
-              })
-          })
-          .catch((error) => {
-            trace(false, null, null, log)
-            dispatch('logErrors', {
-              message: 'ACTION-FIREBASE login: ' + JSON.stringify(error),
-              type: 'firebase_store',
+              } else {
+                setLocalStorageKey('version', v.data.number)
+                commit('setUserFirebase', resp.data.user)
+                dispatch('dataFirebaseInit', resp.data.user.uid)
+                  .then((r) => {
+                    dispatch('getCampaigns', r)
+                      .then(() => {
+                        resolve()
+                      })
+                      .catch((error) => {
+                        reject(error)
+                      })
+                  })
+                  .catch((error) => {
+                    reject(error)
+                  })
+              }
             })
-            reject(error)
-          })
-      }
+            .catch((error) => {
+              trace(false, null, null, log)
+              dispatch('logErrors', {
+                message: 'ACTION-FIREBASE version: ' + JSON.stringify(error),
+                type: 'firebase_store',
+              })
+              reject(error)
+            })
+        })
+        .catch((error) => {
+          trace(false, null, null, log)
+          reject(error)
+        })
     })
   },
   recovery({ commit, dispatch, rootState }, data) {

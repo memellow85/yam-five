@@ -28,6 +28,7 @@ export const state = () => ({
   showAlert: false,
   messageAlert: null,
   titleAlert: '',
+  newVersion: null,
   updateVersion: false,
   showRelease: false,
   showNotification: false,
@@ -35,7 +36,6 @@ export const state = () => ({
   notificationMessage: null,
   notificationTimer: false,
   notificationSound: true,
-  buttonRefresh: false,
   buttonAddToHome: false,
   globalTotal: 0,
   numberTotalGames: numberTotalGames(),
@@ -77,9 +77,12 @@ export const mutations = {
   toggleModal(state, data) {
     logger('COMMIT-GAME toggleModal', data, 'i')
     const type = typeof data === 'string' ? data : data.type
-    state.messageAlert = typeof data === 'string' ? null : data.message
-    state.titleAlert = typeof data === 'string' ? '' : data.title
-    state.updateVersion = data.update ? data.update : false
+    if (data.update) {
+      state.messageAlert = typeof data === 'string' ? null : data.message
+      state.titleAlert = typeof data === 'string' ? '' : data.title
+      state.updateVersion = typeof data === 'string' ? false : data.update
+      state.newVersion = typeof data === 'string' ? null : data.version
+    }
     switch (type) {
       case 'help':
         state.showHelp = !state.showHelp
@@ -270,18 +273,16 @@ export const mutations = {
       state.showNotification = true
       state.notificationTypes = data.type
       state.notificationMessage = data.message
-      state.buttonRefresh = data.buttonRefresh ? data.buttonRefresh : false
       state.buttonAddToHome = data.buttonAddToHome
         ? data.buttonAddToHome
         : false
-      state.notificationTimer = !(data.buttonRefresh || data.buttonAddToHome)
+      state.notificationTimer = !data.buttonAddToHome
     } else {
       state.notificationSound = true
       state.notificationTimer = false
       state.showNotification = false
       state.notificationTypes = null
       state.notificationMessage = null
-      state.buttonRefresh = false
       state.buttonAddToHome = false
     }
   },

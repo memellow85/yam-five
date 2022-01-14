@@ -27,9 +27,6 @@
           ></span>
           {{ notificationMessage }}
         </p>
-        <button v-if="buttonRefresh" v-touch="refreshPWA">
-          {{ $t('notification.refresh') }}
-        </button>
         <button v-if="buttonAddToHome" v-touch="addToHome">
           {{ $t('notification.add') }}
         </button>
@@ -60,7 +57,6 @@ export default {
       notificationMessage: (state) => state.notificationMessage,
       notificationTimer: (state) => state.notificationTimer,
       notificationSound: (state) => state.notificationSound,
-      buttonRefresh: (state) => state.buttonRefresh,
       buttonAddToHome: (state) => state.buttonAddToHome,
     }),
   },
@@ -81,9 +77,6 @@ export default {
     },
   },
   methods: {
-    refreshPWA() {
-      this.$nuxt.$emit('refreshPWAHandler')
-    },
     addToHome() {
       this.$nuxt.$emit('addToHomeHandler')
     },
