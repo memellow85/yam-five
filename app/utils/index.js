@@ -171,7 +171,7 @@ export const setStatisticsDice = (statistics, dices) => {
   return tmpStatistics
 }
 
-export const checkPossibleActiveDice = (data, dices) => {
+export const checkPossibleActiveDice = (data, dices, minMax) => {
   const arrayValue = returnArrayValue(dices)
   const arrayUnique = groupArrayByKey(arrayValue)
 
@@ -208,8 +208,10 @@ export const checkPossibleActiveDice = (data, dices) => {
       value = isScale(arrayUnique)
       break
     case 'min':
+      value = minMax.value === '-' ? true : dices.tot < minMax.value
       break
     case 'max':
+      value = minMax.value === '-' ? true : dices.tot > minMax.value
       break
     case 'yam':
       value = arrayUnique.length === 1
