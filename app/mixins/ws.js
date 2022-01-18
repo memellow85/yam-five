@@ -9,6 +9,15 @@ export default {
     }
   },
   sockets: {
+    // users login
+    loginUsersSocketEmit(users) {
+      logger('SOCKETS loginUsersSocketEmit', users, 'i')
+      this.$store.commit(`ws/setLoginUsersSocket`, users)
+    },
+    // user, room
+    askJoinMatchSocketEmit(data) {
+      logger('SOCKETS askJoinMatchSocketEmit', data, 'i')
+    },
     // user, users
     joinRoomSocketEmit(data) {
       logger('SOCKETS joinRoomSocketEmit', data, 'i')

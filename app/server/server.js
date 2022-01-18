@@ -50,6 +50,23 @@ const leftRoom = (id, socket) => {
 }
 
 io.on('connection', (socket) => {
+  socket.on('user_login', (user) => {
+    Rooms.POSTLoginUser(user)
+    io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
+  })
+
+  socket.on('user_logout', (id) => {
+    Rooms.DELETLoginEUser(id)
+    io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
+  })
+
+  socket.on('send_invite', (data) => {
+    io.to(data.socket).emit('askJoinMatchSocketEmit', {
+      user: data.user,
+      room: data.room,
+    })
+  })
+
   socket.on('add_user', (user, cb) => {
     let callback
     const u = {

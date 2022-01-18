@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Header></Header>
+    <Header :menu="false"></Header>
     <div>
       <div class="container-app-offline">
         <nuxt />
@@ -13,7 +13,7 @@
 <script>
 import firebase from '~/server/api/firebase'
 import ThemeMixin from '~/mixins/theme'
-import { isProd } from '~/utils'
+import { logger, isProd } from '~/utils'
 
 export default {
   mixins: [ThemeMixin],
@@ -23,6 +23,13 @@ export default {
         class: `public ${this.bodyClass}`,
       },
     }
+  },
+  sockets: {
+    // users login
+    loginUsersSocketEmit(users) {
+      logger('SOCKETS loginUsersSocketEmit', users, 'i')
+      this.$store.commit(`ws/setLoginUsersSocket`, users)
+    },
   },
   beforeMount() {
     if (isProd()) {

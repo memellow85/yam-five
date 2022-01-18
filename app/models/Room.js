@@ -2,6 +2,21 @@ class Rooms {
   constructor() {
     this.users = []
     this.rooms = []
+    this.usersLogin = []
+  }
+
+  // LOGIN
+  POSTLoginUser(user) {
+    this.usersLogin = [...this.usersLogin, user]
+  }
+
+  DELETLoginEUser(uid) {
+    this.usersLogin = this.usersLogin.filter((user) => user.uid !== uid)
+  }
+
+  GETLoginUsers() {
+    // const activeUsers = this.users.map((u) => u.uid)
+    return this.usersLogin
   }
 
   // USER

@@ -274,5 +274,12 @@
   "themes": {
     "default": "Chiaro",
     "dark": "Scuro"
+  },
+  "invite": {
+    "title_1": "Persone connesse",
+    "th_1": "Nome",
+    "th_2": "Invita",
+    "th_3": "Attivo",
+    "message_1": "Invito inviato correttamente"
   }
 }

@@ -149,3 +149,97 @@
     }
   }
 }
+
+%fakeTable {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  ul {
+    li {
+      &.header {
+        @include margin(null null 0.5rem);
+        border-bottom: $border-base-tab;
+        @include themed() {
+          border-color: t($key-color-2);
+        }
+        p {
+          @include size(auto, 2.5rem);
+        }
+      }
+      &.hide {
+        display: none;
+      }
+      &.io {
+        p {
+          color: $primary;
+        }
+      }
+      .col_1 {
+        @include size(50%, auto);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .col_2 {
+        @include margin(null 1.5rem null);
+      }
+      .col_2,
+      .col_3 {
+        @include size(25%, auto);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        &.full {
+          @include size(50%, auto);
+        }
+        p {
+          justify-content: flex-end;
+          &:last-child {
+            @include size(3.5rem, auto);
+          }
+          span {
+            &.yamicons {
+              @include margin(null 0.5rem null null);
+              &:before {
+                color: $gold;
+              }
+              &.mdi-podium-silver {
+                &:before {
+                  color: $silver;
+                }
+              }
+              &.mdi-podium-bronze {
+                &:before {
+                  color: $bronze;
+                }
+              }
+            }
+          }
+        }
+      }
+      .col_3 {
+        p {
+          min-width: 5rem;
+          span {
+            &:not(.yamicons) {
+              text-align: right;
+              min-width: 3rem;
+            }
+          }
+        }
+      }
+      p {
+        @include size(auto, 1.7rem);
+        display: flex;
+        align-items: center;
+      }
+      &.empty-state {
+        @include size(100%, 9rem);
+        border-bottom: 0;
+        flex-flow: column;
+        p {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

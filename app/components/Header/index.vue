@@ -2,11 +2,15 @@
   <div class="wrapper-header">
     <h1>
       {{ $t('nameapp') }}
-      <span
-        v-if="$route.name === 'release'"
-        v-touch="() => $router.push({ name: 'index' })"
-        class="yamicons mdi mdi-chevron-left medium"
-      ></span>
+      <div v-if="menu" class="wrapper-invite">
+        <span
+          v-touch="() => $router.push({ name: 'game-invite' })"
+          class="yamicons mdi mdi-account-details-outline medium"
+        ></span>
+        <span v-if="getUsersLogin() > 0" class="notification flex-center">
+          {{ getUsersLogin() }}
+        </span>
+      </div>
     </h1>
     <p v-if="campaignActive && $route.name === 'home'" class="center">
       <i>{{ currentCampaign.name }}</i>
@@ -18,11 +22,28 @@
 import { mapState } from 'vuex'
 
 export default {
+  props: {
+    menu: {
+      type: Boolean,
+      default: true,
+    },
+  },
   computed: {
+    ...mapState('firebase', {
+      userFirebase: (state) => state.userFirebase,
+    }),
     ...mapState('game', {
       currentCampaign: (state) => state.currentCampaign,
       campaignActive: (state) => state.campaignActive,
     }),
+    ...mapState('ws', {
+      loginUsersSocket: (state) => state.loginUsersSocket,
+    }),
+    getUsersLogin() {
+      return this.loginUsersSocket
+        ? this.loginUsersSocket.filter((u) => u.uid !== this.userFirebase.uid)
+        : []
+    },
   },
 }
 </script>
@@ -33,6 +54,17 @@ export default {
   overflow: hidden;
   p {
     @include margin(0.7rem null null);
+  }
+  .wrapper-invite {
+    .notification {
+      @include position(absolute, -0.1rem -0.1rem null null);
+      @include size(1rem);
+      @extend %strong;
+      @extend %notify;
+      border-radius: 50%;
+      background: $primary;
+      color: $color-8;
+    }
   }
 }
 </style>
