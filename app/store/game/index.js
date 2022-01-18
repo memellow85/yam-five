@@ -172,7 +172,13 @@ export const mutations = {
           state.game[g].data[d].icon =
             getLocalStorageKey('helper') === 'no'
               ? 'plus-box'
-              : checkPossibleActiveDice(state.game[g].data[d], state.dices)
+              : checkPossibleActiveDice(
+                  state.game[g].data[d],
+                  state.dices,
+                  state.game[g].data[d].name === 'min'
+                    ? state.game[g].data.max
+                    : state.game[g].data.min
+                )
               ? 'plus-box'
               : 'trash-can'
         }
