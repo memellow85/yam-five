@@ -4,6 +4,7 @@ import { getLocalStorageKey, setLocalStorageKey } from '~/utils'
 
 const it = require('~/locales/it.json')
 const en = require('~/locales/en.json')
+const es = require('~/locales/es.json')
 
 Vue.use(VueI18n)
 
@@ -22,6 +23,7 @@ export default ({ app }) => {
     messages: {
       en,
       it,
+      es,
     },
   })
 }
