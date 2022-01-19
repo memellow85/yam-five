@@ -48,8 +48,6 @@
     "nuxt": "2.15.8",
     "nuxt-precompress": "0.5.9",
     "vue-i18n": "8.26.7",
-    "@nuxtjs/eslint-module": "3.0.2",
-    "@nuxtjs/style-resources": "1.2.1",
     "@slack/webhook": "6.0.0"
   },
   "devDependencies": {
