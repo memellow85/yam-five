@@ -43,9 +43,12 @@ export default {
     },
   },
   mounted() {
-    this.currentTheme = getLocalStorageKey('theme')
-      ? getLocalStorageKey('theme')
-      : 'default'
+    if (getLocalStorageKey('theme')) {
+      this.currentTheme = getLocalStorageKey('theme')
+    } else {
+      this.currentTheme = 'default'
+      setLocalStorageKey('theme', 'default')
+    }
   },
   methods: {
     changeHandler(theme) {

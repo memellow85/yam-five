@@ -60,8 +60,8 @@
                   :class="[
                     'cube',
                     {
-                      red: g.active && getChangeValue(index, i),
-                      green: g.active && !getChangeValue(index, i),
+                      red: g.active && g.icon === 'trash-can',
+                      green: g.active && g.icon === 'plus-box',
                     },
                   ]"
                 >
@@ -73,16 +73,10 @@
                         ? g.active
                         : false
                     "
-                    v-touch="() => submitValue(g, index, i)"
-                    :class="`yamicons mdi mdi-${
-                      getChangeValue(index, i)
-                        ? 'trash-can-outline'
-                        : 'plus-box-outline'
-                    }`"
+                    v-touch="() => submitValue(g, index)"
+                    :class="`yamicons mdi mdi-${g.icon}-outline`"
                   ></span>
                   <p v-else>{{ g.value }}</p>
-                  <!-- v-longPress
-                  @longPressStart="longPressStart(index, i)" -->
                 </div>
                 <div v-if="includesBonus.includes(i)" :key="`b_2_${i}`">
                   <template v-if="i === 'six'">
@@ -129,10 +123,8 @@
 import { mapState } from 'vuex'
 import AnalyticsMixin from '~/mixins/analytics'
 import ScrollMixin from '~/mixins/scroll'
-// import { longPress } from '~/directives/longpress'
 
 export default {
-  // directives: { longPress },
   mixins: [ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
@@ -160,48 +152,10 @@ export default {
     }),
   },
   methods: {
-    submitValue(data, index, i) {
+    submitValue(data, index) {
       if (data.active) {
         this.$store.commit('game/changePlayedView', index)
-
-        // eslint-disable-next-line no-prototype-builtins
-        if (this.changeValue.hasOwnProperty(index)) {
-          // eslint-disable-next-line no-prototype-builtins
-          if (this.changeValue[index].hasOwnProperty(i)) {
-            this.changeValue[index][i] = false
-            this.$store.dispatch('game/resetActualValue', data)
-          } else {
-            this.$store.dispatch('game/setActualValue', data)
-          }
-        } else {
-          this.$store.dispatch('game/setActualValue', data)
-        }
-      }
-    },
-    /* longPressStart(index, i) {
-      const tmp = Object.assign({}, this.changeValue)
-      // eslint-disable-next-line no-prototype-builtins
-      if (tmp.hasOwnProperty(index)) {
-        // eslint-disable-next-line no-prototype-builtins
-        tmp[index][i] = !tmp[index].hasOwnProperty(i)
-      } else {
-        tmp[index] = {}
-        tmp[index][i] = true
-      }
-      this.changeValue = {}
-      this.changeValue = tmp
-    }, */
-    getChangeValue(index, i) {
-      // eslint-disable-next-line no-prototype-builtins
-      if (this.changeValue.hasOwnProperty(index)) {
-        // eslint-disable-next-line no-prototype-builtins
-        if (this.changeValue[index].hasOwnProperty(i)) {
-          return this.changeValue[index][i]
-        } else {
-          return false
-        }
-      } else {
-        return false
+        this.$store.dispatch('game/setActualValue', data)
       }
     },
   },

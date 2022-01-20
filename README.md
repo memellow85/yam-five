@@ -52,6 +52,7 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.1.5 - Bugfix + touch + share link
 - 1.2.0 - Update firebase + dark mode + bugfix + refactor store
 - 1.3.0 - Add campaigns + Bugfix + New random number function
+- 1.3.1 - Bugfix + add helper + update campaigns
 
 ## Next release
 
@@ -59,7 +60,8 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - x.x.x - Optimize app for desktop
 - x.x.x - Chat
 - x.x.x - Share match
-- x.x.x - Add seasons
+- x.x.x - Add packages for campaigns
+- x.x.x - Add new languages
 
 ## License
 

@@ -34,16 +34,8 @@
         </div>
       </article>
       <article>
-        <h4>{{ $t('config.title_7') }}</h4>
-        <FormsSounds></FormsSounds>
-      </article>
-      <article>
-        <h4>{{ $t('config.title_9') }}</h4>
-        <FormsThemes></FormsThemes>
-      </article>
-      <article>
-        <h4>{{ $t('config.title_2') }}</h4>
-        <FormsLanguages></FormsLanguages>
+        <h4>{{ $t('config.title_10') }}</h4>
+        <FormsHelper></FormsHelper>
       </article>
       <article class="wrapper-tabs-form">
         <ul class="inline custom-tabs">
@@ -81,6 +73,18 @@
             <span>{{ $t('config.btn_2') }}</span>
           </button>
         </div>
+      </article>
+      <article>
+        <h4>{{ $t('config.title_7') }}</h4>
+        <FormsSounds></FormsSounds>
+      </article>
+      <article>
+        <h4>{{ $t('config.title_9') }}</h4>
+        <FormsThemes></FormsThemes>
+      </article>
+      <article>
+        <h4>{{ $t('config.title_2') }}</h4>
+        <FormsLanguages></FormsLanguages>
       </article>
       <article>
         <h4>{{ $t('config.title_8') }}</h4>

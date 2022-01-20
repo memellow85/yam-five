@@ -6,6 +6,10 @@
       <p>{{ $t('help.text_2') }}</p>
     </div>
     <div>
+      <h4>{{ $t('help.title_7') }}</h4>
+      <p>{{ $t('help.text_7') }}</p>
+    </div>
+    <div>
       <h4>{{ $t('help.title_3') }}</h4>
       <p>{{ $t('help.text_3') }}</p>
       <ul>

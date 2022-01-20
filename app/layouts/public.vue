@@ -7,6 +7,9 @@
       </div>
       <Footer></Footer>
     </div>
+
+    <!-- Alert -->
+    <Alert :message="$t('alert.message')"></Alert>
   </Layout>
 </template>
 

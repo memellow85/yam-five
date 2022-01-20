@@ -8,6 +8,10 @@
     "yes": "Yes",
     "no": "No"
   },
+  "helper": {
+    "yes": "Yes",
+    "no": "No"
+  },
   "view": {
     "configuration": "Settings"
   },
@@ -71,6 +75,7 @@
     "title_7": "Sound effects",
     "title_8": "Share",
     "title_9": "Change theme",
+    "title_10": "Active help",
     "btn_1": "Join",
     "btn_2": "Leave",
     "btn_3": "Logout",
@@ -118,6 +123,7 @@
     "title_4": "Controls",
     "title_5": "Icons",
     "title_6": "Bonuses",
+    "title_7": "The campaigns",
     "text_1": "YamFive is a simple and funny dice game. Sum and match numbers gained from 5 dices to get the highest score and achieve bonuses that will allow you to win the game. Create a shared room to play with your friends and and make the game even more exciting!",
     "text_2": "To start a new match, go to the settings section and create a new \"room\". To create a shared room and play with someone you have to notify them of the room's name. Make sure they can join the room correctly, by entering its name under \"join\" in the settings section. PLEASE NOTE: the name is case-sensitive.",
     "text_3": "The aim of the game is to obtain the highest score possible by rolling 5 dice and summing the single results in the different game combinations:",
@@ -162,7 +168,7 @@
     "text_4_2_1": "Save a score:",
     "text_4_2_2": " To save and confirm a shot, click on the + button of the corresponding cell. At this cell it is assigned the score obtained with the shot/s automatically.",
     "text_4_3_1": "Cancelling a shot:",
-    "text_4_3_2": " to cancel a shot, you must choose a box to be set to 0, hold it down until the icon changes and click on it again to confirm the cancellation of the score.",
+    "text_4_3_2": " to cancel a shot, you must choose a box to be set to 0, if you have the active helps will appear the basket icon and clicked on it you to confirm the cancellation of the score.",
     "text_5_1": "Opens the settings section, where you can create or join a match or handle your personal settings.",
     "text_5_3": "Opens the summary grid of the match where all the shots are summarized. Here you can both playing your turns and viewing the partial score summary.",
     "text_5_2": "Opens the ranking section where you can find the match's standings and all the game's records.",
@@ -188,6 +194,7 @@
     "text_6_2_5_1": "YamFive:",
     "text_6_2_5_2": " + 50 bonus points.",
     "text_6_3": "Bonus points are calculated and added automatically to the total score by the system.",
+    "text_7": "The campaigns are short tournament with a specific ranking. The duration is 1 mounth and on finish the winner will see into general ranking a medal near your name. The score changed general ranking when you best you score.",
     "game_1": "Number of 1",
     "game_2": "Number of 2",
     "game_3": "Number of 3",
@@ -245,8 +252,12 @@
   "alert": {
     "yes": "Yes",
     "no": "No",
+    "update": "Update",
+    "title": "Warning!",
     "message": "Are you sure you want to reset your records?",
-    "message_update": "New version available... Update now!!",
+    "message_update_1": "The following are the interventions made:",
+    "message_update_2": "Update now!!",
+    "title_update": "New version available",
     "add_to_home": "Add to home YamFive",
     "socket_disconnect": "Socket disconnected"
   },

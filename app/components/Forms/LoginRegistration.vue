@@ -206,12 +206,24 @@ export default {
             email: this.email,
             password: this.password,
           })
-          .then(() => {
-            if (this.credential) {
-              setLocalStorageKey('username', this.email)
-              setLocalStorageKey('password', this.password)
+          .then((resp) => {
+            if (resp && resp.type && resp.type === 'change_version') {
+              this.$store.commit(`game/toggleModal`, {
+                type: 'alert',
+                message: this.$t('alert.message_update_1'),
+                title: this.$t('alert.title_update'),
+                update: true,
+                version: resp.version,
+              })
+              this.showLoader = false
+              this.disabledAll = false
+            } else {
+              if (this.credential) {
+                setLocalStorageKey('username', this.email)
+                setLocalStorageKey('password', this.password)
+              }
+              this.$router.push('/home')
             }
-            this.$router.push('/home')
           })
           .catch((msg) => {
             this.$store.commit('game/toggleNotification', {

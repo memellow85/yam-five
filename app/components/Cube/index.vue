@@ -3,14 +3,17 @@
     :class="[
       'cube flex-center',
       dimension,
-      { green: data.active && !disabledButtonGame },
+      {
+        red: data.active && !disabledButtonGame && data.icon === 'trash-can',
+        green: data.active && !disabledButtonGame && data.icon === 'plus-box',
+      },
     ]"
   >
     <template v-if="data.active && !disabledButtonGame">
       <div class="box-action flex-center">
         <span
           v-touch="submitValue"
-          :class="`yamicons mdi mdi-plus-box-outline`"
+          :class="`yamicons mdi mdi-${data.icon}-outline`"
         ></span>
       </div>
       <p>{{ $t(data.label) }}</p>
@@ -36,7 +39,7 @@ export default {
     data: {
       type: Object,
       default() {
-        return { value: '-', name: '', label: '', active: false }
+        return { value: '-', name: '', label: '', active: false, icon: '' }
       },
       required: false,
     },

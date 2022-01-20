@@ -18,7 +18,7 @@
 <script>
 import { mapState } from 'vuex'
 import { resize } from '~/directives/resize'
-import { getLocalStorageKey, setLocalStorageKey, isProd } from '~/utils'
+import { setLocalStorageKey, isProd } from '~/utils'
 
 export default {
   directives: { resize },
@@ -69,8 +69,8 @@ export default {
       }
     }
 
-    this.$nuxt.$on('refreshPWAHandler', () => {
-      this.refreshPWAHandler()
+    this.$nuxt.$on('refreshPWAHandler', (version) => {
+      this.refreshPWAHandler(version)
     })
     this.$nuxt.$on('addToHomeHandler', () => {
       this.addToHomeHandler()
@@ -79,7 +79,6 @@ export default {
   beforeMount() {
     window.addEventListener('beforeinstallprompt', (event) => {
       event.preventDefault()
-      setLocalStorageKey('version', process.env.NUXT_ENV_APP_VERSION)
       this.deferredPrompt = event
       this.$store.commit('game/toggleNotification', {
         type: 'warning',
@@ -93,22 +92,13 @@ export default {
       this.deferredPrompt = null
     })
   },
-  mounted() {
-    if (getLocalStorageKey('version') !== process.env.NUXT_ENV_APP_VERSION) {
-      this.$store.commit('game/toggleNotification', {
-        type: 'warning',
-        message: this.$t('alert.message_update'),
-        buttonRefresh: true,
-      })
-    }
-  },
   destroyed() {
     this.$nuxt.$off('refreshPWAHandler')
     this.$nuxt.$off('addToHomeHandler')
   },
   methods: {
-    refreshPWAHandler() {
-      setLocalStorageKey('version', process.env.NUXT_ENV_APP_VERSION)
+    refreshPWAHandler(version) {
+      setLocalStorageKey('version', version)
       window.location.reload()
     },
     async addToHomeHandler() {

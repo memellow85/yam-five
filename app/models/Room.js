@@ -1,3 +1,8 @@
+require('dotenv').config()
+const { IncomingWebhook } = require('@slack/webhook')
+const WEBHOOK_URL = process.env.NUXT_ENV_SLACK_NOTIFICATION
+const webhook = new IncomingWebhook(WEBHOOK_URL)
+
 class Rooms {
   constructor() {
     this.users = []
@@ -94,46 +99,53 @@ class Rooms {
   }
 
   PUTTurnUsers(user) {
-    this.users = this.users.map((v) => {
-      if (v.id === user.id) {
-        v.tot = user.tot
-      }
-      return v
-    })
-
-    const room = user.room
-    let indexNew = null
-    let indexOld = null
-
-    const usersRoom = this.users.filter((v) => v.room === room)
-    usersRoom.map((v, k) => {
-      if (v.turnOn) {
-        indexOld = k
-        const key = k + 1
-        indexNew = usersRoom[key] ? key : 0
-      }
-      return v
-    })
-    if (usersRoom.length > 1) {
+    try {
       this.users = this.users.map((v) => {
-        if (v.room === room) {
-          if (usersRoom[indexOld].id === v.id) {
-            v.turnOn = false
-            v.match = usersRoom[indexOld].match - 1
-          }
-          if (usersRoom[indexNew].id === v.id) {
-            v.turnOn = true
-          }
+        if (v.id === user.id) {
+          v.tot = user.tot
         }
         return v
       })
-    } else {
-      this.users = this.users.map((v) => {
-        if (usersRoom[0].id === v.id && v.room === room) {
-          v.turnOn = true
-          v.match = v.match - 1
+
+      const room = user.room
+      let indexNew = null
+      let indexOld = null
+
+      const usersRoom = this.users.filter((v) => v.room === room)
+      usersRoom.map((v, k) => {
+        if (v.turnOn) {
+          indexOld = k
+          const key = k + 1
+          indexNew = usersRoom[key] ? key : 0
         }
         return v
+      })
+      if (usersRoom.length > 1) {
+        this.users = this.users.map((v) => {
+          if (v.room === room) {
+            if (usersRoom[indexOld].id === v.id) {
+              v.turnOn = false
+              v.match = usersRoom[indexOld].match - 1
+            }
+            if (usersRoom[indexNew].id === v.id) {
+              v.turnOn = true
+            }
+          }
+          return v
+        })
+      } else {
+        this.users = this.users.map((v) => {
+          if (usersRoom[0].id === v.id && v.room === room) {
+            v.turnOn = true
+            v.match = v.match - 1
+          }
+          return v
+        })
+      }
+    } catch (err) {
+      webhook.send({
+        channel: '#yamfive',
+        text: 'Error PUTTurnUsers: ' + JSON.stringify(err),
       })
     }
   }

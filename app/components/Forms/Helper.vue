@@ -1,13 +1,13 @@
 <template>
   <div class="wrapper-form-sounds flex">
-    <div v-for="r in sounds" :key="r.code" class="radio-button">
+    <div v-for="r in helpers" :key="r.code" class="radio-button">
       <label class="radio">
         <span class="radio__input">
           <input
             :id="r.code"
-            v-model="currentSound"
+            v-model="currentHelper"
             type="radio"
-            name="sounds"
+            name="helper"
             :value="r.code"
           />
           <span class="radio__control"></span>
@@ -24,36 +24,36 @@ import { getLocalStorageKey, setLocalStorageKey } from '~/utils'
 export default {
   data() {
     return {
-      currentSound: 'yes',
-      sounds: [
+      currentHelper: 'yes',
+      helpers: [
         {
           code: 'yes',
-          name: 'sound.yes',
+          name: 'helper.yes',
         },
         {
           code: 'no',
-          name: 'sound.no',
+          name: 'helper.no',
         },
       ],
     }
   },
   watch: {
-    currentSound() {
-      this.changeHandler(this.currentSound)
+    currentHelper() {
+      this.changeHandler(this.currentHelper)
     },
   },
   mounted() {
-    if (getLocalStorageKey('sound')) {
-      this.currentSound = getLocalStorageKey('sound')
+    if (getLocalStorageKey('helper')) {
+      this.currentHelper = getLocalStorageKey('helper')
     } else {
-      this.currentSound = 'yes'
-      setLocalStorageKey('sound', 'yes')
+      this.currentHelper = 'yes'
+      setLocalStorageKey('helper', 'yes')
     }
   },
   methods: {
-    changeHandler(sound) {
-      if (getLocalStorageKey('sound') !== sound) {
-        setLocalStorageKey('sound', sound)
+    changeHandler(helper) {
+      if (getLocalStorageKey('helper') !== helper) {
+        setLocalStorageKey('helper', helper)
       }
     },
   },

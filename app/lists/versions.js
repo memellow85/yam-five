@@ -1,5 +1,11 @@
 export const versionsRelease = [
   {
+    version: '1.3.1',
+    date: '2022-01-19',
+    title: 'Improvement app',
+    messages: ['Help during the game', 'Updated mountly tournaments', 'Bugfix'],
+  },
+  {
     version: '1.3.0',
     date: '2022-01-05',
     title: 'Improvement app',

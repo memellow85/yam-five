@@ -6,6 +6,7 @@ import {
   setStatisticsDice,
   generateRandomRoom,
   getLocalStorageKey,
+  checkPossibleActiveDice,
 } from '~/utils'
 import {
   dicesTypesCabled,
@@ -25,13 +26,16 @@ export const state = () => ({
   showChampionsShip: false,
   showSchema: false,
   showAlert: false,
+  messageAlert: null,
+  titleAlert: '',
+  newVersion: null,
+  updateVersion: false,
   showRelease: false,
   showNotification: false,
   notificationTypes: null,
   notificationMessage: null,
   notificationTimer: false,
   notificationSound: true,
-  buttonRefresh: false,
   buttonAddToHome: false,
   globalTotal: 0,
   numberTotalGames: numberTotalGames(),
@@ -70,8 +74,15 @@ export const mutations = {
     state.showAlert = false
     state.showRelease = false
   },
-  toggleModal(state, type) {
-    logger('COMMIT-GAME toggleModal', type, 'i')
+  toggleModal(state, data) {
+    logger('COMMIT-GAME toggleModal', data, 'i')
+    const type = typeof data === 'string' ? data : data.type
+    if (data.update) {
+      state.messageAlert = typeof data === 'string' ? null : data.message
+      state.titleAlert = typeof data === 'string' ? '' : data.title
+      state.updateVersion = typeof data === 'string' ? false : data.update
+      state.newVersion = typeof data === 'string' ? null : data.version
+    }
     switch (type) {
       case 'help':
         state.showHelp = !state.showHelp
@@ -151,6 +162,30 @@ export const mutations = {
       state.probablyExitNumbers,
       state.dices
     )
+
+    state.currentGamePlayed.map((g) => {
+      Object.keys(state.game[g].data).map((d) => {
+        if (
+          state.game[g].data[d].active &&
+          state.game[g].data[d].value === '-'
+        ) {
+          state.game[g].data[d].icon =
+            getLocalStorageKey('helper') === 'no'
+              ? 'plus-box'
+              : checkPossibleActiveDice(
+                  state.game[g].data[d],
+                  state.dices,
+                  state.game[g].data[d].name === 'min'
+                    ? state.game[g].data.max
+                    : state.game[g].data.min
+                )
+              ? 'plus-box'
+              : 'trash-can'
+        }
+        return true
+      })
+      return true
+    })
   },
   activeGame(state) {
     logger('COMMIT-GAME activeGame', null, 'i')
@@ -244,18 +279,16 @@ export const mutations = {
       state.showNotification = true
       state.notificationTypes = data.type
       state.notificationMessage = data.message
-      state.buttonRefresh = data.buttonRefresh ? data.buttonRefresh : false
       state.buttonAddToHome = data.buttonAddToHome
         ? data.buttonAddToHome
         : false
-      state.notificationTimer = !(data.buttonRefresh || data.buttonAddToHome)
+      state.notificationTimer = !data.buttonAddToHome
     } else {
       state.notificationSound = true
       state.notificationTimer = false
       state.showNotification = false
       state.notificationTypes = null
       state.notificationMessage = null
-      state.buttonRefresh = false
       state.buttonAddToHome = false
     }
   },
