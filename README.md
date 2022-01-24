@@ -53,7 +53,7 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.2.0 - Update firebase + dark mode + bugfix + refactor store
 - 1.3.0 - Add campaigns + Bugfix + New random number function
 - 1.3.1 - Bugfix + add helper + update campaigns
-- 1.3.2 - Bugfix + Share match
+- 1.3.2 - Bugfix + Share match + spanish language
 
 ## Next release
 
