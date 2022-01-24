@@ -2,46 +2,50 @@
   "nameapp": "yamfive",
   "language": {
     "it": "Italiano",
-    "en": "Inglés",
-    "es": "Español"
+    "en": "Inglese",
+    "es": "Spagnolo"
   },
   "sound": {
-    "yes": "Sí",
+    "yes": "Si",
+    "no": "No"
+  },
+  "helper": {
+    "yes": "Si",
     "no": "No"
   },
   "view": {
-    "configuration": "Configuración"
+    "configuration": "Configurazione"
   },
   "games": {
-    "all": "Todo",
-    "short": "Corto",
-    "veryshort": "Muy corto"
+    "all": "Completo",
+    "short": "Breve",
+    "veryshort": "Brevissimo"
   },
   "login": {
-    "title_1": "Inicio de sesión",
-    "title_2": "Inscripción",
+    "title_1": "Login",
+    "title_2": "Registrazione",
     "form_1": "E-Mail",
     "form_2": "Password",
-    "form_3": "Confirmar password",
-    "form_4": "Nombre",
-    "btn_1": "Entre en",
-    "btn_2": "Registro",
-    "link_1": "Normas",
-    "link_message": "Antes de empezar lea el ",
-    "save_credential": "Guardar nombre de usuario y contraseña",
-    "loading_game": "Juego de configuraciones de carga..."
+    "form_3": "Conferma password",
+    "form_4": "Nome",
+    "btn_1": "Entra",
+    "btn_2": "Registrati",
+    "link_1": "guida",
+    "link_message": "Prima di iniziare leggi la ",
+    "save_credential": "Salva username e password",
+    "loading_game": "Caricamento impostazioni gioco..."
   },
   "recovery": {
-    "title": "Recuperación password",
+    "title": "Recupera password",
     "form": "E-Mail",
-    "btn": "Recuperación"
+    "btn": "Recupera"
   },
   "home": {
-    "message_1": "Juega una partida rápida para empezar",
-    "message_2": "si no, crear o unirse a una sala",
-    "btn_1": "Crear o unirse",
-    "btn_2": "Iniciar una partida",
-    "btn_3": "Empezar una nueva partida",
+    "message_1": "Per iniziare fai una partita veloce",
+    "message_2": "altrimenti crea o unisciti ad una stanza",
+    "btn_1": "Crea o Unisciti",
+    "btn_2": "Inizia a giocare",
+    "btn_3": "Inizia una nuova partita",
     "btn_4": "Partita veloce",
     "message_2_a": "Sei stato aggiunto alla stanza",
     "message_2_b": "Inizia a giocare facendo il primo tiro.",
@@ -72,6 +76,7 @@
     "title_7": "Effetti sonori",
     "title_8": "Condividi",
     "title_9": "Cambia il tema",
+    "title_10": "Attiva aiuti",
     "btn_1": "Unisciti",
     "btn_2": "Abbandona",
     "btn_3": "Esci",
@@ -119,8 +124,9 @@
     "title_4": "I Comandi",
     "title_5": "Le Icone",
     "title_6": "I punti Bonus",
+    "title_7": "Le campagne",
     "text_1": "YamFive è un gioco di dadi semplice e divertente. Somma e combina tra loro i numeri ottenuti lanciando 5 dadi per ottenere il punteggio più alto e guadagnare i bonus che ti permetteranno di vincere la partita. Crea una stanza condivisa per sfidare i tuoi amici e rendere il gioco ancora più emozionante!",
-    "text_2": "Per iniziare una nuova partita, vai nella sezione configurazione e crea una \"stanza\". Per creare una stanza condivisa e giocare con qualcuno, comunicagli il nome della stanza che hai creato e assicurati che vi acceda correttamente inserendone il nome sotto la voce \"unisciti\" della sezione configurazione. NOTA BENE: il nome della stanza tiene conto di maniuscole e minuscole.",
+    "text_2": "Per iniziare una nuova partita, vai nella sezione configurazione e crea una \"stanza\". Per creare una stanza condivisa e giocare con qualcuno, comunicagli il nome della stanza che hai creato e assicurati che vi acceda correttamente inserendone il nome sotto la voce \"unisciti\" della sezione configurazione. NOTA BENE: il nome della stanza tiene conto di maiuscole e minuscole.",
     "text_3": "Lo scopo del gioco è ottenere il punteggio più alto possibile tirando i 5 dadi e sommando i numeri usciti nelle diverse combinazioni di gioco:",
     "text_3_1_1": "Maggior numero di 1:",
     "text_3_1_2": " somma degli 1 ottenuti.",
@@ -163,10 +169,10 @@
     "text_4_2_1": "Salvare un punteggio:",
     "text_4_2_2": " per salvare e dunque segnare un tiro, cliccare sul tasto + della casella corrispondente. In automatico a quest’ultima verrà associato il valore ottenuto con il/i tiro/i effettuato/i.",
     "text_4_3_1": "Annullare un tiro:",
-    "text_4_3_2": " per annullare un tiro è necessario scegliere una casella da valorizzare a 0, tenerla premuta fino a quando l’icona non si modifica e cliccare nuovamente su di essa per confermare l'annullamento del punteggio.",
+    "text_4_3_2": " per annullare un tiro è necessario scegliere una casella da valorizzare a 0, se hai gli aiuti attivi apparirà l'icona del cestino e cliccando su di essa puoi confermare l'annullamento del punteggio. Nel caso invece non hai gli aiuti attivi dovrai cliccare semplicemente sull'icona del più come quando assegni un valore, in questo caso il sistema però assegnerà il valore 0.",
     "text_5_1": "Apre la schermata configurazione per creare una partita, unirsi ad una stanza già creata o gestire le impostazioni.",
     "text_5_3": "Apre la schermata griglia della partita che riassume tutti i tiri segnati. Da qui è possibile effettuare le giocate o semplicemente visualizzare lo schema riassuntivo del punteggio parziale.",
-    "text_5_2": "Apre la schermata classifica dove viene riepilogata la classifca della partita e dove sono visibili i record del gioco.",
+    "text_5_2": "Apre la schermata classifica dove viene riepilogata la classifica della partita e dove sono visibili i record del gioco.",
     "text_5_4": "Apre la schermata regolamento dove consultare le informazioni necessarie per giocare.",
     "text_5_5": "Giocata dall'alto verso il basso.",
     "text_5_6": "Giocata libero.",
@@ -189,6 +195,7 @@
     "text_6_2_5_1": "YamFive:",
     "text_6_2_5_2": " + 50 punti bonus.",
     "text_6_3": "I punti bonus vengono calcolati dal sistema e inseriti automaticamente al valore totale di una giocata.",
+    "text_7": "Le campagne sono dei brevi tornei con una classifica specifica. Durano 1 mese e alla fine il vincitore vedrà nella classifica generale una medaglia come vincitore di una campagna. I punteggi che vengono realizzati vanno a modificare la classifica generale qualora uno migliori il proprio punteggio.",
     "game_1": "Punteggio di 1",
     "game_2": "Punteggio di 2",
     "game_3": "Punteggio di 3",
@@ -246,8 +253,12 @@
   "alert": {
     "yes": "Si",
     "no": "No",
+    "update": "Aggiorna",
+    "title": "Attenzione!",
     "message": "Sei sicuro di voler azzerare i tuoi records?",
-    "message_update": "Nuova versione disponibile... Aggiorna ora!!",
+    "message_update_1": "Di seguito gli interventi fatti:",
+    "message_update_2": "Aggiorna subito per poter giocare!!",
+    "title_update": "Nuova versione disponibile",
     "add_to_home": "Aggiungi al desktop YamFive",
     "socket_disconnect": "Socket disconnesso"
   },
@@ -280,7 +291,10 @@
     "title_1": "Persone connesse",
     "th_1": "Nome",
     "th_2": "Invita",
-    "th_3": "Attivo",
-    "message_1": "Invito inviato correttamente"
+    "th_3": "Disponibile",
+    "message_1": "Invito inviato correttamente",
+    "title_share": "Vuoi unirti?",
+    "message_share_1": "Sei stato invitato a unirti ad una partita multipla",
+    "notification_1": "Devi creare una stanza prima di poter invitare qualcuno"
   }
 }

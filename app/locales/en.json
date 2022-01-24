@@ -2,7 +2,8 @@
   "nameapp": "yamfive",
   "language": {
     "it": "Italian",
-    "en": "English"
+    "en": "English",
+    "es": "Spanish"
   },
   "sound": {
     "yes": "Yes",
