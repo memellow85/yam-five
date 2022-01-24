@@ -17,6 +17,13 @@ export default {
     // user, room
     askJoinMatchSocketEmit(data) {
       logger('SOCKETS askJoinMatchSocketEmit', data, 'i')
+      this.$store.commit(`game/toggleModal`, {
+        type: 'alert',
+        message: this.$t('invite.message_share_1'),
+        title: this.$t('invite.title_share'),
+        share: true,
+        data,
+      })
     },
     // user, users
     joinRoomSocketEmit(data) {

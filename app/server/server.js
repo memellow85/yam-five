@@ -45,6 +45,7 @@ const leftRoom = (id, socket) => {
       usersUpdateTurn = Rooms.GETNextTurnOnUser(user.room)
       userTurn = Rooms.GETTurnOnUser(user.room)
     }
+    io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
     io.to(user.room).emit('leftRoomSocketEmit', {
       user: user.user,
       userTurn,
@@ -55,7 +56,11 @@ const leftRoom = (id, socket) => {
 
 io.on('connection', (socket) => {
   socket.on('user_login', (user) => {
-    Rooms.POSTLoginUser(user)
+    const u = {
+      ...user,
+      socket: socket.id,
+    }
+    Rooms.POSTLoginUser(u)
     io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
   })
 
@@ -65,7 +70,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('send_invite', (data) => {
-    io.to(data.socket).emit('askJoinMatchSocketEmit', {
+    io.to(data.user.socket).emit('askJoinMatchSocketEmit', {
       user: data.user,
       room: data.room,
     })
@@ -106,6 +111,7 @@ io.on('connection', (socket) => {
     } else {
       callback = { error: '300' }
     }
+    io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
     cb(callback)
   })
 
@@ -139,12 +145,14 @@ io.on('connection', (socket) => {
       user,
       users: usersIntoRoom,
     })
+    io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
   })
 
   socket.on('update_game', (user) => {
     Rooms.PUTRoomUsers(user.room, user.type)
     const usersIntoRoom = Rooms.GETUsersRoom(user.room)
     io.to(user.room).emit('updateGameSocketEmit', usersIntoRoom)
+    io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
   })
 
   socket.on('finish_turn', (user) => {
@@ -161,6 +169,7 @@ io.on('connection', (socket) => {
     if (Rooms.checkFinishGame(user.room)) {
       const championshipList = Rooms.GETChampionShipRoom(user.room)
       io.to(user.room).emit('finishGameSocketEmit', championshipList)
+      io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
     }
   })
 

@@ -7,8 +7,8 @@
           v-touch="() => $router.push({ name: 'game-invite' })"
           class="yamicons mdi mdi-account-details-outline medium"
         ></span>
-        <span v-if="getUsersLogin() > 0" class="notification flex-center">
-          {{ getUsersLogin() }}
+        <span v-if="getUsersLogin > 0" class="notification flex-center">
+          {{ getUsersLogin }}
         </span>
       </div>
     </h1>
@@ -40,7 +40,7 @@ export default {
       loginUsersSocket: (state) => state.loginUsersSocket,
     }),
     getUsersLogin() {
-      return this.loginUsersSocket
+      return this.loginUsersSocket.length > 0
         ? this.loginUsersSocket.filter((u) => u.uid !== this.userFirebase.uid)
         : []
     },

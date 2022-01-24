@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     releaseHandler() {
-      this.$store.commit(`game/toggleModal`, 'release')
+      this.$store.commit(`game/toggleOverlay`, 'release')
     },
     githubHandler() {
       window.open(this.pkg.homepage, '_blank')

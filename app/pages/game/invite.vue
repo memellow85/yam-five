@@ -22,6 +22,7 @@
               'flex',
               {
                 io: u.uid === userFirebase.uid,
+                busy: u.busy,
               },
             ]"
           >
@@ -29,7 +30,9 @@
               <p>{{ u.name }}</p>
             </div>
             <div class="col_2">
-              <p>-</p>
+              <p>
+                <span :class="['circle', { red: u.busy }]"></span>
+              </p>
             </div>
             <div class="col_3 full">
               <span
@@ -64,13 +67,14 @@ export default {
   },
   methods: {
     inviteHandler(user) {
-      if (user.uid !== this.userFirebase.uid) {
-        if (this.userSocket) {
-          // esiste già la stanza
+      if (user.uid !== this.userFirebase.uid && !user.busy) {
+        if (this.userSocket && this.userSocket.room) {
           this.$store.dispatch('ws/sendInvite', user)
         } else {
-          // la stanza non esistre devo crearla
-          // this.$store.dispatch(`game/fastGame`)
+          this.$store.commit('game/toggleNotification', {
+            type: 'warning',
+            message: this.$t('invite.notification_1'),
+          })
         }
       }
     },
@@ -83,7 +87,8 @@ export default {
   @extend %fakeTable;
   ul {
     li {
-      &.io {
+      &.io,
+      &.busy {
         .col_3 {
           span {
             &.yamicons {

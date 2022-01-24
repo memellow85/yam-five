@@ -290,7 +290,10 @@
     "title_1": "Persone connesse",
     "th_1": "Nome",
     "th_2": "Invita",
-    "th_3": "Attivo",
-    "message_1": "Invito inviato correttamente"
+    "th_3": "Disponibile",
+    "message_1": "Invito inviato correttamente",
+    "title_share": "Vuoi unirti?",
+    "message_share_1": "Sei stato invitato a unirti ad una partita multipla",
+    "notification_1": "Devi creare una stanza prima di poter invitare qualcuno"
   }
 }

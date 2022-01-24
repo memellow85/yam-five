@@ -7,13 +7,13 @@
   >
     <div v-if="showOverlay" class="overlay-container">
       <div
-        v-touch="() => $store.commit('game/resetModal')"
+        v-touch="() => $store.commit('game/resetModalOverlay')"
         class="overlay-mask"
         :style="`height: calc(100vh - (${heightOverlay}rem))`"
       ></div>
       <div class="overlay-content" :style="`height: ${heightOverlay}rem`">
         <div
-          v-touch="() => $store.commit('game/resetModal')"
+          v-touch="() => $store.commit('game/resetModalOverlay')"
           class="overlay-close"
         >
           <span class="yamicons mdi mdi-close"></span>

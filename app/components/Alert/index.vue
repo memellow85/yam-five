@@ -7,35 +7,34 @@
   >
     <div v-if="showAlert" class="wrapper-modal">
       <div v-touch="closeHandler" class="overlay-modal"></div>
-      <div :class="['content-modal', { version: updateVersion }]">
+      <div :class="['content-modal', { version: typeModal === 'update' }]">
         <div class="content-modal-top">
           <h3>
             <span
               :class="[
                 'yamicons mdi',
                 {
-                  'mdi-cellphone-arrow-down': updateVersion,
-                  'mdi-alert-rhombus': !updateVersion,
+                  'mdi-cellphone-arrow-down': useVersion,
+                  'mdi-alert-rhombus': !useVersion,
                 },
               ]"
             ></span>
             {{ getTitle() }}
           </h3>
-          <p v-if="updateVersion" v-html="getMessage()"></p>
-          <p v-else>{{ message }}</p>
+          <p v-html="getMessage()"></p>
         </div>
         <div
           :class="[
-            { 'flex-between': !updateVersion, 'flex-center': updateVersion },
+            { 'flex-between': multipleButton, 'flex-center': useVersion },
           ]"
         >
-          <button v-if="!updateVersion" v-touch="closeHandler" class="red">
+          <button v-if="multipleButton" v-touch="closeHandler" class="red">
             {{ $t('alert.no') }}
           </button>
-          <button v-if="!updateVersion" v-touch="confirmHandler">
+          <button v-if="multipleButton" v-touch="confirmHandler">
             {{ $t('alert.yes') }}
           </button>
-          <button v-if="updateVersion" v-touch="updateHandler">
+          <button v-if="useVersion" v-touch="updateHandler">
             {{ $t('alert.update') }}
           </button>
         </div>
@@ -58,29 +57,51 @@ export default {
   computed: {
     ...mapState('game', {
       showAlert: (state) => state.showAlert,
-      messageAlert: (state) => state.messageAlert,
-      titleAlert: (state) => state.titleAlert,
-      updateVersion: (state) => state.updateVersion,
+      messageModal: (state) => state.messageModal,
+      titleModal: (state) => state.titleModal,
+      typeModal: (state) => state.typeModal,
+      dataModal: (state) => state.dataModal,
       newVersion: (state) => state.newVersion,
     }),
+    multipleButton() {
+      return this.typeModal === 'share' || this.typeModal === 'update'
+    },
+    useVersion() {
+      return this.typeModal === 'update'
+    },
   },
   methods: {
     getTitle() {
-      return this.updateVersion ? this.titleAlert : this.$t('alert.title')
+      switch (this.typeModal) {
+        case 'update':
+        case 'share':
+          return this.titleModal
+        default:
+          return this.$t('alert.title')
+      }
     },
     getMessage() {
-      return `${
-        this.messageAlert
-      }<br /><br />${versionsRelease[0].messages.join(
-        '<br />'
-      )}<br /><br />${this.$t('alert.message_update_2')}`
+      switch (this.typeModal) {
+        case 'update':
+          return `${
+            this.messageModal
+          }<br /><br />${versionsRelease[0].messages.join(
+            '<br />'
+          )}<br /><br />${this.$t('alert.message_update_2')}`
+        case 'share':
+          return this.messageModal
+        default:
+          return this.message
+      }
     },
     closeHandler() {
       this.$store.commit(`game/toggleModal`, 'alert')
     },
     confirmHandler() {
       this.$store.commit(`game/toggleModal`, 'alert')
-      this.$nuxt.$emit('confirmSubmitHandler')
+      if (this.typeModal === 'share')
+        this.$nuxt.$emit('confirmShareHandler', this.dataModal)
+      else this.$nuxt.$emit('confirmSubmitHandler')
     },
     updateHandler() {
       this.$store.commit(`game/toggleModal`, 'alert')

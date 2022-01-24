@@ -22,14 +22,12 @@ import {
  */
 export const state = () => ({
   showHelp: false,
-  showConfig: false,
-  showChampionsShip: false,
-  showSchema: false,
   showAlert: false,
-  messageAlert: null,
-  titleAlert: '',
+  messageModal: null,
+  titleModal: '',
+  dataModal: null,
+  typeModal: false,
   newVersion: null,
-  updateVersion: false,
   showRelease: false,
   showNotification: false,
   notificationTypes: null,
@@ -65,44 +63,38 @@ export const state = () => ({
  * Mutations
  */
 export const mutations = {
-  resetModal(state) {
-    logger('COMMIT-GAME resetModal', null, 'i')
-    state.showSchema = false
-    state.showChampionsShip = false
-    state.showConfig = false
+  resetModalOverlay(state) {
+    logger('COMMIT-GAME resetModalOverlay', null, 'i')
     state.showHelp = false
     state.showAlert = false
     state.showRelease = false
   },
-  toggleModal(state, data) {
-    logger('COMMIT-GAME toggleModal', data, 'i')
-    const type = typeof data === 'string' ? data : data.type
-    if (data.update) {
-      state.messageAlert = typeof data === 'string' ? null : data.message
-      state.titleAlert = typeof data === 'string' ? '' : data.title
-      state.updateVersion = typeof data === 'string' ? false : data.update
-      state.newVersion = typeof data === 'string' ? null : data.version
-    }
-    switch (type) {
+  toggleOverlay(state, data) {
+    logger('COMMIT-GAME toggleOverlay', data, 'i')
+    switch (data) {
       case 'help':
         state.showHelp = !state.showHelp
-        break
-      case 'config':
-        state.showConfig = !state.showConfig
-        break
-      case 'champions':
-        state.showChampionsShip = !state.showChampionsShip
-        break
-      case 'schema':
-        state.showSchema = !state.showSchema
         break
       case 'release':
         state.showRelease = !state.showRelease
         break
-      case 'alert':
-        state.showAlert = !state.showAlert
-        break
     }
+  },
+  toggleModal(state, data) {
+    logger('COMMIT-GAME toggleModal', data, 'i')
+    if (data.update) {
+      state.messageModal = data.message
+      state.titleModal = data.title
+      state.typeModal = 'update'
+      state.newVersion = data.version
+    }
+    if (data.share) {
+      state.messageModal = data.message
+      state.titleModal = data.title
+      state.typeModal = 'share'
+      state.dataModal = data.data
+    }
+    state.showAlert = !state.showAlert
   },
   playedDecrease(state) {
     logger('COMMIT-GAME playedDecrease', null, 'i')

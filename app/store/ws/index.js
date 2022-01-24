@@ -86,7 +86,6 @@ export const actions = {
     logger('ACTION-WS sendInvite', user, 'i')
     this._vm.$socket.client.emit('send_invite', {
       user,
-      socket: state.userSocket.socket,
       room: state.userSocket.room,
     })
   },

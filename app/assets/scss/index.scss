@@ -116,6 +116,9 @@ ul {
   @include margin(null null null 0.5rem);
   border-radius: 50%;
   background: $primary;
+  &.red {
+    background: $error;
+  }
 }
 
 .wrapper-page {
