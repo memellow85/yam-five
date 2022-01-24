@@ -2,7 +2,8 @@
   "nameapp": "yamfive",
   "language": {
     "it": "Italian",
-    "en": "English"
+    "en": "English",
+    "es": "Spanish"
   },
   "sound": {
     "yes": "Yes",
@@ -285,5 +286,15 @@
   "themes": {
     "default": "Light",
     "dark": "Dark"
+  },
+  "invite": {
+    "title_1": "Connected persons",
+    "th_1": "Name",
+    "th_2": "Invite",
+    "th_3": "Available",
+    "message_1": "Invitation correctly send",
+    "title_share": "Would you like to join?",
+    "message_share_1": "You have been invited to join an multiple match",
+    "notification_1": "Before send invitation, you have to create a room"
   }
 }

@@ -181,13 +181,15 @@ module.exports = {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/style-resources',
+    // '@nuxtjs/eslint-module',
+    // '@nuxtjs/style-resources',
   ],
   /*
    ** Nuxt.js modules
    */
   modules: [
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources',
     '@nuxtjs/axios',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/pwa',

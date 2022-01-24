@@ -83,12 +83,15 @@ export const mutations = {
  * Actions
  */
 export const actions = {
-  logout({ commit, dispatch }) {
+  logout({ commit, dispatch, state }) {
     logger('ACTION-FIREBASE logout', null, 'i')
     return new Promise((resolve, reject) => {
       this.$axios
         .post(`${root}/logout`)
         .then(() => {
+          dispatch('ws/logoutUser', state.userDetailsFirebase.uid, {
+            root: true,
+          })
           commit('reset')
           resolve()
         })
@@ -647,6 +650,9 @@ export const actions = {
       dispatch('getDetailsUser', { value, check })
         .then((resp) => {
           trace(false, null, null, log)
+          if (id) {
+            dispatch('ws/loginUser', resp, { root: true })
+          }
           dispatch('getChampions')
             .then(() => {
               resolve(resp)
