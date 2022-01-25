@@ -7,8 +7,8 @@
           v-touch="() => $router.push({ name: 'game-invite' })"
           class="yamicons mdi mdi-account-details-outline medium"
         ></span>
-        <span v-if="getUsersLogin > 0" class="notification flex-center">
-          {{ getUsersLogin }}
+        <span v-if="getUsersLogin.length > 0" class="notification flex-center">
+          {{ getUsersLogin.length }}
         </span>
       </div>
     </h1>
@@ -56,14 +56,15 @@ export default {
     @include margin(0.7rem null null);
   }
   .wrapper-invite {
+    @include position(absolute, 0.9rem 1rem null null);
     .notification {
-      @include position(absolute, -0.1rem -0.1rem null null);
+      @include position(absolute, -0.4rem -0.5rem null null);
       @include size(1rem);
       @extend %strong;
       @extend %notify;
       border-radius: 50%;
       background: $primary;
-      color: $color-8;
+      color: $color-1;
     }
   }
 }
