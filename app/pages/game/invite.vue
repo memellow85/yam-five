@@ -70,6 +70,10 @@ export default {
       if (user.uid !== this.userFirebase.uid && !user.busy) {
         if (this.userSocket && this.userSocket.room) {
           this.$store.dispatch('ws/sendInvite', user)
+          this.$store.commit('game/toggleNotification', {
+            type: 'success',
+            message: this.$t('invite.message_1'),
+          })
         } else {
           this.$store.commit('game/toggleNotification', {
             type: 'warning',
