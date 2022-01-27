@@ -1,5 +1,32 @@
 <template>
   <footer :class="[{ big: isIphone() && bigMenuIphone() }]">
+    <transition
+      name="overlay"
+      :duration="{ enter: 0, leave: 500 }"
+      enter-active-class="animated"
+      leave-active-class="animated"
+    >
+      <div
+        v-if="showSubMenu"
+        class="submenu flex"
+        :style="`top:-${subMenu.length * 3.5}rem`"
+      >
+        <ul>
+          <li
+            v-for="m in subMenu"
+            :key="m.name"
+            v-touch="() => actionsHandler(m)"
+            :class="['flex-center', { selected: $route.name === m.name }]"
+          >
+            <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
+            <span
+              v-if="m.name === 'game-chat' || m.name === 'game-invite'"
+              :class="'notification'"
+            ></span>
+          </li>
+        </ul>
+      </div>
+    </transition>
     <nav class="flex-between">
       <ul class="inline flex">
         <li
@@ -24,14 +51,22 @@
         <span class="yamicons mdi mdi-cube-outline"></span>
       </div>
       <ul class="inline flex">
-        <li
-          v-for="m in menuRight"
-          :key="m.name"
-          v-touch="() => actionsHandler(m)"
-          :class="{ selected: $route.name === m.name }"
-        >
-          <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
-        </li>
+        <template v-for="m in menuRight">
+          <li
+            :key="m.name"
+            v-touch="() => actionsHandler(m)"
+            :class="{
+              selected:
+                $route.name === m.name || (showSubMenu && m.name === 'submenu'),
+            }"
+          >
+            <span
+              :class="`yamicons mdi mdi-${
+                m.name !== 'submenu' ? getIconName(m) : m.icon
+              }`"
+            ></span>
+          </li>
+        </template>
       </ul>
     </nav>
   </footer>
@@ -46,26 +81,37 @@ export default {
     return {
       bigMenuIphone,
       isIphone,
+      showSubMenu: false,
       dices: new Audio('./sounds/dices.mp3'),
+      subMenu: [
+        {
+          name: 'game-help',
+          icon: 'head-question-outline',
+        },
+        {
+          name: 'game-stats',
+          icon: 'chart-box-outline',
+        },
+        {
+          name: 'game-games',
+          icon: 'view-grid-outline',
+        },
+      ],
       menuLeft: [
         {
           name: 'home',
           icon: 'gamepad-variant-outline',
         },
         {
-          name: 'game-games',
-          icon: 'view-grid-outline',
+          name: 'game-chat',
+          icon: 'chat-outline',
         },
         {
-          name: 'game-stats',
-          icon: 'chart-box-outline',
+          name: 'game-invite',
+          icon: 'account-plus-outline',
         },
       ],
       menuRight: [
-        {
-          name: 'game-help',
-          icon: 'account-question-outline',
-        },
         {
           name: 'game-ranking',
           icon: 'arm-flex-outline',
@@ -73,6 +119,10 @@ export default {
         {
           name: 'game-config',
           icon: 'cog-outline',
+        },
+        {
+          name: 'submenu',
+          icon: 'dots-vertical',
         },
       ],
     }
@@ -119,7 +169,14 @@ export default {
         : elm.icon
     },
     actionsHandler(data) {
-      this.$router.push({ name: data.name })
+      if (data.name === 'submenu') {
+        this.showSubMenu = !this.showSubMenu
+      } else {
+        if (this.subMenu.filter((m) => m.name === data.name).length > 0) {
+          this.showSubMenu = !this.showSubMenu
+        }
+        this.$router.push({ name: data.name })
+      }
     },
     gameHandler() {
       if (!this.disabled) {
@@ -163,9 +220,40 @@ footer {
   @include themed() {
     background: t($key-color-nav);
   }
-  // background: $color-8;
   &.big {
     @include size(100%, 4.5rem);
+  }
+  .submenu {
+    @include position(absolute, null 0 null null);
+    @include size(3.5rem, auto);
+    @include themed() {
+      background: t($key-color-nav);
+    }
+    border-radius: 0.5rem 0 0 0;
+    transition: all 0.3s;
+    opacity: 1;
+    &.animated {
+      top: 0;
+      opacity: 0;
+    }
+    ul {
+      @include size(100%, auto);
+      li {
+        @include size(100%, 3.5rem);
+        &.selected {
+          .yamicons {
+            &::before {
+              color: $primary;
+            }
+          }
+        }
+        .yamicons {
+          &::before {
+            color: $color-2;
+          }
+        }
+      }
+    }
   }
   nav {
     @include position(relative, null);
