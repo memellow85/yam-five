@@ -23,6 +23,7 @@ module.exports = {
   app,
   db,
   auth,
+  getAuth,
   getPerformance,
   getAnalytics,
   logEvent,

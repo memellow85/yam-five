@@ -5,6 +5,8 @@ const {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  setPersistence,
+  browserSessionPersistence,
 } = require('firebase/auth')
 const {
   collection,
@@ -60,13 +62,24 @@ router.route('/version').get((req, res) => {
 })
 
 router.route('/login').post((req, res) => {
-  signInWithEmailAndPassword(firebase.auth, req.body.email, req.body.password)
-    .then((resp) => {
-      res.status(200).json(resp)
+  setPersistence(firebase.getAuth(), browserSessionPersistence)
+    .then(() => {
+      signInWithEmailAndPassword(
+        firebase.auth,
+        req.body.email,
+        req.body.password
+      )
+        .then((resp) => {
+          res.status(200).json(resp)
+        })
+        .catch((error) => {
+          logSlack('/login', error)
+          res.status(404).json(error)
+        })
     })
     .catch((error) => {
-      logSlack('/login', error)
-      res.status(404).json(error)
+      logSlack('/login setPersistence', error)
+      res.status(400).json(error)
     })
 })
 
