@@ -77,11 +77,24 @@ export default {
             message: this.message,
           })
           .then(() => {
-            this.$store.commit('game/toggleNotification', {
-              type: 'success',
-              message: this.$t('release.message_1'),
-            })
-            this.resetHandler()
+            this.$store
+              .dispatch(`trello/openCard`, {
+                type: this.typeModel,
+                desc: this.message,
+              })
+              .then(() => {
+                this.$store.commit('game/toggleNotification', {
+                  type: 'success',
+                  message: this.$t('release.message_1'),
+                })
+                this.resetHandler()
+              })
+              .catch((err) => {
+                this.$store.commit('game/toggleNotification', {
+                  type: 'alert',
+                  message: err,
+                })
+              })
           })
           .catch((err) => {
             this.$store.commit('game/toggleNotification', {

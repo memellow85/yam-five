@@ -283,7 +283,8 @@
     "copy_message": "https://yamfive-app.herokuapp.com/"
   },
   "themes": {
-    "default": "Chiaro",
+    "default": "Dinamico",
+    "light": "Chiaro",
     "dark": "Scuro"
   }
 }
