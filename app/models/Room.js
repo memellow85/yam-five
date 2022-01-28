@@ -22,6 +22,7 @@ class Rooms {
     } else {
       this.usersLogin = [...this.usersLogin, user]
     }
+    this.DELETEUser(user.uid)
   }
 
   DELETLoginEUser(uid) {
