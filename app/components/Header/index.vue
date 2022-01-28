@@ -5,7 +5,7 @@
       <div v-if="menu" class="wrapper-invite">
         <span
           v-touch="() => $router.push({ name: 'game-invite' })"
-          class="yamicons mdi mdi-account-details-outline medium"
+          class="yamicons mdi mdi-account-plus-outline medium"
         ></span>
         <span v-if="getUsersLogin.length > 0" class="notification flex-center">
           {{ getUsersLogin.length }}
