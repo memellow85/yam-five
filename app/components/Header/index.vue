@@ -41,7 +41,9 @@ export default {
     }),
     getUsersLogin() {
       return this.loginUsersSocket.length > 0
-        ? this.loginUsersSocket.filter((u) => u.uid !== this.userFirebase.uid)
+        ? this.loginUsersSocket.filter(
+            (u) => this.userFirebase && u.uid !== this.userFirebase.uid
+          )
         : []
     },
   },
