@@ -21,7 +21,7 @@
             :class="[
               'flex',
               {
-                io: u.uid === userFirebase.uid,
+                io: userFirebase && u.uid === userFirebase.uid,
                 busy: u.busy,
               },
             ]"

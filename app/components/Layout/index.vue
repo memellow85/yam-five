@@ -132,7 +132,7 @@ export default {
             this.$store.dispatch('firebase/logout').then(() => {
               this.$router.push('/')
             })
-          }, 300000)
+          }, 30000)
         }
       }
     },
