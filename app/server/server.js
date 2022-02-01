@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('user_logout', (id) => {
-    Rooms.DELETLoginEUser(id)
+    Rooms.DELETELoginEUser(id)
     io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
   })
 
@@ -177,12 +177,10 @@ io.on('connection', (socket) => {
     leftRoom(user.id, socket)
   })
 
-  /* socket.on('disconnect', () => {
-    webhook.send({
-      channel: '#yamfive',
-      text: 'Disconnect websocket',
-    })
-  }) */
+  socket.on('disconnect', () => {
+    Rooms.DELETELoginEUser(socket.id, true)
+    io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
+  })
 
   socket.on('error', (err) => {
     webhook.send({

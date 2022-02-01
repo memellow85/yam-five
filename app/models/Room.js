@@ -25,8 +25,10 @@ class Rooms {
     this.DELETEUser(user.uid)
   }
 
-  DELETLoginEUser(uid) {
-    this.usersLogin = this.usersLogin.filter((user) => user.uid !== uid)
+  DELETELoginEUser(uid, socket = false) {
+    this.usersLogin = socket
+      ? this.usersLogin.filter((user) => user.socket !== uid)
+      : this.usersLogin.filter((user) => user.uid !== uid)
   }
 
   GETLoginUser(id) {
