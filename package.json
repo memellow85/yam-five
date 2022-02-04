@@ -50,6 +50,9 @@
     "nuxt-precompress": "0.5.9",
     "vue-i18n": "8.26.7",
     "@slack/webhook": "6.0.0",
+    "@babel/plugin-proposal-class-properties": "7.16.0",
+    "@babel/plugin-proposal-private-methods": "7.16.0",
+    "@babel/plugin-proposal-private-property-in-object": "7.16.0",
     "@nuxtjs/eslint-module": "3.0.2",
     "@nuxtjs/style-resources": "1.2.1",
     "@nuxtjs/axios": "5.13.6",
@@ -57,9 +60,6 @@
     "@mdi/font": "6.5.95"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "7.16.0",
-    "@babel/plugin-proposal-private-methods": "7.16.0",
-    "@babel/plugin-proposal-private-property-in-object": "7.16.0",
     "@babel/runtime-corejs3": "7.16.3",
     "@nuxtjs/eslint-config": "6.0.1",
     "apexcharts": "3.32.0",
