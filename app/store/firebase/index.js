@@ -120,7 +120,11 @@ export const actions = {
                 getLocalStorageKey('version') !== '' &&
                 getLocalStorageKey('version') !== v.data.number
               ) {
-                dispatch('logout')
+                resolve({
+                  type: 'change_version',
+                  version: v.data.number,
+                })
+                /* dispatch('logout')
                   .then(() => {
                     resolve({
                       type: 'change_version',
@@ -129,7 +133,7 @@ export const actions = {
                   })
                   .catch((error) => {
                     reject(error)
-                  })
+                  }) */
               } else {
                 setLocalStorageKey('version', v.data.number)
                 commit('setUserFirebase', resp.data.user)
