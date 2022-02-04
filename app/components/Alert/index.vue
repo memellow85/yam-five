@@ -64,7 +64,7 @@ export default {
       newVersion: (state) => state.newVersion,
     }),
     multipleButton() {
-      return this.typeModal === 'share' || this.typeModal === 'update'
+      return this.typeModal === 'share' || !this.typeModal
     },
     useVersion() {
       return this.typeModal === 'update'
