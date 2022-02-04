@@ -7,15 +7,71 @@ class Rooms {
   constructor() {
     this.users = []
     this.rooms = []
+    this.usersLogin = []
+  }
+
+  // LOGIN
+  POSTLoginUser(user) {
+    if (this.GETLoginUser(user.uid)) {
+      this.usersLogin = this.usersLogin.map((v) => {
+        if (v.uid === user.uid) {
+          v = user
+        }
+        return v
+      })
+    } else {
+      this.usersLogin = [...this.usersLogin, user]
+    }
+    this.DELETEUser(user.uid)
+  }
+
+  DELETELoginEUser(uid, socket = false) {
+    this.usersLogin = socket
+      ? this.usersLogin.filter((user) => user.socket !== uid)
+      : this.usersLogin.filter((user) => user.uid !== uid)
+  }
+
+  GETLoginUser(id) {
+    return this.usersLogin.length > 0
+      ? this.usersLogin.find((user) => user.uid === id)
+      : undefined
+  }
+
+  GETLoginUsers() {
+    if (this.usersLogin.length > 0) {
+      this.usersLogin = this.usersLogin.map((ul) => {
+        ul.busy = false
+        if (this.users.length > 0) {
+          this.users.map((u) => {
+            if (ul.uid === u.user.uid) {
+              ul.busy = true
+            }
+          })
+        }
+        return ul
+      })
+    }
+    return this.usersLogin
   }
 
   // USER
   GETUser(id) {
-    return this.users.find((user) => user.id === id)
+    return this.users.length > 0
+      ? this.users.find((user) => user.id === id)
+      : undefined
   }
 
   POSTUser(user) {
-    this.users = [...this.users, user]
+    if (this.GETUser(user.id)) {
+      this.users = this.users.map((v) => {
+        if (v.id === user.id) {
+          v = user
+        }
+        return v
+      })
+    } else {
+      this.users = [...this.users, user]
+    }
   }
 
   DELETEUser(id) {

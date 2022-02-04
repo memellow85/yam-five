@@ -2,7 +2,8 @@
   "nameapp": "yamfive",
   "language": {
     "it": "Italiano",
-    "en": "Inglese"
+    "en": "Inglese",
+    "es": "Spagnolo"
   },
   "sound": {
     "yes": "Si",
@@ -64,7 +65,7 @@
     "help_4": "BONUS<br />Scala = +40<br />YamFive = +50",
     "notification_1": "E' il turno di: ",
     "notification_2": "Per una migliore usabilità tieni il device in portrait.",
-    "notification_3": " ha avuto un problema ed ha abbandonato la partita. Abbandona la stanza ed inizia una nuova partita"
+    "notification_3": " ha avuto un problema ed ha abbandonato la partita. Abbandona la stanza ed inizia una nuova partita."
   },
   "config": {
     "title_2": "Seleziona Lingua",
@@ -286,5 +287,15 @@
     "default": "Dinamico",
     "light": "Chiaro",
     "dark": "Scuro"
+  },
+  "invite": {
+    "title_1": "Persone connesse",
+    "th_1": "Nome",
+    "th_2": "Invita",
+    "th_3": "Disponibile",
+    "message_1": "Invito inviato correttamente",
+    "title_share": "Vuoi unirti?",
+    "message_share_1": "Sei stato invitato a unirti ad una partita multipla",
+    "notification_1": "Devi creare una stanza prima di poter invitare qualcuno"
   }
 }

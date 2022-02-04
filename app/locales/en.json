@@ -2,7 +2,8 @@
   "nameapp": "yamfive",
   "language": {
     "it": "Italian",
-    "en": "English"
+    "en": "English",
+    "es": "Spanish"
   },
   "sound": {
     "yes": "Yes",
@@ -51,7 +52,7 @@
     "message_2_c": "Wait your opponent to start a game.",
     "message_3_a": "The total of the roll number",
     "message_3_b": " is ",
-    "message_5": "Play the game with the first roll ...",
+    "message_5": "Play the game with the first roll...",
     "message_6": "Start now a other match...",
     "message_7": "Your opponent is playing... wait your turn.",
     "title_1": "PLAY INDIVIDUALS",
@@ -286,5 +287,15 @@
     "default": "Dynamic",
     "light": "Light",
     "dark": "Dark"
+  },
+  "invite": {
+    "title_1": "Connected persons",
+    "th_1": "Name",
+    "th_2": "Invite",
+    "th_3": "Available",
+    "message_1": "Invitation correctly send",
+    "title_share": "Would you like to join?",
+    "message_share_1": "You have been invited to join an multiple match",
+    "notification_1": "Before send invitation, you have to create a room"
   }
 }

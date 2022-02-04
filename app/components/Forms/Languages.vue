@@ -33,6 +33,10 @@ export default {
           code: 'it',
           name: 'language.it',
         },
+        {
+          code: 'es',
+          name: 'language.es',
+        },
       ],
       currentLang: this.$i18n.locale,
     }

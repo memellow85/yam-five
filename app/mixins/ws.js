@@ -9,6 +9,22 @@ export default {
     }
   },
   sockets: {
+    // users login
+    loginUsersSocketEmit(users) {
+      logger('SOCKETS loginUsersSocketEmit', users, 'i')
+      this.$store.commit(`ws/setLoginUsersSocket`, users)
+    },
+    // user, room
+    askJoinMatchSocketEmit(data) {
+      logger('SOCKETS askJoinMatchSocketEmit', data, 'i')
+      this.$store.commit(`game/toggleModal`, {
+        type: 'alert',
+        message: this.$t('invite.message_share_1'),
+        title: this.$t('invite.title_share'),
+        share: true,
+        data,
+      })
+    },
     // user, users
     joinRoomSocketEmit(data) {
       logger('SOCKETS joinRoomSocketEmit', data, 'i')

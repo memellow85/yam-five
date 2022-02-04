@@ -50,6 +50,7 @@ export default {
   computed: {
     ...mapState('firebase', {
       userFirebase: (state) => state.userFirebase,
+      userDetailsFirebase: (state) => state.userDetailsFirebase,
     }),
     ...mapState('game', {
       showNotification: (state) => state.showNotification,
@@ -71,6 +72,9 @@ export default {
 
     this.$nuxt.$on('refreshPWAHandler', (version) => {
       this.refreshPWAHandler(version)
+    })
+    this.$nuxt.$on('confirmShareHandler', (data) => {
+      this.confirmShareHandler(data)
     })
     this.$nuxt.$on('addToHomeHandler', () => {
       this.addToHomeHandler()
@@ -94,12 +98,22 @@ export default {
   },
   destroyed() {
     this.$nuxt.$off('refreshPWAHandler')
+    this.$nuxt.$off('confirmShareHandler')
     this.$nuxt.$off('addToHomeHandler')
   },
   methods: {
     refreshPWAHandler(version) {
       setLocalStorageKey('version', version)
       window.location.reload()
+    },
+    confirmShareHandler(data) {
+      this.$store.dispatch(`ws/addUserSocket`, {
+        user: this.userDetailsFirebase,
+        room: data.room,
+        match: 0,
+        type: '',
+        method: 'join',
+      })
     },
     async addToHomeHandler() {
       this.$store.commit('game/toggleNotification', null)
@@ -118,7 +132,7 @@ export default {
             this.$store.dispatch('firebase/logout').then(() => {
               this.$router.push('/')
             })
-          }, 300000)
+          }, 30000)
         }
       }
     },

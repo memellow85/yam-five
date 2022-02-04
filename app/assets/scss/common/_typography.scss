@@ -3,9 +3,6 @@ h1 {
   @include position(relative, null);
   line-height: 3rem;
   text-align: center;
-  span {
-    @include position(absolute, 0.9rem 1rem null null);
-  }
 }
 
 h2 {
