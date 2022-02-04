@@ -1,7 +1,7 @@
 export const versionsRelease = [
   {
     version: '1.3.2',
-    date: '2022-01-19',
+    date: '2022-02-04',
     title: 'Improvement app',
     messages: ['Section for invite users to match', 'Bugfix'],
   },
