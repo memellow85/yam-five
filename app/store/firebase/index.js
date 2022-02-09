@@ -124,16 +124,6 @@ export const actions = {
                   type: 'change_version',
                   version: v.data.number,
                 })
-                /* dispatch('logout')
-                  .then(() => {
-                    resolve({
-                      type: 'change_version',
-                      version: v.data.number,
-                    })
-                  })
-                  .catch((error) => {
-                    reject(error)
-                  }) */
               } else {
                 setLocalStorageKey('version', v.data.number)
                 commit('setUserFirebase', resp.data.user)
@@ -233,21 +223,17 @@ export const actions = {
     logger('ACTION-FIREBASE registration', data, 'i')
     const log = trace(true, rootState.performance, 'REGISTRATION', null)
     return new Promise((resolve, reject) => {
-      const body = Object.assign({}, state.modelUser, {
+      const model = Object.assign({}, state.modelUser, {
         name: data.name,
       })
       this.$axios
-        .post(`${root}/user`, body)
+        .post(`${root}/user`, { data, model })
         .then(() => {
           trace(false, null, null, log)
           resolve()
         })
         .catch((error) => {
           trace(false, null, null, log)
-          dispatch('logErrors', {
-            message: 'ACTION-FIREBASE registration: ' + JSON.stringify(error),
-            type: 'firebase_store',
-          })
           reject(error)
         })
     })
@@ -337,6 +323,28 @@ export const actions = {
         })
     })
   },
+  updateUser({ dispatch, state, rootState }, idCampaign) {
+    logger('ACTION-FIREBASE updateUser', null, 'i')
+    const log = trace(true, rootState.performance, 'UPDATEUSER', null)
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .put(`${root}/user/${state.userDetailsFirebase.id_doc}`, {
+          active_campaign: idCampaign,
+        })
+        .then(() => {
+          trace(false, null, null, log)
+          resolve()
+        })
+        .catch((error) => {
+          trace(false, null, null, log)
+          dispatch('logErrors', {
+            message: 'ACTION-FIREBASE updateUser: ' + JSON.stringify(error),
+            type: 'firebase_store',
+          })
+          reject(error)
+        })
+    })
+  },
   resetRecordUser({ dispatch, state, rootState }) {
     logger('ACTION-FIREBASE resetRecordUser', null, 'i')
     const log = trace(true, rootState.performance, 'RESETRECORDUSER', null)
@@ -384,9 +392,19 @@ export const actions = {
           })
           commit('game/setCurrentCampaign', activeCampaigns, { root: true })
 
+          // primo accesso utente nuovo campagna attiva
           if (activeCampaigns.length > 0) {
-            // Active campaign
-            if (user.active_campaign !== activeCampaigns[0].id) {
+            if (
+              user.active_campaign === 0 &&
+              user.match === 0 &&
+              user.active_campaign !== activeCampaigns[0].id
+            ) {
+              // primo accesso utente nuovo
+              dispatch('updateUser', activeCampaigns[0].id).then(() => {
+                resolve()
+              })
+            } else if (user.active_campaign !== activeCampaigns[0].id) {
+              // Active campaign
               if (resp.data.length === 0) {
                 // Non esiste nessuna campagna quindi salvo e resetto
                 dispatch('saveCampaign', activeCampaigns[0]).then(() => {

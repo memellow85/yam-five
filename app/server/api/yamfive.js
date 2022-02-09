@@ -122,10 +122,12 @@ router
       })
   })
   .post((req, res) => {
+    const userReg = req.body.data
+    const userInit = req.body.model
     createUserWithEmailAndPassword(
       firebase.auth,
-      req.body.email,
-      req.body.password
+      userReg.email,
+      userReg.password
     )
       .then(() => {
         const user = firebase.auth.currentUser
@@ -137,7 +139,7 @@ router
             last_updated: Timestamp.now(),
             last_reset: Timestamp.now(),
           },
-          req.body
+          userInit
         )
         addDoc(collection(firebase.db, USER_DETAILS), data)
           .then((docUser) => {
