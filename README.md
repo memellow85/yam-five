@@ -54,7 +54,8 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.3.0 - Add campaigns + Bugfix + New random number function
 - 1.3.1 - Bugfix + add helper + update campaigns
 - 1.3.2 - Bugfix + Share match + spanish language
-- 1.3.3 - Bugfix + Chat match
+- 1.3.3 - Bugfix
+- 1.4.0 - Bugfix + Chat match
 
 ## Next release
 

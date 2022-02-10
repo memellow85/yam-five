@@ -147,6 +147,7 @@ export const playedListCabled = [
 ]
 
 export const modelUser = {
+  active_campaign: 0,
   id_doc: '',
   match: 0,
   score: 0,
@@ -158,6 +159,18 @@ export const modelUser = {
   score_veryshort: 0,
   score_veryshort_record_chart_1: '',
   score_veryshort_record_chart_2: '',
+  campaigns: 0,
+  campaigns_short: 0,
+  campaigns_veryshort: 0,
+  campaign_score: 0,
+  campaign_score_record_chart_1: '',
+  campaign_score_record_chart_2: '',
+  campaign_score_short: 0,
+  campaign_score_short_record_chart_1: '',
+  campaign_score_short_record_chart_2: '',
+  campaign_score_veryshort: 0,
+  campaign_score_veryshort_record_chart_1: '',
+  campaign_score_veryshort_record_chart_2: '',
 }
 
 export const modelResetUser = {
