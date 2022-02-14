@@ -297,5 +297,8 @@
     "title_share": "Vuoi unirti?",
     "message_share_1": "Sei stato invitato a unirti ad una partita multipla",
     "notification_1": "Devi creare una stanza prima di poter invitare qualcuno"
+  },
+  "chat": {
+    "title_1": "Chat"
   }
 }

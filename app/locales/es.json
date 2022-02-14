@@ -284,7 +284,8 @@
     "copy_message": "https://yamfive-app.herokuapp.com/"
   },
   "themes": {
-    "default": "Luz",
+    "default": "Dinamico",
+    "light": "Luz",
     "dark": "Oscuro"
   },
   "invite": {
@@ -296,5 +297,8 @@
     "title_share": "Quieres unirte?",
     "message_share_1": "Ha sido invitado a participar en un partido múltiple",
     "notification_1": "Antes de enviar la invitación, tienes que crear una sala"
+  },
+  "chat": {
+    "title_1": "Chat"
   }
 }

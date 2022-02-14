@@ -57,6 +57,7 @@ export const state = () => ({
   blockAnimate: false,
   currentCampaign: null,
   campaignActive: false,
+  messageChat: [],
 })
 
 /**
@@ -422,6 +423,9 @@ export const mutations = {
     logger('COMMIT-GAME setCurrentCampaign', campaigns, 'i')
     state.campaignActive = campaigns.length === 1
     state.currentCampaign = campaigns.length === 1 ? campaigns[0] : null
+  },
+  writeMessage(state, data) {
+    state.messageChat.push(data)
   },
 }
 

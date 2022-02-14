@@ -141,4 +141,11 @@ export const actions = {
     logger('ACTION-WS finishGameSocket', null, 'i')
     this._vm.$socket.client.emit('finish_game', state.userSocket)
   },
+  writeMessageSocket({ state }, message) {
+    logger('ACTION-WS writeMessageSocket', null, 'i')
+    this._vm.$socket.client.emit('write_message', {
+      user: state.userSocket,
+      message,
+    })
+  },
 }

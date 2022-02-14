@@ -39,6 +39,22 @@ export default {
         // this.$store.commit(`game/setFastGame`, false)
       }
     },
+    // user
+    joinRoomChatSocketEmit(user) {
+      logger('SOCKETS joinRoomChatSocketEmit', user, 'i')
+      this.$store.commit(`game/writeMessage`, {
+        user: user,
+        message: `${user.user.name} is joined`,
+      })
+    },
+    // user, message
+    newMessageSocketEmit(data) {
+      logger('SOCKETS newMessageSocketEmit', data, 'i')
+      this.$store.commit(`game/writeMessage`, {
+        user: data.user,
+        message: data.message,
+      })
+    },
     // user, users
     startGameSocketEmit(data) {
       logger('SOCKETS startGameSocketEmit', data, 'i')

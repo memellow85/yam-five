@@ -1,7 +1,6 @@
 const sslRedirect = require('heroku-ssl-redirect')
 const express = require('express')
 const app = express()
-// eslint-disable-next-line import/order
 const http = require('http')
 const server = http.createServer(app)
 const io = require('socket.io')(server, {
@@ -116,6 +115,8 @@ io.on('connection', (socket) => {
   })
 
   socket.on('join_room', (user) => {
+    const socketChat = `${user.room}_chat`
+
     socket.join(user.room)
     let usersIntoRoom = Rooms.GETUsersRoom(user.room)
     if (usersIntoRoom.length === 1) {
@@ -135,6 +136,18 @@ io.on('connection', (socket) => {
         users: usersIntoRoom,
       })
     }
+
+    // Chat
+    socket.join(socketChat)
+    io.to(socketChat).emit('joinRoomChatSocketEmit', user)
+  })
+
+  socket.on('write_message', (data) => {
+    const socketChat = `${data.user.room}_chat`
+    io.to(socketChat).emit('newMessageSocketEmit', {
+      user: data.user,
+      message: data.message,
+    })
   })
 
   socket.on('start_game', (user) => {

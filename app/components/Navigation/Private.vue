@@ -1,5 +1,6 @@
 <template>
   <footer :class="[{ big: isIphone() && bigMenuIphone() }]">
+    <!-- submenu -->
     <transition
       name="overlay"
       :duration="{ enter: 0, leave: 500 }"
@@ -19,14 +20,11 @@
             :class="['flex-center', { selected: $route.name === m.name }]"
           >
             <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
-            <span
-              v-if="m.name === 'game-chat' || m.name === 'game-invite'"
-              :class="'notification'"
-            ></span>
           </li>
         </ul>
       </div>
     </transition>
+    <!-- menu -->
     <nav class="flex-between">
       <ul class="inline flex">
         <li
@@ -36,6 +34,12 @@
           :class="{ selected: $route.name === m.name }"
         >
           <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
+          <span
+            v-if="getUsersLogin.length > 0 && m.name === 'game-invite'"
+            :class="'notification-circle flex-center'"
+          >
+            {{ getUsersLogin.length }}
+          </span>
         </li>
       </ul>
       <div
@@ -135,8 +139,12 @@ export default {
       disabledButtonGame: (state) => state.disabledButtonGame,
       animateBtnDice: (state) => state.animateBtnDice,
     }),
+    ...mapState('firebase', {
+      userFirebase: (state) => state.userFirebase,
+    }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
+      loginUsersSocket: (state) => state.loginUsersSocket,
     }),
     disabled() {
       if (this.$route.name !== 'home') {
@@ -161,6 +169,13 @@ export default {
         !this.newGame
       )
     },
+    getUsersLogin() {
+      return this.loginUsersSocket.length > 0
+        ? this.loginUsersSocket.filter(
+            (u) => this.userFirebase && u.uid !== this.userFirebase.uid
+          )
+        : []
+    },
   },
   methods: {
     getIconName(elm) {
@@ -174,6 +189,8 @@ export default {
       } else {
         if (this.subMenu.filter((m) => m.name === data.name).length > 0) {
           this.showSubMenu = !this.showSubMenu
+        } else {
+          this.showSubMenu = false
         }
         this.$router.push({ name: data.name })
       }
@@ -263,6 +280,16 @@ footer {
       width: calc(calc(100vw - 8rem) / 2);
       justify-content: space-between;
       li {
+        @include position(relative, null);
+        .notification-circle {
+          @include position(absolute, -0.4rem -0.5rem null null);
+          @include size(1rem);
+          @extend %strong;
+          @extend %notify;
+          border-radius: 50%;
+          background: $primary;
+          color: $color-1;
+        }
         &.selected {
           .yamicons {
             &::before {

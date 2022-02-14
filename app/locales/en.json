@@ -284,7 +284,7 @@
     "copy_message": "https://yamfive-app.herokuapp.com/"
   },
   "themes": {
-    "default": "Dynamic",
+    "default": "Dinámico",
     "light": "Light",
     "dark": "Dark"
   },
@@ -297,5 +297,8 @@
     "title_share": "Would you like to join?",
     "message_share_1": "You have been invited to join an multiple match",
     "notification_1": "Before send invitation, you have to create a room"
+  },
+  "chat": {
+    "title_1": "Chat"
   }
 }
