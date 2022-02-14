@@ -1,11 +1,15 @@
 const sslRedirect = require('heroku-ssl-redirect')
 const express = require('express')
+const { instrument } = require('@socket.io/admin-ui')
 const app = express()
 // eslint-disable-next-line import/order
 const http = require('http')
 const server = http.createServer(app)
 const io = require('socket.io')(server, {
   upgradeTimeout: 50000,
+})
+instrument(io, {
+  auth: false,
 })
 require('dotenv').config()
 const { IncomingWebhook } = require('@slack/webhook')
