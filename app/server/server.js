@@ -1,6 +1,5 @@
 const sslRedirect = require('heroku-ssl-redirect')
 const express = require('express')
-const { instrument } = require('@socket.io/admin-ui')
 const app = express()
 // eslint-disable-next-line import/order
 const http = require('http')
@@ -8,32 +7,14 @@ const server = http.createServer(app)
 const io = require('socket.io')(server, {
   upgradeTimeout: 50000,
 })
-instrument(io, {
-  auth: false,
-})
 require('dotenv').config()
 const { IncomingWebhook } = require('@slack/webhook')
 const WEBHOOK_URL = process.env.NUXT_ENV_SLACK_NOTIFICATION
 const webhook = new IncomingWebhook(WEBHOOK_URL)
 
 const Rooms = require('../models/Room')()
-const yamfive = require('./api/yamfive')
-
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Credentials', true)
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json'
-  )
-  next()
-})
 
 app.use(sslRedirect.default())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use('/yam-five', yamfive)
 
 const leftRoom = (id, socket) => {
   const user = Rooms.GETUser(id)
