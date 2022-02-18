@@ -43,6 +43,7 @@ import {
   ERROR_DETAILS,
   ISSUE_DETAILS,
 } from '~/lists/firebase'
+// import testCampaign from '~/locales/test_campagne.json'
 
 const app = initializeApp(config)
 const auth = getAuth(app)
@@ -336,9 +337,7 @@ export const actions = {
         name: data.name,
       })
       createUserWithEmailAndPassword(auth, data.email, data.password)
-        .then((userCredential) => {
-          console.log('1', userCredential)
-          console.log('2', auth.currentUser)
+        .then(() => {
           const user = auth.currentUser
           sendEmailVerification(user)
           const data = Object.assign(
@@ -585,6 +584,7 @@ export const actions = {
           const cmps = JSON.parse(
             state.activeRemoveConfig.campaigns._value
           ).items
+          // const cmps = testCampaign.items
 
           const activeCampaigns = cmps.filter((c) => {
             return isNowBetweenDate(c.start, c.end)
@@ -665,7 +665,11 @@ export const actions = {
         name: data.name,
         active: true,
         data_save: false,
-        winner_is: '',
+        winner_is: {
+          campaign_veryshort: '',
+          campaign_short: '',
+          campaign: '',
+        },
       })
         .then((docCampaign) => {
           const docRef = doc(db, CAMPAIGN_DETAILS, docCampaign.id)
@@ -722,9 +726,9 @@ export const actions = {
         active: false,
         data_save: true,
         winner_is: {
-          campaign_veryshort: campaignVeryshort.uid,
-          campaign_short: campaignShort.uid,
-          campaign: campaign.uid,
+          campaign_veryshort: campaignVeryshort.uid || '',
+          campaign_short: campaignShort.uid || '',
+          campaign: campaign.uid || '',
         },
       })
         .then(() => {
