@@ -1,7 +1,7 @@
 export const versionsRelease = [
   {
     version: '1.4.0',
-    date: '2022-02-09',
+    date: '2022-02-18',
     title: 'Bugfix',
     messages: ['Bugfix multiplayer'],
   },
