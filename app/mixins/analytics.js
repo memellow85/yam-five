@@ -1,10 +1,10 @@
 import { mapState } from 'vuex'
-import firebase from '~/server/api/firebase'
+import { logEvent } from 'firebase/analytics'
 import { isProd } from '~/utils'
 
 export default {
   computed: {
-    ...mapState({
+    ...mapState('firebase', {
       analytics: (state) => state.analytics,
     }),
   },
@@ -14,7 +14,7 @@ export default {
   methods: {
     logEventYamFive(route) {
       if (isProd()) {
-        firebase.logEvent(this.analytics, 'screen_view', {
+        logEvent(this.analytics, 'screen_view', {
           route: route.fullPath,
           env: process.env.NUXT_ENV_NODE_ENV,
         })
@@ -22,7 +22,7 @@ export default {
     },
     logCustomEvent(event) {
       if (isProd()) {
-        firebase.logEvent(this.analytics, event, {
+        logEvent(this.analytics, event, {
           env: process.env.NUXT_ENV_NODE_ENV,
         })
       }

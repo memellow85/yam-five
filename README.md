@@ -55,6 +55,7 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.3.1 - Bugfix + add helper + update campaigns
 - 1.3.2 - Bugfix + Share match + spanish language
 - 1.3.3 - Bugfix
+- 1.4.0 - Bugfix multiplayer
 
 ## Next release
 

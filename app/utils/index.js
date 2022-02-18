@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep'
+import { trace } from 'firebase/performance'
 import { dicesTypesCabled } from '~/lists'
-import firebase from '~/server/api/firebase'
 
 export const generateRandomRoom = (length) => {
   let result = ''
@@ -108,10 +108,10 @@ export const logger = (message, data, type) => {
   }
 }
 
-export const trace = (start, performance, key, log) => {
+export const tracePerformance = (start, performance, key, log) => {
   if (isProd()) {
     if (start) {
-      const l = firebase.trace(performance, key)
+      const l = trace(performance, key)
       l.start()
       return l
     } else {

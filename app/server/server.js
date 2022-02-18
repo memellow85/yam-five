@@ -13,7 +13,6 @@ const WEBHOOK_URL = process.env.NUXT_ENV_SLACK_NOTIFICATION
 const webhook = new IncomingWebhook(WEBHOOK_URL)
 
 const Rooms = require('../models/Room')()
-const yamfive = require('./api/yamfive')
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
@@ -27,9 +26,6 @@ app.use(function (req, res, next) {
 })
 
 app.use(sslRedirect.default())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use('/yam-five', yamfive)
 
 const leftRoom = (id, socket) => {
   const user = Rooms.GETUser(id)

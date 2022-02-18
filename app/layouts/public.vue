@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import firebase from '~/server/api/firebase'
+import { getAnalytics } from 'firebase/analytics'
 import ThemeMixin from '~/mixins/theme'
 import { logger, isProd } from '~/utils'
 
@@ -36,8 +36,8 @@ export default {
   },
   beforeMount() {
     if (isProd()) {
-      const analytics = firebase.getAnalytics()
-      this.$store.commit(`setAnalytics`, analytics)
+      const analytics = getAnalytics()
+      this.$store.commit(`firebase/setAnalytics`, analytics)
     }
   },
 }
