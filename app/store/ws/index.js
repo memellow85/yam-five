@@ -1,4 +1,4 @@
-import { logger, trace } from '~/utils'
+import { logger, tracePerformance } from '~/utils'
 
 const translateMessageError = (number) => {
   let message = ''
@@ -91,9 +91,14 @@ export const actions = {
   },
   addUserSocket({ commit, dispatch, rootState }, user) {
     logger('ACTION-WS addUserSocket', user, 'i')
-    const log = trace(true, rootState.performance, 'ADDUSER', null)
+    const log = tracePerformance(
+      true,
+      rootState.firebase.performance,
+      'ADDUSER',
+      null
+    )
     this._vm.$socket.client.emit('add_user', user, (data) => {
-      trace(false, null, null, log)
+      tracePerformance(false, null, null, log)
       if (
         data.error &&
         (data.error === '100' || data.error === '200' || data.error === '300')

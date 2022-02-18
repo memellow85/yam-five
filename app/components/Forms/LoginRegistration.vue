@@ -159,7 +159,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
+    ...mapState('firebase', {
       activeRemoveConfig: (state) => state.activeRemoveConfig,
     }),
   },

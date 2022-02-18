@@ -1,9 +1,15 @@
 export const versionsRelease = [
   {
-    version: '1.4.0',
+    version: '1.4.1',
     date: '2022-02-04',
     title: 'Improvement app',
     messages: ['Chat with user', 'New menu', 'Bugfix'],
+  },
+  {
+    version: '1.4.0',
+    date: '2022-02-19',
+    title: 'Bugfix',
+    messages: ['Bugfix multiplayer'],
   },
   {
     version: '1.3.3',

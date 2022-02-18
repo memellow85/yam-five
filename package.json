@@ -44,12 +44,13 @@
     "windows_update_package": "del yarn.lock && yarn cache clean && yarn install"
   },
   "dependencies": {
-    "firebase": "9.6.1",
+    "firebase": "9.6.6",
     "heroku-ssl-redirect": "0.1.1",
     "nuxt": "2.15.8",
     "nuxt-precompress": "0.5.9",
     "vue-i18n": "8.26.7",
-    "@slack/webhook": "6.0.0"
+    "@slack/webhook": "6.0.0",
+    "@socket.io/admin-ui": "0.2.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "7.16.7",
