@@ -135,6 +135,7 @@ export const actions = {
     if (state.userSocket) {
       this._vm.$socket.client.emit('left_room', state.userSocket)
       commit('clearDataSocket')
+      commit('game/resetChat', null, { root: true })
       dispatch('game/resetGame', null, { root: true })
     }
   },
@@ -146,11 +147,12 @@ export const actions = {
     logger('ACTION-WS finishGameSocket', null, 'i')
     this._vm.$socket.client.emit('finish_game', state.userSocket)
   },
-  writeMessageSocket({ state }, message) {
-    logger('ACTION-WS writeMessageSocket', null, 'i')
+  writeMessageSocket({ state }, data) {
+    logger('ACTION-WS writeMessageSocket', data, 'i')
     this._vm.$socket.client.emit('write_message', {
-      user: state.userSocket,
-      message,
+      user: data.user,
+      message: data.message,
+      global: data.global,
     })
   },
 }

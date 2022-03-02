@@ -23,8 +23,6 @@
       background: t($key-color-nav);
       border-color: t($key-color-nav);
     }
-    // background: $color-8;
-    // border-color: $color-8;
   }
   &.white {
     box-sizing: border-box;
@@ -33,6 +31,18 @@
     color: $color-8;
     &:hover {
       background: $color-1;
+    }
+  }
+  &.sendMode {
+    @include position(relative, null);
+    @include padding(0.2rem);
+    @include size(2.5rem);
+    min-width: auto;
+    border-radius: 50%;
+    .yamicons {
+      &:before {
+        color: $white;
+      }
     }
   }
 }

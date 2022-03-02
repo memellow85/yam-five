@@ -12,6 +12,7 @@ const WEBHOOK_URL = process.env.NUXT_ENV_SLACK_NOTIFICATION
 const webhook = new IncomingWebhook(WEBHOOK_URL)
 
 const Rooms = require('../models/Room')()
+const chatName = 'global_chat'
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
@@ -51,6 +52,7 @@ const leftRoom = (id, socket) => {
 
 io.on('connection', (socket) => {
   socket.on('user_login', (user) => {
+    socket.join(chatName)
     const u = {
       ...user,
       socket: socket.id,
@@ -60,6 +62,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('user_logout', (id) => {
+    socket.leave(chatName)
     Rooms.DELETELoginEUser(id)
     io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
   })
@@ -139,10 +142,11 @@ io.on('connection', (socket) => {
   })
 
   socket.on('write_message', (data) => {
-    const socketChat = `${data.user.room}_chat`
+    const socketChat = data.global ? chatName : `${data.user.room}_chat`
     io.to(socketChat).emit('newMessageSocketEmit', {
       user: data.user,
       message: data.message,
+      global: data.global,
     })
   })
 
