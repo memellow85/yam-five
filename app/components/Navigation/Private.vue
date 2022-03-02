@@ -40,6 +40,14 @@
           >
             {{ getUsersLogin.length }}
           </span>
+          <span
+            v-if="
+              showNotificationChat &&
+              m.name === 'game-chat' &&
+              $route.name !== 'game-chat'
+            "
+            :class="'notification-circle'"
+          ></span>
         </li>
       </ul>
       <div
@@ -86,6 +94,8 @@ export default {
       bigMenuIphone,
       isIphone,
       showSubMenu: false,
+      showNotificationChat: false,
+      timerNotificationShow: 5000,
       dices: new Audio('./sounds/dices.mp3'),
       subMenu: [
         {
@@ -138,6 +148,8 @@ export default {
       newGame: (state) => state.newGame,
       disabledButtonGame: (state) => state.disabledButtonGame,
       animateBtnDice: (state) => state.animateBtnDice,
+      messageChat: (state) => state.messageChat,
+      messageChatGlobal: (state) => state.messageChatGlobal,
     }),
     ...mapState('firebase', {
       userFirebase: (state) => state.userFirebase,
@@ -177,7 +189,21 @@ export default {
         : []
     },
   },
+  watch: {
+    messageChat() {
+      if (this.$route.name !== 'game-chat') this.showNotificationChatHandler()
+    },
+    messageChatGlobal() {
+      if (this.$route.name !== 'game-chat') this.showNotificationChatHandler()
+    },
+  },
   methods: {
+    showNotificationChatHandler() {
+      this.showNotificationChat = true
+      setTimeout(() => {
+        this.showNotificationChat = false
+      }, this.timerNotificationShow)
+    },
     getIconName(elm) {
       return this.$route.name === elm.name
         ? elm.icon.replace('-outline', '')

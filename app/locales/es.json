@@ -299,6 +299,11 @@
     "notification_1": "Antes de enviar la invitación, tienes que crear una sala"
   },
   "chat": {
-    "title_1": "Chat"
+    "title_1": "Chat",
+    "title_tab_1": "Chat mundial",
+    "title_tab_2": "Sala de chat",
+    "name_input": "Escribe",
+    "message_no_room": "Es necesario crear una sala antes de poder chatear!",
+    "write": "escribió.."
   }
 }
