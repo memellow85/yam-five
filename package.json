@@ -35,7 +35,7 @@
   ],
   "scripts": {
     "dev": "nodemon app/server/index.js --watch server",
-    "build": "nuxt build",
+    "build": "nuxt build --force",
     "start": "node app/server/index.js",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
