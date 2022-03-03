@@ -56,14 +56,13 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.3.2 - Bugfix + Share match + spanish language
 - 1.3.3 - Bugfix
 - 1.4.0 - Bugfix multiplayer
+- 1.4.1 - Bugfix + Chat match
 
 ## Next release
 
 - x.x.x - New feature (tris, scale with four number)
 - x.x.x - Optimize app for desktop
-- x.x.x - Chat
 - x.x.x - Add packages for campaigns
-- x.x.x - Add new languages
 
 ## License
 

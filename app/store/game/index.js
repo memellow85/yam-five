@@ -57,12 +57,21 @@ export const state = () => ({
   blockAnimate: false,
   currentCampaign: null,
   campaignActive: false,
+  messageChat: [],
+  messageChatGlobal: [],
 })
 
 /**
  * Mutations
  */
 export const mutations = {
+  resetAllChat(state) {
+    state.messageChat = []
+    state.messageChatGlobal = []
+  },
+  resetChat(state) {
+    state.messageChat = []
+  },
   resetModalOverlay(state) {
     logger('COMMIT-GAME resetModalOverlay', null, 'i')
     state.showHelp = false
@@ -422,6 +431,13 @@ export const mutations = {
     logger('COMMIT-GAME setCurrentCampaign', campaigns, 'i')
     state.campaignActive = campaigns.length === 1
     state.currentCampaign = campaigns.length === 1 ? campaigns[0] : null
+  },
+  writeMessage(state, data) {
+    if (data.global) {
+      state.messageChatGlobal.push(data)
+    } else {
+      state.messageChat.push(data)
+    }
   },
 }
 

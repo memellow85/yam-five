@@ -27,8 +27,12 @@ export default {
       currentTheme: 'default',
       themes: [
         {
-          code: 'default',
+          code: 'dynamic',
           name: 'themes.default',
+        },
+        {
+          code: 'default',
+          name: 'themes.light',
         },
         {
           code: 'dark',

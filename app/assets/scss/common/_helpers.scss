@@ -37,6 +37,10 @@
   @include font-size(10px, 1);
 }
 
+%medium {
+  @include font-size(14px, 1);
+}
+
 %strong {
   font-weight: $medium;
 }

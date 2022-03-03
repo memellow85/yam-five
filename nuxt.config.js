@@ -181,15 +181,12 @@ module.exports = {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    // '@nuxtjs/eslint-module',
-    // '@nuxtjs/style-resources',
+    '@nuxtjs/style-resources',
   ],
   /*
    ** Nuxt.js modules
    */
   modules: [
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/style-resources',
     '@nuxtjs/axios',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/pwa',
@@ -203,8 +200,8 @@ module.exports = {
     scss: [
       '~/assets/scss/common/_themes.scss',
       '~/assets/scss/common/_variables.scss',
-      '~/assets/scss/common/_functions.scss',
       '~/assets/scss/common/_mixins.scss',
+      '~/assets/scss/common/_functions.scss',
       '~/assets/scss/common/_helpers.scss',
     ],
   },

@@ -168,6 +168,7 @@ export const actions = {
             root: true,
           })
           commit('reset')
+          commit('game/resetAllChat', null, { root: true })
           resolve()
         })
         .catch((error) => {
