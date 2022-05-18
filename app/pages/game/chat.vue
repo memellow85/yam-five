@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper-page">
+  <section class="wrapper-page chat">
     <TitlePage label="chat" icon="chat-outline"></TitlePage>
     <div class="main">
       <article>

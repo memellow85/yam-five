@@ -1,5 +1,6 @@
 <template>
   <div
+    class="wrapper-layout"
     v-resize
     v-visibility-change="visibilityChange"
     @orientationHandler="orientationHandler"
@@ -12,6 +13,9 @@
     <LazyOverlay :show-overlay="showRelease">
       <LazyViewRelease></LazyViewRelease>
     </LazyOverlay>
+
+    <!-- Alert -->
+    <Alert :message="$t('alert.message')"></Alert>
   </div>
 </template>
 
