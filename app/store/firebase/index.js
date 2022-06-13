@@ -64,7 +64,7 @@ const compare = (a, b) => {
 const sort = (data, type) => {
   const tmp = []
   const campaignType =
-    type.split('_').length > 0 ? `campaigns_${type.split('_')[1]}` : 'campaigns'
+    type.split('_').length > 1 ? `campaigns_${type.split('_')[1]}` : 'campaigns'
   data.map((v) => {
     if (v.uid !== process.env.NUXT_ENV_USER_HIDE) {
       v.tot = type ? (v[type] ? v[type] : 0) : 0
@@ -598,11 +598,13 @@ export const actions = {
               user.match === 0 &&
               user.active_campaign !== activeCampaigns[0].id
             ) {
+              console.log('primo accesso utente nuovo')
               // primo accesso utente nuovo
               dispatch('updateUser', activeCampaigns[0].id).then(() => {
                 resolve()
               })
             } else if (user.active_campaign !== activeCampaigns[0].id) {
+              console.log('Active campaign')
               // Active campaign
               if (list.length === 0) {
                 // Non esiste nessuna campagna quindi salvo e resetto
@@ -615,6 +617,9 @@ export const actions = {
                 list.length > 0 &&
                 list[0].id !== activeCampaigns[0].id
               ) {
+                console.log(
+                  'esiste una campagna ma è diversa da quella attiva aggiorno salvo e resetto'
+                )
                 // esiste una campagna ma è diversa da quella attiva aggiorno salvo e resetto
                 dispatch('updateCampaign', list[0]).then(() => {
                   dispatch('saveCampaign', activeCampaigns[0]).then(() => {
@@ -626,6 +631,9 @@ export const actions = {
                   })
                 })
               } else {
+                console.log(
+                  'se esiste una campagna ma è diversa da quella che ho attiva io'
+                )
                 // se esiste una campagna ma è diversa da quella che ho attiva io
                 dispatch('resetCampaign', activeCampaigns[0].id).then(() => {
                   resolve()
@@ -778,7 +786,11 @@ export const actions = {
     )
     return new Promise((resolve, reject) => {
       const body = {}
-      body[data.type] = state.userDetailsFirebase[data.type] + 1
+      // body[data.type] = state.userDetailsFirebase[data.type] + 1
+      body[data.type] =
+        state.usersChampions.filter((u) => u.id_doc === data.id_doc)[0][
+          data.type
+        ] + 1
       const dataUpdate = Object.assign(
         {},
         {
