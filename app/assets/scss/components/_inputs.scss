@@ -8,7 +8,6 @@
   border-top: 0;
   border-right: 0;
   border-left: 0;
-  // border-bottom: 0.15rem solid $color-3;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
@@ -24,13 +23,20 @@
   }
   &::-webkit-input-placeholder {
     @include padding(null null null 1.3rem);
-    // color: $color-6;
     @include themed() {
       color: t($key-color-6);
     }
   }
   &.big {
     @include size(100%, 2.5rem);
+  }
+  &.blank-input {
+    @include size(100%, 3.5rem);
+    @include padding(null 3rem null 1.3rem);
+    border-bottom: 0;
+    &::-webkit-input-placeholder {
+      @include padding(null null null 0);
+    }
   }
 }
 

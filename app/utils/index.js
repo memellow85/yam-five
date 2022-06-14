@@ -2,6 +2,8 @@ import cloneDeep from 'lodash/cloneDeep'
 import { trace } from 'firebase/performance'
 import { dicesTypesCabled } from '~/lists'
 
+// const color = ['#15BDFF', '#FB8600', '#D10EE9', '#7046FF', '#00A676']
+
 export const generateRandomRoom = (length) => {
   let result = ''
   const characters =
@@ -28,6 +30,10 @@ export const isProd = () => {
     process.env.NUXT_ENV_NODE_ENV === 'production' ||
     process.env.NUXT_ENV_NODE_ENV === 'beta'
   )
+}
+
+export const randomColor = () => {
+  return Math.floor(Math.random() * 16777215).toString(16)
 }
 
 /**

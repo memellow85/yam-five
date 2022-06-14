@@ -284,7 +284,8 @@
     "copy_message": "https://yamfive-app.herokuapp.com/"
   },
   "themes": {
-    "default": "Chiaro",
+    "default": "Dinamico",
+    "light": "Chiaro",
     "dark": "Scuro"
   },
   "invite": {
@@ -296,5 +297,13 @@
     "title_share": "Vuoi unirti?",
     "message_share_1": "Sei stato invitato a unirti ad una partita multipla",
     "notification_1": "Devi creare una stanza prima di poter invitare qualcuno"
+  },
+  "chat": {
+    "title_1": "Chat",
+    "title_tab_1": "Chat generale",
+    "title_tab_2": "Chat di stanza",
+    "name_input": "Scrivi",
+    "message_no_room": "E' necessario creare la stanza prima di poter chattare!",
+    "write": "scrive.."
   }
 }
