@@ -5,16 +5,11 @@ module.exports = {
     node: true,
   },
   parser: 'vue-eslint-parser',
-  parserOptions: {
-    parser: 'babel-eslint',
-  },
   extends: [
-    '@nuxtjs',
+    'plugin:vue/recommended',
+    'plugin:prettier-vue/recommended',
     'prettier',
-    'plugin:prettier/recommended',
-    'plugin:nuxt/recommended',
   ],
-  plugins: ['prettier'],
   rules: {
     'no-prototype-builtins': 'off',
     'vue/no-mutating-props': 'off',
@@ -27,6 +22,7 @@ module.exports = {
     'vue/html-self-closing': 'off',
     'vue/html-indent': 'off',
     'nuxt/no-cjs-in-config': 'off',
+    'vue/multi-word-component-names': 'off',
   },
   globals: {
     window: true,

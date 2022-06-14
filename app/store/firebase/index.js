@@ -64,7 +64,7 @@ const compare = (a, b) => {
 const sort = (data, type) => {
   const tmp = []
   const campaignType =
-    type.split('_').length > 0 ? `campaigns_${type.split('_')[1]}` : 'campaigns'
+    type.split('_').length > 1 ? `campaigns_${type.split('_')[1]}` : 'campaigns'
   data.map((v) => {
     if (v.uid !== process.env.NUXT_ENV_USER_HIDE) {
       v.tot = type ? (v[type] ? v[type] : 0) : 0
@@ -778,7 +778,10 @@ export const actions = {
     )
     return new Promise((resolve, reject) => {
       const body = {}
-      body[data.type] = state.userDetailsFirebase[data.type] + 1
+      body[data.type] =
+        state.usersChampions.filter((u) => u.id_doc === data.id_doc)[0][
+          data.type
+        ] + 1
       const dataUpdate = Object.assign(
         {},
         {

@@ -1,7 +1,6 @@
 const sslRedirect = require('heroku-ssl-redirect')
 const express = require('express')
 const app = express()
-// eslint-disable-next-line import/order
 const http = require('http')
 const server = http.createServer(app)
 const io = require('socket.io')(server, {
