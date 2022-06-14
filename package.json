@@ -1,6 +1,6 @@
 {
   "name": "yam-five",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "engines": {
     "node": "16.x"
   },
@@ -44,7 +44,7 @@
     "windows_update_package": "del yarn.lock && yarn cache clean && yarn install"
   },
   "dependencies": {
-    "firebase": "9.6.6",
+    "firebase": "9.8.3",
     "heroku-ssl-redirect": "0.1.1",
     "nuxt": "2.15.8",
     "nuxt-precompress": "0.5.9",
