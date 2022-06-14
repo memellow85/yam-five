@@ -2,7 +2,7 @@
   "name": "yam-five",
   "version": "1.4.1",
   "engines": {
-    "node": "16.x"
+    "node": "17.x"
   },
   "description": "The dices game",
   "author": "memellow85",
