@@ -199,7 +199,7 @@ export const checkPossibleActiveDice = (data, dices, minMax) => {
       value = dices.tot <= 11
       break
     case 'poker':
-      value = isPoker(arrayUnique, arrayValue)
+      value = isPoker(arrayUnique, arrayValue) || arrayUnique.length === 1
       break
     case 'full':
       value = isFull(arrayUnique, arrayValue)
