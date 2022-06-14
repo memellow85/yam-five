@@ -284,7 +284,7 @@
     "copy_message": "https://yamfive-app.herokuapp.com/"
   },
   "themes": {
-    "default": "Dinámico",
+    "default": "Dynamic",
     "light": "Light",
     "dark": "Dark"
   },
