@@ -67,12 +67,17 @@
     "notification_2": "Per una migliore usabilità tieni il device in portrait.",
     "notification_3": " ha avuto un problema ed ha abbandonato la partita. Abbandona la stanza ed inizia una nuova partita."
   },
+  "submenu": {
+    "title": "Benvenuto",
+    "message_1": "Ultima partita finita",
+    "message_2": "Num. partite",
+    "message_3": "Campagna attiva:"
+  },
   "config": {
     "title_2": "Seleziona Lingua",
     "title_3": "Modalità di gioco",
     "title_4": "Resetta i tuoi records",
     "title_5": "Segnalazioni/Consigli",
-    "title_6": "Benvenuto",
     "title_7": "Effetti sonori",
     "title_8": "Condividi",
     "title_9": "Cambia il tema",
@@ -91,10 +96,7 @@
     "tab_2": "Unisciti",
     "message_1": "Cancella tutti i tuoi record",
     "message_2": "Records cancellati",
-    "message_3": "Ultima partita finita",
-    "message_4": "Num. partite",
-    "message_5": "Condividi il gioco con gli amici!",
-    "message_6": "Campagna attiva:"
+    "message_5": "Condividi il gioco con gli amici!"
   },
   "champions": {
     "title_1": "Classifica",

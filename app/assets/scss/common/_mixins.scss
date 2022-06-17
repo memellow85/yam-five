@@ -70,3 +70,19 @@
     }
   }
 }
+
+@mixin transition($params) {
+  -webkit-transition: $params;
+  -moz-transition: $params;
+  -khtml-transition: $params;
+  -o-transition: $params;
+  transition: $params;
+}
+
+@mixin scale($params) {
+  -webkit-transform: scale($params);
+  -moz-transform: scale($params);
+  -khtml-transform: scale($params);
+  -o-transform: scale($params);
+  transform: scale($params);
+}

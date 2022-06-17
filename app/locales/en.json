@@ -67,12 +67,23 @@
     "notification_2": "For better usability, keep the device in portrait.",
     "notification_3": " had a problem and exited the match. Please exit the room and start a new match."
   },
+  "submenu": {
+    "title": "Welcome",
+    "message_1": "Last finished match",
+    "message_2": "Num. matches",
+    "message_3": "Active campaign:",
+    "menu_0": "Personal info",
+    "menu_1": "Guide",
+    "menu_2": "Statistics",
+    "menu_3": "Globals view",
+    "menu_4": "Challenge users",
+    "menu_5": "Configuration"
+  },
   "config": {
     "title_2": "Preferred language",
     "title_3": "Game mode",
     "title_4": "Reset your records",
     "title_5": "Issue/Features",
-    "title_6": "Welcome",
     "title_7": "Sound effects",
     "title_8": "Share",
     "title_9": "Change theme",
@@ -91,10 +102,7 @@
     "tab_2": "Join",
     "message_1": "Delete all your records",
     "message_2": "Records deleted",
-    "message_3": "Last finished match",
-    "message_4": "Num. matches",
-    "message_5": "Share game with your friends!!",
-    "message_6": "Active campaign:"
+    "message_5": "Share game with your friends!!"
   },
   "champions": {
     "title_1": "Ranking",

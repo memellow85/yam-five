@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Header :menu="false"></Header>
+    <Header></Header>
     <div class="wrapper-public-page">
       <div class="container-app-offline">
         <nuxt />

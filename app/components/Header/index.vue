@@ -13,12 +13,6 @@
 import { mapState } from 'vuex'
 
 export default {
-  props: {
-    menu: {
-      type: Boolean,
-      default: true,
-    },
-  },
   computed: {
     ...mapState('game', {
       currentCampaign: (state) => state.currentCampaign,

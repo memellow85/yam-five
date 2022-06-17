@@ -23,6 +23,7 @@ import {
 export const state = () => ({
   showHelp: false,
   showAlert: false,
+  showSubMenu: false,
   messageModal: null,
   titleModal: '',
   dataModal: null,
@@ -65,6 +66,9 @@ export const state = () => ({
  * Mutations
  */
 export const mutations = {
+  showSubMenu(state, value) {
+    state.showSubMenu = value
+  },
   resetAllChat(state) {
     state.messageChat = []
     state.messageChatGlobal = []

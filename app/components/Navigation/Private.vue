@@ -1,30 +1,5 @@
 <template>
   <footer :class="[{ big: isIphone() && bigMenuIphone() }]">
-    <!-- submenu -->
-    <transition
-      name="overlay"
-      :duration="{ enter: 0, leave: 500 }"
-      enter-active-class="animated"
-      leave-active-class="animated"
-    >
-      <div
-        v-if="showSubMenu"
-        class="submenu flex"
-        :style="`top:-${subMenu.length * 3.5}rem`"
-      >
-        <ul>
-          <li
-            v-for="m in subMenu"
-            :key="m.name"
-            v-touch="() => actionsHandler(m)"
-            :class="['flex-center', { selected: $route.name === m.name }]"
-          >
-            <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
-          </li>
-        </ul>
-      </div>
-    </transition>
-    <!-- menu -->
     <nav class="flex-between">
       <ul class="inline flex">
         <li
@@ -34,12 +9,6 @@
           :class="{ selected: $route.name === m.name }"
         >
           <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
-          <span
-            v-if="getUsersLogin.length > 0 && m.name === 'game-invite'"
-            :class="'notification-circle flex-center'"
-          >
-            {{ getUsersLogin.length }}
-          </span>
           <span
             v-if="
               showNotificationChat &&
@@ -68,8 +37,7 @@
             :key="m.name"
             v-touch="() => actionsHandler(m)"
             :class="{
-              selected:
-                $route.name === m.name || (showSubMenu && m.name === 'submenu'),
+              selected: $route.name === m.name,
             }"
           >
             <span
@@ -86,31 +54,18 @@
 
 <script>
 import { mapState } from 'vuex'
+import NavigationMixin from '~/mixins/navigation'
 import { play, bigMenuIphone, isIphone } from '~/utils'
 
 export default {
+  mixins: [NavigationMixin],
   data() {
     return {
       bigMenuIphone,
       isIphone,
-      showSubMenu: false,
       showNotificationChat: false,
       timerNotificationShow: 5000,
       dices: new Audio('./sounds/dices.mp3'),
-      subMenu: [
-        {
-          name: 'game-help',
-          icon: 'head-question-outline',
-        },
-        {
-          name: 'game-stats',
-          icon: 'chart-box-outline',
-        },
-        {
-          name: 'game-games',
-          icon: 'view-grid-outline',
-        },
-      ],
       menuLeft: [
         {
           name: 'home',
@@ -120,10 +75,6 @@ export default {
           name: 'game-chat',
           icon: 'chat-outline',
         },
-        {
-          name: 'game-invite',
-          icon: 'account-plus-outline',
-        },
       ],
       menuRight: [
         {
@@ -131,12 +82,8 @@ export default {
           icon: 'arm-flex-outline',
         },
         {
-          name: 'game-config',
-          icon: 'cog-outline',
-        },
-        {
           name: 'submenu',
-          icon: 'dots-vertical',
+          icon: 'menu',
         },
       ],
     }
@@ -151,12 +98,8 @@ export default {
       messageChat: (state) => state.messageChat,
       messageChatGlobal: (state) => state.messageChatGlobal,
     }),
-    ...mapState('firebase', {
-      userFirebase: (state) => state.userFirebase,
-    }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
-      loginUsersSocket: (state) => state.loginUsersSocket,
     }),
     disabled() {
       if (this.$route.name !== 'home') {
@@ -181,13 +124,6 @@ export default {
         !this.newGame
       )
     },
-    getUsersLogin() {
-      return this.loginUsersSocket.length > 0
-        ? this.loginUsersSocket.filter(
-            (u) => this.userFirebase && u.uid !== this.userFirebase.uid
-          )
-        : []
-    },
   },
   watch: {
     messageChat() {
@@ -203,23 +139,6 @@ export default {
       setTimeout(() => {
         this.showNotificationChat = false
       }, this.timerNotificationShow)
-    },
-    getIconName(elm) {
-      return this.$route.name === elm.name
-        ? elm.icon.replace('-outline', '')
-        : elm.icon
-    },
-    actionsHandler(data) {
-      if (data.name === 'submenu') {
-        this.showSubMenu = !this.showSubMenu
-      } else {
-        if (this.subMenu.filter((m) => m.name === data.name).length > 0) {
-          this.showSubMenu = !this.showSubMenu
-        } else {
-          this.showSubMenu = false
-        }
-        this.$router.push({ name: data.name })
-      }
     },
     gameHandler() {
       if (!this.disabled) {
@@ -266,56 +185,15 @@ footer {
   &.big {
     @include size(100%, 4.5rem);
   }
-  .submenu {
-    @include position(absolute, null 0 null null);
-    @include size(3.5rem, auto);
-    @include themed() {
-      background: t($key-color-nav);
-    }
-    border-radius: 0.5rem 0 0 0;
-    transition: all 0.3s;
-    opacity: 1;
-    &.animated {
-      top: 0;
-      opacity: 0;
-    }
-    ul {
-      @include size(100%, auto);
-      li {
-        @include size(100%, 3.5rem);
-        &.selected {
-          .yamicons {
-            &::before {
-              color: $primary;
-            }
-          }
-        }
-        .yamicons {
-          &::before {
-            color: $color-2;
-          }
-        }
-      }
-    }
-  }
   nav {
     @include position(relative, null);
     @include padding(null 1rem);
     @include size(auto, 100%);
     ul {
       width: calc(calc(100vw - 8rem) / 2);
-      justify-content: space-between;
+      justify-content: space-around;
       li {
         @include position(relative, null);
-        .notification-circle {
-          @include position(absolute, -0.4rem -0.5rem null null);
-          @include size(1rem);
-          @extend %strong;
-          @extend %notify;
-          border-radius: 50%;
-          background: $primary;
-          color: $color-1;
-        }
         &.selected {
           .yamicons {
             &::before {

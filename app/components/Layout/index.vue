@@ -1,31 +1,45 @@
 <template>
-  <div
-    class="wrapper-layout"
-    v-resize
-    v-visibility-change="visibilityChange"
-    @orientationHandler="orientationHandler"
-  >
-    <slot></slot>
-    <LazyNotification :show-notification="showNotification"></LazyNotification>
-    <LazyOverlay :show-overlay="showHelp">
-      <LazyViewHelp></LazyViewHelp>
-    </LazyOverlay>
-    <LazyOverlay :show-overlay="showRelease">
-      <LazyViewRelease></LazyViewRelease>
-    </LazyOverlay>
+  <div class="wrapper-animation-menu">
+    <NavigationSubNavigation></NavigationSubNavigation>
+    <div
+      v-resize
+      v-visibility-change="visibilityChange"
+      :class="['wrapper-layout', { active: showSubMenu }]"
+      @orientationHandler="orientationHandler"
+    >
+      <p id="dim"></p>
+      <slot></slot>
 
-    <!-- Alert -->
-    <Alert :message="$t('alert.message')"></Alert>
+      <LazyNotification
+        :show-notification="showNotification"
+      ></LazyNotification>
+      <LazyOverlay :show-overlay="showHelp">
+        <LazyViewHelp></LazyViewHelp>
+      </LazyOverlay>
+      <LazyOverlay :show-overlay="showRelease">
+        <LazyViewRelease></LazyViewRelease>
+      </LazyOverlay>
+
+      <!-- Alert -->
+      <Alert :message="$t('alert.message')"></Alert>
+    </div>
+
+    <div
+      :class="['mask-overlay-menu', { active: showSubMenu }]"
+      @click="closeMenu"
+    ></div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import { resize } from '~/directives/resize'
+import ExitMixin from '~/mixins/exit'
 import { setLocalStorageKey, isProd } from '~/utils'
 
 export default {
   directives: { resize },
+  mixins: [ExitMixin],
   data() {
     return {
       timeReset: null,
@@ -60,6 +74,7 @@ export default {
       showNotification: (state) => state.showNotification,
       showHelp: (state) => state.showHelp,
       showRelease: (state) => state.showRelease,
+      showSubMenu: (state) => state.showSubMenu,
     }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
@@ -106,6 +121,9 @@ export default {
     this.$nuxt.$off('addToHomeHandler')
   },
   methods: {
+    closeMenu() {
+      this.$store.commit(`game/showSubMenu`, false)
+    },
     refreshPWAHandler(version) {
       setLocalStorageKey('version', version)
       window.location.reload()
@@ -132,10 +150,7 @@ export default {
           this.timeReset = null
         } else {
           this.timeReset = setTimeout(() => {
-            this.$store.dispatch('ws/leftRoomSocket')
-            this.$store.dispatch('firebase/logout').then(() => {
-              this.$router.push('/')
-            })
+            this.leaveAppHandler()
           }, 30000)
         }
       }
@@ -153,3 +168,41 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.wrapper-animation-menu {
+  @include position(relative, null);
+  @include size(100%, 100vh);
+  @include themed() {
+    background: t($key-color-nav);
+  }
+  overflow: hidden;
+  .mask-overlay-menu {
+    @include position(absolute, 0 null null 0);
+    @include size(100%);
+    overflow: hidden;
+    visibility: hidden;
+    z-index: 21;
+    &.active {
+      @include scale(0.85);
+      visibility: visible;
+      margin-left: -12rem;
+    }
+  }
+  .wrapper-layout {
+    @include position(relative, null);
+    @include size(100%);
+    @include transition(all 0.2s ease-in);
+    @include themed() {
+      background: t($key-color-0);
+    }
+    overflow: hidden;
+    visibility: visible;
+    z-index: 20;
+    &.active {
+      @include scale(0.85);
+      margin-left: -12rem;
+    }
+  }
+}
+</style>

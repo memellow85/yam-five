@@ -67,12 +67,17 @@
     "notification_2": "Para una mejor usabilidad, mantén el dispositivo en vertical.",
     "notification_3": " Para una mejor usabilidad, mantén el dispositivo en vertical."
   },
+  "submenu": {
+    "title": "Bienvenido",
+    "message_1": "Último partido terminado",
+    "message_2": "Número de partidos",
+    "message_3": "Campaña activa:"
+  },
   "config": {
     "title_2": "Lengua preferida",
     "title_3": "Modo de juego",
     "title_4": "Restablecer sus registros",
     "title_5": "Tema/Características",
-    "title_6": "Bienvenido",
     "title_7": "Efectos sonoros",
     "title_8": "Compartir",
     "title_9": "Cambiar de tema",
@@ -91,10 +96,7 @@
     "tab_2": "Únase a",
     "message_1": "Borrar todos los registros",
     "message_2": "Registros eliminados",
-    "message_3": "Último partido terminado",
-    "message_4": "Número de partidos",
-    "message_5": "Comparte el juego con tus amigos!!",
-    "message_6": "Campaña activa:"
+    "message_5": "Comparte el juego con tus amigos!!"
   },
   "champions": {
     "title_1": "Clasificación",

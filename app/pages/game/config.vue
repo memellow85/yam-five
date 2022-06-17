@@ -5,34 +5,8 @@
         <span class="yamicons mdi mdi-cog-outline"></span>
         {{ $t('view.configuration') }}
       </h3>
-      <button v-touch="leaveAppHandler" class="small grey">
-        <span>{{ $t('config.btn_3') }}</span>
-      </button>
     </article>
     <div class="main body-scroll-lock-ignore-inner">
-      <article class="wrapper-welcome">
-        <h2>
-          {{ $t('config.title_6') }}
-          {{ userDetailsFirebase ? userDetailsFirebase.name : '-' }}
-        </h2>
-        <div class="flex-between">
-          <p>
-            {{ $t('config.message_3') }}:
-            {{ dateLastMatch }}
-          </p>
-          <p>
-            {{ $t('config.message_4') }}:
-            {{ userDetailsFirebase ? userDetailsFirebase.match : '-' }}
-          </p>
-        </div>
-        <div v-if="campaignActive">
-          <h4>{{ $t('config.message_6') }}</h4>
-          <div class="flex-between">
-            <p>{{ currentCampaign.name }}</p>
-            <p>{{ currentCampaign.end }}</p>
-          </div>
-        </div>
-      </article>
       <article>
         <h4>{{ $t('config.title_10') }}</h4>
         <FormsHelper></FormsHelper>
@@ -122,7 +96,6 @@ import { mapState } from 'vuex'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
 import ClipboardMixin from '~/mixins/clipboard'
-import { toDateTime, formatDate } from '~/utils'
 
 export default {
   mixins: [ScrollMixin, AnalyticsMixin, ClipboardMixin],
@@ -138,22 +111,6 @@ export default {
       userSocket: (state) => state.userSocket,
       usersSocket: (state) => state.usersSocket,
     }),
-    ...mapState('firebase', {
-      userDetailsFirebase: (state) => state.userDetailsFirebase,
-    }),
-    ...mapState('game', {
-      campaignActive: (state) => state.campaignActive,
-      currentCampaign: (state) => state.currentCampaign,
-    }),
-    dateLastMatch() {
-      if (this.userDetailsFirebase) {
-        return formatDate(
-          toDateTime(this.userDetailsFirebase.last_updated.seconds)
-        )
-      } else {
-        return '-'
-      }
-    },
   },
   created() {
     this.$nuxt.$on('confirmSubmitHandler', () => {
@@ -167,16 +124,8 @@ export default {
     setTab(tab) {
       this.tab = tab
     },
-    leaveHandler($event, logout = false) {
+    leaveHandler() {
       this.$store.dispatch('ws/leftRoomSocket')
-      if (logout) {
-        this.$store.dispatch('firebase/logout').then(() => {
-          this.$router.push('/')
-        })
-      }
-    },
-    leaveAppHandler() {
-      this.leaveHandler(null, true)
     },
     resetTotalHandler() {
       this.$store.commit(`game/toggleModal`, 'alert')
@@ -193,12 +142,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.wrapper-welcome {
-  @extend %borderBottom;
-  h2 {
-    @include margin(null null 0.3rem null);
-  }
-}
-</style>
