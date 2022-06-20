@@ -144,6 +144,9 @@ ul {
 .wrapper-page {
   @include size(100%, calc(100vh - 3.5rem));
   overflow: hidden;
+  &.big {
+    @include size(100%, calc(100vh - 4.5rem));
+  }
   &.chat {
     @include position(absolute, 0 null null 0);
   }

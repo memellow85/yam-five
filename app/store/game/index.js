@@ -438,9 +438,9 @@ export const mutations = {
   },
   writeMessage(state, data) {
     if (data.global) {
-      state.messageChatGlobal.push(data)
+      state.messageChatGlobal.unshift(data)
     } else {
-      state.messageChat.push(data)
+      state.messageChat.unshift(data)
     }
   },
 }

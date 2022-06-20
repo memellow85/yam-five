@@ -1,5 +1,7 @@
 <template>
-  <section class="wrapper-page chat">
+  <section
+    :class="['wrapper-page chat', { big: isIphone() && bigMenuIphone() }]"
+  >
     <TitlePage label="chat" icon="chat-outline"></TitlePage>
     <div class="main">
       <article>
@@ -17,8 +19,8 @@
             <h4>{{ $t('chat.title_tab_2') }}</h4>
           </li>
         </ul>
-        <div class="wrapper-chat body-scroll-lock-ignore-inner">
-          <p v-if="!userSocket && !global">{{ $t('chat.message_no_room') }}</p>
+        <p v-if="!userSocket && !global">{{ $t('chat.message_no_room') }}</p>
+        <div v-else class="wrapper-chat body-scroll-lock-ignore-inner">
           <template v-for="(m, k) in messages">
             <div
               :key="k"
@@ -70,6 +72,7 @@
 import { mapState } from 'vuex'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
+import { bigMenuIphone, isIphone } from '~/utils'
 
 export default {
   mixins: [ScrollMixin, AnalyticsMixin],
@@ -77,6 +80,8 @@ export default {
   middleware: ['authenticated'],
   data() {
     return {
+      bigMenuIphone,
+      isIphone,
       newMessage: '',
       global: true,
     }
@@ -126,27 +131,29 @@ export default {
 .main {
   article {
     overflow: hidden;
+    > p {
+      @include padding(1rem null null);
+    }
+    .textinput {
+      @include position(absolute, null null 1.5rem 1rem);
+      @include size(calc(100% - 2rem), auto);
+    }
   }
 }
 .wrapper-chat {
-  @include padding(null null 1rem null);
-  @include size(100%, calc(calc(100vh - 56px) - 13rem));
+  @include position(absolute, null null null 1rem);
+  @include size(calc(100% - 2rem), calc(100% - 12rem));
+  @extend %basicFlex;
+  flex-direction: column-reverse;
+  align-items: end;
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
-  > p {
-    @include padding(1rem null null);
-  }
   .wrapper-message {
     @extend %flex;
+    @include size(100%, auto);
+    @include padding(0.5rem null null);
     flex-direction: column;
     align-items: flex-start;
-    @include padding(0.5rem null null);
-    &:first-child {
-      @include padding(1.5rem null null);
-    }
-    &:last-child {
-      @include padding(0.5rem null 1.5rem);
-    }
     &.right {
       align-items: flex-end;
     }

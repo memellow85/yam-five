@@ -7,7 +7,6 @@
       :class="['wrapper-layout', { active: showSubMenu }]"
       @orientationHandler="orientationHandler"
     >
-      <p id="dim"></p>
       <slot></slot>
 
       <LazyNotification

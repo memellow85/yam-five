@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper-page">
+  <section :class="['wrapper-page', { big: isIphone() && bigMenuIphone() }]">
     <TitlePage label="champions" icon="arm-flex-outline"></TitlePage>
     <div class="main">
       <article class="wrapper-tabs-form">
@@ -144,6 +144,7 @@ import { mapGetters, mapState } from 'vuex'
 import { format } from 'timeago.js'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
+import { bigMenuIphone, isIphone } from '~/utils'
 
 export default {
   mixins: [ScrollMixin, AnalyticsMixin],
@@ -151,6 +152,8 @@ export default {
   middleware: ['authenticated'],
   data() {
     return {
+      bigMenuIphone,
+      isIphone,
       tab: 'current',
       subTab: 'score_veryshort',
     }

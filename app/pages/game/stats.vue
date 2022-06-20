@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper-page">
+  <section :class="['wrapper-page', { big: isIphone() && bigMenuIphone() }]">
     <TitlePage label="stats" icon="chart-box-outline"></TitlePage>
     <div class="main body-scroll-lock-ignore-inner">
       <article>
@@ -58,6 +58,7 @@ import {
 } from '~/utils/baseCharts'
 import ScrollMixin from '~/mixins/scroll'
 import { orderCharts } from '~/lists'
+import { bigMenuIphone, isIphone } from '~/utils'
 
 export default {
   mixins: [ScrollMixin, AnalyticsMixin],
@@ -65,6 +66,8 @@ export default {
   middleware: ['authenticated'],
   data() {
     return {
+      bigMenuIphone,
+      isIphone,
       chart_1: null,
       chart_2: null,
       records: [],

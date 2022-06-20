@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper-page">
+  <section :class="['wrapper-page', { big: isIphone() && bigMenuIphone() }]">
     <article class="flex-between">
       <h3>
         <span class="yamicons mdi mdi-cog-outline"></span>
@@ -7,10 +7,6 @@
       </h3>
     </article>
     <div class="main body-scroll-lock-ignore-inner">
-      <article>
-        <h4>{{ $t('config.title_10') }}</h4>
-        <FormsHelper></FormsHelper>
-      </article>
       <article class="wrapper-tabs-form">
         <ul class="inline custom-tabs">
           <li
@@ -47,6 +43,10 @@
             <span>{{ $t('config.btn_2') }}</span>
           </button>
         </div>
+      </article>
+      <article>
+        <h4>{{ $t('config.title_10') }}</h4>
+        <FormsHelper></FormsHelper>
       </article>
       <article>
         <h4>{{ $t('config.title_7') }}</h4>
@@ -96,6 +96,7 @@ import { mapState } from 'vuex'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
 import ClipboardMixin from '~/mixins/clipboard'
+import { bigMenuIphone, isIphone } from '~/utils'
 
 export default {
   mixins: [ScrollMixin, AnalyticsMixin, ClipboardMixin],
@@ -103,6 +104,8 @@ export default {
   middleware: ['authenticated'],
   data() {
     return {
+      bigMenuIphone,
+      isIphone,
       tab: 'create',
     }
   },

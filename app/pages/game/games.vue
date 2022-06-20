@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper-page">
+  <section :class="['wrapper-page', { big: isIphone() && bigMenuIphone() }]">
     <TitlePage label="schemas" icon="view-grid-outline"></TitlePage>
     <div class="main body-scroll-lock-ignore-inner">
       <article>
@@ -123,6 +123,7 @@
 import { mapState } from 'vuex'
 import AnalyticsMixin from '~/mixins/analytics'
 import ScrollMixin from '~/mixins/scroll'
+import { bigMenuIphone, isIphone } from '~/utils'
 
 export default {
   mixins: [ScrollMixin, AnalyticsMixin],
@@ -130,6 +131,8 @@ export default {
   middleware: ['authenticated'],
   data() {
     return {
+      bigMenuIphone,
+      isIphone,
       changeValue: {},
       includesBonus: [
         'six',
