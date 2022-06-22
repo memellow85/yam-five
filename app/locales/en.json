@@ -69,9 +69,6 @@
   },
   "submenu": {
     "title": "Welcome",
-    "message_1": "Last finished match",
-    "message_2": "Num. matches",
-    "message_3": "Active campaign:",
     "menu_0": "Personal info",
     "menu_1": "Guide",
     "menu_2": "Statistics",
@@ -313,5 +310,13 @@
     "name_input": "Write",
     "message_no_room": "Is necessary to create a room before you can chat!",
     "write": "wrote.."
+  },
+  "personal_info": {
+    "title": "Welcome",
+    "title_1": "Persona info",
+    "message_1": "Last finished match",
+    "message_2": "Total num. matches",
+    "message_3": "Active campaign name",
+    "message_4": "Finished date campaign"
   }
 }

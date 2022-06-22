@@ -69,9 +69,12 @@
   },
   "submenu": {
     "title": "Benvenuto",
-    "message_1": "Ultima partita finita",
-    "message_2": "Num. partite",
-    "message_3": "Campagna attiva:"
+    "menu_0": "Info personali",
+    "menu_1": "Guida",
+    "menu_2": "Statistiche",
+    "menu_3": "Visualizzazione globale",
+    "menu_4": "Sfida",
+    "menu_5": "Configurazione"
   },
   "config": {
     "title_2": "Seleziona Lingua",
@@ -307,5 +310,13 @@
     "name_input": "Scrivi",
     "message_no_room": "E' necessario creare la stanza prima di poter chattare!",
     "write": "scrive.."
+  },
+  "personal_info": {
+    "title": "Benvenuto",
+    "title_1": "Info personali",
+    "message_1": "Ultima partita finita",
+    "message_2": "Num. partite",
+    "message_3": "Nome campagna attiva",
+    "message_4": "Data fine campagna"
   }
 }

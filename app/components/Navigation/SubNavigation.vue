@@ -12,20 +12,6 @@
         </div>
         <div class="avatar flex-center">{{ firstLetter }}</div>
       </div>
-      <!-- TODO valutare se spostare tutta questa parte in una pagina ad hoc personal info dove dare anche la possibilità di cambiare la password -->
-      <!-- <p>
-        {{ $t('submenu.message_1') }}:
-        {{ dateLastMatch }}
-      </p>
-      <p>
-        {{ $t('submenu.message_2') }}:
-        {{ userDetailsFirebase ? userDetailsFirebase.match : '-' }}
-      </p>
-      <template v-if="campaignActive">
-        <h4>{{ $t('submenu.message_3') }}</h4>
-        <p>{{ currentCampaign.name }}</p>
-        <p>{{ currentCampaign.end }}</p>
-      </template> -->
     </article>
     <article>
       <div class="wrapper-menu flex-end">
@@ -64,11 +50,11 @@
 <script>
 import { mapState } from 'vuex'
 import NavigationMixin from '~/mixins/navigation'
+import PersonalInfoMixin from '~/mixins/personal_info'
 import ExitMixin from '~/mixins/exit'
-// import { toDateTime, formatDate } from '~/utils'
 
 export default {
-  mixins: [NavigationMixin, ExitMixin],
+  mixins: [NavigationMixin, ExitMixin, PersonalInfoMixin],
   data() {
     return {
       subMenu: [
@@ -114,43 +100,6 @@ export default {
       userSocket: (state) => state.userSocket,
       loginUsersSocket: (state) => state.loginUsersSocket,
     }),
-    /* ...mapState('game', {
-      campaignActive: (state) => state.campaignActive,
-      currentCampaign: (state) => state.currentCampaign,
-    }), */
-    firstLetter() {
-      if (this.userDetailsFirebase) {
-        if (this.userDetailsFirebase.name.split(' ').length > 1) {
-          return (
-            this.userDetailsFirebase.name.split(' ')[0].charAt(0) +
-            this.userDetailsFirebase.name.split(' ')[1].charAt(0)
-          )
-        } else {
-          return (
-            this.userDetailsFirebase.name.split(' ')[0].charAt(0) +
-            this.userDetailsFirebase.name.split(' ')[0].charAt(1)
-          )
-        }
-      } else {
-        return '-'
-      }
-    },
-    getName() {
-      if (this.userDetailsFirebase) {
-        return this.userDetailsFirebase.name.split(' ')[0]
-      } else {
-        return '-'
-      }
-    },
-    /* dateLastMatch() {
-      if (this.userDetailsFirebase) {
-        return formatDate(
-          toDateTime(this.userDetailsFirebase.last_updated.seconds)
-        )
-      } else {
-        return '-'
-      }
-    }, */
     getUsersLogin() {
       return this.loginUsersSocket.length > 0
         ? this.loginUsersSocket.filter(
@@ -188,6 +137,7 @@ export default {
     li {
       @include position(relative, null);
       @include margin(null null 1rem null);
+      cursor: pointer;
       .notification-circle {
         @include position(static, null);
         @include margin(null 0.5rem null null);

@@ -57,7 +57,7 @@ See the demo [here](https://yamfive-app.herokuapp.com/)
 - 1.3.3 - Bugfix
 - 1.4.0 - Bugfix multiplayer
 - 1.4.1 - Bugfix
-- 1.4.2 - Bugfix + Chat match
+- 1.4.2 - Bugfix + Chat match + New menu + Personal info
 
 ## Next release
 

@@ -69,9 +69,12 @@
   },
   "submenu": {
     "title": "Bienvenido",
-    "message_1": "Último partido terminado",
-    "message_2": "Número de partidos",
-    "message_3": "Campaña activa:"
+    "menu_0": "Información personal",
+    "menu_1": "Guide",
+    "menu_2": "Statistics",
+    "menu_3": "Globals view",
+    "menu_4": "Challenge users",
+    "menu_5": "Configuration"
   },
   "config": {
     "title_2": "Lengua preferida",
@@ -307,5 +310,13 @@
     "name_input": "Escribe",
     "message_no_room": "Es necesario crear una sala antes de poder chatear!",
     "write": "escribió.."
+  },
+  "personal_info": {
+    "title": "Bienvenido",
+    "title_1": "Información personal",
+    "message_1": "Último partido terminado",
+    "message_2": "Número de partidos",
+    "message_3": "Campaña activa",
+    "message_4": "Fecha de finalización de la campaña"
   }
 }
