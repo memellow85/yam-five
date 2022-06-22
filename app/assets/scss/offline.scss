@@ -1,3 +1,6 @@
+.wrapper-public-page {
+  overflow: hidden;
+}
 .container-app-offline {
   @extend %flex;
   @extend %flexCenter;

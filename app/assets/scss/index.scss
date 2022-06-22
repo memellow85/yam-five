@@ -13,14 +13,15 @@ body {
   overflow: hidden;
   font-family: $font-family;
   font-weight: $normal;
-  // background: $white;
-  // color: $color-6;
   -webkit-font-smoothing: antialiased;
   &.public {
     @include themed(true) {
       background: t($key-color-1);
     }
-    // background: $color-1;
+  }
+  #__nuxt,
+  #__layout {
+    overflow: hidden;
   }
 }
 
@@ -62,6 +63,16 @@ ul {
   &.inline {
     @extend %flex;
   }
+}
+
+.notification-circle {
+  @include position(absolute, -0.4rem -0.5rem null null);
+  @include size(1rem);
+  @extend %strong;
+  @extend %notify;
+  border-radius: 50%;
+  background: $primary;
+  color: $color-1;
 }
 
 .container-scroller-overlay {
@@ -121,9 +132,24 @@ ul {
   }
 }
 
+.avatar {
+  @include size(2.5rem);
+  color: $color-9;
+  background: $white;
+  border-radius: 50%;
+  border: $border-base-tab-active;
+  text-transform: uppercase;
+}
+
 .wrapper-page {
   @include size(100%, calc(100vh - 3.5rem));
   overflow: hidden;
+  &.big {
+    @include size(100%, calc(100vh - 4.5rem));
+  }
+  &.chat {
+    @include position(absolute, 0 null null 0);
+  }
   .main {
     @include size(100%, calc(100vh - 6.8rem));
     overflow-y: auto;

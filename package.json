@@ -1,6 +1,6 @@
 {
   "name": "yam-five",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "engines": {
     "node": "16.x"
   },
@@ -35,7 +35,7 @@
   ],
   "scripts": {
     "dev": "nodemon app/server/index.js --watch server",
-    "build": "nuxt build",
+    "build": "nuxt build --force",
     "start": "node app/server/index.js",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
@@ -48,9 +48,8 @@
     "heroku-ssl-redirect": "0.1.1",
     "nuxt": "2.15.8",
     "nuxt-precompress": "0.5.9",
-    "vue-i18n": "8.26.7",
-    "@slack/webhook": "6.0.0",
-    "@socket.io/admin-ui": "0.2.0"
+    "vue-i18n": "8.27.1",
+    "@slack/webhook": "6.1.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "7.16.7",

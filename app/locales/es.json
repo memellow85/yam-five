@@ -67,12 +67,20 @@
     "notification_2": "Para una mejor usabilidad, mantén el dispositivo en vertical.",
     "notification_3": " Para una mejor usabilidad, mantén el dispositivo en vertical."
   },
+  "submenu": {
+    "title": "Bienvenido",
+    "menu_0": "Información personal",
+    "menu_1": "Guide",
+    "menu_2": "Statistics",
+    "menu_3": "Globals view",
+    "menu_4": "Challenge users",
+    "menu_5": "Configuration"
+  },
   "config": {
     "title_2": "Lengua preferida",
     "title_3": "Modo de juego",
     "title_4": "Restablecer sus registros",
     "title_5": "Tema/Características",
-    "title_6": "Bienvenido",
     "title_7": "Efectos sonoros",
     "title_8": "Compartir",
     "title_9": "Cambiar de tema",
@@ -91,10 +99,7 @@
     "tab_2": "Únase a",
     "message_1": "Borrar todos los registros",
     "message_2": "Registros eliminados",
-    "message_3": "Último partido terminado",
-    "message_4": "Número de partidos",
-    "message_5": "Comparte el juego con tus amigos!!",
-    "message_6": "Campaña activa:"
+    "message_5": "Comparte el juego con tus amigos!!"
   },
   "champions": {
     "title_1": "Clasificación",
@@ -284,7 +289,8 @@
     "copy_message": "https://yamfive-app.herokuapp.com/"
   },
   "themes": {
-    "default": "Luz",
+    "default": "Dinamico",
+    "light": "Luz",
     "dark": "Oscuro"
   },
   "invite": {
@@ -296,5 +302,21 @@
     "title_share": "Quieres unirte?",
     "message_share_1": "Ha sido invitado a participar en un partido múltiple",
     "notification_1": "Antes de enviar la invitación, tienes que crear una sala"
+  },
+  "chat": {
+    "title_1": "Chat",
+    "title_tab_1": "Chat mundial",
+    "title_tab_2": "Sala de chat",
+    "name_input": "Escribe",
+    "message_no_room": "Es necesario crear una sala antes de poder chatear!",
+    "write": "escribió.."
+  },
+  "personal_info": {
+    "title": "Bienvenido",
+    "title_1": "Información personal",
+    "message_1": "Último partido terminado",
+    "message_2": "Número de partidos",
+    "message_3": "Campaña activa",
+    "message_4": "Fecha de finalización de la campaña"
   }
 }

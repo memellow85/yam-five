@@ -9,6 +9,14 @@
           :class="{ selected: $route.name === m.name }"
         >
           <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
+          <span
+            v-if="
+              showNotificationChat &&
+              m.name === 'game-chat' &&
+              $route.name !== 'game-chat'
+            "
+            :class="'notification-circle'"
+          ></span>
         </li>
       </ul>
       <div
@@ -24,14 +32,21 @@
         <span class="yamicons mdi mdi-cube-outline"></span>
       </div>
       <ul class="inline flex">
-        <li
-          v-for="m in menuRight"
-          :key="m.name"
-          v-touch="() => actionsHandler(m)"
-          :class="{ selected: $route.name === m.name }"
-        >
-          <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
-        </li>
+        <template v-for="m in menuRight">
+          <li
+            :key="m.name"
+            v-touch="() => actionsHandler(m)"
+            :class="{
+              selected: $route.name === m.name,
+            }"
+          >
+            <span
+              :class="`yamicons mdi mdi-${
+                m.name !== 'submenu' ? getIconName(m) : m.icon
+              }`"
+            ></span>
+          </li>
+        </template>
       </ul>
     </nav>
   </footer>
@@ -39,13 +54,17 @@
 
 <script>
 import { mapState } from 'vuex'
+import NavigationMixin from '~/mixins/navigation'
 import { play, bigMenuIphone, isIphone } from '~/utils'
 
 export default {
+  mixins: [NavigationMixin],
   data() {
     return {
       bigMenuIphone,
       isIphone,
+      showNotificationChat: false,
+      timerNotificationShow: 5000,
       dices: new Audio('./sounds/dices.mp3'),
       menuLeft: [
         {
@@ -53,26 +72,18 @@ export default {
           icon: 'gamepad-variant-outline',
         },
         {
-          name: 'game-games',
-          icon: 'view-grid-outline',
-        },
-        {
-          name: 'game-stats',
-          icon: 'chart-box-outline',
+          name: 'game-chat',
+          icon: 'chat-outline',
         },
       ],
       menuRight: [
-        {
-          name: 'game-help',
-          icon: 'account-question-outline',
-        },
         {
           name: 'game-ranking',
           icon: 'arm-flex-outline',
         },
         {
-          name: 'game-config',
-          icon: 'cog-outline',
+          name: 'submenu',
+          icon: 'menu',
         },
       ],
     }
@@ -84,6 +95,8 @@ export default {
       newGame: (state) => state.newGame,
       disabledButtonGame: (state) => state.disabledButtonGame,
       animateBtnDice: (state) => state.animateBtnDice,
+      messageChat: (state) => state.messageChat,
+      messageChatGlobal: (state) => state.messageChatGlobal,
     }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
@@ -112,14 +125,20 @@ export default {
       )
     },
   },
-  methods: {
-    getIconName(elm) {
-      return this.$route.name === elm.name
-        ? elm.icon.replace('-outline', '')
-        : elm.icon
+  watch: {
+    messageChat() {
+      if (this.$route.name !== 'game-chat') this.showNotificationChatHandler()
     },
-    actionsHandler(data) {
-      this.$router.push({ name: data.name })
+    messageChatGlobal() {
+      if (this.$route.name !== 'game-chat') this.showNotificationChatHandler()
+    },
+  },
+  methods: {
+    showNotificationChatHandler() {
+      this.showNotificationChat = true
+      setTimeout(() => {
+        this.showNotificationChat = false
+      }, this.timerNotificationShow)
     },
     gameHandler() {
       if (!this.disabled) {
@@ -163,7 +182,6 @@ footer {
   @include themed() {
     background: t($key-color-nav);
   }
-  // background: $color-8;
   &.big {
     @include size(100%, 4.5rem);
   }
@@ -173,8 +191,9 @@ footer {
     @include size(auto, 100%);
     ul {
       width: calc(calc(100vw - 8rem) / 2);
-      justify-content: space-between;
+      justify-content: space-around;
       li {
+        @include position(relative, null);
         &.selected {
           .yamicons {
             &::before {

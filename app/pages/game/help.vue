@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper-page">
+  <section :class="['wrapper-page', { big: isIphone() && bigMenuIphone() }]">
     <TitlePage label="help" icon="account-question-outline"></TitlePage>
     <div class="main">
       <article class="wrapper-help body-scroll-lock-ignore-inner">
@@ -12,10 +12,17 @@
 <script>
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
+import { bigMenuIphone, isIphone } from '~/utils'
 
 export default {
   mixins: [ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
+  data() {
+    return {
+      bigMenuIphone,
+      isIphone,
+    }
+  },
 }
 </script>

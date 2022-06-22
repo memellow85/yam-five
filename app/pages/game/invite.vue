@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper-page">
+  <section :class="['wrapper-page', { big: isIphone() && bigMenuIphone() }]">
     <TitlePage label="invite" icon="account-details-outline"></TitlePage>
     <div class="main wrapper-invite body-scroll-lock-ignore-inner">
       <article>
@@ -51,11 +51,18 @@
 import { mapState } from 'vuex'
 import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
+import { bigMenuIphone, isIphone } from '~/utils'
 
 export default {
   mixins: [ScrollMixin, AnalyticsMixin],
   layout: 'private',
   middleware: ['authenticated'],
+  data() {
+    return {
+      bigMenuIphone,
+      isIphone,
+    }
+  },
   computed: {
     ...mapState('firebase', {
       userFirebase: (state) => state.userFirebase,

@@ -1,15 +1,12 @@
 <template>
   <Layout>
-    <Header :menu="false"></Header>
-    <div>
+    <Header></Header>
+    <div class="wrapper-public-page">
       <div class="container-app-offline">
         <nuxt />
       </div>
       <Footer></Footer>
     </div>
-
-    <!-- Alert -->
-    <Alert :message="$t('alert.message')"></Alert>
   </Layout>
 </template>
 

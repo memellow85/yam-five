@@ -37,6 +37,9 @@ p {
   &.small {
     @extend %small;
   }
+  &.medium {
+    @extend %medium;
+  }
   &.red {
     color: $error;
   }

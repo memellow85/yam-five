@@ -23,6 +23,7 @@ import {
 export const state = () => ({
   showHelp: false,
   showAlert: false,
+  showSubMenu: false,
   messageModal: null,
   titleModal: '',
   dataModal: null,
@@ -57,12 +58,24 @@ export const state = () => ({
   blockAnimate: false,
   currentCampaign: null,
   campaignActive: false,
+  messageChat: [],
+  messageChatGlobal: [],
 })
 
 /**
  * Mutations
  */
 export const mutations = {
+  showSubMenu(state, value) {
+    state.showSubMenu = value
+  },
+  resetAllChat(state) {
+    state.messageChat = []
+    state.messageChatGlobal = []
+  },
+  resetChat(state) {
+    state.messageChat = []
+  },
   resetModalOverlay(state) {
     logger('COMMIT-GAME resetModalOverlay', null, 'i')
     state.showHelp = false
@@ -422,6 +435,13 @@ export const mutations = {
     logger('COMMIT-GAME setCurrentCampaign', campaigns, 'i')
     state.campaignActive = campaigns.length === 1
     state.currentCampaign = campaigns.length === 1 ? campaigns[0] : null
+  },
+  writeMessage(state, data) {
+    if (data.global) {
+      state.messageChatGlobal.unshift(data)
+    } else {
+      state.messageChat.unshift(data)
+    }
   },
 }
 

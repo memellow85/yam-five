@@ -14,6 +14,9 @@
     @include size(auto, 2.2rem);
     min-width: 5rem;
   }
+  &.big {
+    min-width: 10rem;
+  }
   &.red {
     background: $error;
     border-color: $error;
@@ -23,8 +26,12 @@
       background: t($key-color-nav);
       border-color: t($key-color-nav);
     }
-    // background: $color-8;
-    // border-color: $color-8;
+  }
+  &.grey-light {
+    @include themed() {
+      background: t($key-color-7);
+      border-color: t($key-color-7);
+    }
   }
   &.white {
     box-sizing: border-box;
@@ -33,6 +40,18 @@
     color: $color-8;
     &:hover {
       background: $color-1;
+    }
+  }
+  &.sendMode {
+    @include position(relative, null);
+    @include padding(0.2rem);
+    @include size(2.5rem);
+    min-width: auto;
+    border-radius: 50%;
+    .yamicons {
+      &:before {
+        color: $white;
+      }
     }
   }
 }

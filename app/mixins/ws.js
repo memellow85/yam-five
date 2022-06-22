@@ -1,11 +1,12 @@
 import { mapState } from 'vuex'
-import { logger, play } from '~/utils'
+import { logger, play, randomColor } from '~/utils'
 
 export default {
   data() {
     return {
       win: new Audio('./sounds/win.mp3'),
       lose: new Audio('./sounds/lose.mp3'),
+      usersColor: [],
     }
   },
   sockets: {
@@ -36,8 +37,28 @@ export default {
       this.$router.push('/home')
       if (this.fastGame) {
         this.$store.dispatch('ws/startGameSocket')
-        // this.$store.commit(`game/setFastGame`, false)
       }
+    },
+    // user
+    joinRoomChatSocketEmit(user) {
+      logger('SOCKETS joinRoomChatSocketEmit', user, 'i')
+      const userJoin = user.user ? user.user : user
+      this.$store.commit(`game/writeMessage`, {
+        user: userJoin,
+        message: `${userJoin.name} is joined`,
+        welcome: true,
+        color: this.setColor(userJoin),
+      })
+    },
+    // user, message
+    newMessageSocketEmit(data) {
+      logger('SOCKETS newMessageSocketEmit', data, 'i')
+      this.$store.commit(`game/writeMessage`, {
+        user: data.user,
+        message: data.message,
+        global: data.global,
+        color: this.setColor(data.user),
+      })
     },
     // user, users
     startGameSocketEmit(data) {
@@ -160,5 +181,20 @@ export default {
     ...mapState('firebase', {
       userDetailsFirebase: (state) => state.userDetailsFirebase,
     }),
+  },
+  methods: {
+    setColor(userJoin) {
+      const checkUser = this.usersColor.filter((u) => u.uid === userJoin.uid)
+      let color = randomColor()
+      if (checkUser.length > 0) {
+        color = checkUser[0].color
+      } else {
+        this.usersColor.push({
+          uid: userJoin.uid,
+          color,
+        })
+      }
+      return color
+    },
   },
 }
