@@ -174,12 +174,16 @@ export default {
     })
   },
   mounted() {
-    this.email = getLocalStorageKey('username')
-      ? getLocalStorageKey('username')
-      : ''
-    this.password = getLocalStorageKey('password')
-      ? getLocalStorageKey('password')
-      : ''
+    this.email =
+      getLocalStorageKey('username') &&
+      this.$route.name !== 'offline-registration'
+        ? getLocalStorageKey('username')
+        : ''
+    this.password =
+      getLocalStorageKey('password') &&
+      this.$route.name !== 'offline-registration'
+        ? getLocalStorageKey('password')
+        : ''
     this.setMessages()
   },
   destroyed() {

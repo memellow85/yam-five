@@ -47,7 +47,6 @@ section {
     @include themed() {
       background: t($key-color-2);
     }
-    // background: $color-2;
     border-radius: $rounded-small;
     li {
       @include padding(0.3rem 0.7rem);

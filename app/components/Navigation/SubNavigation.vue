@@ -5,13 +5,13 @@
       @click="showSubMenuHandler"
     ></span>
     <article class="wrapper-welcome flex-end">
-      <div class="flex wrapper-user">
-        <div>
-          <p>{{ $t('submenu.title') }}</p>
-          <h2>{{ getName }}</h2>
-        </div>
-        <div class="avatar flex-center">{{ firstLetter }}</div>
-      </div>
+      <Avatar
+        v-if="refreshCmp"
+        :selected="userDetailsFirebase"
+        :list="listAvatar"
+        :name="getName"
+        :detail-position="'right'"
+      ></Avatar>
     </article>
     <article>
       <div class="wrapper-menu flex-end">
@@ -28,7 +28,7 @@
             >
               {{ getUsersLogin.length }}
             </span>
-            <p>{{ m.title }}</p>
+            <p>{{ $t(`submenu.${m.title}`) }}</p>
             <span :class="`yamicons mdi mdi-${getIconName(m)}`"></span>
           </li>
         </ul>
@@ -50,49 +50,50 @@
 <script>
 import { mapState } from 'vuex'
 import NavigationMixin from '~/mixins/navigation'
-import PersonalInfoMixin from '~/mixins/personal_info'
 import ExitMixin from '~/mixins/exit'
 
 export default {
-  mixins: [NavigationMixin, ExitMixin, PersonalInfoMixin],
+  mixins: [NavigationMixin, ExitMixin],
   data() {
     return {
       subMenu: [
         {
-          title: this.$t('submenu.menu_0'),
+          title: 'menu_0',
           name: 'info',
           icon: 'shield-account-outline',
         },
         {
-          title: this.$t('submenu.menu_1'),
+          title: 'menu_1',
           name: 'game-help',
           icon: 'head-question-outline',
         },
         {
-          title: this.$t('submenu.menu_2'),
+          title: 'menu_2',
           name: 'game-stats',
           icon: 'chart-box-outline',
         },
         {
-          title: this.$t('submenu.menu_3'),
+          title: 'menu_3',
           name: 'game-games',
           icon: 'view-grid-outline',
         },
         {
-          title: this.$t('submenu.menu_4'),
+          title: 'menu_4',
           name: 'game-invite',
           icon: 'account-plus-outline',
         },
         {
-          title: this.$t('submenu.menu_5'),
+          title: 'menu_5',
           name: 'game-config',
           icon: 'cog-outline',
         },
       ],
+      refreshCmp: true,
     }
   },
   computed: {
     ...mapState('firebase', {
+      listAvatar: (state) => state.listAvatar,
       userDetailsFirebase: (state) => state.userDetailsFirebase,
       userFirebase: (state) => state.userFirebase,
     }),
@@ -100,12 +101,31 @@ export default {
       userSocket: (state) => state.userSocket,
       loginUsersSocket: (state) => state.loginUsersSocket,
     }),
+    getName() {
+      if (this.userDetailsFirebase) {
+        return this.userDetailsFirebase.name.split(' ')[0]
+      } else {
+        return '-'
+      }
+    },
     getUsersLogin() {
       return this.loginUsersSocket.length > 0
         ? this.loginUsersSocket.filter(
             (u) => this.userFirebase && u.uid !== this.userFirebase.uid
           )
         : []
+    },
+  },
+  watch: {
+    userDetailsFirebase: {
+      handler() {
+        this.refreshCmp = false
+        this.$nextTick(() => {
+          this.refreshCmp = true
+        })
+      },
+      deep: true,
+      immediate: true,
     },
   },
   methods: {
@@ -127,6 +147,11 @@ export default {
   color: $white;
   text-align: right;
   z-index: 10;
+  > span {
+    &:before {
+      cursor: pointer;
+    }
+  }
   .yamicons {
     &:before {
       color: $white;
@@ -149,18 +174,6 @@ export default {
   }
   .wrapper-welcome {
     @include margin(1.5rem null null);
-    > p {
-      @include margin(null null 0.3rem null);
-    }
-    .avatar {
-      @include margin(null null null 0.5rem);
-    }
-    .wrapper-user {
-      @include margin(null null 0.5rem null);
-      p {
-        @include margin(null null 0.3rem null);
-      }
-    }
   }
   .wrapper-buttons {
     @include position(absolute, null 1.5rem 1.5rem null);

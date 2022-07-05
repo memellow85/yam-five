@@ -85,6 +85,7 @@
     "title_8": "Compartir",
     "title_9": "Cambiar de tema",
     "title_10": "Ayuda activa",
+    "title_11": "Cambiar el color del yam",
     "btn_1": "Únase a",
     "btn_2": "Deja",
     "btn_3": "Cierre de sesión",
@@ -317,6 +318,7 @@
     "message_1": "Último partido terminado",
     "message_2": "Número de partidos",
     "message_3": "Campaña activa",
-    "message_4": "Fecha de finalización de la campaña"
+    "message_4": "Fecha de finalización de la campaña",
+    "message_5": "Elige tu avatar"
   }
 }

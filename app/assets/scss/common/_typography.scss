@@ -32,7 +32,9 @@ h5 {
 p {
   @extend %p;
   &.selected {
-    color: $primary;
+    @include themed() {
+      color: t($key-color-custom-1);
+    }
   }
   &.small {
     @extend %small;
@@ -58,5 +60,7 @@ a {
 }
 
 .green {
-  color: $primary;
+  @include themed() {
+    color: t($key-color-custom-1);
+  }
 }

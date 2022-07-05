@@ -47,13 +47,17 @@
     @include position(absolute, null null 0 0);
     content: '';
     display: block;
-    background: $primary;
+    @include themed() {
+      background: t($key-color-custom-1);
+    }
     transition: all 0.3s;
   }
   &.focus {
     .yamicons {
       &:before {
-        color: $primary
+        @include themed() {
+          color: t($key-color-custom-1);
+        }
       }
     }
     &:after {

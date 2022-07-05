@@ -85,6 +85,7 @@
     "title_8": "Condividi",
     "title_9": "Cambia il tema",
     "title_10": "Attiva aiuti",
+    "title_11": "Cambia il colore di yam",
     "btn_1": "Unisciti",
     "btn_2": "Abbandona",
     "btn_3": "Esci",
@@ -317,6 +318,7 @@
     "message_1": "Ultima partita finita",
     "message_2": "Num. partite",
     "message_3": "Nome campagna attiva",
-    "message_4": "Data fine campagna"
+    "message_4": "Data fine campagna",
+    "message_5": "Scegli il tuo avatar"
   }
 }
