@@ -197,7 +197,9 @@ footer {
         &.selected {
           .yamicons {
             &::before {
-              color: $primary;
+              @include themed() {
+                color: t($key-color-custom-1);
+              }
             }
           }
         }
@@ -212,8 +214,10 @@ footer {
       @include position(absolute, -1rem null null 50%);
       @include size(3.6rem);
       @include margin(null null null -1.8rem);
-      border-radius: 50%;
-      background: $primary;
+      @include themed() {
+        background: t($key-color-custom-1);
+      }
+      border-radius: $rounded-all;
       &.animateBtnDice {
         animation: 0.8s blinker linear infinite;
       }
@@ -222,7 +226,7 @@ footer {
         @include size(1rem);
         @extend %strong;
         @extend %notify;
-        border-radius: 50%;
+        border-radius: $rounded-all;
         background: $color-4;
         color: $color-8;
       }

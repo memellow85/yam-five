@@ -27,6 +27,7 @@
             <h4>{{ $t('champions.title_2') }}</h4>
           </li>
         </ul>
+
         <div class="wrapper-championship body-scroll-lock-ignore-inner">
           <ul v-if="tab !== 'current'" class="inline custom-tabs">
             <li
@@ -65,8 +66,8 @@
               <h4>{{ $t('champions.tab_1') }}</h4>
             </li>
           </ul>
-          <ul v-if="viewRanking > 0">
-            <li class="flex header">
+          <div v-if="viewRanking > 0">
+            <!-- <li class="flex header">
               <div class="col_1">
                 <p>{{ $t('champions.th_1') }}</p>
               </div>
@@ -76,8 +77,26 @@
               <div :class="['col_3', { full: tab !== 'older' }]">
                 <p>{{ $t('champions.th_8') }}</p>
               </div>
-            </li>
-            <li
+            </li> -->
+            <template
+              v-for="(u, index) in viewRanking > 1
+                ? getTypeChampions(subTab)
+                : usersOrderedSocket"
+            >
+              <RankingBox
+                v-if="refreshCmp"
+                :key="u.id"
+                :index="index"
+                :info-user="u"
+                :list-avatar="listAvatar"
+                :live="viewRanking"
+                :current="
+                  u.uid === userFirebase.uid ||
+                  (u.user && u.user.uid === userFirebase.uid)
+                "
+              ></RankingBox>
+            </template>
+            <!-- <li
               v-for="(u, index) in viewRanking > 1
                 ? getTypeChampions(subTab)
                 : usersOrderedSocket"
@@ -119,8 +138,8 @@
                   <span>{{ u.tot }}</span>
                 </p>
               </div>
-            </li>
-          </ul>
+            </li> -->
+          </div>
           <ul v-if="viewRanking < 0">
             <li class="empty-state flex-center">
               <span class="yamicons mdi mdi-chart-line-variant"></span>
@@ -156,11 +175,13 @@ export default {
       isIphone,
       tab: 'current',
       subTab: 'score_veryshort',
+      refreshCmp: true,
     }
   },
   computed: {
     ...mapState('firebase', {
       userFirebase: (state) => state.userFirebase,
+      listAvatar: (state) => state.listAvatar,
     }),
     ...mapState('ws', {
       usersOrderedSocket: (state) => state.usersOrderedSocket,
@@ -196,6 +217,10 @@ export default {
       return tab === 'campaign' ? `${tab}_${subtab}` : subtab
     },
     setTab(tab, subtab) {
+      this.refreshCmp = false
+      this.$nextTick(() => {
+        this.refreshCmp = true
+      })
       if (!subtab) {
         this.tab = tab
         if (tab === 'campaign') {

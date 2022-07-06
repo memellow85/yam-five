@@ -8,10 +8,10 @@
   overflow: hidden;
   .offline {
     @include size(calc(100% - 3rem), fit-content);
-    background: linear-gradient(to right, $primary, darken($primary, 6));
     border-radius: $rounded;
     transform: rotate(-6deg);
     @include themed() {
+      background: linear-gradient(to right, t($key-color-custom-1), darken(t($key-color-custom-1), 6));
       box-shadow: 0 0.7rem 1rem -0.2rem t($key-color-2), 0 0.25rem 0.4rem -0.13rem $color-8;
     }
     .inner-offline {
@@ -50,6 +50,7 @@
   @extend %flexCenter;
   @include size(100%, 2.5rem);
   span {
+    cursor: pointer;
     text-decoration: underline;
   }
   .yamicons {

@@ -45,6 +45,16 @@
         </div>
       </article>
       <article>
+        <h4>{{ $t('config.title_11') }}</h4>
+        <Avatar
+          v-if="refreshCmp"
+          :single="false"
+          :selected="userDetailsFirebase"
+          :list="colorList"
+          reset
+        ></Avatar>
+      </article>
+      <article>
         <h4>{{ $t('config.title_10') }}</h4>
         <FormsHelper></FormsHelper>
       </article>
@@ -97,6 +107,7 @@ import ScrollMixin from '~/mixins/scroll'
 import AnalyticsMixin from '~/mixins/analytics'
 import ClipboardMixin from '~/mixins/clipboard'
 import { bigMenuIphone, isIphone } from '~/utils'
+import { colorList } from '~/lists'
 
 export default {
   mixins: [ScrollMixin, AnalyticsMixin, ClipboardMixin],
@@ -106,7 +117,9 @@ export default {
     return {
       bigMenuIphone,
       isIphone,
+      colorList,
       tab: 'create',
+      refreshCmp: true,
     }
   },
   computed: {
@@ -114,14 +127,27 @@ export default {
       userSocket: (state) => state.userSocket,
       usersSocket: (state) => state.usersSocket,
     }),
+    ...mapState('firebase', {
+      userDetailsFirebase: (state) => state.userDetailsFirebase,
+    }),
   },
   created() {
     this.$nuxt.$on('confirmSubmitHandler', () => {
       this.confirmSubmitReset()
     })
+    this.$nuxt.$on('selectedTypeHandler', (color) => {
+      this.$store.dispatch(`firebase/updateColor`, color).then(() => {
+        this.refreshCmp = false
+        this.$nextTick(() => {
+          this.refreshCmp = true
+        })
+        this.$nuxt.$emit('updateColorHandler')
+      })
+    })
   },
   destroyed() {
     this.$nuxt.$off('confirmSubmitHandler')
+    this.$nuxt.$off('selectedTypeHandler')
   },
   methods: {
     setTab(tab) {

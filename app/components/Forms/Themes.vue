@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { getLocalStorageKey, setLocalStorageKey } from '~/utils'
 
 export default {
@@ -41,23 +42,59 @@ export default {
       ],
     }
   },
+  computed: {
+    ...mapState('firebase', {
+      userDetailsFirebase: (state) => state.userDetailsFirebase,
+    }),
+  },
   watch: {
     currentTheme() {
       this.changeHandler(this.currentTheme)
     },
   },
+  created() {
+    this.$nuxt.$on('updateColorHandler', () => {
+      this.changeHandler(this.currentTheme)
+    })
+  },
   mounted() {
     if (getLocalStorageKey('theme')) {
-      this.currentTheme = getLocalStorageKey('theme')
+      const theme =
+        getLocalStorageKey('theme') === 'dynamic'
+          ? 'dynamic'
+          : getLocalStorageKey('theme').indexOf('dark') !== -1
+          ? 'dark'
+          : 'default'
+      this.currentTheme = theme
     } else {
       this.currentTheme = 'default'
       setLocalStorageKey('theme', 'default')
     }
   },
+  destroyed() {
+    this.$nuxt.$off('updateColorHandler')
+  },
   methods: {
     changeHandler(theme) {
-      if (getLocalStorageKey('theme') !== theme) {
-        setLocalStorageKey('theme', theme)
+      if (
+        getLocalStorageKey('theme') !== theme ||
+        (theme === 'default' &&
+          this.userDetailsFirebase &&
+          this.userDetailsFirebase.color &&
+          this.userDetailsFirebase.color !== '')
+      ) {
+        let tmpTheme = theme
+        if (
+          this.userDetailsFirebase.color &&
+          this.userDetailsFirebase.color !== '' &&
+          theme !== 'dynamic'
+        ) {
+          tmpTheme =
+            theme !== 'default'
+              ? `${theme}-${this.userDetailsFirebase.color}`
+              : `${this.userDetailsFirebase.color}`
+        }
+        setLocalStorageKey('theme', tmpTheme)
         this.$nuxt.$emit('updateThemeHandler')
       }
     },

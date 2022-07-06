@@ -1,5 +1,28 @@
 export const dicesTypesCabled = ['one', 'two', 'three', 'four', 'five']
 
+export const colorList = [
+  {
+    code: 'custom-1',
+    color: '#00A676',
+  },
+  {
+    code: 'custom-2',
+    color: '#15BDFF',
+  },
+  {
+    code: 'custom-3',
+    color: '#FB8600',
+  },
+  {
+    code: 'custom-4',
+    color: '#D10EE9',
+  },
+  {
+    code: 'custom-5',
+    color: '#7046FF',
+  },
+]
+
 export const orderCharts = [
   'one',
   'two',

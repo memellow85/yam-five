@@ -7,19 +7,24 @@
       <article>
         <ul class="inline custom-tabs">
           <li
-            v-touch="() => setTab(true)"
-            :class="['center', { active: global }]"
-          >
-            <h4>{{ $t('chat.title_tab_1') }}</h4>
-          </li>
-          <li
             v-touch="() => setTab(false)"
             :class="['center', { active: !global }]"
           >
             <h4>{{ $t('chat.title_tab_2') }}</h4>
           </li>
+          <li
+            v-touch="() => setTab(true)"
+            :class="['center', { active: global }]"
+          >
+            <h4>{{ $t('chat.title_tab_1') }}</h4>
+          </li>
         </ul>
-        <p v-if="!userSocket && !global">{{ $t('chat.message_no_room') }}</p>
+        <div
+          v-if="!userSocket && !global"
+          class="body-scroll-lock-ignore-inner"
+        >
+          <p>{{ $t('chat.message_no_room') }}</p>
+        </div>
         <div v-else class="wrapper-chat body-scroll-lock-ignore-inner">
           <template v-for="(m, k) in messages">
             <div
@@ -40,6 +45,7 @@
           </template>
         </div>
         <FormsInput
+          v-if="global ? true : userSocket"
           :name="$t('chat.name_input')"
           :show-label="false"
           write-mode
@@ -83,7 +89,7 @@ export default {
       bigMenuIphone,
       isIphone,
       newMessage: '',
-      global: true,
+      global: false,
     }
   },
   computed: {
@@ -131,8 +137,10 @@ export default {
 .main {
   article {
     overflow: hidden;
-    > p {
-      @include padding(1rem null null);
+    .body-scroll-lock-ignore-inner {
+      > p {
+        @include padding(1rem null null);
+      }
     }
     .textinput {
       @include position(absolute, null null 1.5rem 1rem);

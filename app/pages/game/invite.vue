@@ -3,7 +3,16 @@
     <TitlePage label="invite" icon="account-details-outline"></TitlePage>
     <div class="main wrapper-invite body-scroll-lock-ignore-inner">
       <article>
-        <ul>
+        <template v-for="u in loginUsersSocket">
+          <RankingBox
+            :key="u.id"
+            :info-user="u"
+            :list-avatar="listAvatar"
+            :current="userFirebase && u.uid === userFirebase.uid"
+            :action="listActions"
+          ></RankingBox>
+        </template>
+        <!-- <ul>
           <li class="flex header">
             <div class="col_1">
               <p>{{ $t('invite.th_1') }}</p>
@@ -41,7 +50,7 @@
               ></span>
             </div>
           </li>
-        </ul>
+        </ul> -->
       </article>
     </div>
   </section>
@@ -61,16 +70,32 @@ export default {
     return {
       bigMenuIphone,
       isIphone,
+      listActions: [
+        {
+          id: 1,
+          action: 'inviteHandler',
+          icon: 'email-fast-outline',
+        },
+      ],
     }
   },
   computed: {
     ...mapState('firebase', {
       userFirebase: (state) => state.userFirebase,
+      listAvatar: (state) => state.listAvatar,
     }),
     ...mapState('ws', {
       userSocket: (state) => state.userSocket,
       loginUsersSocket: (state) => state.loginUsersSocket,
     }),
+  },
+  created() {
+    this.$nuxt.$on('inviteHandler', (user) => {
+      this.inviteHandler(user)
+    })
+  },
+  destroyed() {
+    this.$nuxt.$off('inviteHandler')
   },
   methods: {
     inviteHandler(user) {
@@ -92,27 +117,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.wrapper-invite {
-  @extend %fakeTable;
-  ul {
-    li {
-      &.io,
-      &.busy {
-        .col_3 {
-          span {
-            &.yamicons {
-              &:before {
-                @include themed() {
-                  color: t($key-color-3);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-</style>

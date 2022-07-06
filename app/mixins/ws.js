@@ -50,6 +50,18 @@ export default {
         color: this.setColor(userJoin),
       })
     },
+    // user
+    joinRoomChatGlobalSocketEmit(user) {
+      logger('SOCKETS joinRoomChatGlobalSocketEmit', user, 'i')
+      const userJoin = user.user ? user.user : user
+      this.$store.commit(`game/writeMessage`, {
+        user: userJoin,
+        message: `${userJoin.name} is joined`,
+        welcome: true,
+        global: true,
+        color: this.setColor(userJoin),
+      })
+    },
     // user, message
     newMessageSocketEmit(data) {
       logger('SOCKETS newMessageSocketEmit', data, 'i')

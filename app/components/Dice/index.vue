@@ -316,7 +316,7 @@ $rag: 2.5rem;
         .dot {
           @include size(0.7rem);
           background: $color-8;
-          border-radius: 50%;
+          border-radius: $rounded-all;
         }
         &.front {
           @include transformDice($rag, 0deg, 'y', true);

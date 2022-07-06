@@ -64,34 +64,50 @@ article {
   overflow: hidden;
   &.single {
     .effect-border {
-      background: $alternative-1;
+      @include themed() {
+        background: t($key-color-custom-2);
+      }
     }
     .overlay {
-      border-color: $alternative-1;
+      @include themed() {
+        border-color: t($key-color-custom-2);
+      }
     }
   }
   &.maxmin {
     .effect-border {
-      background: $alternative-2;
+      @include themed() {
+        background: t($key-color-custom-3);
+      }
     }
     .overlay {
-      border-color: $alternative-2;
+      @include themed() {
+        border-color: t($key-color-custom-3);
+      }
     }
   }
   &.extra1 {
     .effect-border {
-      background: $alternative-3;
+      @include themed() {
+        background: t($key-color-custom-4);
+      }
     }
     .overlay {
-      border-color: $alternative-3;
+      @include themed() {
+        border-color: t($key-color-custom-4);
+      }
     }
   }
   &.extra2 {
     .effect-border {
-      background: $alternative-4;
+      @include themed() {
+        background: t($key-color-custom-5);
+      }
     }
     .overlay {
-      border-color: $alternative-4;
+      @include themed() {
+        border-color: t($key-color-custom-5);
+      }
     }
   }
   .effect-border {
