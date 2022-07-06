@@ -23,10 +23,11 @@
       </div>
       <template v-else>
         <div class="wrapper-performance flex-end">
-          <span :class="`yamicons mdi mdi-medal-outline`"></span>
           <p>{{ infoUser.tot_campaigns }}</p>
+          <span :class="`yamicons mdi mdi-medal-outline`"></span>
         </div>
         <div class="wrapper-performance flex-end">
+          <h3>{{ infoUser.tot }}</h3>
           <span
             v-if="index <= 2"
             :class="`yamicons mdi mdi-${
@@ -37,7 +38,6 @@
                 : 'podium-bronze'
             }`"
           ></span>
-          <h3>{{ infoUser.tot }}</h3>
         </div>
       </template>
     </div>
@@ -89,6 +89,7 @@ export default {
 <style lang="scss" scoped>
 .wrapper-ranking-box {
   @include margin(0.5rem null null null);
+  overflow: hidden;
   border: $border-base;
   border-radius: $rounded-small;
   > div {
@@ -132,9 +133,11 @@ export default {
     }
   }
   .wrapper-performance {
-    @include size(7.5rem, auto);
+    &:last-child {
+      @include size(6rem, auto);
+    }
     span {
-      @include margin(null 0.5rem null null);
+      @include margin(null null null 0.7rem);
       &.yamicons {
         &:before {
           color: $gold;

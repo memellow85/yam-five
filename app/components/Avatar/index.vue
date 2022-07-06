@@ -191,7 +191,7 @@ export default {
   border-radius: $rounded-all;
   background: $color-5;
   background-position: center center;
-  background-size: 2.5rem;
+  background-size: 100%;
 }
 
 .wrapper-user {
