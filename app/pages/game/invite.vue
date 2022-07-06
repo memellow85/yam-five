@@ -5,52 +5,15 @@
       <article>
         <template v-for="u in loginUsersSocket">
           <RankingBox
-            :key="u.id"
-            :info-user="u"
+            :key="u.uid"
+            :info-user="
+              u.uid === userDetailsFirebase.uid ? userDetailsFirebase : u
+            "
             :list-avatar="listAvatar"
             :current="userFirebase && u.uid === userFirebase.uid"
             :action="listActions"
           ></RankingBox>
         </template>
-        <!-- <ul>
-          <li class="flex header">
-            <div class="col_1">
-              <p>{{ $t('invite.th_1') }}</p>
-            </div>
-            <div class="col_2">
-              <p>{{ $t('invite.th_3') }}</p>
-            </div>
-            <div class="col_3 full">
-              <p>{{ $t('invite.th_2') }}</p>
-            </div>
-          </li>
-          <li
-            v-for="u in loginUsersSocket"
-            :key="u.id"
-            :class="[
-              'flex',
-              {
-                io: userFirebase && u.uid === userFirebase.uid,
-                busy: u.busy,
-              },
-            ]"
-          >
-            <div class="col_1">
-              <p>{{ u.name }}</p>
-            </div>
-            <div class="col_2">
-              <p>
-                <span :class="['circle', { red: u.busy }]"></span>
-              </p>
-            </div>
-            <div class="col_3 full">
-              <span
-                v-touch="() => inviteHandler(u)"
-                :class="`yamicons mdi mdi-email-fast-outline`"
-              ></span>
-            </div>
-          </li>
-        </ul> -->
       </article>
     </div>
   </section>
@@ -82,6 +45,7 @@ export default {
   computed: {
     ...mapState('firebase', {
       userFirebase: (state) => state.userFirebase,
+      userDetailsFirebase: (state) => state.userDetailsFirebase,
       listAvatar: (state) => state.listAvatar,
     }),
     ...mapState('ws', {
