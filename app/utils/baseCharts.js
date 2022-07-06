@@ -2,9 +2,9 @@ import { getLocalStorageKey } from '~/utils'
 
 export const getColorFont = () => {
   return !getLocalStorageKey('theme') ||
-    getLocalStorageKey('theme') === 'default'
-    ? '#6C757D'
-    : '#DEE2E6'
+    getLocalStorageKey('theme').indexOf('dark') !== -1
+    ? '#DEE2E6'
+    : '#6C757D'
 }
 
 export const baseChartOpt = {

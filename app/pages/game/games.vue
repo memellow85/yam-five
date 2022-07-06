@@ -187,7 +187,9 @@ section {
           &.green {
             .yamicons {
               &:before {
-                color: $primary;
+                @include themed() {
+                  color: t($key-color-custom-1);
+                }
               }
             }
           }

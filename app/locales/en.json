@@ -85,6 +85,7 @@
     "title_8": "Share",
     "title_9": "Change theme",
     "title_10": "Active help",
+    "title_11": "Change color of yam",
     "btn_1": "Join",
     "btn_2": "Leave",
     "btn_3": "Logout",
@@ -317,6 +318,7 @@
     "message_1": "Last finished match",
     "message_2": "Total num. matches",
     "message_3": "Active campaign name",
-    "message_4": "Finished date campaign"
+    "message_4": "Finished date campaign",
+    "message_5": "Choose your avatar"
   }
 }

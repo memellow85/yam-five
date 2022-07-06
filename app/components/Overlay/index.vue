@@ -64,9 +64,9 @@ export default {
       border-color: t($key-color-2);
       background: t($key-color-0);
     }
-    // background: $white;
     .overlay-close {
       @include position(absolute, 0.8rem 0.8rem null null);
+      cursor: pointer;
     }
   }
   ::v-deep {

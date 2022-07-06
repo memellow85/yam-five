@@ -15,6 +15,7 @@
 
   .#{$type}__input {
     display: flex;
+    cursor: pointer;
 
     input {
       @include size(0);
@@ -33,7 +34,7 @@
     content: ' ';
     display: block;
     @if $type == 'radio' {
-      border-radius: 50%;
+      border-radius: $rounded-all;
     }
     transition: 180ms transform ease-in-out;
     transform: scale(0);
@@ -42,20 +43,25 @@
 
   input:checked + .#{$type}__control::before {
     transform: scale(1);
-    background: $primary;
+    @include themed() {
+      background: t($key-color-custom-1);
+    }
   }
 
   input + .#{$type}__control {
     @include size(12px);
     display: block;
     @if $type == 'radio' {
-      border-radius: 50%;
+      border-radius: $rounded-all;
     }
     border: 2px solid $color-3;
   }
 
   input:checked + .#{$type}__control {
     border: 2px solid $primary;
+    @include themed() {
+      border-color: t($key-color-custom-1);
+    }
   }
 }
 

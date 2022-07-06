@@ -61,8 +61,10 @@
   @extend %strong;
   @extend %flex;
   border: $border-base;
-  border-color: $primary;
-  background: $primary;
+  @include themed() {
+    border-color: t($key-color-custom-1);
+    background: t($key-color-custom-1);
+  }
   border-radius: $rounded-small;
   color: $white;
   min-width: 6rem;
@@ -232,7 +234,7 @@
         }
       }
       p {
-        @include size(auto, 1.7rem);
+        @include size(auto, 2.2rem);
         display: flex;
         align-items: center;
       }

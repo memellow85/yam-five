@@ -85,11 +85,15 @@ export default {
   &.green {
     .yamicons {
       &:before {
-        color: $primary;
+        @include themed() {
+          color: t($key-color-custom-1);
+        }
       }
     }
     p {
-      color: $primary;
+      @include themed() {
+        color: t($key-color-custom-1);
+      }
     }
   }
   .box-action {

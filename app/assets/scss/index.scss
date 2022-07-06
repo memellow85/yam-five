@@ -34,7 +34,6 @@ body {
   display: block;
   &:before {
     font-size: $font-icons-size;
-    // color: $color-6;
     @include themed() {
       color: t($key-color-6);
     }
@@ -51,7 +50,9 @@ body {
   }
   &.selected {
     &:before {
-      color: $primary;
+      @include themed() {
+        color: t($key-color-custom-1);
+      }
     }
   }
 }
@@ -70,8 +71,10 @@ ul {
   @include size(1rem);
   @extend %strong;
   @extend %notify;
-  border-radius: 50%;
-  background: $primary;
+  border-radius: $rounded-all;
+  @include themed() {
+    background: t($key-color-custom-1);
+  }
   color: $color-1;
 }
 
@@ -125,20 +128,11 @@ ul {
 .circle {
   @include size(0.5rem);
   @include margin(null null null 0.5rem);
-  border-radius: 50%;
+  border-radius: $rounded-all;
   background: $primary;
   &.red {
     background: $error;
   }
-}
-
-.avatar {
-  @include size(2.5rem);
-  color: $color-9;
-  background: $white;
-  border-radius: 50%;
-  border: $border-base-tab-active;
-  text-transform: uppercase;
 }
 
 .wrapper-page {
@@ -160,7 +154,6 @@ ul {
   }
   article {
     @include padding(null 1rem);
-    // border-bottom: $border-base;
     &.wrapper-tabs-form {
       .container-btn {
         justify-content: flex-end;
@@ -176,6 +169,9 @@ ul {
           border-bottom: $border-base-tab;
           &.active {
             border-bottom: $border-base-tab-active;
+            @include themed() {
+              border-color: t($key-color-custom-1);
+            }
           }
           &.disabled {
             border-bottom: $border-base-tab;
@@ -185,7 +181,6 @@ ul {
     }
     &:last-child {
       @include padding(null null 1rem);
-      // border-bottom: 0;
     }
   }
 }

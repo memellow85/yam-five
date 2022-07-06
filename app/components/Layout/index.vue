@@ -183,6 +183,7 @@ export default {
     visibility: hidden;
     z-index: 21;
     &.active {
+      cursor: pointer;
       @include scale(0.85);
       visibility: visible;
       margin-left: -12rem;

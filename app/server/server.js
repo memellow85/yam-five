@@ -59,6 +59,7 @@ io.on('connection', (socket) => {
     }
     Rooms.POSTLoginUser(u)
     io.emit('loginUsersSocketEmit', Rooms.GETLoginUsers())
+    io.to(chatName).emit('joinRoomChatGlobalSocketEmit', u)
   })
 
   socket.on('user_logout', (id) => {
@@ -144,7 +145,7 @@ io.on('connection', (socket) => {
   socket.on('write_message', (data) => {
     const socketChat = data.global ? chatName : `${data.user.room}_chat`
     io.to(socketChat).emit('newMessageSocketEmit', {
-      user: data.user,
+      user: data.global ? data.user : data.user.user,
       message: data.message,
       global: data.global,
     })

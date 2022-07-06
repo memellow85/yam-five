@@ -25,6 +25,7 @@ import {
 import { getPerformance } from 'firebase/performance'
 import { IncomingWebhook } from '@slack/webhook'
 import { fetchAndActivate, getAll } from 'firebase/remote-config'
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage'
 import cloneDeep from 'lodash/cloneDeep'
 import {
   logger,
@@ -48,6 +49,7 @@ import {
 const app = initializeApp(config)
 const auth = getAuth(app)
 const db = getFirestore(app)
+const storage = getStorage()
 
 async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
@@ -58,6 +60,12 @@ async function asyncForEach(array, callback) {
 const compare = (a, b) => {
   if (a.tot > b.tot) return -1
   if (b.tot > a.tot) return 1
+  return 0
+}
+
+const code = (a, b) => {
+  if (a.code > b.code) return -1
+  if (b.code > a.code) return 1
   return 0
 }
 
@@ -88,6 +96,7 @@ export const state = () => ({
   authFirebase: null,
   databaseFirebase: null,
   activeRemoveConfig: null,
+  listAvatar: [],
   webhook: new IncomingWebhook(WEBHOOK_URL),
   modelUser,
   modelResetUser,
@@ -153,6 +162,15 @@ export const mutations = {
       text: `Error ${data.name}: ${JSON.stringify(data.err)}`,
     })
   },
+  resetListAvatar(state) {
+    logger('COMMIT-FIREBASE resetListAvatar', null, 'i')
+    state.listAvatar = []
+  },
+  setListAvatar(state, img) {
+    logger('COMMIT-FIREBASE setListAvatar', img, 'i')
+    state.listAvatar.push(img)
+    state.listAvatar = state.listAvatar.sort(code)
+  },
 }
 
 /**
@@ -207,6 +225,7 @@ export const actions = {
                       dispatch('getCampaigns', r).then(() => {
                         resolve()
                       })
+                      dispatch('listAvatar')
                     })
                   }
                 })
@@ -982,6 +1001,86 @@ export const actions = {
         commit('setRemoteConfig', remoteConfig)
         resolve()
       }
+    })
+  },
+  listAvatar({ commit, state }) {
+    logger('ACTION-FIREBASE listAvatar', null, 'i')
+    const log = tracePerformance(true, state.performance, 'LISTAVATAR', null)
+    const listRef = ref(storage, 'avatars')
+    commit('resetListAvatar')
+    listAll(listRef)
+      .then((res) => {
+        tracePerformance(false, null, null, log)
+        res.items.forEach((itemRef) => {
+          getDownloadURL(itemRef)
+            .then((path) => {
+              commit('setListAvatar', {
+                code: itemRef._location.path.split('/')[1].split('.')[0],
+                path,
+              })
+            })
+            .catch((error) => {
+              commit('logSlack', {
+                name: `fn: listAvatar | call: getDownloadURL`,
+                err: error,
+              })
+            })
+        })
+      })
+      .catch((error) => {
+        tracePerformance(false, null, null, log)
+        commit('logSlack', {
+          name: `fn: listAvatar | call: listAll`,
+          err: error,
+        })
+      })
+  },
+  updateAvatar({ commit, state, dispatch }, img) {
+    logger('ACTION-FIREBASE updateAvatar', img, 'i')
+    const log = tracePerformance(true, state.performance, 'UPDATEAVATAR', null)
+    return new Promise((resolve, reject) => {
+      const docRef = doc(db, USER_DETAILS, state.userDetailsFirebase.id_doc)
+      updateDoc(docRef, {
+        avatar: img ? img.code : img,
+      })
+        .then(() => {
+          tracePerformance(false, null, null, log)
+          dispatch('dataFirebaseInit').then(() => {
+            resolve()
+          })
+        })
+        .catch((error) => {
+          tracePerformance(false, null, null, log)
+          commit('logSlack', {
+            name: `fn: updateAvatar | call: updateDoc | data: idDoc=${state.userDetailsFirebase.id_doc}`,
+            err: error,
+          })
+          reject(error)
+        })
+    })
+  },
+  updateColor({ commit, dispatch, state }, color) {
+    logger('ACTION-FIREBASE updateColor', color, 'i')
+    const log = tracePerformance(true, state.performance, 'UPDATECOLOR', null)
+    return new Promise((resolve, reject) => {
+      const docRef = doc(db, USER_DETAILS, state.userDetailsFirebase.id_doc)
+      updateDoc(docRef, {
+        color: color ? color.code : color,
+      })
+        .then(() => {
+          tracePerformance(false, null, null, log)
+          dispatch('dataFirebaseInit').then(() => {
+            resolve()
+          })
+        })
+        .catch((error) => {
+          tracePerformance(false, null, null, log)
+          commit('logSlack', {
+            name: `fn: updateColor | call: updateDoc | data: idDoc=${state.userDetailsFirebase.id_doc}`,
+            err: error,
+          })
+          reject(error)
+        })
     })
   },
 }
