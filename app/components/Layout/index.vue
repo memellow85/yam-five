@@ -194,7 +194,7 @@ export default {
     @include size(100%);
     @include transition(all 0.2s ease-in);
     @include themed() {
-      background: t($key-color-0);
+      background: t($key-color-1);
     }
     overflow: hidden;
     visibility: visible;

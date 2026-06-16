@@ -189,7 +189,6 @@ export default {
   @include size(2.5rem);
   cursor: pointer;
   border-radius: $rounded-all;
-  background: $color-5;
   background-position: center center;
   background-size: 100%;
 }

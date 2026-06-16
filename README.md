@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://yamfive-app.herokuapp.com/icons/icon120.png" alt="YamFive" />
+  <img src="https://yamfive-f4f82.web.app/readme.png" alt="YamFive" />
 </p>
 
 # YamFive
@@ -17,8 +17,12 @@
 ## Configurations
 
 - Active Authentication by email/password
-- Create on Firestore Database two collections
+- Create on Firestore Database five collections
   - First collection with name 'users'
+  - Second collection with name 'campaigns'
+  - Third 
+  - Fourth 
+  - Fifth 
 - Create .env file with follow params for configuration Firebase
   - NUXT_ENV_FIREBASE_API_KEY=copy api_key find in setting Firebase
   - NUXT_ENV_FIREBASE_AUTH_DOMAIN=copy auth_domain find in setting Firebase
@@ -35,7 +39,7 @@
 
 ## Examples
 
-See the demo [here](https://yamfive-app.herokuapp.com/)
+See the demo [here](https://yam-five.vercel.app/)
 
 ## Release
 

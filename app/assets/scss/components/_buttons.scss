@@ -5,8 +5,10 @@
   @extend %flexCenter;
   cursor: pointer;
   &:disabled {
-    background: $color-4;
-    border-color: $color-4;
+    @include themed() {
+      background: t($key-color-4);
+      border-color: t($key-color-4);
+    }
     cursor: default;
   }
   &.full {
@@ -30,10 +32,8 @@
     }
   }
   &.grey-light {
-    @include themed() {
-      background: t($key-color-7);
-      border-color: t($key-color-7);
-    }
+    background: $color-9;
+    border-color: $color-9;
   }
   &.white {
     box-sizing: border-box;

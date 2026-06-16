@@ -92,6 +92,10 @@ export default {
   overflow: hidden;
   border: $border-base;
   border-radius: $rounded-small;
+  @include themed() {
+    background: t($key-color-0);
+    border-color: t($key-color-1);
+  }
   > div {
     @include padding(0.5rem);
   }
